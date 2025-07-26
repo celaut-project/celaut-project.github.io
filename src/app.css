@@ -1,0 +1,50 @@
+/* src/app.css */
+:root {
+	/* Paleta de colores unificada */
+	--dark-green: #1d4241;
+	--light-bg: #f9eee7;
+	--accent: #ef9c82;
+	--text-light: #f9eee7;
+	--text-dark: #1d4241;
+	--text-dark-muted: #576c6b;
+
+	/* MEJORA: Nueva combinación de fuentes */
+	--font-heading: 'Playfair Display', serif;
+	--font-body: 'Lato', sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-body);
+	background-color: var(--dark-green); /* Color de fondo por defecto */
+	color: var(--text-light);
+	font-size: clamp(16px, 1.2vw, 18px); /* MEJORA: Tamaño de fuente base más grande y responsivo */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-heading);
+	font-weight: 700;
+}
+
+p {
+	line-height: 1.7;
+}
+
+/* Base para las secciones que animaremos */
+.animated-section {
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+/* Estado visible que aplicará la animación */
+.animated-section.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
