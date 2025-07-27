@@ -2,7 +2,7 @@
     <h2>Real-World Impact and Applications</h2>
 
     <div class="content-wrapper">
-        <a href="https://game-of-prompts.github.io/web-contract" target="_blank" rel="noopener noreferrer">
+        <a href="https://game-of-prompts.github.io" target="_blank" rel="noopener noreferrer">
             <img
                 src="https://avatars.githubusercontent.com/u/212117344?s=96&v=4"
                 alt="Game of Prompts Logo"
