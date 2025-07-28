@@ -21,8 +21,9 @@
     // --- 2. ACCIÓN PERSONALIZADA PARA ANIMACIÓN DE TEXTO "STAGGER" ---
 
     /**
-     * Una acción de Svelte que divide el texto de un nodo en caracteres,
-     * y los anima secuencialmente para un efecto de aparición escalonada.
+     * Una acción de Svelte que divide el texto de un nodo en palabras y caracteres,
+     * y los anima secuencialmente para un efecto de aparición escalonada,
+     * manteniendo la integridad de las palabras para evitar saltos de línea incorrectos.
      * @param {HTMLElement} node - El elemento DOM.
      * @param {object} params - Parámetros de configuración.
      * @param {number} params.delay - Retraso inicial antes de que comience la animación.
@@ -31,26 +32,44 @@
      */
     function staggeredFadeIn(node, { delay = 0, duration = 300, stagger = 30 }) {
         const text = node.textContent;
-        const chars = text.split('');
-        
-        node.textContent = ''; // Limpiar el nodo para llenarlo con spans
+        // Dividimos por espacios para obtener un array de palabras
+        const words = text.split(' '); 
+
+        node.textContent = ''; // Limpiar el nodo
         node.style.opacity = 1; // Hacemos visible el contenedor
 
-        chars.forEach((char, i) => {
-            const span = document.createElement('span');
-            // Si el carácter es un espacio, usamos un espacio duro para que no se colapse
-            span.textContent = char === ' ' ? '\u00A0' : char; 
-            span.style.display = 'inline-block';
-            span.style.opacity = '0';
-            span.style.transform = 'translateY(25px)';
-            span.style.transition = `all ${duration}ms ease-out ${delay + i * stagger}ms`;
-            node.appendChild(span);
+        let charIndex = 0; // Contador global de caracteres para el 'stagger'
 
-            // Disparamos la animación después de un pequeño tick para que el navegador la registre
-            setTimeout(() => {
-                span.style.opacity = '1';
-                span.style.transform = 'translateY(0)';
-            }, 20);
+        words.forEach((word, wordIndex) => {
+            // Creamos un contenedor para cada palabra
+            const wordWrapper = document.createElement('span');
+            wordWrapper.style.display = 'inline-block'; // Las palabras se comportan como bloques en línea
+            
+            const chars = word.split('');
+            chars.forEach((char) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.display = 'inline-block';
+                span.style.opacity = '0';
+                span.style.transform = 'translateY(25px)';
+                // Usamos el contador global para que la animación sea fluida entre palabras
+                span.style.transition = `all ${duration}ms ease-out ${delay + charIndex * stagger}ms`;
+                wordWrapper.appendChild(span);
+
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                }, 20);
+
+                charIndex++; // Incrementamos el contador por cada carácter
+            });
+
+            node.appendChild(wordWrapper);
+
+            // Añadimos un espacio real después de cada palabra, excepto la última
+            if (wordIndex < words.length - 1) {
+                node.appendChild(document.createTextNode(' '));
+            }
         });
 
         return {
@@ -59,7 +78,6 @@
             }
         };
     }
-
 
     // --- 3. LÓGICA PARA EL FONDO DE AUTÓMATAS CELULARES (JUEGO DE LA VIDA) ---
     
@@ -162,7 +180,7 @@
         <h1 use:staggeredFadeIn={{ delay: 200, stagger: 70 }}>CELAUT</h1>
         
         <h2 use:staggeredFadeIn={{ delay: 800, stagger: 20 }}>
-            A Peer-to-Peer Architecture for Decentralized Software
+            A Peer-to-Peer Architecture for Software Design and Distribution
         </h2>
         
         <p use:staggeredFadeIn={{ delay: 1600, stagger: 10 }}>
