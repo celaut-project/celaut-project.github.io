@@ -2,6 +2,45 @@
     <h2>Real-World Impact and Applications</h2>
 
     <div class="content-wrapper">
+        <div class="text-content">
+            <p>
+                <a href="https://celaut-project.github.io/skills" target="_blank" rel="noopener noreferrer" class="title-link">
+                    <strong>Unstoppable Skills</strong>
+                </a>
+                is a fully on-chain, serverless registry where the <strong>problems (skills)</strong> are the
+                protagonists. Instead of hunting for services directly, agents search for a skill and
+                automatically discover the services that cover it, real comparative benchmarks, community
+                discussion, and reputation-based ranking.
+            </p>
+            <p>
+                Everything is built on <strong>Ergo (ERG)</strong> and Celaut, with native
+                <strong>skin-in-the-game</strong> — no one can spam without risking reputation.
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="content-wrapper">
+        <div class="text-content">
+            <p>
+                <a href="https://github.com/celaut-project/nodo?tab=readme-ov-file#installation" target="_blank" rel="noopener noreferrer" class="title-link">
+                    <strong>DePin</strong>
+                </a>
+                lets anyone run a Celaut node (<strong>nodo</strong>) and become part of a decentralized
+                physical infrastructure network.
+            </p>
+            <p>
+                Each node discovers peers, executes and orchestrates <strong>services</strong> across the
+                network, and manages their dependencies — turning ordinary computers into shared,
+                censorship-resistant compute.
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="content-wrapper">
         <a href="https://game-of-prompts.github.io" target="_blank" rel="noopener noreferrer">
             <img
                 src="https://avatars.githubusercontent.com/u/212117344?s=96&v=4"
@@ -79,6 +118,19 @@
 	strong {
 		color: #f9eee7; /* <- COLOR: Texto principal para énfasis */
 		font-weight: 600;
+	}
+
+	.title-link {
+		text-decoration: none;
+		border-bottom: 1px solid #ef9c82; /* <- COLOR: Acento bajo el título-enlace */
+	}
+
+	.title-link strong {
+		color: #ef9c82; /* <- COLOR: Acento para títulos enlazados */
+	}
+
+	.title-link:hover strong {
+		color: #e88a6f;
 	}
 
 	hr {
