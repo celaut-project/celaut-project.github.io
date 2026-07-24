@@ -14,7 +14,9 @@
 
 <main>
 	<Hero />
-	<Foundations />
+	<div id="learn-more" style="scroll-margin-top:0">
+		<Foundations />
+	</div>
 
 	<div class="bg-peach">
 		<CorePrinciples />

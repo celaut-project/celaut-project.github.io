@@ -120,6 +120,9 @@
         <a href="https://docs.ergoplatform.com/eco/celaut/" target="_blank" rel="noopener noreferrer" class="docs-button">
             Ergo docs
         </a>
+        <a href="/paradigm" class="docs-button">
+            Formal Paper
+        </a>
     </div>
 </section>
 
@@ -224,6 +227,10 @@
 	.footer {
 		max-width: 900px;
 		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+		align-items: center;
 	}
 
 	.docs-button {

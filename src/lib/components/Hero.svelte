@@ -196,9 +196,7 @@
             >
             <a
                 class="button secondary"
-                href="https://github.com/celaut-project/paradigm"
-                target="_blank"
-                rel="noopener noreferrer">Learn More</a
+                href="#learn-more">Learn More</a
             >
         </div>
     </div>
