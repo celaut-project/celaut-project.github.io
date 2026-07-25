@@ -83,11 +83,25 @@
     
     let canvas; // Variable para enlazar con el elemento <canvas>
 
+    // Smooth-scroll the Hero's "Learn More" CTA down to the first content
+    // section (respects reduced-motion). A glide reads better than a jump.
+    function scrollToLearnMore(event) {
+        event.preventDefault();
+        const target = document.getElementById('foundations') || document.getElementById('learn-more');
+        if (!target) return;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+
     onMount(() => {
         const ctx = canvas.getContext('2d');
         let cols, rows, grid;
         const resolution = 25; // Tamaño en píxeles de cada celda
-        const cellColor = '#2a5a58'; // Color de las celdas "vivas"
+        // Theme-aware colour for the "living" cells.
+        const cellColor = () =>
+            document.documentElement.getAttribute('data-theme') === 'light'
+                ? '#c9a892'
+                : '#2a5a58';
 
         function setup() {
             canvas.width = window.innerWidth;
@@ -148,7 +162,7 @@
             for (let col = 0; col < grid.length; col++) {
                 for (let row = 0; row < grid[col].length; row++) {
                     if (grid[col][row] === 1) {
-                        ctx.fillStyle = cellColor;
+                        ctx.fillStyle = cellColor();
                         ctx.fillRect(col * resolution, row * resolution, resolution - 1, resolution - 1);
                     }
                 }
@@ -196,7 +210,8 @@
             >
             <a
                 class="button secondary"
-                href="#learn-more">Learn More</a
+                href="#foundations"
+                on:click={scrollToLearnMore}>Learn More</a
             >
         </div>
     </div>
@@ -209,7 +224,7 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
-        background-color: #102827; /* Fondo sólido como fallback */
+        background-color: var(--surface-deep); /* Fondo sólido como fallback */
         overflow: hidden; /* Oculta lo que se salga de la sección */
         position: relative;
     }
@@ -231,7 +246,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: #ef9c82;
+        color: var(--accent);
         transition: transform 0.2s ease-out; /* Transición suave para el parallax */
     }
 
@@ -258,7 +273,7 @@
         margin: 0 auto;
         line-height: 1.7;
         max-width: 700px;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
         opacity: 0;
     }
@@ -285,27 +300,27 @@
     }
 
     .primary {
-        background-color: #ef9c82;
-        color: #1d4241;
-        border-color: #ef9c82;
+        background-color: var(--accent);
+        color: var(--on-accent);
+        border-color: var(--accent);
     }
 
     .primary:hover {
-        background-color: #e88a6f;
-        border-color: #e88a6f;
+        background-color: var(--accent-hover);
+        border-color: var(--accent-hover);
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
     .secondary {
         background-color: transparent;
-        color: #f9eee7;
-        border-color: #f9eee7;
+        color: var(--on-surface);
+        border-color: var(--on-surface);
     }
 
     .secondary:hover {
-        background-color: #f9eee7;
-        color: #1d4241;
+        background-color: var(--on-surface);
+        color: var(--surface);
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }

@@ -1,3 +1,13 @@
+<script>
+	import '../app.css';
+	import { theme, applyTheme } from '$lib/theme.js';
+	import AmbientBackground from '$lib/components/AmbientBackground.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+
+	// Keep <html data-theme> in sync with the store across every route.
+	$: applyTheme($theme);
+</script>
+
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -6,5 +16,8 @@
 		rel="stylesheet"
 	/>
 </svelte:head>
+
+<AmbientBackground />
+<ThemeToggle />
 
 <slot />
