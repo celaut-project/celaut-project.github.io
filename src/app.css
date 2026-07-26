@@ -40,6 +40,11 @@
 	--on-surface-rgb: 249, 238, 231;
 	--accent-rgb: 239, 156, 130;
 
+	/* Section-heading colour. Dark mode: the cream on-surface. Light mode gets a
+	   warm terracotta accent (overridden in the light block below). */
+	--heading: var(--on-surface);
+	--heading-muted: rgba(var(--on-surface-rgb), 0.7);
+
 	/* MEJORA: Nueva combinación de fuentes */
 	--font-heading: 'Playfair Display', serif;
 	--font-body: 'Lato', sans-serif;
@@ -58,6 +63,11 @@
 	--on-accent: #1d4241;
 	--surface-rgb: 249, 238, 231;
 	--on-surface-rgb: 29, 66, 65;
+
+	/* Warm terracotta headings in light mode — a readable "other colour" that
+	   ties to the coral accent without washing out on the cream surface. */
+	--heading: #bf5836;
+	--heading-muted: #9c4b32;
 }
 
 html {

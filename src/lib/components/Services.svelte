@@ -43,7 +43,7 @@
 
 <style>
     section {
-        background-color: #ef9c82;
+        background-color: var(--surface);
         padding: 80px 20px;
     }
 
@@ -52,7 +52,7 @@
         font-size: 2.5rem;
         margin: 0 auto 20px auto;
         max-width: 800px;
-        color: #1d4241;
+        color: var(--heading);
     }
 
     .intro {
@@ -61,7 +61,7 @@
         margin: 0 auto 60px auto;
         font-size: 1.1rem;
         line-height: 1.7;
-        color: #1d4241;
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
 
     .services-grid {
@@ -73,10 +73,10 @@
     }
 
     .service-card {
-        border: 2px solid #1d4241;
+        border: 2px solid var(--accent);
         padding: 40px;
         border-radius: 16px;
-        background-color: transparent;
+        background-color: rgba(var(--on-surface-rgb), 0.03);
     }
 
     /* Styles for the card header (icon + title) */
@@ -88,7 +88,7 @@
     }
 
     .card-header svg {
-        color: #1d4241;
+        color: var(--accent);
         flex-shrink: 0; /* Prevents the icon from shrinking */
     }
 
@@ -96,13 +96,13 @@
         font-size: 1.4rem;
         font-weight: 700;
         margin: 0;
-        color: #1d4241;
+        color: var(--on-surface);
     }
-    
+
     .service-card p {
         margin: 0;
         line-height: 1.6;
-        color: #1d4241;
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
 
     strong {

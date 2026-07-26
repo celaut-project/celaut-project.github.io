@@ -41,11 +41,12 @@
 
 <style>
   :root {
-    --color-background: #f9eee7;
-    --color-text-dark: #2c3e50; /* Un gris oscuro más neutro */
-    --color-text-light: #7f8c8d; /* Un gris más suave para párrafos */
-    --color-border: #e0e0e0;
-    --color-card-bg: #ffffff;
+    /* Bound to the global theme tokens so this section follows the toggle. */
+    --color-background: var(--surface);
+    --color-text-dark: var(--on-surface);
+    --color-text-light: rgba(var(--on-surface-rgb), 0.7);
+    --color-border: rgba(var(--on-surface-rgb), 0.15);
+    --color-card-bg: rgba(var(--on-surface-rgb), 0.04);
   }
 
   section {
@@ -59,7 +60,7 @@
     font-size: 2.5rem;
     margin: 0 auto 60px auto;
     max-width: 800px;
-    color: var(--color-text-dark);
+    color: var(--heading);
   }
 
   .coordination-grid {

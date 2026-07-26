@@ -83,7 +83,7 @@
 
 <style>
     section {
-        background-color: #f9eee7;
+        background-color: var(--surface);
         padding: 80px 20px;
     }
 
@@ -91,7 +91,7 @@
         text-align: center;
         font-size: 2.5rem;
         margin: 0 auto 60px auto;
-        color: #1d4241;
+        color: var(--heading);
     }
 
     .principles-container {
@@ -103,13 +103,13 @@
     }
 
     .principle {
-        background-color: #ffffff;
+        background-color: rgba(var(--on-surface-rgb), 0.04);
         border-radius: 16px;
         padding: 40px 30px;
         text-align: center;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
-        border: 1px solid #e0d5cb;
-        border-top: 5px solid #ef9c82;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        border: 1px solid rgba(var(--on-surface-rgb), 0.12);
+        border-top: 5px solid var(--accent);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
@@ -122,7 +122,7 @@
         width: 64px;
         height: 64px;
         margin: 0 auto 25px auto;
-        background-color: #fef8f6;
+        background-color: rgba(var(--accent-rgb), 0.14);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -132,24 +132,24 @@
     .icon-wrapper svg {
         width: 32px;
         height: 32px;
-        color: #ef9c82;
+        color: var(--accent);
     }
-    
+
     h3 {
         font-size: 1.5rem;
         margin: 0 0 15px 0;
-        color: #1d4241;
+        color: var(--on-surface);
     }
 
     p {
         line-height: 1.6;
-        color: #576c6b;
+        color: rgba(var(--on-surface-rgb), 0.75);
         margin: 0;
     }
 
     /* --- ESTILO PARA RESALTAR TEXTO CLAVE --- */
     p strong {
-        color: #ef9c82; /* Usamos el color de acento para conectar visualmente con el icono y el borde */
+        color: var(--accent); /* Conecta visualmente con el icono y el borde */
         font-weight: 600;
     }
 
