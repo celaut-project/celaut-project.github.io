@@ -119,17 +119,17 @@
 
     .diagram {
         position: relative;
-        width: 200px;
-        height: 200px;
+        width: 260px;
+        height: 240px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+
     .circle {
         position: absolute;
-        width: 100px;
-        height: 100px;
+        width: 84px;
+        height: 84px;
         background-color: rgba(249, 238, 231, 0.05);
         border: 1px solid rgba(249, 238, 231, 0.2);
         border-radius: 50%;
@@ -169,12 +169,12 @@
         transform: translateX(-50%);
     }
     .box {
-        bottom: 20px;
-        left: 0px;
+        bottom: 0;
+        left: 0;
     }
     .net {
-        bottom: 20px;
-        right: 0px;
+        bottom: 0;
+        right: 0;
     }
 
     .footer-text {

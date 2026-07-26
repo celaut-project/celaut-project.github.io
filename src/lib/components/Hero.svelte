@@ -202,12 +202,7 @@
         </p>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
-            <a
-                class="button primary"
-                href="https://github.com/celaut-project/nodo?tab=readme-ov-file#installation"
-                target="_blank"
-                rel="noopener noreferrer">Start to use it</a
-            >
+            <a class="button primary" href="/install">Start to use it</a>
             <a
                 class="button secondary"
                 href="#foundations"
