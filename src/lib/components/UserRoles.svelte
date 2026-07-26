@@ -1,5 +1,6 @@
 <script>
   // Datos de los roles definidos en un solo lugar para fácil mantenimiento.
+  const SKILLS_URL = 'https://celaut-project.github.io/skills';
   const roles = [
     {
       title: 'Node Maintainers',
@@ -9,6 +10,8 @@
         'Execute services on request',
         'Receive compensation for resources',
       ],
+      // Node operators head to the install flow to run a node.
+      cta: { label: 'Run a node', href: '/install', external: false },
     },
     {
       title: 'Service Developers',
@@ -18,6 +21,7 @@
         'Build deterministic applications',
         'Distribute services to nodes',
       ],
+      cta: { label: 'Explore Skills', href: SKILLS_URL, external: true },
     },
     {
       title: 'Service Users',
@@ -27,6 +31,7 @@
         'Pay for computational resources',
         'Consume service outputs',
       ],
+      cta: { label: 'Explore Skills', href: SKILLS_URL, external: true },
     },
   ];
 </script>
@@ -44,6 +49,15 @@
             <li>{point}</li>
           {/each}
         </ul>
+        {#if role.cta}
+          {#if role.cta.external}
+            <a class="role-cta" href={role.cta.href} target="_blank" rel="noopener noreferrer">
+              {role.cta.label} →
+            </a>
+          {:else}
+            <a class="role-cta" href={role.cta.href}>{role.cta.label} →</a>
+          {/if}
+        {/if}
       </div>
     {/each}
   </div>
@@ -107,5 +121,22 @@
 
   li:last-child {
     margin-bottom: 0;
+  }
+
+  .role-cta {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 9px 20px;
+    background-color: var(--accent);
+    color: var(--on-accent, #1d4241);
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .role-cta:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
   }
 </style>
