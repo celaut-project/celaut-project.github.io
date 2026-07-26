@@ -80,10 +80,14 @@
         </div>
     </div>
 
-    <hr />
+    <!-- Third-party projects live below this labelled divider: they build on
+         Celaut but are maintained by others, so they're set apart visually. -->
+    <div class="third-party-divider" role="separator" aria-label="Third-party projects">
+        <span>Third-party</span>
+    </div>
 
-    <!-- Game of Prompts -->
-    <div class="content-wrapper">
+    <!-- Game of Prompts (third-party) -->
+    <div class="content-wrapper third-party">
         <a href="https://game-of-prompts.github.io" target="_blank" rel="noopener noreferrer">
             <img
                 src="https://avatars.githubusercontent.com/u/212117344?s=96&v=4"
@@ -131,11 +135,11 @@
 		width: 96px;
 		height: 96px;
 		border-radius: 50%;
-		border: 2px solid rgba(249,238,231,0.1);
+		border: 2px solid rgba(var(--on-surface-rgb),0.1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #ef9c82;
+		color: var(--accent);
 		flex-shrink: 0;
 		transition: transform 0.4s ease-in-out;
 	}
@@ -151,7 +155,7 @@
 	}
 
 	section {
-		background-color: #1d4241;
+		background-color: var(--surface);
 		padding: 80px 40px;
 	}
 
@@ -160,7 +164,7 @@
 		text-align: center;
 		max-width: 800px;
 		margin: 0 auto 60px auto;
-		color: #f9eee7;
+		color: var(--on-surface);
 	}
 
 	.content-wrapper {
@@ -176,7 +180,7 @@
 		height: 96px;
 		object-fit: cover;
 		border-radius: 50%;
-		border: 2px solid rgba(249, 238, 231, 0.1);
+		border: 2px solid rgba(var(--on-surface-rgb), 0.1);
 		flex-shrink: 0;
 		transition: transform 0.4s ease-in-out;
 	}
@@ -188,7 +192,7 @@
 	.text-content p {
 		margin: 0 0 1rem 0;
 		line-height: 1.7;
-		color: rgba(249, 238, 231, 0.85);
+		color: rgba(var(--on-surface-rgb), 0.85);
 	}
 
 	.text-content p:last-child {
@@ -196,32 +200,70 @@
 	}
 
 	strong {
-		color: #f9eee7;
+		color: var(--on-surface);
 		font-weight: 600;
 	}
 
 	.title-link {
 		text-decoration: none;
-		border-bottom: 1px solid #ef9c82;
+		border-bottom: 1px solid var(--accent);
 		display: inline-block;
 		margin-bottom: 0.5rem;
 	}
 
 	.title-link strong {
-		color: #ef9c82;
+		color: var(--accent);
 		font-size: 1.2rem;
 	}
 
 	.title-link:hover strong {
-		color: #e88a6f;
+		color: var(--accent-hover);
 	}
 
 	hr {
 		border: none;
 		height: 1px;
-		background-color: rgba(249, 238, 231, 0.15);
+		background-color: rgba(var(--on-surface-rgb), 0.15);
 		max-width: 900px;
 		margin: 60px auto;
+	}
+
+	/* Labelled divider that sets apart third-party projects. */
+	.third-party-divider {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		max-width: 900px;
+		margin: 64px auto 48px auto;
+	}
+
+	.third-party-divider::before,
+	.third-party-divider::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: linear-gradient(
+			to right,
+			transparent,
+			rgba(var(--accent-rgb), 0.5),
+			transparent
+		);
+	}
+
+	.third-party-divider span {
+		flex-shrink: 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent);
+		border: 1px solid rgba(var(--accent-rgb), 0.4);
+		border-radius: 999px;
+		padding: 4px 14px;
+	}
+
+	/* Slightly recede the third-party card so first-party ones lead. */
+	.content-wrapper.third-party {
+		opacity: 0.92;
 	}
 
 	.footer {
@@ -235,8 +277,8 @@
 
 	.docs-button {
 		display: inline-block;
-		background-color: #ef9c82;
-		color: #1d4241;
+		background-color: var(--accent);
+		color: var(--on-accent);
 		padding: 10px 24px;
 		border-radius: 8px;
 		text-decoration: none;
@@ -245,7 +287,7 @@
 	}
 
 	.docs-button:hover {
-		background-color: #e88a6f;
+		background-color: var(--accent-hover);
 	}
 
 	@media (max-width: 768px) {

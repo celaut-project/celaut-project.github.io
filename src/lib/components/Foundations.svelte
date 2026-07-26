@@ -1,6 +1,5 @@
 <script>
-    import gameOfLifeImgWebP from '$lib/assets/game-of-life.webp';
-    import gameOfLifeImgPng from '$lib/assets/game-of-life.png';
+    import GameOfLife from '$lib/components/GameOfLife.svelte';
 </script>
 
 <section>
@@ -31,17 +30,7 @@
             </div>
             <div class="image-content">
                 <figure>
-                    <picture>
-                        <source srcset="{gameOfLifeImgWebP}" type="image/webp" />
-                        <source srcset="{gameOfLifeImgPng}" type="image/png" />
-                        <img
-                            src="{gameOfLifeImgPng}"
-                            alt="Conway's Game of Life"
-                            loading="lazy"
-                            width="400"
-                            height="350"
-                        />
-                    </picture>
+                    <GameOfLife />
                     <figcaption>
                         Conway’s Game of Life demonstrates how complex patterns emerge from simple rules - a
                         core inspiration for Celaut’s architecture.
@@ -54,14 +43,14 @@
 
 <style>
     section {
-        background-color: #f9eee7;
+        background-color: var(--on-surface);
         padding: 80px 20px;
     }
 
     .card {
         max-width: 1100px;
         margin: 0 auto;
-        background-color: #1D4241; /* <- COLOR: Fondo de la tarjeta */
+        background-color: var(--surface); /* <- COLOR: Fondo de la tarjeta */
         padding: 60px;
         border-radius: 24px;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
@@ -72,7 +61,7 @@
         font-size: 2.5rem;
         margin-top: 0;
         margin-bottom: 30px;
-        color: #ef9c82; /* <- COLOR: Texto principal */
+        color: var(--accent); /* <- COLOR: Texto principal */
     }
 
     .content {
@@ -88,7 +77,7 @@
     p {
         line-height: 1.8;
         margin: 0 0 24px 0;
-        color: rgba(249, 238, 231, 0.85); /* <- COLOR: Texto secundario con opacidad */
+        color: rgba(var(--on-surface-rgb), 0.85); /* <- COLOR: Texto secundario con opacidad */
     }
 
     p:last-child {
@@ -99,7 +88,7 @@
 
     /* 1. Estilo para resaltar palabras clave */
     strong {
-        color: #ef9c82; /* Reutilizamos el color del título para crear consistencia */
+        color: var(--accent); /* Reutilizamos el color del título para crear consistencia */
         font-weight: 600;
     }
 
@@ -107,12 +96,12 @@
     blockquote {
         margin: 32px 0 32px 20px;
         padding-left: 24px;
-        border-left: 3px solid #ef9c82; /* Un borde sutil con el color de acento */
+        border-left: 3px solid var(--accent); /* Un borde sutil con el color de acento */
         font-style: italic;
     }
 
     blockquote p {
-        color: rgba(249, 238, 231, 0.95); /* Aumentamos ligeramente la opacidad para que destaque */
+        color: rgba(var(--on-surface-rgb), 0.95); /* Aumentamos ligeramente la opacidad para que destaque */
         margin: 0; /* Anulamos el margen del párrafo dentro de la cita */
         line-height: 1.7;
     }
@@ -133,9 +122,9 @@
         display: block;
         width: 100%;
         height: auto;
-        border: 1px solid rgba(249, 238, 231, 0.15); /* <- COLOR: Borde sutil basado en el texto */
+        border: 1px solid rgba(var(--on-surface-rgb), 0.15); /* <- COLOR: Borde sutil basado en el texto */
         border-radius: 16px;
-        background-color: #1C4241; /* Fondo de carga para la imagen */
+        background-color: var(--surface); /* Fondo de carga para la imagen */
     }
 
     figcaption {
@@ -145,7 +134,7 @@
         font-size: 0.9rem;
         line-height: 1.5;
         font-style: italic;
-        color: rgba(249, 238, 231, 0.65); /* <- COLOR: Texto de leyenda con más opacidad */
+        color: rgba(var(--on-surface-rgb), 0.65); /* <- COLOR: Texto de leyenda con más opacidad */
     }
 
     @media (max-width: 800px) {

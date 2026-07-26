@@ -1,30 +1,79 @@
 /* src/app.css */
+
+/*
+ * ------------------------------------------------------------------
+ * THEME SYSTEM
+ * ------------------------------------------------------------------
+ * The site ships with two intentional themes driven by a single
+ * `data-theme` attribute on <html> (see src/lib/theme.js):
+ *
+ *   • DARK  (default) → deep green surfaces + a gentle STAR field.
+ *   • LIGHT           → warm cream surfaces + a soft SUN glow.
+ *
+ * Light mode is a deliberate inversion of the palette: `--surface`
+ * and `--on-surface` swap, so every band that was dark-on-light
+ * becomes light-on-dark and stays legible. The orange `--accent`
+ * is a constant in both themes (it reads well on either surface),
+ * and `--on-accent` is pinned dark so text on accent buttons keeps
+ * its contrast.
+ *
+ * The default (no attribute) matches DARK so first paint — before
+ * the inline theme script runs — looks like the original site.
+ * ------------------------------------------------------------------
+ */
 :root {
-	/* Paleta de colores unificada */
+	/* Paleta de colores unificada (legacy names kept as aliases) */
 	--dark-green: #1d4241;
 	--light-bg: #f9eee7;
 	--accent: #ef9c82;
+	--accent-hover: #e88a6f;
 	--text-light: #f9eee7;
 	--text-dark: #1d4241;
 	--text-dark-muted: #576c6b;
+
+	/* Semantic theme tokens — DARK theme values (default) */
+	--surface: #1d4241;
+	--surface-deep: #102827;
+	--on-surface: #f9eee7;
+	--on-accent: #1d4241;
+	--surface-rgb: 29, 66, 65;
+	--on-surface-rgb: 249, 238, 231;
+	--accent-rgb: 239, 156, 130;
 
 	/* MEJORA: Nueva combinación de fuentes */
 	--font-heading: 'Playfair Display', serif;
 	--font-body: 'Lato', sans-serif;
 }
 
+/* LIGHT theme — inversion of surface/on-surface; accent stays. */
+:root[data-theme='light'] {
+	--dark-green: #f9eee7;
+	--light-bg: #1d4241;
+	--text-light: #1d4241;
+	--text-dark: #f9eee7;
+
+	--surface: #f9eee7;
+	--surface-deep: #efe1d6;
+	--on-surface: #1d4241;
+	--on-accent: #1d4241;
+	--surface-rgb: 249, 238, 231;
+	--on-surface-rgb: 29, 66, 65;
+}
+
 html {
 	scroll-behavior: smooth;
+	background-color: var(--surface);
 }
 
 body {
 	margin: 0;
 	font-family: var(--font-body);
-	background-color: var(--dark-green); /* Color de fondo por defecto */
-	color: var(--text-light);
+	background-color: var(--surface); /* Color de fondo por defecto */
+	color: var(--on-surface);
 	font-size: clamp(16px, 1.2vw, 18px); /* MEJORA: Tamaño de fuente base más grande y responsivo */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -47,4 +96,16 @@ p {
 .animated-section.is-visible {
 	opacity: 1;
 	transform: translateY(0);
+}
+
+/* Smooth colour crossfade for themed sections when the toggle flips. */
+section,
+.card {
+	transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 }

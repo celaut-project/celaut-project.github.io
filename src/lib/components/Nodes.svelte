@@ -94,7 +94,7 @@
     }
 
     section {
-        background-color: #1d4241;
+        background-color: var(--surface);
         padding: 80px 40px;
     }
 
@@ -102,7 +102,7 @@
         text-align: center;
         font-size: 2.5rem;
         margin: 0 auto 60px auto;
-        color: #ef9c82;
+        color: var(--accent);
     }
 
     .container {
@@ -117,7 +117,7 @@
     .left p {
         line-height: 1.7;
         margin: 0;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
     
     .left p.intro-p {
@@ -125,7 +125,7 @@
     }
 
     strong {
-        color: #ef9c82;
+        color: var(--accent);
         font-weight: 600;
     }
     
@@ -133,7 +133,7 @@
 
     .implementation-block {
         /* Añadimos un borde izquierdo que agrupa visualmente el contenido */
-        border-left: 3px solid rgba(239, 156, 130, 0.4); /* El color de acento, pero con opacidad para que sea sutil */
+        border-left: 3px solid rgba(var(--accent-rgb), 0.4); /* El color de acento, pero con opacidad para que sea sutil */
         padding-left: 24px; /* Espacio para que el texto no se pegue al borde */
     }
 
@@ -142,7 +142,7 @@
     }
     
     .implementation-block h3 {
-        color: #f9eee7;
+        color: var(--on-surface);
         margin: 0 0 10px 0;
         font-size: 1.4rem;
     }
@@ -153,8 +153,8 @@
         
     button {
         background-color: transparent;
-        color: #f9eee7;
-        border: 1px solid #f9eee7;
+        color: var(--on-surface);
+        border: 1px solid var(--on-surface);
         padding: 10px 24px;
         border-radius: 8px;
         cursor: pointer;
@@ -163,9 +163,9 @@
     }
 
     button:hover {
-        background-color: #ef9c82;
-        color: #1d4241;
-        border-color: #ef9c82;
+        background-color: var(--accent);
+        color: var(--on-accent);
+        border-color: var(--accent);
     }
 
     /* --- ESTILOS DE LA DERECHA --- */
@@ -181,7 +181,7 @@
         align-items: flex-start;
         gap: 20px;
         padding-bottom: 30px;
-        border-bottom: 1px solid rgba(249, 238, 231, 0.1);
+        border-bottom: 1px solid rgba(var(--on-surface-rgb), 0.1);
     }
     
     .feature:last-child {
@@ -190,7 +190,7 @@
     }
 
     .icon-wrapper {
-        color: #ef9c82;
+        color: var(--accent);
         width: 32px;
         height: 32px;
         flex-shrink: 0;
@@ -200,14 +200,14 @@
     h4 {
         margin: 0 0 8px 0;
         font-size: 1.2rem;
-        color: #f9eee7;
+        color: var(--on-surface);
     }
 
     .feature p {
         font-size: 0.95rem;
         line-height: 1.6;
         margin: 0;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
 
     @media (max-width: 900px) {

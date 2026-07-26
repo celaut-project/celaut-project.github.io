@@ -51,7 +51,7 @@
 
 <style>
   section {
-    background-color: #1d4241;
+    background-color: var(--surface);
     padding: 80px 20px;
   }
 
@@ -60,7 +60,7 @@
     text-align: center;
     max-width: 700px;
     margin: 0 auto 60px auto;
-    color: #f9eee7;
+    color: var(--on-surface);
   }
 
   .roles-container {
@@ -72,9 +72,9 @@
   }
 
   .role-block {
-    background-color: rgba(249, 238, 231, 0.03);
-    border: 1px solid rgba(249, 238, 231, 0.1);
-    border-left: 5px solid #ef9c82; /* El borde que pediste anteriormente */
+    background-color: rgba(var(--on-surface-rgb), 0.03);
+    border: 1px solid rgba(var(--on-surface-rgb), 0.1);
+    border-left: 5px solid var(--accent); /* El borde que pediste anteriormente */
     padding: 30px 35px;
     border-radius: 16px;
   }
@@ -82,13 +82,13 @@
   h3 {
     font-size: 1.4rem;
     margin: 0 0 10px 0;
-    color: #f9eee7;
+    color: var(--on-surface);
   }
 
   p {
     margin: 0 0 20px 0;
     line-height: 1.7;
-    color: rgba(249, 238, 231, 0.85);
+    color: rgba(var(--on-surface-rgb), 0.85);
   }
 
   ul {
@@ -101,7 +101,7 @@
   li {
     margin-bottom: 10px;
     line-height: 1.6;
-    color: #ef9c82; /* Color de acento para destacar el texto */
+    color: var(--accent); /* Color de acento para destacar el texto */
     font-weight: 500; /* Fuente semigruesa para más énfasis */
   }
 

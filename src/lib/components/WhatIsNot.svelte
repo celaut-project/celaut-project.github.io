@@ -51,14 +51,14 @@
 
 <style>
     section {
-        background-color: #f9eee7; /* <- COLOR: Fondo de la sección */
+        background-color: var(--on-surface); /* <- COLOR: Fondo de la sección */
         padding: 80px 20px;
     }
 
     .card {
         max-width: 1100px;
         margin: 0 auto;
-        background-color: #1d4241; /* <- COLOR: Fondo de la tarjeta */
+        background-color: var(--surface); /* <- COLOR: Fondo de la tarjeta */
         padding: 60px;
         border-radius: 24px;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
@@ -68,7 +68,7 @@
         font-size: 2.5rem;
         text-align: center;
         margin: 0 0 20px 0;
-        color: #ef9c82; /* <- COLOR: Texto principal */
+        color: var(--accent); /* <- COLOR: Texto principal */
     }
 
     .intro {
@@ -76,7 +76,7 @@
         max-width: 800px;
         margin: 0 auto 50px auto;
         line-height: 1.7;
-        color: rgba(249, 238, 231, 0.85); /* <- COLOR: Texto secundario */
+        color: rgba(var(--on-surface-rgb), 0.85); /* <- COLOR: Texto secundario */
     }
 
     .blocks-container {
@@ -90,8 +90,8 @@
         display: flex;
         align-items: flex-start; /* Alinea el icono con la parte superior del texto */
         gap: 25px;
-        background-color: rgba(249, 238, 231, 0.03);
-        border: 1px solid rgba(249, 238, 231, 0.1);
+        background-color: rgba(var(--on-surface-rgb), 0.03);
+        border: 1px solid rgba(var(--on-surface-rgb), 0.1);
         padding: 30px;
         border-radius: 16px;
     }
@@ -102,7 +102,7 @@
         flex-shrink: 0; /* Evita que el icono se encoja */
         width: 48px;
         height: 48px;
-        background-color: rgba(239, 156, 130, 0.1); /* Fondo sutil con el color de acento */
+        background-color: rgba(var(--accent-rgb), 0.1); /* Fondo sutil con el color de acento */
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -112,7 +112,7 @@
     .block-icon svg {
         width: 24px;
         height: 24px;
-        color: #ef9c82;
+        color: var(--accent);
     }
 
     .block-content {
@@ -122,17 +122,17 @@
     h3 {
         font-size: 1.4rem;
         margin: 0 0 10px 0;
-        color: #f9eee7;
+        color: var(--on-surface);
     }
 
     .block p {
         margin: 0;
         line-height: 1.7;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
     
     .block p strong {
-        color: #ef9c82;
+        color: var(--accent);
         font-weight: 600;
     }
     

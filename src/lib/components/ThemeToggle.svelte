@@ -1,0 +1,78 @@
+<script>
+	import { theme, applyTheme, toggleTheme } from '$lib/theme.js';
+
+	// Keep <html data-theme> in sync whenever the store changes, and spin
+	// the icon 180° per toggle so the sun/moon swap reads as a rotation.
+	let rotation = 0;
+	$: applyTheme($theme);
+
+	function onClick() {
+		toggleTheme();
+		rotation += 180;
+	}
+</script>
+
+<button
+	class="theme-toggle"
+	on:click={onClick}
+	aria-label={$theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+	title="Toggle theme"
+>
+	<span class="icon" style={`transform: rotate(${rotation}deg);`}>
+		{#if $theme === 'dark'}
+			<!-- Moon -->
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+			</svg>
+		{:else}
+			<!-- Sun -->
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="4" />
+				<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+			</svg>
+		{/if}
+	</span>
+</button>
+
+<style>
+	.theme-toggle {
+		position: fixed;
+		top: 18px;
+		right: 18px;
+		z-index: 60;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: var(--accent);
+		background: rgba(var(--surface-rgb), 0.55);
+		border: 1px solid rgba(var(--on-surface-rgb), 0.25);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+		transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+	}
+
+	.theme-toggle:hover {
+		transform: scale(1.08);
+		background: rgba(var(--surface-rgb), 0.8);
+	}
+
+	.theme-toggle:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+
+	.icon {
+		display: inline-flex;
+		transition: transform 700ms ease;
+	}
+
+	.icon svg {
+		width: 22px;
+		height: 22px;
+	}
+</style>
