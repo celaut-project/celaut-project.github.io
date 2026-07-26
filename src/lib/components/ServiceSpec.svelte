@@ -58,12 +58,12 @@
 <style>
     section {
         padding: 80px 20px;
-        background-color: #ef9c82;
+        background-color: var(--surface);
     }
 
     .card {
-        background: linear-gradient(145deg, #224c4b, #183837);
-        border: 1px solid rgba(249, 238, 231, 0.1);
+        background: rgba(var(--on-surface-rgb), 0.05);
+        border: 1px solid rgba(var(--on-surface-rgb), 0.1);
         padding: 60px;
         border-radius: 24px;
         margin: 0 auto;
@@ -75,7 +75,7 @@
         font-size: 2.5rem;
         text-align: center;
         margin: 0 0 60px 0;
-        color: #f9eee7;
+        color: var(--heading);
     }
 
     .spec-layout {
@@ -92,7 +92,7 @@
     .description-box h3 {
         font-size: 1.5rem;
         margin-bottom: 8px;
-        color: #f9eee7;
+        color: var(--on-surface);
         display: inline-block;
         padding-bottom: 5px;
         border-bottom: 2px solid transparent;
@@ -102,11 +102,11 @@
     .description-box p {
         margin: 0;
         line-height: 1.6;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
 
     .description-box p strong {
-        color: #f9eee7;
+        color: var(--on-surface);
         font-weight: 600;
     }
 
@@ -119,24 +119,24 @@
 
     .diagram {
         position: relative;
-        width: 200px;
-        height: 200px;
+        width: 260px;
+        height: 240px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+
     .circle {
         position: absolute;
-        width: 100px;
-        height: 100px;
-        background-color: rgba(249, 238, 231, 0.05);
-        border: 1px solid rgba(249, 238, 231, 0.2);
+        width: 84px;
+        height: 84px;
+        background-color: rgba(var(--on-surface-rgb), 0.06);
+        border: 1px solid rgba(var(--on-surface-rgb), 0.2);
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #f9eee7;
+        color: var(--on-surface);
         transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         cursor: pointer;
     }
@@ -144,7 +144,7 @@
     /* Regla general de hover para los círculos que no se centran con transform */
     .circle:hover {
         transform: scale(1.1);
-        background-color: rgba(249, 238, 231, 0.15);
+        background-color: rgba(var(--on-surface-rgb), 0.14);
     }
     
     /* CORRECCIÓN: Regla específica para API que combina el centrado y la escala */
@@ -154,7 +154,7 @@
 
     h3.hovered,
     .circle.hovered {
-        color: #ef9c82;
+        color: var(--accent);
     }
 
     .circle :global(svg) {
@@ -169,12 +169,12 @@
         transform: translateX(-50%);
     }
     .box {
-        bottom: 20px;
-        left: 0px;
+        bottom: 0;
+        left: 0;
     }
     .net {
-        bottom: 20px;
-        right: 0px;
+        bottom: 0;
+        right: 0;
     }
 
     .footer-text {
@@ -182,7 +182,7 @@
         max-width: 800px;
         margin: 60px auto 0 auto;
         line-height: 1.7;
-        color: rgba(249, 238, 231, 0.85);
+        color: rgba(var(--on-surface-rgb), 0.85);
     }
 
     @media (max-width: 900px) {

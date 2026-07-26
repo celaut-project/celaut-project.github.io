@@ -3,7 +3,7 @@
 
 	    <!-- DePin -->
     <div class="content-wrapper">
-        <a href="https://github.com/celaut-project/nodo?tab=readme-ov-file#installation" target="_blank" rel="noopener noreferrer">
+        <a href="/install">
             <div class="logo-icon">
                 <!-- Icono de Red Monocromática -->
                 <svg viewBox="0 0 24 24" fill="none"
@@ -23,7 +23,7 @@
 
         <div class="text-content">
             <p>
-                <a href="https://github.com/celaut-project/nodo?tab=readme-ov-file#installation" target="_blank" rel="noopener noreferrer" class="title-link">
+                <a href="/install" class="title-link">
                     <strong>DePin</strong>
                 </a>
             </p>

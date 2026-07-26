@@ -21,7 +21,7 @@
 	let reduced = false;
 
 	const CELL = 11; // px per cell
-	const STEP_MS = 80; // ~12.5 generations / second
+	const STEP_MS = 1000; // one generation per second — a slow, meditative pace
 
 	onMount(() => {
 		reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

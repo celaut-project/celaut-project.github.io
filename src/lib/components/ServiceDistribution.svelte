@@ -39,14 +39,14 @@
 </section>
 
 <style>
-    /* Paleta Monocromática */
+    /* Bound to the global theme tokens so this section follows the toggle. */
     :root {
-        --background-color: #f9eee7; /* Gris muy claro */
-        --card-background: #f9eee7;    /* Blanco */
-        --feature-background: #ffffff;/* Gris claro para contraste */
-        --text-color: #212529;         /* Negro suave */
-        --subtle-text-color: #495057;  /* Gris oscuro */
-        --border-color: #f9eee7;      /* Gris para bordes */
+        --background-color: var(--surface);
+        --card-background: rgba(var(--on-surface-rgb), 0.04);
+        --feature-background: rgba(var(--on-surface-rgb), 0.06);
+        --text-color: var(--on-surface);
+        --subtle-text-color: rgba(var(--on-surface-rgb), 0.7);
+        --border-color: rgba(var(--on-surface-rgb), 0.12);
     }
 
     section {
@@ -68,7 +68,7 @@
         font-size: 2.5rem;
         margin-top: 0;
         margin-bottom: 16px;
-        color: var(--text-color);
+        color: var(--heading);
     }
 
     .intro {
@@ -99,7 +99,7 @@
         border-radius: 12px; /* Ligeramente menos redondo */
         display: grid;
         place-items: center;
-        background-color: #ffffff;
+        background-color: rgba(var(--on-surface-rgb), 0.08);
         color: var(--text-color); /* El color del icono hereda de aquí */
         margin-bottom: 20px;
     }

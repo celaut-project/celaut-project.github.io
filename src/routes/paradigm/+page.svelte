@@ -114,8 +114,8 @@
 
 <style>
 	.paradigm-page {
-		background-color: #f9eee7;
-		color: #1d4241;
+		background-color: var(--surface);
+		color: var(--on-surface);
 		min-height: 100vh;
 		font-family: var(--font-body, 'Lato', sans-serif);
 	}
@@ -125,29 +125,30 @@
 		align-items: center;
 		gap: 20px;
 		padding: 16px 24px;
-		background-color: #1d4241;
-		color: #f9eee7;
+		background-color: var(--surface-deep);
+		color: var(--on-surface);
+		border-bottom: 1px solid rgba(var(--on-surface-rgb), 0.1);
 		position: sticky;
 		top: 0;
 		z-index: 10;
 	}
 
 	.home-link {
-		color: #f9eee7;
+		color: var(--on-surface);
 		text-decoration: none;
 		font-weight: 700;
 		white-space: nowrap;
 	}
 
 	.home-link:hover {
-		color: #ef9c82;
+		color: var(--accent);
 	}
 
 	.topbar-title {
 		font-family: var(--font-heading, 'Playfair Display', serif);
 		font-weight: 700;
 		font-size: 1.1rem;
-		color: #f9eee7;
+		color: var(--on-surface);
 	}
 
 	.prose {
@@ -159,19 +160,19 @@
 
 	/* Table of contents box */
 	.toc {
-		background-color: #fff;
-		border: 1px solid rgba(29, 66, 65, 0.12);
-		border-left: 4px solid #ef9c82;
+		background-color: rgba(var(--on-surface-rgb), 0.04);
+		border: 1px solid rgba(var(--on-surface-rgb), 0.12);
+		border-left: 4px solid var(--accent);
 		border-radius: 10px;
 		padding: 20px 28px;
 		margin-bottom: 48px;
-		box-shadow: 0 6px 18px rgba(29, 66, 65, 0.06);
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 	}
 
 	.toc-title {
 		margin: 0 0 12px;
 		font-family: var(--font-heading, 'Playfair Display', serif);
-		color: #1d4241;
+		color: var(--on-surface);
 		font-size: 1.3rem;
 	}
 
@@ -185,7 +186,7 @@
 	}
 
 	.toc a {
-		color: #b5573c;
+		color: var(--accent);
 		text-decoration: none;
 	}
 
@@ -199,7 +200,7 @@
 	.prose :global(h3),
 	.prose :global(h4) {
 		font-family: var(--font-heading, 'Playfair Display', serif);
-		color: #1d4241;
+		color: var(--on-surface);
 		line-height: 1.25;
 		scroll-margin-top: 80px;
 	}
@@ -213,13 +214,13 @@
 		font-size: 1.6rem;
 		margin: 48px 0 16px;
 		padding-bottom: 8px;
-		border-bottom: 2px solid rgba(239, 156, 130, 0.4);
+		border-bottom: 2px solid rgba(var(--accent-rgb), 0.4);
 	}
 
 	.prose :global(h3) {
 		font-size: 1.25rem;
 		margin: 32px 0 12px;
-		color: #b5573c;
+		color: var(--accent);
 	}
 
 	.prose :global(h4) {
@@ -232,13 +233,13 @@
 	}
 
 	.prose :global(a) {
-		color: #b5573c;
+		color: var(--accent);
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
 
 	.prose :global(a:hover) {
-		color: #ef9c82;
+		color: var(--accent-hover);
 	}
 
 	.prose :global(ul),
@@ -254,10 +255,10 @@
 	.prose :global(blockquote) {
 		margin: 20px 0;
 		padding: 8px 20px;
-		border-left: 4px solid #ef9c82;
-		background-color: rgba(239, 156, 130, 0.1);
+		border-left: 4px solid var(--accent);
+		background-color: rgba(var(--accent-rgb), 0.1);
 		border-radius: 0 8px 8px 0;
-		color: #576c6b;
+		color: rgba(var(--on-surface-rgb), 0.75);
 	}
 
 	.prose :global(blockquote p) {
@@ -265,7 +266,7 @@
 	}
 
 	.prose :global(code) {
-		background-color: rgba(29, 66, 65, 0.08);
+		background-color: rgba(var(--on-surface-rgb), 0.1);
 		padding: 2px 6px;
 		border-radius: 4px;
 		font-size: 0.9em;
@@ -273,7 +274,7 @@
 
 	.prose :global(hr) {
 		border: none;
-		border-top: 1px solid rgba(29, 66, 65, 0.15);
+		border-top: 1px solid rgba(var(--on-surface-rgb), 0.15);
 		margin: 40px 0;
 	}
 
@@ -282,14 +283,16 @@
 		max-width: 100%;
 		height: auto;
 		margin: 24px auto;
-		background-color: #fff;
+		/* Diagrams are dark-on-transparent, so keep a light backing in both
+		   themes for legibility. */
+		background-color: #f4ece3;
 		border-radius: 10px;
 		padding: 12px;
-		box-shadow: 0 6px 18px rgba(29, 66, 65, 0.08);
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 	}
 
 	.prose :global(strong) {
-		color: #1d4241;
+		color: var(--on-surface);
 	}
 
 	/* Floating back-to-top button */
@@ -297,19 +300,19 @@
 		position: fixed;
 		right: 24px;
 		bottom: 24px;
-		background-color: #ef9c82;
-		color: #1d4241;
+		background-color: var(--accent);
+		color: var(--on-accent, #1d4241);
 		padding: 10px 16px;
 		border-radius: 999px;
 		font-weight: 700;
 		text-decoration: none;
-		box-shadow: 0 6px 16px rgba(29, 66, 65, 0.25);
+		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 		z-index: 20;
 		transition: background-color 0.2s ease, transform 0.2s ease;
 	}
 
 	.to-top:hover {
-		background-color: #e88a6f;
+		background-color: var(--accent-hover);
 		transform: translateY(-2px);
 	}
 
