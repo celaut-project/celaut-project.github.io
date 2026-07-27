@@ -1,6 +1,23 @@
 <script>
     import { onMount } from 'svelte';
-    import { fly } from 'svelte/transition';
+    import { fly, fade } from 'svelte/transition';
+
+    // --- ROTATING HERO FACTS ---
+    // Short, engaging facts about Celaut that cycle in place of the old static
+    // paragraph. Hardcoded on purpose (no external source), rotated every 5s
+    // with a subtle fade + vertical slide. The card wrapper below is sized with
+    // a fixed min-height so swapping facts never shifts the surrounding layout.
+    const facts = [
+        'Inspired by cellular automata — resilient global behaviour emerging from simple local rules.',
+        'Deterministic by design: identical inputs always produce identical, verifiable output.',
+        'No central registry. Services are distributed peer-to-peer across independent nodes.',
+        'Every service is content-addressed — its hash is its name, so nothing can be silently swapped.',
+        'Nodes run each service sealed inside its own isolated micro-environment.',
+        'Reputation lives on-chain: trust is earned and provable, never granted by a gatekeeper.',
+        'Three principles, all the way down: decentralization, simplicity, and determinism.'
+    ];
+    let factIndex = 0;
+    let factsTimer;
 
     // --- 1. LÓGICA PARA EL EFECTO PARALLAX ---
     let parallaxX = 0;
@@ -187,8 +204,14 @@
         // Manejar redimensionamiento de la ventana
         window.addEventListener('resize', setup);
 
+        // Rotate the hero facts every 5 seconds.
+        factsTimer = setInterval(() => {
+            factIndex = (factIndex + 1) % facts.length;
+        }, 5000);
+
         return () => {
             window.removeEventListener('resize', setup);
+            clearInterval(factsTimer);
         };
     });
 </script>
@@ -208,9 +231,17 @@
             A Peer-to-Peer Architecture for Software Design and Distribution
         </h2>
         
-        <p use:staggeredFadeIn={{ delay: 1600, stagger: 10 }}>
-            Inspired by cellular automata, Celaut is a revolutionary peer-to-peer architecture for software design and distribution built on decentralization, simplicity, and determinism principles.
-        </p>
+        <div class="facts" in:fly={{ y: 20, duration: 600, delay: 1600 }} aria-live="polite">
+            {#key factIndex}
+                <p
+                    class="fact"
+                    in:fly={{ y: 14, duration: 500, delay: 180 }}
+                    out:fade={{ duration: 260 }}
+                >
+                    {facts[factIndex]}
+                </p>
+            {/key}
+        </div>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
             <a class="button primary" href="#applications" on:click={scrollToApps}>Start to use it</a>
@@ -258,11 +289,24 @@
 
     h1 {
         font-size: clamp(3.5rem, 10vw, 6rem);
-        font-weight: 700;
+        /* Weight + tighter tracking carry the emphasis now, not a heavy glow. */
+        font-weight: 800;
         margin: 0;
-        letter-spacing: 0.1em;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        letter-spacing: 0.03em;
+        /* Subtle depth instead of a soft halo — keeps the letters crisp. */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+        /* Sharper edges on high-DPI displays. */
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         opacity: 0; /* Oculto inicialmente, la acción 'staggeredFadeIn' lo hará visible */
+    }
+
+    /* Light theme: the coral accent washes out against the cream surface, so
+       deepen the title to a terracotta for real contrast while keeping the
+       warm brand tone. Dark mode already reads crisp, so it's left untouched. */
+    :global(html[data-theme='light']) h1 {
+        color: #bf5836;
     }
 
     h2 {
@@ -274,14 +318,37 @@
         opacity: 0;
     }
 
-    p {
-        font-size: 1.1rem;
-        margin: 0 auto;
-        line-height: 1.7;
-        max-width: 700px;
-        color: rgba(var(--on-surface-rgb), 0.85);
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-        opacity: 0;
+    /* Translucent card holds the rotating facts above the busy automata
+       background, so the body copy stays readable in both themes. Fixed
+       min-height reserves the space, so cycling facts never shift layout. */
+    .facts {
+        position: relative;
+        width: 100%;
+        max-width: 720px;
+        min-height: 6.5em;
+        margin: 28px auto 0;
+        border-radius: 14px;
+        background: rgba(var(--surface-rgb), 0.62);
+        border: 1px solid rgba(var(--on-surface-rgb), 0.14);
+        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .fact {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 20px 28px;
+        text-align: center;
+        font-size: clamp(1rem, 2.4vw, 1.2rem);
+        line-height: 1.6;
+        /* Full-strength on-surface colour + no text-shadow: crisp and high
+           contrast against the card in both light and dark themes. */
+        color: var(--on-surface);
     }
 
     .buttons {
