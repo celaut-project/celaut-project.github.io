@@ -4,7 +4,7 @@
 
     // --- ROTATING HERO FACTS ---
     // Short, engaging facts about Celaut that cycle in place of the old static
-    // paragraph. Hardcoded on purpose (no external source), rotated every 5s
+    // paragraph. Hardcoded on purpose (no external source), rotated every 10s
     // with a subtle fade + vertical slide. The card wrapper below is sized with
     // a fixed min-height so swapping facts never shifts the surrounding layout.
     const facts = [
@@ -146,10 +146,17 @@
                 .map(() => Math.floor(Math.random() * 1.4))); // Más ceros que unos para un look más disperso
         }
 
-        // Bucle principal de la animación
-        function gameLoop() {
-            grid = computeNextGeneration(grid);
-            draw(grid);
+        // Bucle principal de la animación.
+        // Throttled to one generation every 0.2s (instead of once per frame)
+        // so the automata background evolves at a calmer, more readable pace.
+        const stepInterval = 200; // ms between generations
+        let lastStep = 0;
+        function gameLoop(now) {
+            if (now - lastStep >= stepInterval) {
+                lastStep = now;
+                grid = computeNextGeneration(grid);
+                draw(grid);
+            }
             requestAnimationFrame(gameLoop);
         }
 
@@ -204,10 +211,10 @@
         // Manejar redimensionamiento de la ventana
         window.addEventListener('resize', setup);
 
-        // Rotate the hero facts every 5 seconds.
+        // Rotate the hero facts every 10 seconds.
         factsTimer = setInterval(() => {
             factIndex = (factIndex + 1) % facts.length;
-        }, 5000);
+        }, 10000);
 
         return () => {
             window.removeEventListener('resize', setup);
