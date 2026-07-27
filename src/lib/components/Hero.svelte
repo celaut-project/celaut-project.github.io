@@ -318,6 +318,15 @@
         opacity: 0;
     }
 
+    /* Light theme: the pale coral subtitle blends into the cream surface, and
+       the heavy dark shadow reads muddy on a light background. Deepen it to a
+       muted terracotta (a step lighter than the title, to keep the hierarchy)
+       and swap the shadow for a soft light halo. */
+    :global(html[data-theme='light']) h2 {
+        color: #9c4b32;
+        text-shadow: 0 1px 2px rgba(var(--surface-rgb), 0.6);
+    }
+
     /* Translucent card holds the rotating facts above the busy automata
        background, so the body copy stays readable in both themes. Fixed
        min-height reserves the space, so cycling facts never shift layout. */
