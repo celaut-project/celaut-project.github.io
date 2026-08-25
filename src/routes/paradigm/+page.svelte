@@ -127,7 +127,7 @@
 		padding: 16px 24px;
 		background-color: var(--surface-deep);
 		color: var(--on-surface);
-		border-bottom: 1px solid rgba(var(--on-surface-rgb), 0.1);
+		border-bottom: 1px solid var(--border);
 		position: sticky;
 		top: 0;
 		z-index: 10;
@@ -141,7 +141,7 @@
 	}
 
 	.home-link:hover {
-		color: var(--accent);
+		color: var(--accent-text);
 	}
 
 	.topbar-title {
@@ -160,13 +160,13 @@
 
 	/* Table of contents box */
 	.toc {
-		background-color: rgba(var(--on-surface-rgb), 0.04);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.12);
+		background-color: var(--surface-raised);
+		border: 1px solid var(--border);
 		border-left: 4px solid var(--accent);
 		border-radius: 10px;
 		padding: 20px 28px;
 		margin-bottom: 48px;
-		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+		box-shadow: var(--shadow-sm);
 	}
 
 	.toc-title {
@@ -186,7 +186,7 @@
 	}
 
 	.toc a {
-		color: var(--accent);
+		color: var(--accent-text);
 		text-decoration: none;
 	}
 
@@ -214,13 +214,13 @@
 		font-size: 1.6rem;
 		margin: 48px 0 16px;
 		padding-bottom: 8px;
-		border-bottom: 2px solid rgba(var(--accent-rgb), 0.4);
+		border-bottom: 2px solid var(--accent);
 	}
 
 	.prose :global(h3) {
 		font-size: 1.25rem;
 		margin: 32px 0 12px;
-		color: var(--accent);
+		color: var(--accent-text);
 	}
 
 	.prose :global(h4) {
@@ -233,13 +233,13 @@
 	}
 
 	.prose :global(a) {
-		color: var(--accent);
+		color: var(--accent-text);
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
 
 	.prose :global(a:hover) {
-		color: var(--accent-hover);
+		color: var(--on-surface);
 	}
 
 	.prose :global(ul),
@@ -256,9 +256,9 @@
 		margin: 20px 0;
 		padding: 8px 20px;
 		border-left: 4px solid var(--accent);
-		background-color: rgba(var(--accent-rgb), 0.1);
+		background-color: var(--accent-soft);
 		border-radius: 0 8px 8px 0;
-		color: rgba(var(--on-surface-rgb), 0.75);
+		color: var(--on-surface-muted);
 	}
 
 	.prose :global(blockquote p) {
@@ -266,7 +266,8 @@
 	}
 
 	.prose :global(code) {
-		background-color: rgba(var(--on-surface-rgb), 0.1);
+		background-color: var(--surface-alt);
+		border: 1px solid var(--border);
 		padding: 2px 6px;
 		border-radius: 4px;
 		font-size: 0.9em;
@@ -274,7 +275,7 @@
 
 	.prose :global(hr) {
 		border: none;
-		border-top: 1px solid rgba(var(--on-surface-rgb), 0.15);
+		border-top: 1px solid var(--border);
 		margin: 40px 0;
 	}
 
@@ -283,12 +284,13 @@
 		max-width: 100%;
 		height: auto;
 		margin: 24px auto;
-		/* Diagrams are dark-on-transparent, so keep a light backing in both
-		   themes for legibility. */
-		background-color: #f4ece3;
+		/* Diagrams are dark-ink-on-transparent, so they need a light backing in
+		   BOTH themes. Tokenised as --diagram-backdrop (deliberately constant
+		   across themes) rather than left as a bare hex. */
+		background-color: var(--diagram-backdrop);
 		border-radius: 10px;
 		padding: 12px;
-		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+		box-shadow: var(--shadow-sm);
 	}
 
 	.prose :global(strong) {
@@ -301,12 +303,12 @@
 		right: 24px;
 		bottom: 24px;
 		background-color: var(--accent);
-		color: var(--on-accent, #1d4241);
+		color: var(--on-accent);
 		padding: 10px 16px;
 		border-radius: 999px;
 		font-weight: 700;
 		text-decoration: none;
-		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+		box-shadow: var(--shadow-md);
 		z-index: 20;
 		transition: background-color 0.2s ease, transform 0.2s ease;
 	}

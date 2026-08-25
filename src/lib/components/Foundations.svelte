@@ -42,18 +42,23 @@
 </section>
 
 <style>
+    /* Alternating band. Previously this was `var(--on-surface)`, which in dark
+       mode painted a full-width CREAM slab behind the card — the single worst
+       offender in the old theme. --surface-alt is a proper one-step elevation
+       change that reads correctly in both themes. */
     section {
-        background-color: var(--on-surface);
+        background-color: var(--surface-alt);
         padding: 80px 20px;
     }
 
     .card {
         max-width: 1100px;
         margin: 0 auto;
-        background-color: var(--surface); /* <- COLOR: Fondo de la tarjeta */
+        background-color: var(--surface-raised);
         padding: 60px;
         border-radius: 24px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
     }
 
     h2 {
@@ -61,7 +66,7 @@
         font-size: 2.5rem;
         margin-top: 0;
         margin-bottom: 30px;
-        color: var(--accent); /* <- COLOR: Texto principal */
+        color: var(--heading);
     }
 
     .content {
@@ -77,7 +82,7 @@
     p {
         line-height: 1.8;
         margin: 0 0 24px 0;
-        color: rgba(var(--on-surface-rgb), 0.85); /* <- COLOR: Texto secundario con opacidad */
+        color: var(--on-surface-muted);
     }
 
     p:last-child {
@@ -87,8 +92,10 @@
     /* --- ESTILOS AÑADIDOS --- */
 
     /* 1. Estilo para resaltar palabras clave */
+    /* --accent-text, not --accent: coral-on-cream is ~1.9:1 and unreadable in
+       light mode. The accessible accent keeps the same brand read at >= 4.9:1. */
     strong {
-        color: var(--accent); /* Reutilizamos el color del título para crear consistencia */
+        color: var(--accent-text);
         font-weight: 600;
     }
 
@@ -96,12 +103,12 @@
     blockquote {
         margin: 32px 0 32px 20px;
         padding-left: 24px;
-        border-left: 3px solid var(--accent); /* Un borde sutil con el color de acento */
+        border-left: 3px solid var(--accent);
         font-style: italic;
     }
 
     blockquote p {
-        color: rgba(var(--on-surface-rgb), 0.95); /* Aumentamos ligeramente la opacidad para que destaque */
+        color: var(--on-surface);
         margin: 0; /* Anulamos el margen del párrafo dentro de la cita */
         line-height: 1.7;
     }
@@ -122,9 +129,9 @@
         display: block;
         width: 100%;
         height: auto;
-        border: 1px solid rgba(var(--on-surface-rgb), 0.15); /* <- COLOR: Borde sutil basado en el texto */
+        border: 1px solid var(--border);
         border-radius: 16px;
-        background-color: var(--surface); /* Fondo de carga para la imagen */
+        background-color: var(--surface-raised);
     }
 
     figcaption {
@@ -134,7 +141,7 @@
         font-size: 0.9rem;
         line-height: 1.5;
         font-style: italic;
-        color: rgba(var(--on-surface-rgb), 0.65); /* <- COLOR: Texto de leyenda con más opacidad */
+        color: var(--on-surface-subtle);
     }
 
     @media (max-width: 800px) {

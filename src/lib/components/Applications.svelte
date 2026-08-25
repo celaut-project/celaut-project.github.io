@@ -135,11 +135,11 @@
 		width: 96px;
 		height: 96px;
 		border-radius: 50%;
-		border: 2px solid rgba(var(--on-surface-rgb),0.1);
+		border: 2px solid var(--border);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--accent);
+		color: var(--accent-text);
 		flex-shrink: 0;
 		transition: transform 0.4s ease-in-out;
 	}
@@ -164,7 +164,7 @@
 		text-align: center;
 		max-width: 800px;
 		margin: 0 auto 60px auto;
-		color: var(--on-surface);
+		color: var(--heading);
 	}
 
 	.content-wrapper {
@@ -180,7 +180,7 @@
 		height: 96px;
 		object-fit: cover;
 		border-radius: 50%;
-		border: 2px solid rgba(var(--on-surface-rgb), 0.1);
+		border: 2px solid var(--border);
 		flex-shrink: 0;
 		transition: transform 0.4s ease-in-out;
 	}
@@ -192,7 +192,7 @@
 	.text-content p {
 		margin: 0 0 1rem 0;
 		line-height: 1.7;
-		color: rgba(var(--on-surface-rgb), 0.85);
+		color: var(--on-surface-muted);
 	}
 
 	.text-content p:last-child {
@@ -201,7 +201,7 @@
 
 	strong {
 		color: var(--on-surface);
-		font-weight: 600;
+		font-weight: 700;
 	}
 
 	.title-link {
@@ -212,18 +212,18 @@
 	}
 
 	.title-link strong {
-		color: var(--accent);
+		color: var(--accent-text);
 		font-size: 1.2rem;
 	}
 
 	.title-link:hover strong {
-		color: var(--accent-hover);
+		color: var(--on-surface);
 	}
 
 	hr {
 		border: none;
 		height: 1px;
-		background-color: rgba(var(--on-surface-rgb), 0.15);
+		background-color: var(--border);
 		max-width: 900px;
 		margin: 60px auto;
 	}
@@ -242,12 +242,7 @@
 		content: '';
 		flex: 1;
 		height: 1px;
-		background: linear-gradient(
-			to right,
-			transparent,
-			rgba(var(--accent-rgb), 0.5),
-			transparent
-		);
+		background: linear-gradient(to right, transparent, var(--accent), transparent);
 	}
 
 	.third-party-divider span {
@@ -255,8 +250,8 @@
 		font-size: 0.72rem;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: var(--accent);
-		border: 1px solid rgba(var(--accent-rgb), 0.4);
+		color: var(--accent-text);
+		border: 1px solid var(--accent);
 		border-radius: 999px;
 		padding: 4px 14px;
 	}

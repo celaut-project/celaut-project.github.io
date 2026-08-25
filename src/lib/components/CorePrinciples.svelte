@@ -103,26 +103,26 @@
     }
 
     .principle {
-        background-color: rgba(var(--on-surface-rgb), 0.04);
+        background-color: var(--surface-raised);
         border-radius: 16px;
         padding: 40px 30px;
         text-align: center;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        border: 1px solid rgba(var(--on-surface-rgb), 0.12);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
         border-top: 5px solid var(--accent);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
     .principle:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-md);
     }
     
     .icon-wrapper {
         width: 64px;
         height: 64px;
         margin: 0 auto 25px auto;
-        background-color: rgba(var(--accent-rgb), 0.14);
+        background-color: var(--accent-soft);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -132,7 +132,7 @@
     .icon-wrapper svg {
         width: 32px;
         height: 32px;
-        color: var(--accent);
+        color: var(--accent-text);
     }
 
     h3 {
@@ -143,13 +143,13 @@
 
     p {
         line-height: 1.6;
-        color: rgba(var(--on-surface-rgb), 0.75);
+        color: var(--on-surface-muted);
         margin: 0;
     }
 
     /* --- ESTILO PARA RESALTAR TEXTO CLAVE --- */
     p strong {
-        color: var(--accent); /* Conecta visualmente con el icono y el borde */
+        color: var(--accent-text);
         font-weight: 600;
     }
 

@@ -101,26 +101,26 @@
 	.back {
 		display: inline-block;
 		margin-bottom: 40px;
-		color: rgba(var(--on-surface-rgb), 0.7);
+		color: var(--on-surface-muted);
 		text-decoration: none;
 		font-size: 0.95rem;
 		transition: color 0.2s ease;
 	}
 	.back:hover {
-		color: var(--accent);
+		color: var(--accent-text);
 	}
 
 	h1 {
 		font-family: var(--font-heading);
 		font-size: 2.8rem;
 		margin: 0 0 16px 0;
-		color: var(--accent);
+		color: var(--heading);
 	}
 
 	.subtitle {
 		font-size: 1.1rem;
 		line-height: 1.7;
-		color: rgba(var(--on-surface-rgb), 0.85);
+		color: var(--on-surface-muted);
 		margin: 0 0 40px 0;
 	}
 	.subtitle strong {
@@ -131,14 +131,14 @@
 		display: flex;
 		gap: 8px;
 		margin-bottom: 24px;
-		border-bottom: 1px solid rgba(var(--on-surface-rgb), 0.15);
+		border-bottom: 1px solid var(--border);
 	}
 
 	.tab {
 		background: none;
 		border: none;
 		border-bottom: 2px solid transparent;
-		color: rgba(var(--on-surface-rgb), 0.6);
+		color: var(--on-surface-subtle);
 		font-family: var(--font-body);
 		font-size: 1rem;
 		font-weight: 700;
@@ -150,15 +150,16 @@
 		color: var(--on-surface);
 	}
 	.tab.active {
-		color: var(--accent);
+		color: var(--accent-text);
 		border-bottom-color: var(--accent);
 	}
 
 	.panel {
-		background: rgba(var(--on-surface-rgb), 0.04);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.1);
+		background: var(--surface-raised);
+		border: 1px solid var(--border);
 		border-radius: 16px;
 		padding: 40px;
+		box-shadow: var(--shadow-sm);
 	}
 
 	.panel h2 {
@@ -170,7 +171,7 @@
 
 	.panel p {
 		line-height: 1.7;
-		color: rgba(var(--on-surface-rgb), 0.85);
+		color: var(--on-surface-muted);
 		margin: 0 0 20px 0;
 	}
 
@@ -178,8 +179,8 @@
 		display: flex;
 		align-items: center;
 		gap: 12px;
-		background: rgba(var(--surface-rgb), 0.6);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.14);
+		background: var(--surface-deep);
+		border: 1px solid var(--border);
 		border-radius: 10px;
 		padding: 16px 18px;
 		margin-bottom: 20px;
@@ -195,7 +196,7 @@
 	.copy {
 		flex-shrink: 0;
 		background-color: var(--accent);
-		color: var(--on-accent, #1d4241);
+		color: var(--on-accent);
 		border: none;
 		border-radius: 8px;
 		padding: 8px 16px;
@@ -211,7 +212,7 @@
 	.download {
 		display: inline-block;
 		background-color: var(--accent);
-		color: var(--on-accent, #1d4241);
+		color: var(--on-accent);
 		padding: 14px 28px;
 		border-radius: 10px;
 		text-decoration: none;
@@ -227,7 +228,7 @@
 		font-size: 1.15rem;
 	}
 	.unavailable strong {
-		color: var(--accent);
+		color: var(--accent-text);
 	}
 
 	.notes {
@@ -236,18 +237,19 @@
 	}
 	.notes li {
 		line-height: 1.7;
-		color: rgba(var(--on-surface-rgb), 0.8);
+		color: var(--on-surface-muted);
 		margin-bottom: 10px;
 	}
 	.notes code {
 		font-family: 'SFMono-Regular', Consolas, monospace;
 		font-size: 0.85rem;
-		background: rgba(var(--on-surface-rgb), 0.1);
+		background: var(--surface-alt);
+		border: 1px solid var(--border);
 		padding: 2px 6px;
 		border-radius: 4px;
 	}
 	.notes a {
-		color: var(--accent);
+		color: var(--accent-text);
 		text-decoration: underline;
 	}
 

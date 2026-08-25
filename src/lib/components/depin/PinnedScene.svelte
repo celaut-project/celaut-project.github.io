@@ -1,0 +1,371 @@
+<script>
+	/*
+	 * PinnedScene — the engine behind every immersive DePIN section.
+	 *
+	 * WHAT IT DOES
+	 * ------------
+	 * Pins a full-height section with ScrollTrigger and converts the
+	 * pinned scroll distance into a normalised `progress` (0 → 1) that
+	 * drives two things at once:
+	 *
+	 *   1. A procedural <canvas> animation, via the `draw` prop. There
+	 *      are no frame-sequence assets for this site, so each scene is
+	 *      drawn from code and *scrubbed* by scroll — the same feel as a
+	 *      scroll-controlled image sequence, at a few KB instead of a
+	 *      few MB.
+	 *
+	 *   2. The caption slot, which receives `progress` so copy can be
+	 *      staged beat by beat as the visual builds.
+	 *
+	 * The canvas also tracks the pointer (`mouse`, in 0–1 scene space)
+	 * so scenes can react to the cursor, with a lerp so it glides
+	 * instead of snapping.
+	 *
+	 * GRACEFUL DEGRADATION
+	 * --------------------
+	 * • prefers-reduced-motion → no pin, no scrub, no RAF. The canvas is
+	 *   painted ONCE at its final state (progress = 1) and the caption
+	 *   slot renders every beat at full opacity, so the section becomes
+	 *   an ordinary illustrated block.
+	 * • Compact viewports → still pinned (so the story survives), but
+	 *   over a shorter scroll distance, with the caption stacked under
+	 *   the canvas rather than floating beside it.
+	 * • No JS / prerender → markup renders with `.is-static`, i.e. the
+	 *   readable final state. Nothing here depends on JS for content.
+	 */
+
+	import { onMount } from 'svelte';
+	import {
+		loadGsap,
+		prefersReducedMotion,
+		isCompactViewport,
+		fitCanvas,
+		onThemeChange,
+		cssVar
+	} from '$lib/motion.js';
+
+	/** Anchor id for in-page navigation. */
+	export let id = undefined;
+	/** Small eyebrow label rendered above the caption. */
+	export let label = '';
+	/** draw(ctx, { width, height, progress, palette, mouse, time }) */
+	export let draw = () => {};
+	/** Scroll distance for the pin, as a multiple of viewport height. */
+	export let scrollLength = 2.2;
+	/** Caption placement on desktop. */
+	export let align = 'left';
+
+	let root;
+	let canvasEl;
+	let progress = 0;
+	let motion = false;
+
+	onMount(() => {
+		const reduced = prefersReducedMotion();
+		motion = !reduced;
+
+		let raf = 0;
+		let ctx = null;
+		let width = 0;
+		let height = 0;
+		let palette = readPalette();
+		// Pointer in scene space (0–1). Starts centred so the first paint
+		// is never lopsided before the user moves the mouse.
+		const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, active: false };
+		let start = 0;
+
+		function readPalette() {
+			return {
+				node: cssVar('--viz-node', '#6fe3c4'),
+				link: cssVar('--viz-link', 'rgba(111,227,196,0.4)'),
+				grid: cssVar('--viz-grid', 'rgba(255,255,255,0.08)'),
+				warm: cssVar('--viz-warm', '#ef9c82'),
+				accent: cssVar('--accent', '#ef9c82'),
+				accentText: cssVar('--accent-text', '#f2a98f'),
+				surface: cssVar('--surface', '#12302e'),
+				surfaceDeep: cssVar('--surface-deep', '#0a1f1e'),
+				onSurface: cssVar('--on-surface', '#f2ece6'),
+				onSurfaceRgb: cssVar('--on-surface-rgb', '242, 236, 230')
+			};
+		}
+
+		function resize() {
+			if (!canvasEl) return;
+			const fitted = fitCanvas(canvasEl);
+			ctx = fitted.ctx;
+			width = fitted.width;
+			height = fitted.height;
+			render();
+		}
+
+		function render() {
+			if (!ctx) return;
+			ctx.clearRect(0, 0, width, height);
+			draw(ctx, {
+				width,
+				height,
+				progress,
+				palette,
+				mouse: { x: mouse.x, y: mouse.y, active: mouse.active },
+				time: (performance.now() - start) / 1000,
+				// Scenes compose their focal point AWAY from the caption, so
+				// the visual and the copy never fight for the same pixels.
+				align,
+				reduced
+			});
+		}
+
+		resize();
+		start = performance.now();
+
+		const stopThemeWatch = onThemeChange(() => {
+			palette = readPalette();
+			render();
+		});
+		// Observe the canvas itself (not the section): fitCanvas is
+		// layout-neutral, so this can't feed back into the section height.
+		const ro = new ResizeObserver(() => resize());
+		ro.observe(canvasEl);
+
+		// --- Reduced motion: single static paint, then we're done. ---
+		if (reduced) {
+			progress = 1;
+			render();
+			return () => {
+				ro.disconnect();
+				stopThemeWatch();
+			};
+		}
+
+		function onPointerMove(event) {
+			const rect = canvasEl.getBoundingClientRect();
+			mouse.tx = (event.clientX - rect.left) / Math.max(1, rect.width);
+			mouse.ty = (event.clientY - rect.top) / Math.max(1, rect.height);
+			mouse.active = true;
+		}
+		function onPointerLeave() {
+			mouse.tx = 0.5;
+			mouse.ty = 0.5;
+			mouse.active = false;
+		}
+		window.addEventListener('pointermove', onPointerMove, { passive: true });
+		root.addEventListener('pointerleave', onPointerLeave);
+
+		function loop() {
+			// Ease the pointer so cursor-reactive scenes glide.
+			mouse.x += (mouse.tx - mouse.x) * 0.08;
+			mouse.y += (mouse.ty - mouse.y) * 0.08;
+			render();
+			raf = requestAnimationFrame(loop);
+		}
+		raf = requestAnimationFrame(loop);
+
+		let cleanupGsap = () => {};
+		let cancelled = false;
+
+		loadGsap().then((bits) => {
+			if (!bits || cancelled || !root) return;
+			const { gsap, ScrollTrigger } = bits;
+			const compact = isCompactViewport();
+			const ctxScope = gsap.context(() => {
+				ScrollTrigger.create({
+					trigger: root,
+					start: 'top top',
+					end: `+=${Math.round((compact ? scrollLength * 0.7 : scrollLength) * 100)}%`,
+					pin: true,
+					pinSpacing: true,
+					anticipatePin: 1,
+					scrub: true,
+					invalidateOnRefresh: true,
+					onUpdate: (self) => {
+						progress = self.progress;
+					}
+				});
+			}, root);
+			cleanupGsap = () => ctxScope.revert();
+		});
+
+		return () => {
+			cancelled = true;
+			cancelAnimationFrame(raf);
+			window.removeEventListener('pointermove', onPointerMove);
+			root.removeEventListener('pointerleave', onPointerLeave);
+			ro.disconnect();
+			stopThemeWatch();
+			cleanupGsap();
+		};
+	});
+</script>
+
+<section
+	class="scene"
+	class:is-static={!motion}
+	class:align-right={align === 'right'}
+	class:align-center={align === 'center'}
+	bind:this={root}
+	{id}
+>
+	<canvas class="scene-canvas" bind:this={canvasEl} aria-hidden="true"></canvas>
+
+	<div class="scene-copy">
+		{#if label}
+			<p class="scene-label">{label}</p>
+		{/if}
+		<slot {progress} static={!motion} />
+	</div>
+
+	{#if motion}
+		<div class="scene-progress" aria-hidden="true">
+			<span class="scene-progress-fill" style={`transform: scaleX(${progress});`}></span>
+		</div>
+	{/if}
+</section>
+
+<style>
+	.scene {
+		position: relative;
+		min-height: 100vh;
+		min-height: 100svh;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		background: var(--surface-deep);
+		color: var(--on-surface);
+	}
+
+	.scene-canvas {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+		z-index: 0;
+	}
+
+	.scene-copy {
+		position: relative;
+		z-index: 1;
+		width: min(560px, 100%);
+		margin-left: clamp(24px, 8vw, 120px);
+		padding: 32px 0;
+	}
+
+	/* A soft radial scrim behind the caption. The canvas is deliberately
+	   composed on the opposite side, but nodes drift, so this guarantees
+	   the copy always has a clean field to sit on. */
+	.scene-copy::before {
+		content: '';
+		position: absolute;
+		inset: -14% -18%;
+		z-index: -1;
+		background: radial-gradient(
+			65% 55% at 40% 50%,
+			rgba(var(--surface-deep-rgb), 0.94) 0%,
+			rgba(var(--surface-deep-rgb), 0.8) 45%,
+			rgba(var(--surface-deep-rgb), 0) 100%
+		);
+		pointer-events: none;
+	}
+
+	.align-right .scene-copy::before {
+		background: radial-gradient(
+			65% 55% at 60% 50%,
+			rgba(var(--surface-deep-rgb), 0.94) 0%,
+			rgba(var(--surface-deep-rgb), 0.8) 45%,
+			rgba(var(--surface-deep-rgb), 0) 100%
+		);
+	}
+
+	.is-static .scene-copy::before {
+		display: none;
+	}
+
+	.align-right .scene-copy {
+		margin-left: auto;
+		margin-right: clamp(24px, 8vw, 120px);
+	}
+
+	.align-center .scene-copy {
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	.scene-label {
+		margin: 0 0 14px;
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--accent-text);
+	}
+
+	.scene-progress {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 3px;
+		background: var(--border);
+		z-index: 2;
+	}
+
+	.scene-progress-fill {
+		display: block;
+		height: 100%;
+		width: 100%;
+		transform-origin: 0 50%;
+		background: var(--accent);
+	}
+
+	/* Static / reduced-motion: normal document flow, canvas becomes a
+	   framed illustration above the copy instead of a full bleed. */
+	.is-static {
+		min-height: 0;
+		display: block;
+		padding: 64px 0;
+	}
+
+	/* Fixed, content-independent height so the canvas can never feed back
+	   into the section's own height (see fitCanvas in motion.js). */
+	.is-static .scene-canvas {
+		position: relative;
+		inset: auto;
+		height: min(52vh, 420px);
+		flex: none;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.is-static .scene-copy {
+		margin: 0 auto;
+		padding: 32px clamp(20px, 6vw, 40px) 0;
+		width: min(720px, 100%);
+	}
+
+	@media (max-width: 820px) {
+		.scene {
+			align-items: flex-end;
+		}
+
+		.scene-copy,
+		.align-right .scene-copy,
+		.align-center .scene-copy {
+			width: 100%;
+			margin: 0;
+			padding: 20px clamp(18px, 6vw, 28px) 56px;
+			/* A scrim keeps the caption readable over a busy canvas on
+			   small screens, where copy and visual must share the frame. */
+			background: linear-gradient(
+				to top,
+				rgba(var(--surface-deep-rgb), 0.97) 0%,
+				rgba(var(--surface-deep-rgb), 0.92) 55%,
+				rgba(var(--surface-deep-rgb), 0) 100%
+			);
+			text-align: left;
+		}
+
+		.is-static .scene-copy {
+			background: none;
+		}
+	}
+</style>

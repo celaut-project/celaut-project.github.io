@@ -35,9 +35,11 @@
 		inset: 0;
 	}
 
-	/* Base wash — cool star-light glow from the top (dark default). */
+	/* Base wash — cool star-light glow from the top (dark default). Toned down
+	   from 0.20 to 0.14: the dark surface is deeper now, so the old wash read as
+	   a blue haze sitting on top of the content instead of behind it. */
 	.ambient-gradient {
-		background: radial-gradient(130% 90% at 50% -25%, hsl(205 60% 62% / 0.2), transparent 62%);
+		background: radial-gradient(130% 90% at 50% -25%, hsl(175 55% 55% / 0.14), transparent 62%);
 		animation: ambient-drift 60s ease-in-out infinite alternate;
 	}
 
@@ -101,7 +103,7 @@
 		display: none;
 	}
 	:global(html[data-theme='light']) .ambient-gradient {
-		background: radial-gradient(130% 90% at 50% -25%, hsl(33 95% 62% / 0.22), transparent 62%);
+		background: radial-gradient(130% 90% at 50% -25%, hsl(33 95% 62% / 0.2), transparent 62%);
 	}
 
 	@keyframes ambient-drift {

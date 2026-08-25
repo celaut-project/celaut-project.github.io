@@ -62,13 +62,13 @@
     }
 
     .card {
-        background: rgba(var(--on-surface-rgb), 0.05);
-        border: 1px solid rgba(var(--on-surface-rgb), 0.1);
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
         padding: 60px;
         border-radius: 24px;
         margin: 0 auto;
         max-width: 1100px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-md);
     }
 
     h2 {
@@ -102,11 +102,11 @@
     .description-box p {
         margin: 0;
         line-height: 1.6;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
 
     .description-box p strong {
-        color: var(--on-surface);
+        color: var(--accent-text);
         font-weight: 600;
     }
 
@@ -130,8 +130,8 @@
         position: absolute;
         width: 84px;
         height: 84px;
-        background-color: rgba(var(--on-surface-rgb), 0.06);
-        border: 1px solid rgba(var(--on-surface-rgb), 0.2);
+        background-color: var(--surface-alt);
+        border: 1px solid var(--border-strong);
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -144,7 +144,7 @@
     /* Regla general de hover para los círculos que no se centran con transform */
     .circle:hover {
         transform: scale(1.1);
-        background-color: rgba(var(--on-surface-rgb), 0.14);
+        background-color: var(--accent-soft);
     }
     
     /* CORRECCIÓN: Regla específica para API que combina el centrado y la escala */
@@ -154,7 +154,7 @@
 
     h3.hovered,
     .circle.hovered {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 
     .circle :global(svg) {
@@ -182,7 +182,7 @@
         max-width: 800px;
         margin: 60px auto 0 auto;
         line-height: 1.7;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
 
     @media (max-width: 900px) {

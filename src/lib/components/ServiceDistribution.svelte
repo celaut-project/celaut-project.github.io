@@ -39,29 +39,24 @@
 </section>
 
 <style>
-    /* Bound to the global theme tokens so this section follows the toggle. */
-    :root {
-        --background-color: var(--surface);
-        --card-background: rgba(var(--on-surface-rgb), 0.04);
-        --feature-background: rgba(var(--on-surface-rgb), 0.06);
-        --text-color: var(--on-surface);
-        --subtle-text-color: rgba(var(--on-surface-rgb), 0.7);
-        --border-color: rgba(var(--on-surface-rgb), 0.12);
-    }
-
+    /* Reads the shared semantic tokens directly. (This component used to
+       re-declare a private --*-color palette inside a `:root` block in a
+       scoped <style>, which leaked to the document and made theme bugs hard
+       to trace.) */
     section {
         padding: 80px 20px;
-        background-color: var(--background-color);
+        background-color: var(--surface);
     }
 
     .card {
-        background-color: var(--card-background);
+        background-color: var(--surface-raised);
         padding: 60px;
         border-radius: 24px;
         max-width: 1100px;
         margin: 0 auto;
         text-align: center;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
     }
 
     h2 {
@@ -76,7 +71,7 @@
         margin: 0 auto 50px auto;
         font-size: 1.1rem;
         line-height: 1.7;
-        color: var(--subtle-text-color);
+        color: var(--on-surface-muted);
     }
 
     .features-grid {
@@ -87,10 +82,10 @@
     }
 
     .feature {
-        background-color: var(--feature-background);
+        background-color: var(--surface-alt);
         padding: 30px;
         border-radius: 16px;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border);
     }
     
     .icon-wrapper {
@@ -99,8 +94,8 @@
         border-radius: 12px; /* Ligeramente menos redondo */
         display: grid;
         place-items: center;
-        background-color: rgba(var(--on-surface-rgb), 0.08);
-        color: var(--text-color); /* El color del icono hereda de aquí */
+        background-color: var(--accent-soft);
+        color: var(--accent-text);
         margin-bottom: 20px;
     }
     
@@ -109,17 +104,17 @@
         margin-top: 0;
         margin-bottom: 15px;
         font-weight: 700;
-        color: var(--text-color);
+        color: var(--on-surface);
     }
 
     .feature p {
         margin: 0;
         line-height: 1.6;
-        color: var(--subtle-text-color);
+        color: var(--on-surface-muted);
     }
 
     strong {
-        color: var(--text-color);
+        color: var(--accent-text);
         font-weight: 600;
     }
 

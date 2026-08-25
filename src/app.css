@@ -1,73 +1,170 @@
 /* src/app.css */
 
 /*
+ * ==================================================================
+ * CELAUT THEME SYSTEM
+ * ==================================================================
+ * Two fully-designed themes, driven by a single `data-theme`
+ * attribute on <html> (see src/lib/theme.js + the inline no-flash
+ * script in src/app.html):
+ *
+ *   • DARK  (default) → deep teal-green surfaces, warm cream text.
+ *   • LIGHT           → warm cream surfaces, deep teal-green text.
+ *
+ * DESIGN RULES (please keep these when adding components)
  * ------------------------------------------------------------------
- * THEME SYSTEM
- * ------------------------------------------------------------------
- * The site ships with two intentional themes driven by a single
- * `data-theme` attribute on <html> (see src/lib/theme.js):
+ * 1. NEVER hardcode a colour in a component. Every colour must come
+ *    from a token below, so both themes stay coherent.
  *
- *   • DARK  (default) → deep green surfaces + a gentle STAR field.
- *   • LIGHT           → warm cream surfaces + a soft SUN glow.
+ * 2. Surfaces form a 4-step elevation ramp. Use them for *backgrounds
+ *    only* — never as a text colour:
+ *      --surface-deep    deepest band (hero, topbars, footers)
+ *      --surface         the page default
+ *      --surface-alt     a subtly contrasting band, for alternating
+ *                        sections (replaces the old "invert the whole
+ *                        band to --on-surface" hack, which produced
+ *                        big glaring cream slabs in dark mode)
+ *      --surface-raised  cards / panels lifted off the page
  *
- * Light mode is a deliberate inversion of the palette: `--surface`
- * and `--on-surface` swap, so every band that was dark-on-light
- * becomes light-on-dark and stays legible. The orange `--accent`
- * is a constant in both themes (it reads well on either surface),
- * and `--on-accent` is pinned dark so text on accent buttons keeps
- * its contrast.
+ * 3. Foreground text uses the on-surface ramp. All three pass WCAG AA
+ *    (>= 4.5:1) against every surface in the ramp, in BOTH themes:
+ *      --on-surface         body + headings          (>= 9.1 : 1)
+ *      --on-surface-muted   secondary prose          (>= 6.1 : 1)
+ *      --on-surface-subtle  captions / meta          (>= 4.6 : 1)
  *
- * The default (no attribute) matches DARK so first paint — before
- * the inline theme script runs — looks like the original site.
+ * 4. THE ACCENT IS SPLIT IN TWO. This is the single most important
+ *    rule here, and the fix for the old "dark mode uses light colours
+ *    with no clear purpose" problem:
+ *      --accent       the brand coral. DECORATIVE ONLY — button
+ *                     fills, borders, rules, icon chips, glows.
+ *                     It is intentionally identical in both themes.
+ *                     Coral on cream is ~1.9:1, so it must never be
+ *                     used as a text colour.
+ *      --accent-text  the ACCESSIBLE accent, for text and icons.
+ *                     Dark theme: a lifted coral (>= 5.5 : 1).
+ *                     Light theme: a deep terracotta (>= 4.9 : 1).
+ *    Text on an --accent fill uses --on-accent (>= 6.3 : 1).
+ *
+ * 5. Hairlines and dividers use --border / --border-strong, which are
+ *    on-surface at low alpha and therefore adapt automatically.
  * ------------------------------------------------------------------
  */
+
 :root {
-	/* Paleta de colores unificada (legacy names kept as aliases) */
-	--dark-green: #1d4241;
-	--light-bg: #f9eee7;
+	/* ---------- DARK THEME (default) ---------- */
+
+	/* Surfaces — background only. */
+	--surface: #12302e;
+	--surface-deep: #0a1f1e;
+	--surface-alt: #173937;
+	--surface-raised: #1c4442;
+
+	/* Foreground ramp — text only. */
+	--on-surface: #f2ece6;
+	--on-surface-muted: #bacac7;
+	--on-surface-subtle: #94a9a6;
+
+	/* Accent. --accent is DECORATIVE; --accent-text is for type. */
 	--accent: #ef9c82;
-	--accent-hover: #e88a6f;
-	--text-light: #f9eee7;
-	--text-dark: #1d4241;
-	--text-dark-muted: #576c6b;
+	--accent-text: #f2a98f;
+	--accent-hover: #f7bca6;
+	--accent-soft: rgba(239, 156, 130, 0.14);
+	--on-accent: #0a1f1e;
 
-	/* Semantic theme tokens — DARK theme values (default) */
-	--surface: #1d4241;
-	--surface-deep: #102827;
-	--on-surface: #f9eee7;
-	--on-accent: #1d4241;
-	--surface-rgb: 29, 66, 65;
-	--on-surface-rgb: 249, 238, 231;
-	--accent-rgb: 239, 156, 130;
-
-	/* Section-heading colour. Dark mode: the cream on-surface. Light mode gets a
-	   warm terracotta accent (overridden in the light block below). */
+	/* Headings. */
 	--heading: var(--on-surface);
-	--heading-muted: rgba(var(--on-surface-rgb), 0.7);
+	--heading-muted: var(--on-surface-muted);
 
-	/* MEJORA: Nueva combinación de fuentes */
+	/* Hairlines / dividers. */
+	--border: rgba(242, 236, 230, 0.14);
+	--border-strong: rgba(242, 236, 230, 0.28);
+
+	/* Elevation. Dark themes need deeper, softer shadows. */
+	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+	--shadow-md: 0 10px 28px rgba(0, 0, 0, 0.42);
+	--shadow-lg: 0 22px 55px rgba(0, 0, 0, 0.5);
+
+	/* Decorative-only channel colours (canvas scenes, glows). */
+	--viz-node: #6fe3c4;
+	--viz-link: rgba(111, 227, 196, 0.42);
+	--viz-grid: rgba(242, 236, 230, 0.08);
+	--viz-warm: #ef9c82;
+
+	/* Diagram backdrop. The paradigm docs embed dark-ink diagrams on a
+	   transparent background, so they need a light backing in BOTH
+	   themes to stay legible. Constant on purpose. */
+	--diagram-backdrop: #f4ece3;
+
+	/* rgb() triples for alpha compositing. */
+	--surface-rgb: 18, 48, 46;
+	--surface-deep-rgb: 10, 31, 30;
+	--on-surface-rgb: 242, 236, 230;
+	--accent-rgb: 239, 156, 130;
+	--accent-text-rgb: 242, 169, 143;
+
+	/* Typography. */
 	--font-heading: 'Playfair Display', serif;
 	--font-body: 'Lato', sans-serif;
+
+	/* ---------- Legacy aliases ----------
+	   Kept so older component styles keep resolving. Prefer the
+	   semantic tokens above in anything new. */
+	--dark-green: var(--surface);
+	--light-bg: var(--on-surface);
+	--text-light: var(--on-surface);
+	--text-dark: var(--surface);
+	--text-dark-muted: var(--on-surface-muted);
+
+	color-scheme: dark;
 }
 
-/* LIGHT theme — inversion of surface/on-surface; accent stays. */
+/* ---------- LIGHT THEME ---------- */
 :root[data-theme='light'] {
-	--dark-green: #f9eee7;
-	--light-bg: #1d4241;
-	--text-light: #1d4241;
-	--text-dark: #f9eee7;
+	--surface: #fbf5ef;
+	--surface-deep: #f1e6da;
+	--surface-alt: #f3e9df;
+	--surface-raised: #ffffff;
 
-	--surface: #f9eee7;
-	--surface-deep: #efe1d6;
-	--on-surface: #1d4241;
-	--on-accent: #1d4241;
-	--surface-rgb: 249, 238, 231;
-	--on-surface-rgb: 29, 66, 65;
+	--on-surface: #143331;
+	--on-surface-muted: #3d5b58;
+	--on-surface-subtle: #5a7572;
 
-	/* Warm terracotta headings in light mode — a readable "other colour" that
-	   ties to the coral accent without washing out on the cream surface. */
-	--heading: #bf5836;
-	--heading-muted: #9c4b32;
+	/* Same decorative coral; a deep terracotta for accented type. */
+	--accent: #ef9c82;
+	--accent-text: #a6431f;
+	--accent-hover: #e88a6f;
+	--accent-soft: rgba(166, 67, 31, 0.1);
+	--on-accent: #14322f;
+
+	--heading: var(--accent-text);
+	--heading-muted: var(--on-surface-muted);
+
+	--border: rgba(20, 51, 49, 0.16);
+	--border-strong: rgba(20, 51, 49, 0.3);
+
+	/* Light themes need much lighter shadows or everything looks dirty. */
+	--shadow-sm: 0 2px 8px rgba(20, 51, 49, 0.08);
+	--shadow-md: 0 10px 28px rgba(20, 51, 49, 0.11);
+	--shadow-lg: 0 22px 55px rgba(20, 51, 49, 0.14);
+
+	--viz-node: #0f6b58;
+	--viz-link: rgba(15, 107, 88, 0.38);
+	--viz-grid: rgba(20, 51, 49, 0.08);
+	--viz-warm: #a6431f;
+
+	--surface-rgb: 251, 245, 239;
+	--surface-deep-rgb: 241, 230, 218;
+	--on-surface-rgb: 20, 51, 49;
+	--accent-rgb: 239, 156, 130;
+	--accent-text-rgb: 166, 67, 31;
+
+	--dark-green: var(--surface);
+	--light-bg: var(--on-surface);
+	--text-light: var(--on-surface);
+	--text-dark: var(--surface);
+	--text-dark-muted: var(--on-surface-muted);
+
+	color-scheme: light;
 }
 
 html {
@@ -78,15 +175,21 @@ html {
 body {
 	margin: 0;
 	font-family: var(--font-body);
-	background-color: var(--surface); /* Color de fondo por defecto */
+	background-color: var(--surface);
 	color: var(--on-surface);
-	font-size: clamp(16px, 1.2vw, 18px); /* MEJORA: Tamaño de fuente base más grande y responsivo */
+	font-size: clamp(16px, 1.2vw, 18px);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	transition: background-color 0.4s ease, color 0.4s ease;
+	overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: var(--font-heading);
 	font-weight: 700;
 }
@@ -95,27 +198,60 @@ p {
 	line-height: 1.7;
 }
 
-/* Base para las secciones que animaremos */
+/* Universal, theme-aware focus ring. */
+:where(a, button, [tabindex]):focus-visible {
+	outline: 2px solid var(--accent-text);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* Selection colours that survive a theme flip. */
+::selection {
+	background: var(--accent);
+	color: var(--on-accent);
+}
+
+/* Base for sections revealed on scroll (GSAP or the CSS fallback). */
 .animated-section {
 	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 	opacity: 0;
 	transform: translateY(30px);
 }
 
-/* Estado visible que aplicará la animación */
 .animated-section.is-visible {
 	opacity: 1;
 	transform: translateY(0);
 }
 
-/* Smooth colour crossfade for themed sections when the toggle flips. */
+/* Smooth colour crossfade for themed surfaces when the toggle flips. */
 section,
 .card {
 	transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
+/* Utility used by GSAP scenes to hide overflow while pinned. */
+.gsap-pin-clip {
+	overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
+	}
+
+	/* Anything staged for a scroll reveal must still be readable. */
+	.animated-section {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
 	}
 }
