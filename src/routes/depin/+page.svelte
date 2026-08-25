@@ -21,9 +21,10 @@
 	 */
 
 	import { onMount } from 'svelte';
-	import DepinHero from '$lib/components/depin/DepinHero.svelte';
-	import PinnedScene from '$lib/components/depin/PinnedScene.svelte';
-	import SceneBeat from '$lib/components/depin/SceneBeat.svelte';
+	import SiteTopbar from '$lib/components/immersive/SiteTopbar.svelte';
+	import ImmersiveHero from '$lib/components/immersive/ImmersiveHero.svelte';
+	import PinnedScene from '$lib/components/immersive/PinnedScene.svelte';
+	import SceneBeat from '$lib/components/immersive/SceneBeat.svelte';
 	import {
 		drawRentScene,
 		drawP2PScene,
@@ -93,6 +94,17 @@
 			body: `Payment and reputation settle on Ergo as each execution finishes.
 			Contribution is rewarded; results stay auditable.`
 		}
+	];
+
+	const heroStats = [
+		{ value: '100%', label: 'peer-to-peer — no company in the middle' },
+		{ value: 'You', label: 'set the price, factoring in your power bill' },
+		{ value: 'microVM', label: 'isolation for every workload you host' }
+	];
+
+	const heroActions = [
+		{ label: 'Start renting your PC', href: '/install', primary: true },
+		{ label: 'See how it works', href: '#rent' }
 	];
 
 	let motion = false;
@@ -166,13 +178,18 @@
 </svelte:head>
 
 <div id="top" class="depin-page">
-	<header class="topbar">
-		<a class="home-link" href="/">← Back to home</a>
-		<span class="topbar-title">Rent your PC</span>
-	</header>
+	<SiteTopbar title="Rent your PC" />
 
 	<main>
-		<DepinHero />
+		<ImmersiveHero
+			eyebrow="Celaut DePIN"
+			title="Rent your PC."
+			tagline="Sell your computer's resources when you're not using them."
+			lede="Your machine spends most of the day idle. Celaut turns that unused capacity into something people pay for — directly, on your terms, with every workload sealed away from your system."
+			actions={heroActions}
+			stats={heroStats}
+			firstSceneId="rent"
+		/>
 
 		<!-- ================= SCENE 1 — Rent your PC ================= -->
 		<PinnedScene
@@ -378,6 +395,7 @@
 							host, discover and scale it. Reproducibility comes from the design, not from a
 							provider's SLA.
 						</p>
+						<a class="role-link" href="/developers">For developers →</a>
 					</div>
 					<div class="role">
 						<h3>Agents &amp; users</h3>
@@ -386,6 +404,7 @@
 							account, no lock-in — and the seal proves you got exactly the software you
 							asked for.
 						</p>
+						<a class="role-link" href="/users">For final users →</a>
 					</div>
 					<div class="role">
 						<h3>Hosts</h3>
@@ -421,41 +440,6 @@
 		color: var(--on-surface);
 		min-height: 100vh;
 		font-family: var(--font-body);
-	}
-
-	.topbar {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-		padding: 14px 24px;
-		background-color: rgba(var(--surface-deep-rgb), 0.82);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		color: var(--on-surface);
-		border-bottom: 1px solid var(--border);
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 40;
-	}
-
-	.home-link {
-		color: var(--on-surface);
-		text-decoration: none;
-		font-weight: 700;
-		white-space: nowrap;
-	}
-
-	.home-link:hover {
-		color: var(--accent-text);
-	}
-
-	.topbar-title {
-		font-family: var(--font-heading);
-		font-weight: 700;
-		font-size: 1.05rem;
-		color: var(--on-surface);
 	}
 
 	/* Caption beats cross-fade in the same grid cell while pinned; in the
@@ -598,6 +582,19 @@
 		color: var(--on-surface-muted);
 	}
 
+	.role-link {
+		display: inline-block;
+		margin-top: 12px;
+		font-weight: 700;
+		color: var(--accent-text);
+		text-decoration: none;
+		border-bottom: 1px solid var(--accent);
+	}
+
+	.role-link:hover {
+		color: var(--on-surface);
+	}
+
 	.cta {
 		margin-top: 72px;
 		text-align: center;
@@ -681,10 +678,6 @@
 	}
 
 	@media (max-width: 600px) {
-		.topbar-title {
-			display: none;
-		}
-
 		.flow-num {
 			width: 46px;
 			height: 46px;
