@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import SiteTopbar from '$lib/components/immersive/SiteTopbar.svelte';
 
 	const LINUX_CMD =
 		"curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/celaut-project/nodo/stable/install.sh | sudo bash";
@@ -33,10 +34,10 @@
 	<meta name="description" content="Install a Celaut node (nodo) on Linux, Windows, or macOS." />
 </svelte:head>
 
+<SiteTopbar title="Install nodo" position="sticky" />
+
 <main>
 	<section>
-		<a class="back" href="/">← Back to Celaut</a>
-
 		<h1>Run a Celaut Node</h1>
 		<p class="subtitle">
 			Install <strong>nodo</strong> and join the decentralized network — discover peers, execute and
@@ -90,24 +91,13 @@
 		color: var(--on-surface);
 		display: flex;
 		justify-content: center;
-		padding: 100px 20px 80px;
+		/* The topbar is sticky and in flow, so no top offset is needed. */
+		padding: 56px 20px 80px;
 	}
 
 	section {
 		width: 100%;
 		max-width: 780px;
-	}
-
-	.back {
-		display: inline-block;
-		margin-bottom: 40px;
-		color: var(--on-surface-muted);
-		text-decoration: none;
-		font-size: 0.95rem;
-		transition: color 0.2s ease;
-	}
-	.back:hover {
-		color: var(--accent-text);
 	}
 
 	h1 {

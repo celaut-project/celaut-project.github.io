@@ -180,24 +180,34 @@ export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse
 		ctx.save();
 		ctx.globalAlpha = appear;
 
-		// The "before" shape morphs toward a rounded square as `f` runs:
-		// a circle, a triangle, a wide bar and a tall bar all converge.
+		// The "before" shape morphs toward the identical sealed square as
+		// `f` runs. Four visibly different starting shapes — a disc, a wide
+		// slab, a tall column and a triangle — all converge on the same
+		// thing, which is the whole point of the beat.
 		ctx.strokeStyle = f > 0.7 ? palette.node : palette.warm;
 		ctx.lineWidth = 2 * Math.max(1, scale * 0.7);
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.05);
-		const inset = cellW * 0.12 * (1 - f);
 		if (i === 0) {
-			// circle → square
+			// Disc → square: interpolate the corner radius.
 			const rr = (cellW / 2) * (1 - f) + 6 * f;
-			roundRect(ctx, x + inset, y + inset, cellW - inset * 2, cellH - inset * 2, rr);
+			roundRect(ctx, x, y + (cellH - cellW) / 2 + ((cellW - cellH) / 2) * f, cellW, cellW + (cellH - cellW) * f, rr);
 		} else if (i === 1) {
-			const w = cellW * (0.55 + 0.45 * f);
-			roundRect(ctx, x + (cellW - w) / 2, y + inset, w, cellH - inset * 2, 6);
+			// Wide slab → square.
+			const h = cellH * (0.34 + 0.66 * f);
+			roundRect(ctx, x, y + (cellH - h) / 2, cellW, h, 6);
 		} else if (i === 2) {
-			const h = cellH * (0.48 + 0.52 * f);
-			roundRect(ctx, x + inset, y + (cellH - h) / 2, cellW - inset * 2, h, 6);
+			// Tall column → square.
+			const w = cellW * (0.36 + 0.64 * f);
+			roundRect(ctx, x + (cellW - w) / 2, y, w, cellH, 6);
 		} else {
-			roundRect(ctx, x + inset * 1.4, y + inset * 0.4, cellW - inset * 2.8, cellH - inset * 0.8, 6);
+			// Triangle → square: the apex splits into two top corners.
+			const apex = (cellW / 2) * (1 - f);
+			ctx.beginPath();
+			ctx.moveTo(x + cellW / 2 - apex, y);
+			ctx.lineTo(x + cellW / 2 + apex, y);
+			ctx.lineTo(x + cellW, y + cellH);
+			ctx.lineTo(x, y + cellH);
+			ctx.closePath();
 		}
 		ctx.fill();
 		ctx.stroke();
@@ -427,15 +437,17 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 	}
 
 	// --- Children, placed wherever they fit ---
+	// The arc is sized against the stage HALF, not the full canvas, so a
+	// child never drifts under the caption column.
 	const kids = compact ? 3 : 4;
-	const spread = Math.min(width * (compact ? 0.36 : 0.2), height * 0.3);
+	const spread = Math.min(width * (compact ? 0.34 : 0.15), height * 0.28);
 	const p = smoothstep(place);
 	for (let i = 0; i < kids; i++) {
 		const t = smoothstep(clamp(place * 1.4 - i * 0.1));
 		if (t <= 0) continue;
-		const ang = Math.PI * (0.18 + (i / (kids - 1)) * 0.64);
+		const ang = Math.PI * (0.2 + (i / (kids - 1)) * 0.6);
 		const kx = cx + Math.cos(ang) * spread * 1.25;
-		const ky = nodeY + Math.sin(ang) * spread * 0.95;
+		const ky = nodeY + Math.sin(ang) * spread * 1.05;
 		const kw = pw * 0.44;
 
 		ctx.save();
@@ -468,8 +480,9 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 		const f = smoothstep(blind);
 		ctx.save();
 		// A dashed "visibility line": below it, placement is the node's
-		// business and the parent simply cannot see it.
-		const bandY = nodeY + spread * 0.1;
+		// business and the parent simply cannot see it. Sits clear of the
+		// node glyph and its caption.
+		const bandY = nodeY + nodeR + 44;
 		ctx.globalAlpha = f * 0.5;
 		ctx.strokeStyle = rgba(palette.onSurfaceRgb, 0.5);
 		ctx.lineWidth = 1.4;
@@ -480,7 +493,18 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 		ctx.stroke();
 		ctx.setLineDash([]);
 		ctx.restore();
-		label(ctx, 'you never find out where', cx, bandY - 12, palette, f * 0.85, compact ? 10 : 12, 700);
+		// Offset to the side so it can't collide with the node glyph and
+		// its own "its node" caption sitting on the vertical axis.
+		label(
+			ctx,
+			'you never find out where',
+			cx - spread * (compact ? 0 : 0.85),
+			bandY - 14,
+			palette,
+			f * 0.85,
+			compact ? 10 : 12,
+			700
+		);
 
 		// Results still come back up the chain.
 		for (let i = 0; i < 3; i++) {

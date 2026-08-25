@@ -4,16 +4,22 @@
 	// Landing-page table of contents. Desktop: a sticky vertical rail on the
 	// left (dot + label). Mobile: a floating button that opens a compact menu.
 	// Active section is tracked with an IntersectionObserver.
+	//
+	// Order mirrors the page: the six pinned scenes first, then the
+	// audience fork, then the grounded detail sections.
 	const sections = [
 		{ id: 'foundations', label: 'Foundations' },
-		{ id: 'core-principles', label: 'Core Principles' },
-		{ id: 'what-is-not', label: 'What It Is Not' },
 		{ id: 'nodes', label: 'Nodes' },
 		{ id: 'services', label: 'Services' },
 		{ id: 'service-spec', label: 'Service Spec' },
+		{ id: 'determinism', label: 'Determinism' },
 		{ id: 'coordination', label: 'Coordination' },
+		{ id: 'user-roles', label: 'Which one are you?' },
+		{ id: 'core-principles', label: 'Core Principles' },
+		{ id: 'what-is-not', label: 'What It Is Not' },
+		{ id: 'implementations', label: 'Implementations' },
+		{ id: 'coordination-detail', label: 'Incentives' },
 		{ id: 'service-distribution', label: 'Service Distribution' },
-		{ id: 'user-roles', label: 'User Roles' },
 		{ id: 'applications', label: 'Applications' }
 	];
 

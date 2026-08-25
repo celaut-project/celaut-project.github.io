@@ -110,12 +110,13 @@
         target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     }
 
-    // "Start to use it" glides to the Applications section so visitors can pick
-    // how they want to jump in (run a node, build/use skills) rather than being
-    // dropped straight onto the install page.
-    function scrollToApps(event) {
+    // "Start to use it" glides to the audience fork, where visitors pick the
+    // role that matches them (node maintainer / developer / user) and leave
+    // for the dedicated page, rather than being dropped onto /install.
+    function scrollToRoles(event) {
         event.preventDefault();
-        const target = document.getElementById('applications');
+        const target =
+            document.getElementById('user-roles') || document.getElementById('applications');
         if (!target) return;
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
@@ -252,7 +253,7 @@
         </div>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
-            <a class="button primary" href="#applications" on:click={scrollToApps}>Start to use it</a>
+            <a class="button primary" href="#user-roles" on:click={scrollToRoles}>Start to use it</a>
             <a
                 class="button secondary"
                 href="#foundations"

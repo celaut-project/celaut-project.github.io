@@ -43,7 +43,10 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 	const offers = range(progress, 0.42, 0.72); // peers quote a price
 	const pick = range(progress, 0.68, 1.0); // one direct link remains
 
-	const radius = Math.min(width * (compact ? 0.34 : 0.185), height * 0.36);
+	// Sized against the stage HALF, with room left over for the price
+	// chips that sit just outside each peer, so nothing lands under the
+	// caption column or off the right edge.
+	const radius = Math.min(width * (compact ? 0.3 : 0.155), height * 0.32);
 	const N = compact ? 6 : 8;
 	const chosen = 2;
 	const peers = [];
@@ -118,8 +121,8 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 		// A quote chip: what this peer wants to run it.
 		const o = smoothstep(clamp(offers * 1.35 - i * 0.06));
 		if (o > 0) {
-			const px = p.x + (p.x - cx) * 0.26;
-			const py = p.y + (p.y - cy) * 0.26;
+			const px = p.x + (p.x - cx) * 0.3;
+			const py = p.y + (p.y - cy) * 0.3;
 			const w = compact ? 44 : 54;
 			ctx.save();
 			ctx.globalAlpha = o * fade;
@@ -363,11 +366,19 @@ export function drawSealedScene(ctx, { width, height, progress, palette, mouse, 
 	// --- Two outside parties reaching in, and failing ---
 	if (probe > 0) {
 		const f = smoothstep(probe) * (1 - destroyF);
+		// Both probe origins stay inside the stage half: the left one must
+		// clear the caption column, the right one the viewport edge.
 		const sides = [
-			{ sx: bx - boxW * 0.95, sy: by - boxH * 0.35, hx: bx, hy: by + boxH * 0.35, name: 'the developer' },
 			{
-				sx: bx + boxW * 1.95,
-				sy: by + boxH * 1.3,
+				sx: bx - boxW * 0.52,
+				sy: by - boxH * 0.5,
+				hx: bx,
+				hy: by + boxH * 0.34,
+				name: 'the developer'
+			},
+			{
+				sx: bx + boxW * 1.52,
+				sy: by + boxH * 1.5,
 				hx: bx + boxW,
 				hy: by + boxH * 0.66,
 				name: 'the host machine'
@@ -537,7 +548,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.font = `700 ${compact ? 10 : 12}px Lato, sans-serif`;
 		ctx.textAlign = 'center';
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.7);
-		ctx.fillText('job ends — charging stops', stopX + 4, oy + chartH + 26);
+		ctx.fillText('job ends — charging stops', stopX + 4, oy + chartH + 32);
 		ctx.textAlign = 'left';
 		ctx.restore();
 	}

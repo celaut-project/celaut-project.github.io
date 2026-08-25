@@ -16,6 +16,12 @@
 
 	/** Page title shown next to the wordmark. */
 	export let title = '';
+	/**
+	 * `fixed` floats the bar over full-bleed canvases (the immersive
+	 * pages). `sticky` keeps it in flow, which is what a normal document
+	 * page like /paradigm or /install wants.
+	 */
+	export let position = 'fixed';
 
 	const links = [
 		{ href: '/depin', label: 'Rent your PC' },
@@ -27,7 +33,7 @@
 	$: current = $page.url.pathname.replace(/\/$/, '') || '/';
 </script>
 
-<header class="topbar">
+<header class="topbar" class:sticky={position === 'sticky'}>
 	<a class="home-link" href="/">
 		<span aria-hidden="true">←</span>
 		<span class="wordmark">CELAUT</span>
@@ -69,6 +75,15 @@
 		left: 0;
 		right: 0;
 		z-index: 40;
+	}
+
+	.topbar.sticky {
+		position: sticky;
+		left: auto;
+		right: auto;
+		z-index: 10;
+		/* In flow it sits on a solid page, so it can be opaque. */
+		background-color: var(--surface-deep);
 	}
 
 	.home-link {
