@@ -17,83 +17,19 @@
  * single static paint at progress = 1 is a valid reduced-motion
  * fallback.
  *
- * Deterministic pseudo-randomness only — `rand(i)` below — so the
- * layout never jitters between frames or between renders.
+ * The shared primitives (rand/rgba/roundRect/backdrop/stage, and the
+ * hero peer field) now live in $lib/components/immersive/scene-kit.js
+ * because /, /developers and /users draw with the same toolbox.
  */
 
 import { clamp, range, smoothstep } from '$lib/motion.js';
-
-/** Stable hash-based "random" in [0,1); same input → same output. */
-function rand(i) {
-	const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
-	return x - Math.floor(x);
-}
-
-/** `rgba()` from an "r, g, b" triple string plus alpha. */
-function rgba(triple, alpha) {
-	return `rgba(${triple}, ${alpha})`;
-}
-
-/** Rounded rectangle path (older Safari lacks ctx.roundRect). */
-function roundRect(ctx, x, y, w, h, r) {
-	const radius = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
-	ctx.beginPath();
-	ctx.moveTo(x + radius, y);
-	ctx.lineTo(x + w - radius, y);
-	ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-	ctx.lineTo(x + w, y + h - radius);
-	ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-	ctx.lineTo(x + radius, y + h);
-	ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-	ctx.lineTo(x, y + radius);
-	ctx.quadraticCurveTo(x, y, x + radius, y);
-	ctx.closePath();
-}
-
-/** Faint dot-grid backdrop shared by every scene. */
-function backdrop(ctx, width, height, palette, progress, mouse, align = 'left') {
-	const step = 46;
-	const px = (mouse.x - 0.5) * 18;
-	const py = (mouse.y - 0.5) * 18;
-	ctx.save();
-	ctx.fillStyle = palette.grid;
-	for (let x = -step; x < width + step; x += step) {
-		for (let y = -step; y < height + step; y += step) {
-			// Parallax the grid slightly toward the cursor for depth.
-			const dx = x + px;
-			const dy = y + py;
-			ctx.beginPath();
-			ctx.arc(dx, dy, 1.1, 0, Math.PI * 2);
-			ctx.fill();
-		}
-	}
-	// A soft horizon glow behind the focal point, brightening as the
-	// scene resolves. Tracks the stage side so it never lights up the
-	// area the caption occupies.
-	const gx = width * (align === 'right' ? 0.34 : 0.66);
-	const glow = ctx.createRadialGradient(gx, height * 0.5, 0, gx, height * 0.5, Math.max(width, height) * 0.6);
-	glow.addColorStop(0, rgba(palette.onSurfaceRgb, 0.05 + 0.05 * smoothstep(progress)));
-	glow.addColorStop(1, 'rgba(0,0,0,0)');
-	ctx.fillStyle = glow;
-	ctx.fillRect(0, 0, width, height);
-	ctx.restore();
-}
-
-/**
- * Layout anchor. The caption occupies one side of the pinned section, so
- * the visual composes into the OTHER side: `align: 'left'` copy → stage
- * on the right, and vice versa. On compact viewports the copy sits in a
- * scrim along the bottom, so the stage centres and rides high instead.
- */
-function stage(width, height, align = 'left') {
-	const compact = width < 820;
-	return {
-		compact,
-		cx: compact ? width * 0.5 : width * (align === 'right' ? 0.32 : 0.68),
-		cy: compact ? height * 0.3 : height * 0.5,
-		scale: Math.min(compact ? width / 460 : width / 1500, height / 760) * (compact ? 1 : 1.3)
-	};
-}
+import {
+	rand,
+	rgba,
+	roundRect,
+	backdrop,
+	stage
+} from '$lib/components/immersive/scene-kit.js';
 
 /* ==================================================================
  * SCENE 1 — "Rent your PC"
@@ -746,78 +682,6 @@ export function drawIsolationScene(ctx, { width, height, progress, palette, mous
 			ctx.arc(hitX, hitY, 6 + 14 * b, 0, Math.PI * 2);
 			ctx.fill();
 		}
-		ctx.restore();
-	}
-}
-
-/* ==================================================================
- * HERO — cursor-reactive peer field
- * Not scroll-scrubbed; this one just breathes and follows the pointer,
- * so the very first thing on the page already feels alive.
- * ================================================================== */
-export function drawHeroField(ctx, { width, height, palette, mouse, time, progress }) {
-	const N = width < 820 ? 26 : 46;
-	const mx = mouse.x * width;
-	const my = mouse.y * height;
-	const pts = [];
-
-	for (let i = 0; i < N; i++) {
-		const bx = rand(i) * width;
-		const by = rand(i + 100) * height;
-		const drift = 18 + rand(i + 200) * 26;
-		let x = bx + Math.sin(time * 0.22 + i * 1.3) * drift;
-		let y = by + Math.cos(time * 0.19 + i * 0.9) * drift;
-		// Nodes lean toward the cursor — the network notices you.
-		const dx = mx - x;
-		const dy = my - y;
-		const d = Math.hypot(dx, dy) || 1;
-		if (d < 260) {
-			const pull = (1 - d / 260) * 26;
-			x += (dx / d) * pull;
-			y += (dy / d) * pull;
-		}
-		pts.push({ x, y, r: 1.6 + rand(i + 300) * 2.4, d });
-	}
-
-	// Links between near neighbours.
-	ctx.save();
-	ctx.lineWidth = 1;
-	for (let i = 0; i < N; i++) {
-		for (let j = i + 1; j < N; j++) {
-			const dx = pts[i].x - pts[j].x;
-			const dy = pts[i].y - pts[j].y;
-			const d = Math.hypot(dx, dy);
-			const max = width < 820 ? 130 : 175;
-			if (d > max) continue;
-			ctx.globalAlpha = (1 - d / max) * 0.4;
-			ctx.strokeStyle = palette.link;
-			ctx.beginPath();
-			ctx.moveTo(pts[i].x, pts[i].y);
-			ctx.lineTo(pts[j].x, pts[j].y);
-			ctx.stroke();
-		}
-	}
-	ctx.restore();
-
-	pts.forEach((p, i) => {
-		const near = p.d < 260;
-		ctx.save();
-		ctx.globalAlpha = near ? 0.95 : 0.5;
-		ctx.fillStyle = i % 6 === 0 ? palette.accent : palette.node;
-		ctx.beginPath();
-		ctx.arc(p.x, p.y, p.r * (near ? 1.5 : 1), 0, Math.PI * 2);
-		ctx.fill();
-		ctx.restore();
-	});
-
-	// A halo tracking the cursor, so the reaction is unmistakable.
-	if (mouse.active) {
-		const g = ctx.createRadialGradient(mx, my, 0, mx, my, 230);
-		g.addColorStop(0, rgba(palette.onSurfaceRgb, 0.07));
-		g.addColorStop(1, 'rgba(0,0,0,0)');
-		ctx.save();
-		ctx.fillStyle = g;
-		ctx.fillRect(0, 0, width, height);
 		ctx.restore();
 	}
 }

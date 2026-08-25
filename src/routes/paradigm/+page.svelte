@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { marked } from 'marked';
+	import SiteTopbar from '$lib/components/immersive/SiteTopbar.svelte';
 	import readme from '$lib/paradigm/README.md?raw';
 	import execution from '$lib/paradigm/execution_of_a_service.md?raw';
 	import balancer from '$lib/paradigm/service_balancer.md?raw';
@@ -90,10 +91,7 @@
 </svelte:head>
 
 <div id="top" class="paradigm-page">
-	<header class="topbar">
-		<a class="home-link" href="/">← Back to home</a>
-		<span class="topbar-title">Celaut — Formal Paper</span>
-	</header>
+	<SiteTopbar title="Formal Paper" position="sticky" />
 
 	<main class="prose">
 		<nav class="toc" aria-label="Table of contents">
@@ -120,36 +118,6 @@
 		font-family: var(--font-body, 'Lato', sans-serif);
 	}
 
-	.topbar {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-		padding: 16px 24px;
-		background-color: var(--surface-deep);
-		color: var(--on-surface);
-		border-bottom: 1px solid var(--border);
-		position: sticky;
-		top: 0;
-		z-index: 10;
-	}
-
-	.home-link {
-		color: var(--on-surface);
-		text-decoration: none;
-		font-weight: 700;
-		white-space: nowrap;
-	}
-
-	.home-link:hover {
-		color: var(--accent-text);
-	}
-
-	.topbar-title {
-		font-family: var(--font-heading, 'Playfair Display', serif);
-		font-weight: 700;
-		font-size: 1.1rem;
-		color: var(--on-surface);
-	}
 
 	.prose {
 		max-width: 820px;
@@ -318,9 +286,4 @@
 		transform: translateY(-2px);
 	}
 
-	@media (max-width: 600px) {
-		.topbar-title {
-			display: none;
-		}
-	}
 </style>

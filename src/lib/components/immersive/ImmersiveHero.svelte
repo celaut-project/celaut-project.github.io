@@ -1,6 +1,8 @@
 <script>
 	/*
-	 * DepinHero — the "Rent your PC" opener.
+	 * ImmersiveHero — the opener shared by every immersive page
+	 * (/depin, /developers, /users). All copy is passed in as props so
+	 * the motion behaviour lives in exactly one place.
 	 *
 	 * Two motion layers, both optional:
 	 *   1. A cursor-reactive peer field on <canvas> (drawHeroField).
@@ -16,7 +18,7 @@
 	 */
 
 	import { onMount } from 'svelte';
-	import { drawHeroField } from './scenes.js';
+	import { drawHeroField } from './scene-kit.js';
 	import {
 		loadGsap,
 		prefersReducedMotion,
@@ -26,6 +28,21 @@
 		scrollTo
 	} from '$lib/motion.js';
 
+	/** Small uppercase label above the headline. */
+	export let eyebrow = '';
+	/** The headline itself. */
+	export let title = '';
+	/** One-line promise under the headline. */
+	export let tagline = '';
+	/** Supporting paragraph. */
+	export let lede = '';
+	/** [{ label, href, external?, primary? }] */
+	export let actions = [];
+	/** [{ value, label }] — the three-up stat row. */
+	export let stats = [];
+	/** Anchor id of the first pinned scene, for the "see how" jump. */
+	export let firstSceneId = '';
+
 	let root;
 	let canvasEl;
 	let layerTitle;
@@ -33,15 +50,10 @@
 	let layerStats;
 	let layerScroll;
 
-	const stats = [
-		{ value: '100%', label: 'peer-to-peer — no company in the middle' },
-		{ value: 'You', label: 'set the price, factoring in your power bill' },
-		{ value: 'microVM', label: 'isolation for every workload you host' }
-	];
-
 	function jumpToFirstScene(event) {
+		if (!firstSceneId) return;
 		event.preventDefault();
-		scrollTo('#rent');
+		scrollTo(`#${firstSceneId}`);
 	}
 
 	onMount(() => {
@@ -130,8 +142,9 @@
 			if (!bits || cancelled || !root) return;
 			const { gsap } = bits;
 			const scope = gsap.context(() => {
-				// Entrance.
-				gsap.from([layerTitle, layerSub, layerStats], {
+				// Entrance. `stats` is optional, so filter out missing layers
+				// rather than handing GSAP an undefined target.
+				gsap.from([layerTitle, layerSub, layerStats].filter(Boolean), {
 					y: 34,
 					opacity: 0,
 					duration: 0.9,
@@ -151,8 +164,21 @@
 					})
 					.to(layerTitle, { y: -140, opacity: 0.15, ease: 'none' }, 0)
 					.to(layerSub, { y: -90, opacity: 0.1, ease: 'none' }, 0)
-					.to(layerStats, { y: -50, opacity: 0, ease: 'none' }, 0)
 					.to(canvasEl, { y: 90, opacity: 0.35, ease: 'none' }, 0);
+
+				if (layerStats) {
+					gsap.to(layerStats, {
+						y: -50,
+						opacity: 0,
+						ease: 'none',
+						scrollTrigger: {
+							trigger: root,
+							start: 'top top',
+							end: 'bottom top',
+							scrub: 0.6
+						}
+					});
+				}
 
 				if (layerScroll) {
 					gsap.to(layerScroll, {
@@ -184,31 +210,56 @@
 
 	<div class="hero-inner">
 		<div bind:this={layerTitle}>
-			<p class="eyebrow">Celaut DePIN</p>
-			<h1>Rent your PC.</h1>
-			<p class="tagline">Sell your computer's resources when you're not using them.</p>
+			{#if eyebrow}<p class="eyebrow">{eyebrow}</p>{/if}
+			<h1>{title}</h1>
+			{#if tagline}<p class="tagline">{tagline}</p>{/if}
 		</div>
 
 		<div class="lede" bind:this={layerSub}>
-			<p>
-				Your machine spends most of the day idle. Celaut turns that unused capacity into
-				something people pay for — directly, on your terms, with every workload sealed away
-				from your system.
-			</p>
-			<div class="actions">
-				<a class="btn primary" href="/install">Start renting your PC</a>
-				<a class="btn ghost" href="#rent" on:click={jumpToFirstScene}>See how it works</a>
-			</div>
+			{#if lede}<p>{lede}</p>{/if}
+			{#if actions.length}
+				<div class="actions">
+					{#each actions as a}
+						{#if a.external}
+							<a
+								class="btn"
+								class:primary={a.primary}
+								class:ghost={!a.primary}
+								href={a.href}
+								target="_blank"
+								rel="noopener noreferrer">{a.label}</a
+							>
+						{:else if a.href.startsWith('#')}
+							<a
+								class="btn"
+								class:primary={a.primary}
+								class:ghost={!a.primary}
+								href={a.href}
+								on:click={jumpToFirstScene}>{a.label}</a
+							>
+						{:else}
+							<a
+								class="btn"
+								class:primary={a.primary}
+								class:ghost={!a.primary}
+								href={a.href}>{a.label}</a
+							>
+						{/if}
+					{/each}
+				</div>
+			{/if}
 		</div>
 
-		<ul class="stats" bind:this={layerStats}>
-			{#each stats as s}
-				<li>
-					<span class="stat-value">{s.value}</span>
-					<span class="stat-label">{s.label}</span>
-				</li>
-			{/each}
-		</ul>
+		{#if stats.length}
+			<ul class="stats" bind:this={layerStats}>
+				{#each stats as s}
+					<li>
+						<span class="stat-value">{s.value}</span>
+						<span class="stat-label">{s.label}</span>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 	</div>
 
 	<div class="scroll-hint" bind:this={layerScroll} aria-hidden="true">
