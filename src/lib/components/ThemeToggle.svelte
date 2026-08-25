@@ -47,23 +47,25 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-		color: var(--accent);
-		background: rgba(var(--surface-rgb), 0.55);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.25);
+		color: var(--accent-text);
+		background: rgba(var(--surface-rgb), 0.82);
+		border: 1px solid var(--border-strong);
 		backdrop-filter: blur(8px);
 		-webkit-backdrop-filter: blur(8px);
-		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-		transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+		box-shadow: var(--shadow-sm);
+		transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease,
+			color 0.25s ease;
 	}
 
 	.theme-toggle:hover {
 		transform: scale(1.08);
-		background: rgba(var(--surface-rgb), 0.8);
+		background: var(--surface);
+		border-color: var(--accent);
 	}
 
 	.theme-toggle:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 2px;
+		outline: 2px solid var(--accent-text);
+		outline-offset: 3px;
 	}
 
 	.icon {

@@ -40,19 +40,14 @@
 </section>
 
 <style>
-  :root {
-    /* Bound to the global theme tokens so this section follows the toggle. */
-    --color-background: var(--surface);
-    --color-text-dark: var(--on-surface);
-    --color-text-light: rgba(var(--on-surface-rgb), 0.7);
-    --color-border: rgba(var(--on-surface-rgb), 0.15);
-    --color-card-bg: rgba(var(--on-surface-rgb), 0.04);
-  }
-
+  /* Previously this component re-declared a private --color-* palette in a
+     `:root` block inside a scoped <style>, which is brittle (it leaks to the
+     document and only worked by accident). Now it reads the shared semantic
+     tokens directly, so it follows the theme like everything else. */
   section {
-    background-color: var(--color-background);
+    background-color: var(--surface);
     padding: 80px 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-body);
   }
 
   h2 {
@@ -72,18 +67,19 @@
   }
 
   .card {
-    background-color: var(--color-card-bg);
+    background-color: var(--surface-raised);
     border-radius: 12px;
     padding: 40px 35px;
     display: flex;
     flex-direction: column;
     text-align: center;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
   }
 
   .icon {
     margin-bottom: 20px;
-    color: var(--color-text-dark);
+    color: var(--accent-text);
   }
 
   .icon svg {
@@ -96,11 +92,11 @@
     font-size: 1.5rem;
     margin: 0 0 15px 0;
     font-weight: 600;
-    color: var(--color-text-dark);
+    color: var(--on-surface);
   }
 
   .summary {
-    color: var(--color-text-light);
+    color: var(--on-surface-muted);
     line-height: 1.6;
     margin: 0 0 25px 0;
     flex-grow: 1;
@@ -117,7 +113,7 @@
   }
 
   .key-points li {
-    color: var(--color-text-dark);
+    color: var(--on-surface);
     font-weight: 500;
     display: flex;
     align-items: flex-start;
@@ -126,7 +122,7 @@
 
   .key-points li::before {
     content: '✔';
-    color: var(--color-text-dark); /* Checkmark del mismo color que el texto */
+    color: var(--accent-text);
     font-weight: 700;
     margin-right: 12px;
     margin-top: 1px;

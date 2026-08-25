@@ -125,11 +125,12 @@
         const ctx = canvas.getContext('2d');
         let cols, rows, grid;
         const resolution = 25; // Tamaño en píxeles de cada celda
-        // Theme-aware colour for the "living" cells.
+        // Cell colour comes from the theme's decorative --viz-grid channel
+        // rather than a pair of hardcoded hexes, so it tracks the palette.
         const cellColor = () =>
-            document.documentElement.getAttribute('data-theme') === 'light'
-                ? '#c9a892'
-                : '#2a5a58';
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--viz-grid')
+                .trim() || 'rgba(255,255,255,0.08)';
 
         function setup() {
             canvas.width = window.innerWidth;
@@ -290,7 +291,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: var(--accent);
+        color: var(--on-surface);
         transition: transform 0.2s ease-out; /* Transición suave para el parallax */
     }
 
@@ -300,8 +301,11 @@
         font-weight: 800;
         margin: 0;
         letter-spacing: 0.03em;
-        /* Subtle depth instead of a soft halo — keeps the letters crisp. */
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+        color: var(--accent-text);
+        /* Halo in the surface colour, so it lifts the type off the busy
+           automata canvas in BOTH themes (a black shadow read as grime on
+           the cream light surface). */
+        text-shadow: 0 2px 10px rgba(var(--surface-rgb), 0.85);
         /* Sharper edges on high-DPI displays. */
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -309,30 +313,20 @@
         opacity: 0; /* Oculto inicialmente, la acción 'staggeredFadeIn' lo hará visible */
     }
 
-    /* Light theme: the coral accent washes out against the cream surface, so
-       deepen the title to a terracotta for real contrast while keeping the
-       warm brand tone. Dark mode already reads crisp, so it's left untouched. */
-    :global(html[data-theme='light']) h1 {
-        color: #bf5836;
-    }
+    /* Both themes now resolve the title through --accent-text (lifted coral in
+       dark, deep terracotta in light), so no per-theme hex override is needed. */
 
     h2 {
         font-size: clamp(1.2rem, 4vw, 1.75rem);
         margin: 20px 0;
         font-weight: 400;
         max-width: 600px;
-        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        color: var(--on-surface);
+        text-shadow: 0 1px 8px rgba(var(--surface-rgb), 0.9);
         opacity: 0;
     }
 
-    /* Light theme: the pale coral subtitle blends into the cream surface, and
-       the heavy dark shadow reads muddy on a light background. Deepen it to a
-       muted terracotta (a step lighter than the title, to keep the hierarchy)
-       and swap the shadow for a soft light halo. */
-    :global(html[data-theme='light']) h2 {
-        color: #9c4b32;
-        text-shadow: 0 1px 2px rgba(var(--surface-rgb), 0.6);
-    }
+
 
     /* Translucent card holds the rotating facts above the busy automata
        background, so the body copy stays readable in both themes. Fixed
@@ -344,9 +338,9 @@
         min-height: 6.5em;
         margin: 28px auto 0;
         border-radius: 14px;
-        background: rgba(var(--surface-rgb), 0.62);
-        border: 1px solid rgba(var(--on-surface-rgb), 0.14);
-        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.18);
+        background: rgba(var(--surface-rgb), 0.72);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
     }
@@ -385,7 +379,7 @@
         font-weight: 700;
         transition: all 0.3s ease;
         border: 2px solid transparent;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--shadow-sm);
     }
 
     .primary {
@@ -398,19 +392,20 @@
         background-color: var(--accent-hover);
         border-color: var(--accent-hover);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: var(--shadow-md);
     }
 
     .secondary {
-        background-color: transparent;
+        background-color: rgba(var(--surface-rgb), 0.55);
         color: var(--on-surface);
-        border-color: var(--on-surface);
+        border-color: var(--border-strong);
     }
 
     .secondary:hover {
         background-color: var(--on-surface);
         color: var(--surface);
+        border-color: var(--on-surface);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: var(--shadow-md);
     }
 </style>

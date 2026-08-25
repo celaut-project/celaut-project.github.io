@@ -107,10 +107,11 @@
 		z-index: 50;
 		padding: 10px 8px;
 		border-radius: 14px;
-		background: rgba(var(--surface-rgb), 0.4);
+		background: rgba(var(--surface-rgb), 0.7);
 		backdrop-filter: blur(8px);
 		-webkit-backdrop-filter: blur(8px);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.12);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow-sm);
 	}
 
 	.rail ul {
@@ -129,7 +130,7 @@
 		padding: 6px 8px;
 		border-radius: 8px;
 		text-decoration: none;
-		color: rgba(var(--on-surface-rgb), 0.7);
+		color: var(--on-surface-muted);
 		font-size: 0.82rem;
 		white-space: nowrap;
 		transition: color 0.2s ease, background 0.2s ease;
@@ -140,7 +141,7 @@
 		height: 8px;
 		border-radius: 50%;
 		flex-shrink: 0;
-		background: rgba(var(--on-surface-rgb), 0.35);
+		background: var(--border-strong);
 		transition: background 0.2s ease, transform 0.2s ease;
 	}
 
@@ -160,11 +161,12 @@
 
 	.rail a:hover {
 		color: var(--on-surface);
-		background: rgba(var(--on-surface-rgb), 0.06);
+		background: var(--accent-soft);
 	}
 
 	.rail a.active {
-		color: var(--accent);
+		color: var(--accent-text);
+		font-weight: 700;
 	}
 
 	.rail a.active .dot {
@@ -188,7 +190,7 @@
 		color: var(--on-accent);
 		background: var(--accent);
 		border: none;
-		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--shadow-md);
 	}
 
 	.toc-fab svg {
@@ -205,9 +207,9 @@
 		width: min(240px, 70vw);
 		padding: 14px 16px;
 		border-radius: 14px;
-		background: var(--surface);
-		border: 1px solid rgba(var(--on-surface-rgb), 0.15);
-		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+		background: var(--surface-raised);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow-lg);
 	}
 
 	.toc-sheet .toc-title {
@@ -215,7 +217,7 @@
 		font-size: 0.72rem;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		color: rgba(var(--on-surface-rgb), 0.6);
+		color: var(--on-surface-subtle);
 	}
 
 	.toc-sheet ul {
@@ -232,13 +234,14 @@
 		padding: 8px 10px;
 		border-radius: 8px;
 		text-decoration: none;
-		color: rgba(var(--on-surface-rgb), 0.85);
+		color: var(--on-surface-muted);
 		font-size: 0.92rem;
 	}
 
 	.toc-sheet a.active {
-		color: var(--accent);
-		background: rgba(var(--accent-rgb), 0.12);
+		color: var(--accent-text);
+		font-weight: 700;
+		background: var(--accent-soft);
 	}
 
 	@media (max-width: 1024px) {

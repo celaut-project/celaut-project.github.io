@@ -86,10 +86,13 @@
 			seed();
 		}
 
+		// Live cells use the theme's decorative --viz-node channel instead of a
+		// pair of hardcoded hexes, so the sim re-themes with everything else.
 		function cellColor() {
-			return document.documentElement.getAttribute('data-theme') === 'light'
-				? '#0f3b3a'
-				: '#5fe3c0';
+			return (
+				getComputedStyle(document.documentElement).getPropertyValue('--viz-node').trim() ||
+				'#6fe3c4'
+			);
 		}
 
 		function step() {
@@ -188,7 +191,7 @@
 	.gol {
 		width: 100%;
 		aspect-ratio: 8 / 7;
-		border: 1px solid rgba(var(--on-surface-rgb), 0.15);
+		border: 1px solid var(--border);
 		border-radius: 16px;
 		overflow: hidden;
 		background: var(--surface-deep);

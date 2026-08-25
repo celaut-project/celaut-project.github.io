@@ -51,7 +51,7 @@
 		color: var(--on-accent);
 		background: var(--accent);
 		border: none;
-		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--shadow-md);
 		opacity: 0;
 		transform: translateY(16px) scale(0.9);
 		pointer-events: none;
@@ -71,7 +71,7 @@
 
 	.go-to-top:focus-visible {
 		outline: 2px solid var(--on-surface);
-		outline-offset: 2px;
+		outline-offset: 3px;
 	}
 
 	.go-to-top svg {

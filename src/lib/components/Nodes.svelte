@@ -102,7 +102,7 @@
         text-align: center;
         font-size: 2.5rem;
         margin: 0 auto 60px auto;
-        color: var(--accent);
+        color: var(--heading);
     }
 
     .container {
@@ -117,7 +117,7 @@
     .left p {
         line-height: 1.7;
         margin: 0;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
     
     .left p.intro-p {
@@ -125,7 +125,7 @@
     }
 
     strong {
-        color: var(--accent);
+        color: var(--accent-text);
         font-weight: 600;
     }
     
@@ -133,7 +133,7 @@
 
     .implementation-block {
         /* Añadimos un borde izquierdo que agrupa visualmente el contenido */
-        border-left: 3px solid rgba(var(--accent-rgb), 0.4); /* El color de acento, pero con opacidad para que sea sutil */
+        border-left: 3px solid var(--accent);
         padding-left: 24px; /* Espacio para que el texto no se pegue al borde */
     }
 
@@ -154,7 +154,7 @@
     button {
         background-color: transparent;
         color: var(--on-surface);
-        border: 1px solid var(--on-surface);
+        border: 1px solid var(--border-strong);
         padding: 10px 24px;
         border-radius: 8px;
         cursor: pointer;
@@ -181,7 +181,7 @@
         align-items: flex-start;
         gap: 20px;
         padding-bottom: 30px;
-        border-bottom: 1px solid rgba(var(--on-surface-rgb), 0.1);
+        border-bottom: 1px solid var(--border);
     }
     
     .feature:last-child {
@@ -190,7 +190,7 @@
     }
 
     .icon-wrapper {
-        color: var(--accent);
+        color: var(--accent-text);
         width: 32px;
         height: 32px;
         flex-shrink: 0;
@@ -207,7 +207,7 @@
         font-size: 0.95rem;
         line-height: 1.6;
         margin: 0;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
 
     @media (max-width: 900px) {

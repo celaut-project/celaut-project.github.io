@@ -74,7 +74,7 @@
     text-align: center;
     max-width: 700px;
     margin: 0 auto 60px auto;
-    color: var(--on-surface);
+    color: var(--heading);
   }
 
   .roles-container {
@@ -86,11 +86,12 @@
   }
 
   .role-block {
-    background-color: rgba(var(--on-surface-rgb), 0.03);
-    border: 1px solid rgba(var(--on-surface-rgb), 0.1);
-    border-left: 5px solid var(--accent); /* El borde que pediste anteriormente */
+    background-color: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent);
     padding: 30px 35px;
     border-radius: 16px;
+    box-shadow: var(--shadow-sm);
   }
 
   h3 {
@@ -102,7 +103,7 @@
   p {
     margin: 0 0 20px 0;
     line-height: 1.7;
-    color: rgba(var(--on-surface-rgb), 0.85);
+    color: var(--on-surface-muted);
   }
 
   ul {
@@ -110,13 +111,14 @@
     margin: 0;
   }
 
-  /* ✨ ESTILO VISUAL AÑADIDO ✨ */
-  /* Se resalta la lista de responsabilidades (la parte importante). */
+  /* Responsibilities list. Uses --accent-text (not the decorative --accent):
+     the raw coral measured ~1.9:1 on the light surface, so this list was
+     effectively unreadable in light mode. */
   li {
     margin-bottom: 10px;
     line-height: 1.6;
-    color: var(--accent); /* Color de acento para destacar el texto */
-    font-weight: 500; /* Fuente semigruesa para más énfasis */
+    color: var(--accent-text);
+    font-weight: 500;
   }
 
   li:last-child {
@@ -128,7 +130,7 @@
     margin-top: 22px;
     padding: 9px 20px;
     background-color: var(--accent);
-    color: var(--on-accent, #1d4241);
+    color: var(--on-accent);
     border-radius: 8px;
     font-weight: 700;
     text-decoration: none;

@@ -61,7 +61,7 @@
         margin: 0 auto 60px auto;
         font-size: 1.1rem;
         line-height: 1.7;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
 
     .services-grid {
@@ -76,7 +76,8 @@
         border: 2px solid var(--accent);
         padding: 40px;
         border-radius: 16px;
-        background-color: rgba(var(--on-surface-rgb), 0.03);
+        background-color: var(--surface-raised);
+        box-shadow: var(--shadow-sm);
     }
 
     /* Styles for the card header (icon + title) */
@@ -88,7 +89,7 @@
     }
 
     .card-header svg {
-        color: var(--accent);
+        color: var(--accent-text);
         flex-shrink: 0; /* Prevents the icon from shrinking */
     }
 
@@ -102,7 +103,7 @@
     .service-card p {
         margin: 0;
         line-height: 1.6;
-        color: rgba(var(--on-surface-rgb), 0.85);
+        color: var(--on-surface-muted);
     }
 
     strong {
