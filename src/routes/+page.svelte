@@ -437,11 +437,14 @@
 	}
 
 	/* The landing page carries SectionIndex's fixed rail down the left
-	   edge, which /depin does not. Nudge the left-aligned scene captions
-	   clear of it so they never sit underneath the dots. */
+	   edge, which /depin does not. The rail is ~14px from the edge and
+	   grows to ~200px wide when a label is active, so left-aligned scene
+	   captions need a gutter wider than that or the copy renders under
+	   the dots. */
 	@media (min-width: 1025px) {
 		.home :global(.scene:not(.align-right):not(.is-static) .scene-copy) {
-			margin-left: clamp(72px, 9vw, 150px);
+			margin-left: clamp(150px, 13vw, 220px);
+			width: min(520px, 100%);
 		}
 	}
 </style>

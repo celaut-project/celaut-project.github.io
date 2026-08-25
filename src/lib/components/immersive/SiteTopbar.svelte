@@ -23,11 +23,18 @@
 	 */
 	export let position = 'fixed';
 
+	/*
+	 * `short` is the label used on narrow phones. The full set of labels
+	 * is ~323px wide, which overflows the ~277px the nav actually has at
+	 * 390px once the fixed theme toggle's reserved corner is subtracted —
+	 * that pushed "Paradigm" off the edge behind a scrollbar-less
+	 * overflow, so the last destination was effectively undiscoverable.
+	 */
 	const links = [
-		{ href: '/depin', label: 'Rent your PC' },
-		{ href: '/developers', label: 'Developers' },
-		{ href: '/users', label: 'Users' },
-		{ href: '/paradigm', label: 'Paradigm' }
+		{ href: '/depin', label: 'Rent your PC', short: 'Rent PC' },
+		{ href: '/developers', label: 'Developers', short: 'Devs' },
+		{ href: '/users', label: 'Users', short: 'Users' },
+		{ href: '/paradigm', label: 'Paradigm', short: 'Paradigm' }
 	];
 
 	$: current = $page.url.pathname.replace(/\/$/, '') || '/';
@@ -50,7 +57,10 @@
 					<a
 						href={l.href}
 						class:active={current === l.href}
-						aria-current={current === l.href ? 'page' : undefined}>{l.label}</a
+						aria-current={current === l.href ? 'page' : undefined}
+						><span class="label-full">{l.label}</span><span class="label-short"
+							>{l.short}</span
+						></a
 					>
 				</li>
 			{/each}
@@ -158,6 +168,10 @@
 		background-color: var(--accent-soft);
 	}
 
+	.label-short {
+		display: none;
+	}
+
 	@media (max-width: 900px) {
 		.topbar-title {
 			display: none;
@@ -174,8 +188,16 @@
 		}
 
 		nav a {
-			padding: 7px 9px;
+			padding: 7px 7px;
 			font-size: 0.84rem;
+		}
+
+		.label-full {
+			display: none;
+		}
+
+		.label-short {
+			display: inline;
 		}
 	}
 </style>

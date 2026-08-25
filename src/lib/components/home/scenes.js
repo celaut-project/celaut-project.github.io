@@ -613,10 +613,15 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 	const record = range(progress, 0.42, 0.7); // an opinion is recorded
 	const weigh = range(progress, 0.66, 1.0); // others weigh the source
 
+	// The composition runs from the two parties down through the ledger
+	// to the observers, so it is lifted well above the stage's vertical
+	// centre to keep the whole thing balanced in frame.
 	const gap = (compact ? 96 : 130) * Math.max(0.85, scale * 0.8);
 	const ax = cx - gap;
 	const bxp = cx + gap;
-	const partyY = cy - (compact ? 54 : 70);
+	const baseY = cy - (compact ? 60 : 90);
+	const partyY = baseY - (compact ? 54 : 70);
+	const ledgerY = baseY + (compact ? 72 : 96);
 
 	// --- The two parties ---
 	const f2 = smoothstep(two);
@@ -682,7 +687,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 	// --- The ledger, below: an opinion is recorded ---
 	const rf = smoothstep(record);
 	if (rf > 0) {
-		const ly = cy + (compact ? 72 : 96);
+		const ly = ledgerY;
 		const lw = compact ? width * 0.6 : gap * 2.1;
 		ctx.save();
 		ctx.globalAlpha = rf;
@@ -709,7 +714,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 	// --- Others weighing the source ---
 	if (weigh > 0) {
 		const f = smoothstep(weigh);
-		const ly = cy + (compact ? 72 : 96);
+		const ly = ledgerY;
 		const observers = compact ? 3 : 4;
 		for (let i = 0; i < observers; i++) {
 			const t = smoothstep(clamp(f * 1.4 - i * 0.12));
