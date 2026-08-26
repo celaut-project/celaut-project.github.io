@@ -1,141 +1,45 @@
-<section>
-  <h2>Coordination Mechanisms</h2>
+<!--
+	The two coordination mechanisms, in the same order the pinned scene
+	introduces them: reputation decides who is worth dealing with,
+	payment moves the value once that check passes.
+	Styling comes from the shared `.ground` layer in src/app.css.
+-->
+<div class="block">
+	<p class="eyebrow">What makes strangers cooperate</p>
+	<h2>Coordination mechanisms</h2>
+	<p class="block-intro">
+		Neither is part of the core architecture, and that is deliberate: both sit outside it, so no
+		particular ledger or currency is ever baked in.
+	</p>
 
-  <div class="coordination-grid">
-    <div class="card">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-      </div>
-      <h3>Reputation Systems</h3>
-      <p class="summary">
-        Builds trust and encourages quality through a history of reliable interactions.
-      </p>
-      <ul class="key-points">
-        <li>Incentivizes high standards to maintain network standing.</li>
-        <li>Rewards reliability with increased trust and interactions.</li>
-        <li>Creates a self-regulating system for quality and performance.</li>
-      </ul>
-    </div>
+	<div class="grid grid-2">
+		<article class="card">
+			<h3>Reputation systems</h3>
+			<p>
+				A history of interactions, recorded on ledgers as opinions rather than verdicts. It is
+				<strong>what gets consulted first</strong>, before anyone commits anything.
+			</p>
+			<ul class="points">
+				<li>Each actor weighs the sources it already trusts, at its own discretion.</li>
+				<li>Standing is worth protecting, so it becomes the collateral behind a promise.</li>
+				<li>The result is self-regulation, with no authority handing out verdicts.</li>
+			</ul>
+		</article>
 
-    <div class="card">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-          <line x1="1" y1="10" x2="23" y2="10"></line>
-        </svg>
-      </div>
-      <h3>Payment Mechanisms</h3>
-      <p class="summary">
-        Facilitates the exchange of resources for value and gates access to services.
-      </p>
-      <ul class="key-points">
-        <li>Allows nodes to exchange resources for monetary value.</li>
-        <li>Requires proof of payment to access certain services.</li>
-        <li>Operates flexibly and independently of the core architecture.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+		<article class="card">
+			<h3>Payment mechanisms</h3>
+			<p>
+				Value exchanged for resources consumed. What a payment buys is
+				<strong>a concrete right</strong> — this much compute, for this long — not a promise of
+				good behaviour.
+			</p>
+			<ul class="points">
+				<li>Nodes are compensated for the resources a service actually spends.</li>
+				<li>Proof of payment gates access to services that ask for it.</li>
+				<li>Ledgers can be public and permissionless or private and closed.</li>
+			</ul>
+		</article>
+	</div>
 
-<style>
-  /* Previously this component re-declared a private --color-* palette in a
-     `:root` block inside a scoped <style>, which is brittle (it leaks to the
-     document and only worked by accident). Now it reads the shared semantic
-     tokens directly, so it follows the theme like everything else. */
-  section {
-    background-color: var(--surface);
-    padding: 80px 20px;
-    font-family: var(--font-body);
-  }
-
-  h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin: 0 auto 60px auto;
-    max-width: 800px;
-    color: var(--heading);
-  }
-
-  .coordination-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .card {
-    background-color: var(--surface-raised);
-    border-radius: 12px;
-    padding: 40px 35px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .icon {
-    margin-bottom: 20px;
-    color: var(--accent-text);
-  }
-
-  .icon svg {
-    width: 44px;
-    height: 44px;
-    stroke-width: 1.5;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin: 0 0 15px 0;
-    font-weight: 600;
-    color: var(--on-surface);
-  }
-
-  .summary {
-    color: var(--on-surface-muted);
-    line-height: 1.6;
-    margin: 0 0 25px 0;
-    flex-grow: 1;
-  }
-
-  .key-points {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .key-points li {
-    color: var(--on-surface);
-    font-weight: 500;
-    display: flex;
-    align-items: flex-start;
-    line-height: 1.5;
-  }
-
-  .key-points li::before {
-    content: '✔';
-    color: var(--accent-text);
-    font-weight: 700;
-    margin-right: 12px;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 768px) {
-    .coordination-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-     h2 {
-        font-size: 2rem;
-     }
-  }
-</style>
+	<span class="note">Check the record · pay for the right · deliver · record the outcome.</span>
+</div>

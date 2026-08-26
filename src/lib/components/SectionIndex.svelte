@@ -5,13 +5,14 @@
 	// left (dot + label). Mobile: a floating button that opens a compact menu.
 	// Active section is tracked with an IntersectionObserver.
 	//
-	// Order mirrors the page: the six pinned scenes first, then the
+	// Order mirrors the page: the seven pinned scenes first, then the
 	// audience fork, then the grounded detail sections.
 	const sections = [
 		{ id: 'foundations', label: 'Foundations' },
 		{ id: 'nodes', label: 'Nodes' },
 		{ id: 'services', label: 'Services' },
 		{ id: 'service-spec', label: 'Service Spec' },
+		{ id: 'execution', label: 'Execution' },
 		{ id: 'determinism', label: 'Determinism' },
 		{ id: 'coordination', label: 'Coordination' },
 		{ id: 'user-roles', label: 'Which one are you?' },

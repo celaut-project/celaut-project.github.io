@@ -248,9 +248,9 @@
 					<h2>And how the world reaches it.</h2>
 					<p>
 						<strong>API</strong> defines how clients and other services talk to it, plus
-						accepted payment methods and costs. <strong>NET</strong> defines the external
-						network access it may request — by default a service is isolated, and any wider
-						access is asked for through its node.
+						accepted payment methods and costs. <strong>NET</strong> names the external
+						networks it will reach — by default a service is isolated, and anything wider is
+						declared in the specification itself, so users know up front where it can go.
 					</p>
 					<span class="beat-note">Portable, reproducible, free of third-party dependencies.</span>
 				</SceneBeat>

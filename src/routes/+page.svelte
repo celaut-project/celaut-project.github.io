@@ -4,17 +4,20 @@
 	 *
 	 * Phase 1 gave this page Lenis + a light reveal on top of the
 	 * original flat sections. Phase 2 re-stages the story itself: the
-	 * six ideas that make up the paradigm are now full-screen pinned
-	 * scenes with scroll-scrubbed procedural canvases, using the same
-	 * machinery as /depin.
+	 * ideas that make up the paradigm are now full-screen pinned scenes
+	 * with scroll-scrubbed procedural canvases, using the same machinery
+	 * as /depin.
 	 *
 	 *   1. Foundations   — Conway's Life, stepped by your scroll
-	 *   2. Nodes         — a hub is removed and the star dies; a mesh
-	 *                      loses a peer and shrugs
+	 *   2. Network       — everyone has nodes; nobody else lets you skip
+	 *                      the protocol. One node forks a ring, then the
+	 *                      same peers wire up wherever they overlap
 	 *   3. Services      — machinery is sealed into a black box
-	 *   4. Specification — BOX / API / NET assemble
-	 *   5. Determinism   — one input, three runs, one answer
-	 *   6. Coordination  — payment and reputation between strangers
+	 *   4. Specification — one body: BOX, its API, its declared NET
+	 *   5. Execution     — children with budgets, and a node deciding
+	 *                      where they land
+	 *   6. Determinism   — one input, three runs, one answer
+	 *   7. Coordination  — payment and reputation between strangers
 	 *
 	 * The words are the site's existing words. Nothing new is claimed —
 	 * the copy is lifted from the components these scenes replace and
@@ -37,7 +40,8 @@
 		drawAutomataScene,
 		drawNetworkScene,
 		drawBlackBoxScene,
-		drawSpecTriadScene,
+		drawSpecCellScene,
+		drawExecutionScene,
 		drawDeterminismScene,
 		drawTrustScene
 	} from '$lib/components/home/scenes.js';
@@ -181,37 +185,39 @@
 		label="The network"
 		align="right"
 		draw={drawNetworkScene}
-		scrollLength={2.4}
+		scrollLength={2.6}
 		let:progress
 		let:static={isStatic}
 	>
 		<div class="beats" class:flow={isStatic}>
 			<SceneBeat {progress} {isStatic} from={0} to={0.34}>
-				<h2>Most systems have a middle.</h2>
+				<h2>Having nodes is not the difference.</h2>
 				<p>
-					Everything routes through it, and everything depends on it. Remove it and the
-					system stops being a system.
+					Most decentralized networks have nodes, and most of them still depend on one
+					powerful thing: <strong>the protocol everybody has to run</strong>. The rules are
+					the centre, even when the machines are not.
 				</p>
 			</SceneBeat>
 
 			<SceneBeat {progress} {isStatic} from={0.3} to={0.66}>
-				<h2>Celaut has nodes instead.</h2>
+				<h2>Celaut has no protocol to agree on.</h2>
 				<p>
-					A node is a <strong>computer or device</strong> that communicates with peers and
-					manages service execution. They form the backbone of the architecture, with
-					<strong>no single point of control or failure</strong>, coordinating dynamically
-					rather than reporting to anyone.
+					Nodes don't have to settle on a communication protocol in advance — they
+					<strong>declare the interfaces they support and the payment methods they accept on
+					contact</strong>. Two nodes talk about whatever they happen to have in common;
+					where they don't overlap, they simply don't talk.
 				</p>
 			</SceneBeat>
 
 			<SceneBeat {progress} {isStatic} from={0.62} to={1} hold>
-				<h2>So losing one changes nothing.</h2>
+				<h2>So you change your node, not the network.</h2>
 				<p>
-					Nodes don't have to agree on a communication protocol in advance — they declare
-					their supported interfaces and accepted payment methods on contact. A node can
-					appear or vanish and the rest simply carries on.
+					A new pricing policy, another payment method, a specification format nobody else
+					parses yet — you <strong>implement it in your own node</strong> and it works with
+					whoever already supports it. Nobody votes, nothing has to be migrated, and there is
+					<strong>no hard fork to survive</strong>.
 				</p>
-				<span class="beat-note">No registry. No coordinator. No permission.</span>
+				<span class="beat-note">No shared protocol. No shared version. No permission.</span>
 			</SceneBeat>
 		</div>
 	</PinnedScene>
@@ -258,9 +264,9 @@
 	<!-- ================= SCENE 4 — Specification ================= -->
 	<PinnedScene
 		id="service-spec"
-		label="How it's specified"
+		label="How a service is specified"
 		align="right"
-		draw={drawSpecTriadScene}
+		draw={drawSpecCellScene}
 		scrollLength={2.4}
 		let:progress
 		let:static={isStatic}
@@ -288,9 +294,11 @@
 			<SceneBeat {progress} {isStatic} from={0.56} to={0.84}>
 				<h2><strong>NET</strong> — the network scope.</h2>
 				<p>
-					By default a service is <strong>isolated</strong>, able to talk only to its parent,
-					its children and its node. If it needs more, it asks the node for access to a
-					named network, and the node decides.
+					By default a service is <strong>isolated</strong>: it can talk only to its parent,
+					its children and the node running it. If it needs the outside world,
+					<strong>the networks it will reach are named in its own specification</strong> — the
+					node grants them, because it wants to run the service properly, and you get the
+					guarantee that it can never reach anywhere else.
 				</p>
 			</SceneBeat>
 
@@ -305,10 +313,61 @@
 		</div>
 	</PinnedScene>
 
-	<!-- ================= SCENE 5 — Determinism ================= -->
+	<!-- ================= SCENE 5 — Execution ================= -->
+	<PinnedScene
+		id="execution"
+		label="Who decides what"
+		draw={drawExecutionScene}
+		scrollLength={2.6}
+		let:progress
+		let:static={isStatic}
+	>
+		<div class="beats" class:flow={isStatic}>
+			<SceneBeat {progress} {isStatic} from={0} to={0.28}>
+				<h2>A service asks for its children.</h2>
+				<p>
+					A service can request the execution of <strong>child services</strong> through its
+					node. It states <strong>the resources each one needs</strong> and hands over a
+					budget for them to spend. Not a machine, not a region — resources.
+				</p>
+			</SceneBeat>
+
+			<SceneBeat {progress} {isStatic} from={0.26} to={0.54}>
+				<h2>The node decides where they run.</h2>
+				<p>
+					It compares <strong>the cost of running the instance locally against the cost each
+					of its peers quotes</strong> and picks the one it considers best. One child stays
+					here; another lands on a peer.
+				</p>
+			</SceneBeat>
+
+			<SceneBeat {progress} {isStatic} from={0.52} to={0.8}>
+				<h2>The parent never finds out.</h2>
+				<p>
+					It doesn't know whether a child ended up on this machine or somewhere else, and it
+					doesn't need to. All it watches is <strong>what its children consume and how fast
+					they're spending</strong>, so it can balance that.
+				</p>
+			</SceneBeat>
+
+			<SceneBeat {progress} {isStatic} from={0.78} to={1} hold>
+				<h2>That split is the whole trick.</h2>
+				<p>
+					Node operators deal with the physical side: hardware, capacity, price, placement.
+					Service developers <strong>declare the resources they need and nothing about
+					infrastructure</strong>. Neither has to do the other's job — which is exactly what
+					keeps both halves simple.
+				</p>
+				<span class="beat-note">Two concerns. One clean line between them.</span>
+			</SceneBeat>
+		</div>
+	</PinnedScene>
+
+	<!-- ================= SCENE 6 — Determinism ================= -->
 	<PinnedScene
 		id="determinism"
 		label="Why it holds"
+		align="right"
 		draw={drawDeterminismScene}
 		scrollLength={2.4}
 		let:progress
@@ -334,82 +393,87 @@
 			</SceneBeat>
 
 			<SceneBeat {progress} {isStatic} from={0.62} to={1} hold>
-				<h2>And it composes.</h2>
+				<h2>And it travels.</h2>
 				<p>
-					A service can request the execution of <strong>child services</strong> through its
-					node. The parent doesn't know where they run; each one just specifies the
-					resources it requires.
+					Because nothing about the environment is left to the host, the same specification
+					produces the same behaviour on <strong>a laptop, a spare server or a node you have
+					never heard of</strong>. Where it runs stops being part of the answer.
 				</p>
-				<span class="beat-note">Simple interactions, sophisticated patterns. Same as the automata.</span>
+				<span class="beat-note">Fully specified, so nothing is left to the machine.</span>
 			</SceneBeat>
 		</div>
 	</PinnedScene>
 
-	<!-- ================= SCENE 6 — Coordination ================= -->
+	<!-- ================= SCENE 7 — Coordination ================= -->
 	<PinnedScene
 		id="coordination"
 		label="How strangers cooperate"
-		align="right"
 		draw={drawTrustScene}
 		scrollLength={2.6}
 		let:progress
 		let:static={isStatic}
 	>
 		<div class="beats" class:flow={isStatic}>
-			<SceneBeat {progress} {isStatic} from={0} to={0.32}>
-				<h2>Nobody here trusts anybody.</h2>
+			<SceneBeat {progress} {isStatic} from={0} to={0.3}>
+				<h2>Reputation comes first.</h2>
 				<p>
 					Nodes and services <strong>do not trust each other</strong> — Celaut is a trustless
-					system. So it's unlikely a node runs work for free, or that a service performs
-					without proof of payment.
+					system. So nothing starts with a handshake; it starts with a lookup. Reputation is
+					<strong>records on ledgers</strong>, opinions rather than verdicts, and each actor
+					weighs the sources it already trusts to decide whether a stranger is worth talking to.
 				</p>
 			</SceneBeat>
 
-			<SceneBeat {progress} {isStatic} from={0.28} to={0.62}>
-				<h2>Payment moves the value.</h2>
+			<SceneBeat {progress} {isStatic} from={0.27} to={0.6}>
+				<h2>Then value buys resource rights.</h2>
 				<p>
-					When a node executes a service, or services interact,
-					<strong>compensation is exchanged for resources used</strong>. Payment mechanisms
-					operate flexibly and <strong>independently of the core architecture</strong>, so no
-					particular ledger is baked in.
+					Only once the record checks out does anything move. The requester pays, and what
+					comes back is not a promise — it's <strong>the right to consume a node's
+					resources</strong>: this much compute, for this long. Payment mechanisms sit
+					<strong>outside the core architecture</strong>, so no particular ledger is baked in.
 				</p>
 			</SceneBeat>
 
-			<SceneBeat {progress} {isStatic} from={0.58} to={1} hold>
-				<h2>Reputation carries the rest.</h2>
+			<SceneBeat {progress} {isStatic} from={0.57} to={1} hold>
+				<h2>And the node delivers, because the record is the collateral.</h2>
 				<p>
-					Reputation is represented as <strong>records on ledgers</strong> — opinions, not
-					verdicts. Each actor trusts different sources to different degrees, so when an
-					unknown entity appears, you check what the sources you already trust have to say.
+					Nothing forces it to honour that right. What holds it is that
+					<strong>the outcome is written back to the ledger</strong> — and a node whose record
+					says it took payment and under-delivered stops getting chosen. Each party has a
+					standing interest in the next stranger liking what they read.
 				</p>
-				<span class="beat-note">A self-regulating system. No authority required.</span>
+				<span class="beat-note">Check · pay · deliver · record. Then round again.</span>
 			</SceneBeat>
 		</div>
 	</PinnedScene>
 
-	<!-- ================= The fork in the road ================= -->
-	<div id="user-roles" class="section-anchor">
-		<AudienceRouter />
-	</div>
-
-	<!-- ================= Grounded detail below ================= -->
-	<div id="core-principles" class="section-anchor">
-		<CorePrinciples />
-	</div>
-	<div id="what-is-not" class="section-anchor">
-		<WhatIsNot />
-	</div>
-	<div id="implementations" class="section-anchor">
-		<Nodes />
-	</div>
-	<div id="coordination-detail" class="section-anchor">
-		<Coordination />
-	</div>
-	<div id="service-distribution" class="section-anchor">
-		<ServiceDistribution />
-	</div>
-	<div id="applications" class="section-anchor">
-		<Applications />
+	<!-- ================= The fork in the road, then grounded detail ===
+	     Everything from here down shares one reading language, defined
+	     once as the `.ground` layer in src/app.css — the same one the
+	     /depin, /developers and /users pages use below their scenes.
+	     Each component supplies only markup and words. -->
+	<div class="ground">
+		<div id="user-roles" class="section-anchor">
+			<AudienceRouter />
+		</div>
+		<div id="core-principles" class="section-anchor">
+			<CorePrinciples />
+		</div>
+		<div id="what-is-not" class="section-anchor">
+			<WhatIsNot />
+		</div>
+		<div id="implementations" class="section-anchor">
+			<Nodes />
+		</div>
+		<div id="coordination-detail" class="section-anchor">
+			<Coordination />
+		</div>
+		<div id="service-distribution" class="section-anchor">
+			<ServiceDistribution />
+		</div>
+		<div id="applications" class="section-anchor">
+			<Applications />
+		</div>
 	</div>
 </main>
 

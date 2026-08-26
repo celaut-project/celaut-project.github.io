@@ -176,6 +176,55 @@ export function sealedBox(ctx, x, y, w, h, t, palette, { tint = true, scan = 0 }
 	ctx.restore();
 }
 
+/*
+ * MEMBRANE — the organic body of a service.
+ *
+ * A Celaut service is a sealed *thing* with a handful of declared
+ * openings, which reads far better as a cell than as a rectangle: the
+ * README's own framing is biological (cellular automata, "nodes as
+ * organisms"). The radius wobbles on two lobes so the body breathes,
+ * and `poreAt` reuses the exact same formula, so a channel anchored to
+ * an angle stays welded to the edge while it moves.
+ */
+const MEMBRANE_LOBES = [
+	{ k: 3, amp: 0.06, speed: 0.4 },
+	{ k: 5, amp: 0.04, speed: -0.3 }
+];
+
+/** Radius of the membrane at one angle. Pure in (r, angle, time). */
+export function membraneRadius(r, angle, time, wobble = 1) {
+	let m = 1;
+	for (const l of MEMBRANE_LOBES) m += wobble * l.amp * Math.sin(l.k * angle + time * l.speed);
+	return r * m;
+}
+
+/**
+ * Trace the membrane as a path. `close` 0 → 1 draws a growing arc, so
+ * the body can seal itself shut as a scene progresses; at 1 the path is
+ * closed and can be filled. The caller decides stroke/fill.
+ */
+export function membranePath(ctx, cx, cy, r, time, wobble = 1, close = 1) {
+	const c = clamp(close);
+	const span = Math.PI * 2 * c;
+	const steps = Math.max(8, Math.round(140 * c));
+	ctx.beginPath();
+	for (let i = 0; i <= steps; i++) {
+		const a = -Math.PI / 2 + (i / steps) * span;
+		const rr = membraneRadius(r, a, time, wobble);
+		const x = cx + Math.cos(a) * rr;
+		const y = cy + Math.sin(a) * rr;
+		if (i === 0) ctx.moveTo(x, y);
+		else ctx.lineTo(x, y);
+	}
+	if (c >= 1) ctx.closePath();
+}
+
+/** The point on that membrane at a given angle — where a channel starts. */
+export function poreAt(cx, cy, r, angle, time, wobble = 1) {
+	const rr = membraneRadius(r, angle, time, wobble);
+	return { x: cx + Math.cos(angle) * rr, y: cy + Math.sin(angle) * rr, r: rr };
+}
+
 /* ==================================================================
  * HERO — cursor-reactive peer field
  * Not scroll-scrubbed; this one just breathes and follows the pointer,

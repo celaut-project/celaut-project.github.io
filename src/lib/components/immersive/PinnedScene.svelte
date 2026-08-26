@@ -84,6 +84,7 @@
 				accentText: cssVar('--accent-text', '#f2a98f'),
 				surface: cssVar('--surface', '#12302e'),
 				surfaceDeep: cssVar('--surface-deep', '#0a1f1e'),
+				surfaceDeepRgb: cssVar('--surface-deep-rgb', '10, 31, 30'),
 				onSurface: cssVar('--on-surface', '#f2ece6'),
 				onSurfaceRgb: cssVar('--on-surface-rgb', '242, 236, 230')
 			};

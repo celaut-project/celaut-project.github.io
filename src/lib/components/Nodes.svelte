@@ -1,219 +1,93 @@
 <script>
-    import Cpu from '$lib/assets/icons/Cpu.svelte';
-    import Link from '$lib/assets/icons/Link.svelte';
-    import Lock from '$lib/assets/icons/Lock.svelte';
-    import Package from '$lib/assets/icons/Package.svelte';
+	// Nodes: what they do, and the two implementations that exist.
+	// Styling comes from the shared `.ground` layer in src/app.css.
+	import Cpu from '$lib/assets/icons/Cpu.svelte';
+	import Link from '$lib/assets/icons/Link.svelte';
+	import Lock from '$lib/assets/icons/Lock.svelte';
+	import Package from '$lib/assets/icons/Package.svelte';
+
+	const jobs = [
+		{
+			icon: Cpu,
+			title: 'Service execution',
+			body: 'It negotiates execution costs with peers and decides whether to run a service locally or delegate it, so resources go where they are cheapest.'
+		},
+		{
+			icon: Link,
+			title: 'Communication',
+			body: 'It declares the interfaces it supports and the payment methods it accepts on contact, which is what lets protocols evolve without prior agreement.'
+		},
+		{
+			icon: Lock,
+			title: 'Security',
+			body: 'It issues and manages the addresses and authentication tokens every service interaction is identified by.'
+		},
+		{
+			icon: Package,
+			title: 'Dependencies',
+			body: 'It makes sure a service can reach what it needs, wherever across the network that dependency happens to be running.'
+		}
+	];
+
+	const implementations = [
+		{
+			name: 'Nodo',
+			body: 'The reference implementation, built with Python3 and Rust — a working example of how a node is deployed in practice.',
+			href: 'https://github.com/celaut-project/nodo'
+		},
+		{
+			name: 'Chatui',
+			body: 'A node for Android devices. It exposes services through basic chat interfaces, without requiring trust in any other node.',
+			href: 'https://github.com/celaut-project/chatui'
+		}
+	];
 </script>
 
-<section>
-    <h2>Nodes: The Foundation of the Network</h2>
-    <div class="container">
-        <div class="left">
-            <p>
-                Nodes are <strong>computers or devices</strong> within a Celaut network that communicate with
-                peers and manage service execution.
-            </p>
-            <p class="intro-p">
-                They form the <strong>backbone of the decentralized architecture</strong>, ensuring no
-                single point of failure exists in the system.
-            </p>
+<div class="block">
+	<p class="eyebrow">The machines</p>
+	<h2>Nodes: the foundation of the network</h2>
+	<p class="block-intro">
+		A node is a <strong>computer or device</strong> that communicates with peers and manages service
+		execution. Four jobs, and no coordinator above them.
+	</p>
 
-            <div class="implementation-block">
-                <h3>Nodo</h3>
-                <p>
-                    The <strong>reference implementation</strong> of a Celaut node, built with Python3 and Rust,
-                    providing a working example of how nodes can be deployed in real-world scenarios.
-                </p>
-                <a href="https://github.com/celaut-project/nodo" target="_blank" rel="noopener noreferrer">
-                    <button>Nodo</button>
-                </a>
-            </div>
+	<div class="grid grid-pair">
+		{#each jobs as job}
+			<article class="card">
+				<span class="row-mark" aria-hidden="true"><svelte:component this={job.icon} /></span>
+				<h3>{job.title}</h3>
+				<p>{job.body}</p>
+			</article>
+		{/each}
+	</div>
 
-            <div class="implementation-block">
-                <h3>Chatui</h3>
-                <p>
-                    Another implementation of a Celaut node for <strong>Android devices</strong>, it allows
-                    interaction with services via <strong>basic chat interfaces</strong>, without requiring
-                    trust to other nodes.
-                </p>
-                 <a href="https://github.com/celaut-project/chatui" target="_blank" rel="noopener noreferrer">
-                    <button>Chatui</button>
-                </a>
-            </div>
-        </div>
-
-        <div class="right">
-            <div class="feature">
-                <div class="icon-wrapper"><Cpu /></div>
-                <div class="text-wrapper">
-                    <h4>Service Execution</h4>
-                    <p>
-                        The node negotiates <strong>execution costs</strong> with peers and decides whether
-                        to run a service <strong>locally or delegate it</strong>, optimizing resource use.
-                    </p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="icon-wrapper"><Link /></div>
-                <div class="text-wrapper">
-                    <h4>Communication</h4>
-                    <p>
-                        Nodes declare <strong>supported interfaces</strong> and <strong>accepted payment methods</strong>
-                        upon contact, allowing protocol evolution without prior agreement.
-                    </p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="icon-wrapper"><Lock /></div>
-                <div class="text-wrapper">
-                    <h4>Security</h4>
-                    <p>
-                        The node manages <strong>addresses and authentication tokens</strong> for secure
-                        service interactions.
-                    </p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="icon-wrapper"><Package /></div>
-                <div class="text-wrapper">
-                    <h4>Dependencies</h4>
-                    <p>
-                        The node ensures services access <strong>required dependencies</strong> across the
-                        distributed network.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+	<h3 class="sub">Implementations you can run today</h3>
+	<div class="grid grid-2">
+		{#each implementations as impl}
+			<article class="card">
+				<h3>{impl.name}</h3>
+				<p>{impl.body}</p>
+				<div class="actions">
+					<a class="btn" href={impl.href} target="_blank" rel="noopener noreferrer">
+						View on GitHub →
+					</a>
+				</div>
+			</article>
+		{/each}
+	</div>
+</div>
 
 <style>
-    /* Add this rule to remove the default underline from links wrapping buttons */
-    a {
-        text-decoration: none;
-    }
+	/* A secondary heading inside a block: smaller than the block's own
+	   h2 and without the accent rule, so it reads as a subdivision. */
+	.sub {
+		font-family: var(--font-heading);
+		font-size: 1.25rem;
+		color: var(--on-surface);
+		margin: 44px 0 18px;
+	}
 
-    section {
-        background-color: var(--surface);
-        padding: 80px 40px;
-    }
-
-    h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        margin: 0 auto 60px auto;
-        color: var(--heading);
-    }
-
-    .container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-        align-items: start;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .left p {
-        line-height: 1.7;
-        margin: 0;
-        color: var(--on-surface-muted);
-    }
-    
-    .left p.intro-p {
-        margin-bottom: 3rem; 
-    }
-
-    strong {
-        color: var(--accent-text);
-        font-weight: 600;
-    }
-    
-    /* --- EL TOQUE FINAL --- */
-
-    .implementation-block {
-        /* Añadimos un borde izquierdo que agrupa visualmente el contenido */
-        border-left: 3px solid var(--accent);
-        padding-left: 24px; /* Espacio para que el texto no se pegue al borde */
-    }
-
-    .implementation-block:not(:last-child) {
-        margin-bottom: 2.5rem; 
-    }
-    
-    .implementation-block h3 {
-        color: var(--on-surface);
-        margin: 0 0 10px 0;
-        font-size: 1.4rem;
-    }
-    
-    .implementation-block p {
-       margin-bottom: 1rem;
-    }
-        
-    button {
-        background-color: transparent;
-        color: var(--on-surface);
-        border: 1px solid var(--border-strong);
-        padding: 10px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s ease-in-out;
-    }
-
-    button:hover {
-        background-color: var(--accent);
-        color: var(--on-accent);
-        border-color: var(--accent);
-    }
-
-    /* --- ESTILOS DE LA DERECHA --- */
-
-    .right {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .feature {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid var(--border);
-    }
-    
-    .feature:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    .icon-wrapper {
-        color: var(--accent-text);
-        width: 32px;
-        height: 32px;
-        flex-shrink: 0;
-        margin-top: 3px;
-    }
-
-    h4 {
-        margin: 0 0 8px 0;
-        font-size: 1.2rem;
-        color: var(--on-surface);
-    }
-
-    .feature p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        margin: 0;
-        color: var(--on-surface-muted);
-    }
-
-    @media (max-width: 900px) {
-        .container {
-            grid-template-columns: 1fr;
-            gap: 60px;
-        }
-    }
+	.card .row-mark {
+		margin-bottom: 16px;
+	}
 </style>
