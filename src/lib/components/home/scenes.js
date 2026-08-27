@@ -68,7 +68,7 @@ function lifeAt(cols, rows, generation, seedFn) {
 	return grid;
 }
 
-export function drawAutomataScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawAutomataScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const compact = width < 820;
 
@@ -120,7 +120,7 @@ export function drawAutomataScene(ctx, { width, height, progress, palette, mouse
 	ctx.restore();
 	label(
 		ctx,
-		`generation ${String(generation).padStart(2, '0')}`,
+		t('viz.home.generation', { n: String(generation).padStart(2, '0') }),
 		ox + (cols * res) / 2,
 		oy + rows * res + 24,
 		palette,
@@ -133,7 +133,7 @@ export function drawAutomataScene(ctx, { width, height, progress, palette, mouse
 		const f = smoothstep(range(progress, 0.2, 0.4));
 		label(
 			ctx,
-			'2 or 3 neighbours: live · exactly 3: born',
+			t('viz.home.lifeRule'),
 			ox + (cols * res) / 2,
 			oy - 18,
 			palette,
@@ -233,7 +233,7 @@ function capGlyph(ctx, x, y, slot, size) {
 	}
 }
 
-export function drawNetworkScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawNetworkScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -440,7 +440,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
 	const size = compact ? 10 : 12;
 	label(
 		ctx,
-		'one protocol everyone must run',
+		t('viz.home.oneProtocol'),
 		cx,
 		capY,
 		palette,
@@ -451,7 +451,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
 	);
 	label(
 		ctx,
-		'change the rules and the network splits',
+		t('viz.home.networkSplits'),
 		cx,
 		capY,
 		palette,
@@ -462,7 +462,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
 	);
 	label(
 		ctx,
-		'they talk wherever they overlap',
+		t('viz.home.whereOverlap'),
 		cx,
 		capY,
 		palette,
@@ -473,7 +473,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
 	);
 	label(
 		ctx,
-		'no vote · no migration · no fork',
+		t('viz.home.noVote'),
 		cx,
 		capY,
 		palette,
@@ -488,7 +488,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
  * from the outside a service is defined by what goes in and what comes
  * out, and nothing else.
  * ================================================================== */
-export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -542,7 +542,7 @@ export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse
 			ctx.stroke();
 		}
 		ctx.restore();
-		label(ctx, 'black box', cx, cy + 5, palette, opaqueF, compact ? 13 : 16);
+		label(ctx, t('viz.home.blackBox'), cx, cy + 5, palette, opaqueF, compact ? 13 : 16);
 	}
 
 	// --- Input and output, the only surface that exists ---
@@ -560,8 +560,8 @@ export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse
 		ctx.lineTo(bx + boxW + reach, cy);
 		ctx.stroke();
 		ctx.restore();
-		label(ctx, 'input', bx - reach / 2, cy - 14, palette, f, compact ? 10 : 12);
-		label(ctx, 'output', bx + boxW + reach / 2, cy - 14, palette, f, compact ? 10 : 12);
+		label(ctx, t('viz.home.input'), bx - reach / 2, cy - 14, palette, f, compact ? 10 : 12);
+		label(ctx, t('viz.home.output'), bx + boxW + reach / 2, cy - 14, palette, f, compact ? 10 : 12);
 		for (let i = 0; i < 3; i++) {
 			const k = (time * 0.5 + i * 0.33) % 1;
 			packet(ctx, bx - reach, cy, bx, cy, k, palette.accent, f);
@@ -579,7 +579,7 @@ export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse
  * actual guarantee. The channel underneath is the default one every
  * service has: its node, its parent, its children.
  * ================================================================== */
-export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -645,8 +645,8 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		ctx.stroke();
 		ctx.restore();
 	}
-	label(ctx, 'BOX', cx, cy - 2, palette, boxF, compact ? 14 : 18);
-	label(ctx, 'environment', cx, cy + (compact ? 16 : 20), palette, boxF * 0.7, compact ? 9 : 11, 500);
+	label(ctx, t('viz.home.box'), cx, cy - 2, palette, boxF, compact ? 14 : 18);
+	label(ctx, t('viz.home.environment'), cx, cy + (compact ? 16 : 20), palette, boxF * 0.7, compact ? 9 : 11, 500);
 
 	// --- API: one wide channel, traffic in both directions ---
 	if (apiF > 0.01) {
@@ -676,8 +676,8 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			packet(ctx, pore.x, pore.y + half, endX, pore.y + half, k, palette.node, apiF);
 		}
 		const mid = (pore.x + endX) / 2;
-		label(ctx, 'API', mid, pore.y - half - 14, palette, apiF, compact ? 12 : 15);
-		label(ctx, 'interface', mid, pore.y + half + 22, palette, apiF * 0.75, compact ? 9 : 11, 500);
+		label(ctx, t('viz.home.api'), mid, pore.y - half - 14, palette, apiF, compact ? 12 : 15);
+		label(ctx, t('viz.home.interface'), mid, pore.y + half + 22, palette, apiF * 0.75, compact ? 9 : 11, 500);
 	}
 
 	// --- NET: thin channels, one per network the spec names ---
@@ -725,7 +725,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 	});
 	label(
 		ctx,
-		'NET · declared in the spec',
+		t('viz.home.netDeclared'),
 		cx,
 		cy - netR - 40 * s,
 		palette,
@@ -758,7 +758,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		});
 		label(
 			ctx,
-			'and nowhere else',
+			t('viz.home.nowhereElse'),
 			cx + r * 1.55,
 			cy + r * 0.95,
 			palette,
@@ -811,7 +811,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			}
 			ctx.restore();
 		});
-		label(ctx, 'its node · its parent', cx, endY + 26 * s, palette, innerF * 0.8, compact ? 9 : 11, 500);
+		label(ctx, t('viz.home.itsNodeItsParent'), cx, endY + 26 * s, palette, innerF * 0.8, compact ? 9 : 11, 500);
 	}
 }
 
@@ -825,7 +825,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
  * is the split between what a node operator worries about and what a
  * service developer does.
  * ================================================================== */
-export function drawExecutionScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawExecutionScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -852,13 +852,13 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 
 	const hosts = compact
 		? [
-				{ x: cx - spread * 0.75, name: 'this node', cost: '0.9', local: true },
-				{ x: cx + spread * 0.75, name: 'a peer', cost: '0.7', winner: true }
+				{ x: cx - spread * 0.75, name: t('viz.home.thisNode'), cost: '0.9', local: true },
+				{ x: cx + spread * 0.75, name: t('viz.home.aPeer'), cost: '0.7', winner: true }
 			]
 		: [
-				{ x: cx - spread, name: 'a peer', cost: '1.2' },
-				{ x: cx, name: 'this node', cost: '0.9', local: true },
-				{ x: cx + spread, name: 'a peer', cost: '0.7', winner: true }
+				{ x: cx - spread, name: t('viz.home.aPeer'), cost: '1.2' },
+				{ x: cx, name: t('viz.home.thisNode'), cost: '0.9', local: true },
+				{ x: cx + spread, name: t('viz.home.aPeer'), cost: '0.7', winner: true }
 			];
 	// The node doing the asking: index 0 when compact, 1 otherwise.
 	const localX = hosts[compact ? 0 : 1].x;
@@ -882,7 +882,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 	sealedBox(ctx, cx - pw / 2, parentY - ph / 2, pw, ph, Math.min(1, ask * 3), palette, {
 		scan: time
 	});
-	label(ctx, 'a service', cx, parentY - ph / 2 - 14, palette, askF, compact ? 10 : 12, 500);
+	label(ctx, t('viz.home.aService'), cx, parentY - ph / 2 - 14, palette, askF, compact ? 10 : 12, 500);
 
 	// --- What it hands down: resources stated, and a budget with them ---
 	if (askF > 0.02) {
@@ -962,7 +962,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 		if (!compact) label(ctx, h.name, h.x, hostY + hr + 17 * s, palette, f * 0.75, 10, 500);
 		label(
 			ctx,
-			`cost ${h.cost}`,
+			t('viz.home.cost', { value: h.cost }),
 			h.x,
 			hostY + hr + (compact ? 16 : 32) * s,
 			palette,
@@ -999,7 +999,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 		ctx.setLineDash([]);
 		ctx.restore();
 	});
-	label(ctx, 'children', cx, childY - (compact ? 26 : 32) * s, palette, placeF * 0.8, compact ? 9 : 11, 500);
+	label(ctx, t('viz.home.children'), cx, childY - (compact ? 26 : 32) * s, palette, placeF * 0.8, compact ? 9 : 11, 500);
 
 	// --- The fog: from up here, the "where" simply is not visible ---
 	if (blindF > 0.01) {
@@ -1049,7 +1049,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 		});
 		label(
 			ctx,
-			'what they spend, not where they are',
+			t('viz.home.whatTheySpend'),
 			cx,
 			childY + chh / 2 + 32 * s,
 			palette,
@@ -1075,7 +1075,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 		ctx.restore();
 		label(
 			ctx,
-			compact ? 'developers · what it needs' : 'developers · what it needs, what it spends',
+			compact ? t('viz.home.developersShort') : t('viz.home.developersLong'),
 			cx,
 			lineY - 12 * s,
 			palette,
@@ -1084,7 +1084,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 		);
 		label(
 			ctx,
-			compact ? 'operators · where it runs' : 'operators · where it runs, what it costs',
+			compact ? t('viz.home.operatorsShort') : t('viz.home.operatorsLong'),
 			cx,
 			lineY + 20 * s,
 			palette,
@@ -1099,7 +1099,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
  * The same input is dispatched to three different nodes, at three
  * different times, and all three return an identical result.
  * ================================================================== */
-export function drawDeterminismScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawDeterminismScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -1113,7 +1113,7 @@ export function drawDeterminismScene(ctx, { width, height, progress, palette, mo
 	const laneW = (compact ? 120 : 150) * Math.max(0.85, scale * 0.8);
 	const startX = cx - laneW * 0.62;
 	const topY = cy - ((lanes - 1) / 2) * laneGap;
-	const when = ['now', 'in a year', 'on other hardware'];
+	const when = t('viz.home.when');
 
 	// --- The input, on the left ---
 	const inF = smoothstep(input);
@@ -1124,7 +1124,7 @@ export function drawDeterminismScene(ctx, { width, height, progress, palette, mo
 	ctx.arc(startX - laneW * 0.5, cy, 13 * Math.max(0.85, scale * 0.8), 0, Math.PI * 2);
 	ctx.fill();
 	ctx.restore();
-	label(ctx, 'one input', startX - laneW * 0.5, cy + 32, palette, inF, compact ? 10 : 12);
+	label(ctx, t('viz.home.oneInput'), startX - laneW * 0.5, cy + 32, palette, inF, compact ? 10 : 12);
 
 	for (let i = 0; i < lanes; i++) {
 		const y = topY + i * laneGap;
@@ -1181,7 +1181,7 @@ export function drawDeterminismScene(ctx, { width, height, progress, palette, mo
 		const f = smoothstep(range(progress, 0.85, 1));
 		label(
 			ctx,
-			'identical, every time',
+			t('viz.home.identicalEveryTime'),
 			cx + laneW * 0.2,
 			topY + (lanes - 1) * laneGap + 56,
 			palette,
@@ -1202,7 +1202,7 @@ export function drawDeterminismScene(ctx, { width, height, progress, palette, mo
  * arc closing the cycle IS the enforcement mechanism, so it, the
  * rights chip and the fresh record all persist to the final frame.
  * ================================================================== */
-export function drawTrustScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawTrustScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -1254,7 +1254,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		label(
 			ctx,
-			'reputation · records on a ledger',
+			t('viz.home.reputationLedger'),
 			cx,
 			ledgerY + lh / 2 + 20 * s,
 			palette,
@@ -1291,7 +1291,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 			ctx.fill();
 			ctx.restore();
 		}
-		label(ctx, 'the sources you trust', cx, sy + (compact ? 22 : 26) * s, palette, readF * 0.8, compact ? 9 : 11, 500);
+		label(ctx, t('viz.home.sourcesYouTrust'), cx, sy + (compact ? 22 : 26) * s, palette, readF * 0.8, compact ? 9 : 11, 500);
 	}
 
 	/* ---- Step 1: the requester reads before it talks --------------- */
@@ -1313,7 +1313,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		packet(ctx, cx - lw * 0.3, ledgerY - lh / 2, ax, partyY + pr, (time * 0.7) % 1, palette.accent, lookF);
 		label(
 			ctx,
-			'first: what do my sources say about it?',
+			t('viz.home.firstWhatSources'),
 			cx,
 			partyY + 40 * s,
 			palette,
@@ -1352,11 +1352,11 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.font = `700 ${compact ? 9 : 10.5}px Lato, sans-serif`;
 		ctx.textAlign = 'center';
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.85);
-		ctx.fillText(compact ? '2 vCPU · 30 min' : 'right to 2 vCPU · 30 min', cx, chipY + 4 * s);
+		ctx.fillText(compact ? t('viz.home.rightShort') : t('viz.home.rightLong'), cx, chipY + 4 * s);
 		ctx.restore();
 		label(
 			ctx,
-			'payment ⇄ resource rights',
+			t('viz.home.paymentRights'),
 			cx,
 			chipY + (compact ? 24 : 28) * s,
 			palette,
@@ -1405,7 +1405,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		packet(ctx, ax, partyY + pr, cx + lw * 0.36, ledgerY - lh / 2, (time * 0.6) % 1, palette.accent, recordF);
 		label(
 			ctx,
-			'the outcome goes on its record',
+			t('viz.home.outcomeRecorded'),
 			cx - lw * (compact ? 0.06 : 0.18),
 			ledgerY - lh / 2 - 15 * s,
 			palette,
@@ -1442,7 +1442,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		label(
 			ctx,
-			'and that is what the next stranger reads',
+			t('viz.home.nextStranger'),
 			cx,
 			partyY - 52 * s,
 			palette,
@@ -1454,8 +1454,8 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 
 	/* ---- The two parties, drawn last so nothing crosses them ------- */
 	[
-		{ x: ax, name: 'requester', colour: palette.accent },
-		{ x: bx, name: 'node', colour: palette.node }
+		{ x: ax, name: t('viz.home.requester'), colour: palette.accent },
+		{ x: bx, name: t('viz.home.node'), colour: palette.node }
 	].forEach((p) => {
 		ctx.save();
 		ctx.globalAlpha = partyF;

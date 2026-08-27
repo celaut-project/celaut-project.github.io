@@ -13,8 +13,9 @@
 	 * fight both of them.
 	 */
 	import { page } from '$app/stores';
+	import { t, href, stripLocalePrefix } from '$lib/i18n/index.js';
 
-	/** Page title shown next to the wordmark. */
+	/** Page title shown next to the wordmark. Already translated. */
 	export let title = '';
 	/**
 	 * `fixed` floats the bar over full-bleed canvases (the immersive
@@ -30,18 +31,22 @@
 	 * that pushed "Paradigm" off the edge behind a scrollbar-less
 	 * overflow, so the last destination was effectively undiscoverable.
 	 */
+	// Only the destinations live here; both labels come from the
+	// dictionary under topbar.links.<key>.
 	const links = [
-		{ href: '/depin', label: 'Rent your PC', short: 'Rent PC' },
-		{ href: '/developers', label: 'Developers', short: 'Devs' },
-		{ href: '/users', label: 'Users', short: 'Users' },
-		{ href: '/paradigm', label: 'Paradigm', short: 'Paradigm' }
+		{ key: 'depin', href: '/depin' },
+		{ key: 'developers', href: '/developers' },
+		{ key: 'users', href: '/users' },
+		{ key: 'paradigm', href: '/paradigm' }
 	];
 
-	$: current = $page.url.pathname.replace(/\/$/, '') || '/';
+	// Compare against the canonical, unprefixed path — /es/depin and
+	// /depin both mark the "depin" nav item active.
+	$: current = stripLocalePrefix($page.url.pathname.replace(/\/$/, '') || '/');
 </script>
 
 <header class="topbar" class:sticky={position === 'sticky'}>
-	<a class="home-link" href="/">
+	<a class="home-link" href={$href('/')}>
 		<span aria-hidden="true">←</span>
 		<span class="wordmark">CELAUT</span>
 	</a>
@@ -50,16 +55,16 @@
 		<span class="topbar-title">{title}</span>
 	{/if}
 
-	<nav aria-label="Celaut sections">
+	<nav aria-label={$t('topbar.nav')}>
 		<ul>
 			{#each links as l}
 				<li>
 					<a
-						href={l.href}
+						href={$href(l.href)}
 						class:active={current === l.href}
 						aria-current={current === l.href ? 'page' : undefined}
-						><span class="label-full">{l.label}</span><span class="label-short"
-							>{l.short}</span
+						><span class="label-full">{$t(`topbar.links.${l.key}.label`)}</span><span
+							class="label-short">{$t(`topbar.links.${l.key}.short`)}</span
 						></a
 					>
 				</li>
@@ -125,9 +130,9 @@
 
 	nav {
 		margin-left: auto;
-		/* The theme toggle is a fixed element in the top-right corner; keep
-		   the last link clear of it. */
-		padding-right: 56px;
+		/* The language + theme controls are fixed in the top-right corner;
+		   keep the last link clear of them. */
+		padding-right: calc(var(--floating-controls-w) + 12px);
 		min-width: 0;
 	}
 

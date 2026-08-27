@@ -1,65 +1,87 @@
 <script lang="ts">
+	/*
+	 * /paradigm — the three paradigm documents rendered as one page.
+	 *
+	 * Each locale has its own copy of the markdown under
+	 * $lib/paradigm/<locale>/. `+page.ts`'s `load()` already resolved
+	 * `data.docs` to the right language's raw text — lazily, via a
+	 * dynamic import per locale, so this route's bundle doesn't carry
+	 * all ten languages' documents (that was ~450 kB on its own before).
+	 * Everything downstream here — combining, rendering, heading ids,
+	 * the index — is derived from `data.docs`, so a client-side
+	 * navigation to a different `/xx/paradigm` re-renders the whole
+	 * document with matching anchors once its own `load()` resolves.
+	 */
 	import { marked } from 'marked';
 	import SiteTopbar from '$lib/components/immersive/SiteTopbar.svelte';
-	import readme from '$lib/paradigm/README.md?raw';
-	import execution from '$lib/paradigm/execution_of_a_service.md?raw';
-	import balancer from '$lib/paradigm/service_balancer.md?raw';
+	import { t } from '$lib/i18n/index.js';
 
-	// --- Combine the three docs into one document ---------------------------
-	// The README references the two sub-docs under its "System behavior"
-	// section; we append them here as their own anchored sections so the whole
-	// paradigm repo lives on this single page.
-	const combinedRaw =
-		readme +
-		'\n\n## Execution of a service\n\n' +
-		execution +
-		'\n\n## Service load balancing\n\n' +
-		balancer;
+	/** @type {import('./$types').PageData} */
+	export let data;
+	$: docs = data.docs;
 
-	// --- Preprocess markdown BEFORE rendering -------------------------------
-	function preprocess(md: string): string {
-		return md
-			// Ported image assets now live under /paradigm_assets/
-			.replaceAll('](assets/', '](/paradigm_assets/')
-			// Internal cross-doc links -> in-page anchors
-			.replaceAll('README.md#', '#')
-			.replaceAll('](execution_of_a_service.md)', '](#execution-of-a-service)')
-			.replaceAll('](service_balancer.md)', '](#service-load-balancing)')
-			// The empty "Node handshake" link -> plain text (no broken link)
-			.replaceAll('[Node handshake]()', 'Node handshake')
-			// Fix URLs that markdown italics mangled (*Celaut* emphasis inside links)
-			.replaceAll('*Celaut*-project', 'celaut-project')
-			.replaceAll('*Celaut*.proto', 'celaut.proto');
-	}
-
-	// --- Slugify (shared by heading ids and the TOC so anchors always align) -
+	// --- Slugify (shared by heading ids, the TOC and the cross-doc links,
+	//     so every anchor lines up in both languages) --------------------
 	function slugify(text: string): string {
 		return text
 			.toLowerCase()
 			.replace(/<[^>]+>/g, '')
 			.replace(/&[#\w]+;/g, '')
-			.replace(/[^\w\s-]/g, '')
+			// Strip diacritics so Spanish headings still produce clean,
+			// linkable ascii slugs ("ejecución" → "ejecucion").
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '')
+			// Unicode-aware "word character": keeps CJK ideographs and
+			// Devanagari text (which \w, being ASCII-only, would otherwise
+			// strip entirely and collapse every heading down to the same
+			// "section" fallback) alongside plain Latin letters and digits.
+			// \p{M} matters specifically for Devanagari: vowel signs like
+			// े/ा are combining Marks rather than Letters, so without it
+			// "सेवा" degrades to the unreadable, meaning-different "सव".
+			.replace(/[^\p{L}\p{M}\p{N}\s-]/gu, '')
 			.trim()
 			.replace(/\s+/g, '-')
 			.replace(/-+/g, '-');
 	}
 
+	// --- Preprocess markdown BEFORE rendering -------------------------------
+	function preprocess(md: string, anchors: Record<string, string>): string {
+		return (
+			md
+				// Ported image assets now live under /paradigm_assets/
+				.replaceAll('](assets/', '](/paradigm_assets/')
+				// Internal cross-doc links -> in-page anchors. The targets are
+				// derived from the translated headings, so they hold in any
+				// language.
+				.replaceAll('README.md#system-behavior', `#${anchors.systemBehavior}`)
+				.replaceAll('README.md#', '#')
+				.replaceAll('](execution_of_a_service.md)', `](#${anchors.execution})`)
+				.replaceAll('](service_balancer.md)', `](#${anchors.balancer})`)
+				// The empty "Node handshake" link -> plain text (no broken link)
+				.replaceAll('[Node handshake]()', 'Node handshake')
+				// Fix URLs that markdown italics mangled (*Celaut* emphasis inside links)
+				.replaceAll('*Celaut*-project', 'celaut-project')
+				.replaceAll('*Celaut*.proto', 'celaut.proto')
+		);
+	}
+
 	// --- Render + post-process HTML -----------------------------------------
-	function render(md: string): string {
-		let html = marked.parse(preprocess(md), { async: false }) as string;
+	function render(md: string, anchors: Record<string, string>): string {
+		let html = marked.parse(preprocess(md, anchors), { async: false }) as string;
 
 		// Give every heading a stable, unique id for anchor navigation.
 		const seen = new Set<string>();
 		html = html.replace(
 			/<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/g,
 			(_m: string, level: string, attrs: string, inner: string) => {
-			let slug = slugify(inner) || 'section';
-			let unique = slug;
-			let i = 1;
-			while (seen.has(unique)) unique = `${slug}-${i++}`;
-			seen.add(unique);
-			return `<h${level} id="${unique}"${attrs}>${inner}</h${level}>`;
-		});
+				let slug = slugify(inner) || 'section';
+				let unique = slug;
+				let i = 1;
+				while (seen.has(unique)) unique = `${slug}-${i++}`;
+				seen.add(unique);
+				return `<h${level} id="${unique}"${attrs}>${inner}</h${level}>`;
+			}
+		);
 
 		// External links open in a new tab.
 		html = html.replace(
@@ -70,32 +92,49 @@
 		return html;
 	}
 
-	const html = render(combinedRaw);
-
 	// --- Build the "Index" TOC from the h2 headings -------------------------
-	const toc: { text: string; slug: string }[] = [];
-	const headingRe = /^##[ \t]+(.+?)\s*$/gm;
-	let match: RegExpExecArray | null;
-	while ((match = headingRe.exec(combinedRaw)) !== null) {
-		const text = match[1].trim();
-		toc.push({ text, slug: slugify(text) });
+	function buildToc(md: string): { text: string; slug: string }[] {
+		const toc: { text: string; slug: string }[] = [];
+		const headingRe = /^##[ \t]+(.+?)\s*$/gm;
+		let match: RegExpExecArray | null;
+		while ((match = headingRe.exec(md)) !== null) {
+			const text = match[1].trim();
+			toc.push({ text, slug: slugify(text) });
+		}
+		return toc;
 	}
+
+	// The README references the two sub-docs under its "System behavior"
+	// section; they are appended here as their own anchored sections so the
+	// whole paradigm repo lives on this single page.
+	$: executionHeading = $t('paradigm.executionHeading');
+	$: balancerHeading = $t('paradigm.balancerHeading');
+	$: anchors = {
+		systemBehavior: slugify($t('paradigm.systemBehaviorHeading')),
+		execution: slugify(executionHeading),
+		balancer: slugify(balancerHeading)
+	};
+	$: combinedRaw =
+		docs.readme +
+		`\n\n## ${executionHeading}\n\n` +
+		docs.execution +
+		`\n\n## ${balancerHeading}\n\n` +
+		docs.balancer;
+	$: html = render(combinedRaw, anchors);
+	$: toc = buildToc(combinedRaw);
 </script>
 
 <svelte:head>
-	<title>Celaut — Formal Paper</title>
-	<meta
-		name="description"
-		content="Celaut: a peer-to-peer architecture for software design and distribution — the formal paper."
-	/>
+	<title>{$t('paradigm.meta.title')}</title>
+	<meta name="description" content={$t('paradigm.meta.description')} />
 </svelte:head>
 
 <div id="top" class="paradigm-page">
-	<SiteTopbar title="Formal Paper" position="sticky" />
+	<SiteTopbar title={$t('paradigm.topbarTitle')} position="sticky" />
 
 	<main class="prose">
-		<nav class="toc" aria-label="Table of contents">
-			<h2 class="toc-title">Index</h2>
+		<nav class="toc" aria-label={$t('paradigm.tocNav')}>
+			<h2 class="toc-title">{$t('paradigm.toc')}</h2>
 			<ul>
 				{#each toc as item}
 					<li><a href={`#${item.slug}`}>{item.text}</a></li>
@@ -107,7 +146,7 @@
 		{@html html}
 	</main>
 
-	<a class="to-top" href="#top" aria-label="Back to top">↑ Top</a>
+	<a class="to-top" href="#top" aria-label={$t('common.backToTop')}>{$t('common.toTop')}</a>
 </div>
 
 <style>

@@ -18,6 +18,7 @@
 	 */
 
 	import { onMount } from 'svelte';
+	import { t, href } from '$lib/i18n/index.js';
 	import { drawHeroField } from './scene-kit.js';
 	import {
 		loadGsap,
@@ -242,7 +243,7 @@
 								class="btn"
 								class:primary={a.primary}
 								class:ghost={!a.primary}
-								href={a.href}>{a.label}</a
+								href={$href(a.href)}>{a.label}</a
 							>
 						{/if}
 					{/each}
@@ -263,7 +264,7 @@
 	</div>
 
 	<div class="scroll-hint" bind:this={layerScroll} aria-hidden="true">
-		<span>Scroll</span>
+		<span>{$t('common.scroll')}</span>
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<path d="M12 5v14M5 12l7 7 7-7" />
 		</svg>

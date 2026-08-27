@@ -34,7 +34,7 @@ import {
  * Your request radiates out; peers answer with a price. You pick one
  * and talk to it directly — no signup, no gateway.
  * ================================================================== */
-export function drawAskScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawAskScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -162,7 +162,7 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 		ctx.arc(cx, cy, r, 0, Math.PI * 2);
 		ctx.fill();
 		ctx.restore();
-		label(ctx, 'you', cx, cy + r + 20, palette, y, compact ? 11 : 13);
+		label(ctx, t('viz.users.you'), cx, cy + r + 20, palette, y, compact ? 11 : 13);
 	}
 
 	// No account required: a struck-through login card fading out.
@@ -193,7 +193,7 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 			ctx.lineTo(bx + w - 6, by + h - 6);
 			ctx.stroke();
 			ctx.restore();
-			label(ctx, 'no account', cx, by - 10, palette, f, compact ? 10 : 12);
+			label(ctx, t('viz.users.noAccount'), cx, by - 10, palette, f, compact ? 10 : 12);
 		}
 	}
 }
@@ -203,7 +203,7 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
  * The service's hash is computed, matched against what was requested,
  * and only then does it run. A swapped copy fails the comparison.
  * ================================================================== */
-export function drawProofScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawProofScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -221,7 +221,7 @@ export function drawProofScene(ctx, { width, height, progress, palette, mouse, t
 	sealedBox(ctx, cx - boxW / 2, topY - boxH / 2, boxW, boxH, Math.min(1, asked * 3), palette, {
 		scan: 0
 	});
-	label(ctx, 'what you asked for', cx, topY - boxH / 2 - 14, palette, smoothstep(asked), compact ? 10 : 12, 500);
+	label(ctx, t('viz.users.whatYouAsked'), cx, topY - boxH / 2 - 14, palette, smoothstep(asked), compact ? 10 : 12, 500);
 	label(ctx, 'a1f3…9c2e', cx, topY + boxH / 2 + 20, palette, smoothstep(asked), compact ? 11 : 13);
 
 	// --- Bottom: what the node actually has ---
@@ -233,7 +233,7 @@ export function drawProofScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.translate(0, drop);
 		sealedBox(ctx, cx - boxW / 2, botY - boxH / 2, boxW, boxH, arriveF, palette, { scan: time });
 		ctx.restore();
-		label(ctx, 'what the node runs', cx, botY + boxH / 2 + 22 + drop, palette, arriveF, compact ? 10 : 12, 500);
+		label(ctx, t('viz.users.whatNodeRuns'), cx, botY + boxH / 2 + 22 + drop, palette, arriveF, compact ? 10 : 12, 500);
 		label(ctx, 'a1f3…9c2e', cx, botY - boxH / 2 - 12 + drop, palette, arriveF, compact ? 11 : 13);
 	}
 
@@ -290,7 +290,7 @@ export function drawProofScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.lineTo(cx + r * 0.4, cy - r * 0.32);
 		ctx.stroke();
 		ctx.restore();
-		label(ctx, 'identical — it runs', cx, cy + r + 22, palette, f, compact ? 10 : 12, 700);
+		label(ctx, t('viz.users.identicalItRuns'), cx, cy + r + 22, palette, f, compact ? 10 : 12, 700);
 
 		// The swapped build, pushed out of frame with a different hash.
 		const drift = smoothstep(clamp((f - 0.3) / 0.7));
@@ -317,7 +317,7 @@ export function drawProofScene(ctx, { width, height, progress, palette, mouse, t
  * The workload is sealed inside a microVM on the node that runs it.
  * The developer's reach stops at the seal; the host's does too.
  * ================================================================== */
-export function drawSealedScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawSealedScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -355,7 +355,7 @@ export function drawSealedScene(ctx, { width, height, progress, palette, mouse, 
 	sealedBox(ctx, bx, by, boxW, boxH, sealT, palette, { scan: time });
 	label(
 		ctx,
-		destroyF > 0.5 ? 'destroyed' : 'microVM',
+		destroyF > 0.5 ? t('viz.users.destroyed') : t('viz.users.microvm'),
 		cx,
 		by - 16,
 		palette,
@@ -374,14 +374,14 @@ export function drawSealedScene(ctx, { width, height, progress, palette, mouse, 
 				sy: by - boxH * 0.5,
 				hx: bx,
 				hy: by + boxH * 0.34,
-				name: 'the developer'
+				name: t('viz.users.theDeveloper')
 			},
 			{
 				sx: bx + boxW * 1.52,
 				sy: by + boxH * 1.5,
 				hx: bx + boxW,
 				hy: by + boxH * 0.66,
-				name: 'the host machine'
+				name: t('viz.users.theHostMachine')
 			}
 		];
 		sides.forEach((s, i) => {
@@ -422,7 +422,7 @@ export function drawSealedScene(ctx, { width, height, progress, palette, mouse, 
  * and settles — next to a subscription bar that keeps charging whether
  * you used it or not.
  * ================================================================== */
-export function drawMeterScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawMeterScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const compact = width < 820;
 
@@ -491,7 +491,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.globalAlpha = rf;
 		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.75);
-		ctx.fillText('compute you actually used', ox, oy - 12);
+		ctx.fillText(t('viz.users.computeUsed'), ox, oy - 12);
 		ctx.restore();
 	}
 
@@ -517,7 +517,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.globalAlpha = mf;
 		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
 		ctx.fillStyle = palette.accent;
-		ctx.fillText('what you pay', ox, oy - 30);
+		ctx.fillText(t('viz.users.whatYouPay'), ox, oy - 30);
 		ctx.restore();
 	}
 
@@ -548,7 +548,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.font = `700 ${compact ? 10 : 12}px Lato, sans-serif`;
 		ctx.textAlign = 'center';
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.7);
-		ctx.fillText('job ends — charging stops', stopX + 4, oy + chartH + 32);
+		ctx.fillText(t('viz.users.chargingStops'), stopX + 4, oy + chartH + 32);
 		ctx.textAlign = 'left';
 		ctx.restore();
 	}
@@ -569,7 +569,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.setLineDash([]);
 		ctx.font = `500 ${compact ? 10 : 12}px Lato, sans-serif`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.6);
-		ctx.fillText('a subscription, charging regardless', ox, sy + 20);
+		ctx.fillText(t('viz.users.subscription'), ox, sy + 20);
 		ctx.restore();
 	}
 

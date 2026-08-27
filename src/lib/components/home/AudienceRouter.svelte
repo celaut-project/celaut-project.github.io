@@ -2,69 +2,33 @@
 	/*
 	 * AudienceRouter — the landing page's fork in the road.
 	 *
-	 * The paradigm document names three user roles. Each now has its own
+	 * The paradigm document names three user roles. Each has its own
 	 * immersive page, so this section's only job is to let a visitor
-	 * self-identify and leave for the right one. It replaces the old
-	 * UserRoles block, keeping its copy but turning each role into a
-	 * real destination rather than a paragraph.
+	 * self-identify and leave for the right one.
+	 *
+	 * Copy lives in `home.roles`; the destinations stay here and pair by
+	 * index, because a link is structure rather than language.
 	 */
+	import { t, href } from '$lib/i18n/index.js';
+
 	const SKILLS_URL = 'https://celaut-project.github.io/skills';
 
-	const roles = [
-		{
-			eyebrow: 'Role 01',
-			title: 'Node maintainers',
-			lede: `Similar to miners in blockchain systems, node maintainers provide
-			computational resources to the network. They execute services requested by
-			users in exchange for payment, without needing to understand the specific
-			functionality of those services.`,
-			points: [
-				'Provide hardware resources',
-				'Execute services on request',
-				'Receive compensation for resources'
-			],
-			primary: { label: 'Rent your PC', href: '/depin' },
-			secondary: { label: 'Run a node', href: '/install' }
-		},
-		{
-			eyebrow: 'Role 02',
-			title: 'Service developers',
-			lede: `Developers create services that can run on any compatible node in the
-			network. They focus on building functionality without worrying about the
-			underlying infrastructure details.`,
-			points: [
-				'Design service specifications',
-				'Build deterministic applications',
-				'Distribute services to nodes'
-			],
-			primary: { label: 'Build on Celaut', href: '/developers' },
-			secondary: { label: 'Explore Skills', href: SKILLS_URL, external: true }
-		},
-		{
-			eyebrow: 'Role 03',
-			title: 'Service users',
-			lede: `End users launch services on nodes, paying for the computational
-			resources used.`,
-			points: [
-				'Request service execution',
-				'Pay for computational resources',
-				'Consume service outputs'
-			],
-			primary: { label: 'Use the network', href: '/users' },
-			secondary: { label: 'Explore Skills', href: SKILLS_URL, external: true }
-		}
+	// Every primary is an internal route; only a secondary ever leaves
+	// the site.
+	const destinations = [
+		{ primary: '/depin', secondary: { href: '/install' } },
+		{ primary: '/developers', secondary: { href: SKILLS_URL, external: true } },
+		{ primary: '/users', secondary: { href: SKILLS_URL, external: true } }
 	];
 </script>
 
 <div class="block">
-	<p class="eyebrow">Pick your way in</p>
-	<h2>Which one are you?</h2>
-	<p class="block-intro">
-		As users, we can play three types of roles in the ecosystem. Each has its own way in.
-	</p>
+	<p class="eyebrow">{$t('home.roles.eyebrow')}</p>
+	<h2>{$t('home.roles.heading')}</h2>
+	<p class="block-intro">{$t('home.roles.intro')}</p>
 
 	<div class="grid" data-reveal-group>
-		{#each roles as role}
+		{#each $t('home.roles.items') as role, i}
 			<article class="card">
 				<p class="role-num">{role.eyebrow}</p>
 				<h3>{role.title}</h3>
@@ -75,16 +39,14 @@
 					{/each}
 				</ul>
 				<div class="actions">
-					<!-- Every primary is an internal route; only a secondary
-					     ever leaves the site. -->
-					<a class="btn btn-primary" href={role.primary.href}>{role.primary.label} →</a>
+					<a class="btn btn-primary" href={$href(destinations[i].primary)}>{role.primary} →</a>
 					<a
 						class="btn"
-						href={role.secondary.href}
-						target={role.secondary.external ? '_blank' : undefined}
-						rel={role.secondary.external ? 'noopener noreferrer' : undefined}
+						href={$href(destinations[i].secondary.href)}
+						target={destinations[i].secondary.external ? '_blank' : undefined}
+						rel={destinations[i].secondary.external ? 'noopener noreferrer' : undefined}
 					>
-						{role.secondary.label}
+						{role.secondary}
 					</a>
 				</div>
 			</article>

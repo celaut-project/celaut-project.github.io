@@ -1,23 +1,24 @@
 <script>
     import { onMount } from 'svelte';
     import { fly, fade } from 'svelte/transition';
+    import { locale, t } from '$lib/i18n/index.js';
 
     // --- ROTATING HERO FACTS ---
-    // Short, engaging facts about Celaut that cycle in place of the old static
-    // paragraph. Hardcoded on purpose (no external source), rotated every 10s
-    // with a subtle fade + vertical slide. The card wrapper below is sized with
-    // a fixed min-height so swapping facts never shifts the surrounding layout.
-    const facts = [
-        'Inspired by cellular automata — resilient global behaviour emerging from simple local rules.',
-        'Deterministic by design: identical inputs always produce identical, verifiable output.',
-        'No central registry. Services are distributed peer-to-peer across independent nodes.',
-        'Every service is content-addressed — its hash is its name, so nothing can be silently swapped.',
-        'Nodes run each service sealed inside its own isolated micro-environment.',
-        'Reputation lives on-chain: trust is earned and provable, never granted by a gatekeeper.',
-        'Three principles, all the way down: decentralization, simplicity, and determinism.'
-    ];
+    // Short facts about Celaut that cycle in place of the old static
+    // paragraph, rotated every 10s with a subtle fade + vertical slide.
+    // The card wrapper below is sized with a fixed min-height so swapping
+    // facts never shifts the surrounding layout.
+    $: facts = $t('home.hero.facts');
     let factIndex = 0;
     let factsTimer;
+    // The lists are the same length in every locale, but clamp anyway so a
+    // future shorter translation can never leave the index out of range.
+    $: safeFactIndex = factIndex % facts.length;
+
+    // The tagline's reveal is choreographed to land after the wordmark on
+    // first paint. A later replay (a language switch) should be immediate —
+    // the visitor is already looking at it.
+    let taglineDelay = 800;
 
     // --- 1. LÓGICA PARA EL EFECTO PARALLAX ---
     let parallaxX = 0;
@@ -88,6 +89,8 @@
                 node.appendChild(document.createTextNode(' '));
             }
         });
+
+        taglineDelay = 0;
 
         return {
             destroy() {
@@ -215,7 +218,7 @@
 
         // Rotate the hero facts every 10 seconds.
         factsTimer = setInterval(() => {
-            factIndex = (factIndex + 1) % facts.length;
+            factIndex = factIndex + 1;
         }, 10000);
 
         return () => {
@@ -235,29 +238,35 @@
         style="transform: translate({parallaxX * -30}px, {parallaxY * -20}px);"
     >
         <h1 use:staggeredFadeIn={{ delay: 200, stagger: 70 }}>CELAUT</h1>
-        
-        <h2 use:staggeredFadeIn={{ delay: 800, stagger: 20 }}>
-            A Peer-to-Peer Architecture for Software Design and Distribution
-        </h2>
+
+        <!-- staggeredFadeIn rewrites the element's children into per-character
+             spans, so Svelte can no longer patch the text in place. Keying on
+             the locale remounts the heading instead, which re-runs the action
+             and replays the reveal in the new language. -->
+        {#key $locale}
+            <h2 use:staggeredFadeIn={{ delay: taglineDelay, stagger: 20 }}>
+                {$t('home.hero.tagline')}
+            </h2>
+        {/key}
         
         <div class="facts" in:fly={{ y: 20, duration: 600, delay: 1600 }} aria-live="polite">
-            {#key factIndex}
+            {#key `${$locale}-${safeFactIndex}`}
                 <p
                     class="fact"
                     in:fly={{ y: 14, duration: 500, delay: 180 }}
                     out:fade={{ duration: 260 }}
                 >
-                    {facts[factIndex]}
+                    {facts[safeFactIndex]}
                 </p>
             {/key}
         </div>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
-            <a class="button primary" href="#user-roles" on:click={scrollToRoles}>Start to use it</a>
-            <a
-                class="button secondary"
-                href="#foundations"
-                on:click={scrollToLearnMore}>Learn More</a
+            <a class="button primary" href="#user-roles" on:click={scrollToRoles}
+                >{$t('home.hero.primary')}</a
+            >
+            <a class="button secondary" href="#foundations" on:click={scrollToLearnMore}
+                >{$t('home.hero.secondary')}</a
             >
         </div>
     </div>

@@ -36,7 +36,7 @@ import {
  * BOX seals around them, and the API and NET faces attach. That is
  * literally the whole of a Celaut service specification.
  * ================================================================== */
-export function drawSpecScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawSpecScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -86,7 +86,7 @@ export function drawSpecScene(ctx, { width, height, progress, palette, mouse, ti
 
 	// --- BOX seals around the filesystem ---
 	sealedBox(ctx, bx, by, boxW, boxH, seal, palette, { scan: time });
-	label(ctx, 'BOX', cx, by - 16 * Math.max(0.9, scale * 0.8), palette, smoothstep(seal), compact ? 12 : 15);
+	label(ctx, t('viz.developers.box'), cx, by - 16 * Math.max(0.9, scale * 0.8), palette, smoothstep(seal), compact ? 12 : 15);
 	ctx.restore();
 
 	// --- API face: the declared way in ---
@@ -115,7 +115,7 @@ export function drawSpecScene(ctx, { width, height, progress, palette, mouse, ti
 			ctx.fill();
 		}
 		ctx.restore();
-		label(ctx, 'API', ax + reach + 14, ay - 44 * f, palette, f, compact ? 11 : 13);
+		label(ctx, t('viz.developers.api'), ax + reach + 14, ay - 44 * f, palette, f, compact ? 11 : 13);
 
 		// Callers knocking on the API.
 		for (let i = 0; i < 3; i++) {
@@ -139,7 +139,7 @@ export function drawSpecScene(ctx, { width, height, progress, palette, mouse, ti
 		ctx.stroke();
 		ctx.setLineDash([]);
 		ctx.restore();
-		label(ctx, 'NET', cx, cy + r * 0.82 + 22, palette, f, compact ? 11 : 13);
+		label(ctx, t('viz.developers.net'), cx, cy + r * 0.82 + 22, palette, f, compact ? 11 : 13);
 	}
 }
 
@@ -149,7 +149,7 @@ export function drawSpecScene(ctx, { width, height, progress, palette, mouse, ti
  * stacks) all fold into the identical sealed service shape, and every
  * node in the row accepts the same thing.
  * ================================================================== */
-export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -231,7 +231,7 @@ export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse
 		// Once folded they are indistinguishable — the black box.
 		if (same > 0) {
 			const s = smoothstep(same);
-			label(ctx, 'service', x + cellW / 2, y + cellH + 18, palette, s * 0.75, compact ? 9 : 11, 500);
+			label(ctx, t('viz.developers.service'), x + cellW / 2, y + cellH + 18, palette, s * 0.75, compact ? 9 : 11, 500);
 			ctx.save();
 			ctx.globalAlpha = s * 0.22;
 			ctx.fillStyle = palette.node;
@@ -279,7 +279,7 @@ export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse
 			ctx.fill();
 		}
 		ctx.restore();
-		label(ctx, 'any compatible node', cx, railY + 26, palette, r * 0.8, compact ? 10 : 12, 500);
+		label(ctx, t('viz.developers.anyCompatibleNode'), cx, railY + 26, palette, r * 0.8, compact ? 10 : 12, 500);
 	}
 }
 
@@ -289,7 +289,7 @@ export function drawAgnosticScene(ctx, { width, height, progress, palette, mouse
  * hop by hop. The hash under it never changes, because the thing being
  * copied is the exact bytes you sealed.
  * ================================================================== */
-export function drawDistributeScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawDistributeScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -388,7 +388,7 @@ export function drawDistributeScene(ctx, { width, height, progress, palette, mou
 			ctx.fillRect(cx - rw / 2 + k, ry - 5, 8, 10);
 		}
 		ctx.restore();
-		label(ctx, 'optional reputation registry', cx, ry + 32, palette, f * 0.8, compact ? 10 : 12, 500);
+		label(ctx, t('viz.developers.optionalRegistry'), cx, ry + 32, palette, f * 0.8, compact ? 10 : 12, 500);
 	}
 }
 
@@ -398,7 +398,7 @@ export function drawDistributeScene(ctx, { width, height, progress, palette, mou
  * somewhere to run it — maybe locally, maybe three peers away — and
  * the parent never learns which.
  * ================================================================== */
-export function drawComposeScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawComposeScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -413,7 +413,7 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 
 	// --- Parent service ---
 	sealedBox(ctx, px, py, pw, pw * 0.66, Math.min(1, parent * 3), palette, { scan: time });
-	label(ctx, 'your service', cx, py - 14, palette, smoothstep(parent), compact ? 10 : 12, 500);
+	label(ctx, t('viz.developers.yourService'), cx, py - 14, palette, smoothstep(parent), compact ? 10 : 12, 500);
 
 	// --- Its node, directly below ---
 	const nodeY = cy + (compact ? 6 : 10);
@@ -433,7 +433,7 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 		const k = (time * 0.75) % 1;
 		packet(ctx, cx, py + pw * 0.66, cx, nodeY - nodeR, k, palette.accent, a);
 		ctx.restore();
-		label(ctx, 'its node', cx, nodeY + nodeR + 18, palette, a * 0.8, compact ? 10 : 12, 500);
+		label(ctx, t('viz.developers.itsNode'), cx, nodeY + nodeR + 18, palette, a * 0.8, compact ? 10 : 12, 500);
 	}
 
 	// --- Children, placed wherever they fit ---
@@ -497,7 +497,7 @@ export function drawComposeScene(ctx, { width, height, progress, palette, mouse,
 		// its own "its node" caption sitting on the vertical axis.
 		label(
 			ctx,
-			'you never find out where',
+			t('viz.developers.neverFindOut'),
 			cx - spread * (compact ? 0 : 0.85),
 			bandY - 14,
 			palette,

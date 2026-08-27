@@ -1,30 +1,32 @@
 <script>
 	import { onMount } from 'svelte';
+	import { t } from '$lib/i18n/index.js';
 
 	// Landing-page table of contents. Desktop: a sticky vertical rail on the
 	// left (dot + label). Mobile: a floating button that opens a compact menu.
 	// Active section is tracked with an IntersectionObserver.
 	//
 	// Order mirrors the page: the seven pinned scenes first, then the
-	// audience fork, then the grounded detail sections.
+	// audience fork, then the grounded detail sections. Only the ids live
+	// here; the labels come from home.index.sections.<id>.
 	const sections = [
-		{ id: 'foundations', label: 'Foundations' },
-		{ id: 'nodes', label: 'Nodes' },
-		{ id: 'services', label: 'Services' },
-		{ id: 'service-spec', label: 'Service Spec' },
-		{ id: 'execution', label: 'Execution' },
-		{ id: 'determinism', label: 'Determinism' },
-		{ id: 'coordination', label: 'Coordination' },
-		{ id: 'user-roles', label: 'Which one are you?' },
-		{ id: 'core-principles', label: 'Core Principles' },
-		{ id: 'what-is-not', label: 'What It Is Not' },
-		{ id: 'implementations', label: 'Implementations' },
-		{ id: 'coordination-detail', label: 'Incentives' },
-		{ id: 'service-distribution', label: 'Service Distribution' },
-		{ id: 'applications', label: 'Applications' }
+		'foundations',
+		'nodes',
+		'services',
+		'service-spec',
+		'execution',
+		'determinism',
+		'coordination',
+		'user-roles',
+		'core-principles',
+		'what-is-not',
+		'implementations',
+		'coordination-detail',
+		'service-distribution',
+		'applications'
 	];
 
-	let active = sections[0].id;
+	let active = sections[0];
 	let open = false;
 
 	function go(event, id) {
@@ -45,8 +47,8 @@
 			},
 			{ rootMargin: '-45% 0px -50% 0px', threshold: 0 }
 		);
-		for (const s of sections) {
-			const el = document.getElementById(s.id);
+		for (const id of sections) {
+			const el = document.getElementById(id);
 			if (el) observer.observe(el);
 		}
 		return () => observer.disconnect();
@@ -54,18 +56,18 @@
 </script>
 
 <!-- Desktop side rail -->
-<nav class="rail" aria-label="Section navigation">
+<nav class="rail" aria-label={$t('home.index.nav')}>
 	<ul>
-		{#each sections as s}
+		{#each sections as id}
 			<li>
 				<a
-					href={`#${s.id}`}
-					class:active={active === s.id}
-					on:click={(e) => go(e, s.id)}
-					aria-current={active === s.id ? 'true' : undefined}
+					href={`#${id}`}
+					class:active={active === id}
+					on:click={(e) => go(e, id)}
+					aria-current={active === id ? 'true' : undefined}
 				>
 					<span class="dot" aria-hidden="true"></span>
-					<span class="label">{s.label}</span>
+					<span class="label">{$t(`home.index.sections.${id}`)}</span>
 				</a>
 			</li>
 		{/each}
@@ -76,7 +78,7 @@
 <button
 	class="toc-fab"
 	on:click={() => (open = !open)}
-	aria-label={open ? 'Close section menu' : 'Open section menu'}
+	aria-label={open ? $t('home.index.close') : $t('home.index.open')}
 	aria-expanded={open}
 >
 	{#if open}
@@ -88,15 +90,15 @@
 
 {#if open}
 	<div class="toc-sheet" role="menu">
-		<p class="toc-title">On this page</p>
+		<p class="toc-title">{$t('home.index.title')}</p>
 		<ul>
-			{#each sections as s}
+			{#each sections as id}
 				<li>
 					<a
-						href={`#${s.id}`}
-						class:active={active === s.id}
-						on:click={(e) => go(e, s.id)}
-						role="menuitem">{s.label}</a
+						href={`#${id}`}
+						class:active={active === id}
+						on:click={(e) => go(e, id)}
+						role="menuitem">{$t(`home.index.sections.${id}`)}</a
 					>
 				</li>
 			{/each}

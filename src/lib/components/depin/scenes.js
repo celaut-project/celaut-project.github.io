@@ -37,7 +37,7 @@ import {
  * ships them out to paying peers. This is the page's core promise, so
  * it is the first thing the visitor scrubs through.
  * ================================================================== */
-export function drawRentScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawRentScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 	const unit = 120 * scale;
@@ -191,7 +191,7 @@ export function drawRentScene(ctx, { width, height, progress, palette, mouse, ti
  * re-wire themselves into a direct mesh. Cursor pushes the mesh around
  * so it reads as a living network rather than a diagram.
  * ================================================================== */
-export function drawP2PScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawP2PScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -342,7 +342,7 @@ export function drawP2PScene(ctx, { width, height, progress, palette, mouse, tim
  * on top of it, the margin between them, and the availability window
  * you choose to be online for.
  * ================================================================== */
-export function drawPowerScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawPowerScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const compact = width < 820;
 
@@ -428,10 +428,10 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
 		ctx.globalAlpha = smoothstep(costIn);
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.72);
-		ctx.fillText('your electricity cost', ox, oy - 26);
+		ctx.fillText(t('viz.depin.electricityCost'), ox, oy - 26);
 		ctx.globalAlpha = smoothstep(priceIn);
 		ctx.fillStyle = palette.warm;
-		ctx.fillText('the price you set', ox, oy - 8);
+		ctx.fillText(t('viz.depin.priceYouSet'), ox, oy - 8);
 		ctx.restore();
 	}
 
@@ -459,7 +459,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.setLineDash([]);
 		ctx.font = `700 ${compact ? 10 : 12}px Lato, sans-serif`;
 		ctx.fillStyle = palette.node;
-		ctx.fillText('available 22:00 – 07:00', ox + 8, oy + chartH - 10);
+		ctx.fillText(t('viz.depin.availableWindow'), ox + 8, oy + chartH - 10);
 		ctx.restore();
 	}
 
@@ -487,7 +487,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.fillText(`${Math.round(f * 100)}%`, 0, compact ? -2 : 0);
 		ctx.font = `500 ${compact ? 9 : 11}px Lato, sans-serif`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.7);
-		ctx.fillText('margin covered', 0, compact ? 14 : 20);
+		ctx.fillText(t('viz.depin.marginCovered'), 0, compact ? 14 : 20);
 		ctx.textAlign = 'left';
 		ctx.restore();
 	}
@@ -513,7 +513,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
  * is sealed around them, neighbouring workloads get their own, and an
  * escape attempt bounces off the wall.
  * ================================================================== */
-export function drawIsolationScene(ctx, { width, height, progress, palette, mouse, time, align }) {
+export function drawIsolationScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 

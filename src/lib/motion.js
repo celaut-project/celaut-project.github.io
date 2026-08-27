@@ -33,6 +33,7 @@ export function isCompactViewport() {
 	return window.matchMedia('(max-width: 820px)').matches;
 }
 
+/** @type {Promise<{ gsap: any, ScrollTrigger: any }> | null} */
 let gsapPromise = null;
 
 /**
@@ -55,6 +56,7 @@ export async function loadGsap() {
 	return gsapPromise;
 }
 
+/** @type {import('lenis').default | null} */
 let lenis = null;
 let lenisRaf = null;
 let lenisRefs = 0;
@@ -111,6 +113,43 @@ export async function startSmoothScroll() {
 			lenis = null;
 		}
 	};
+}
+
+/**
+ * Force scroll back to the top and make ScrollTrigger re-measure every
+ * pin against the freshly-mounted page.
+ *
+ * WHY THIS EXISTS
+ * ----------------
+ * `+page.svelte` unmounts/remounts on every route change, and each one
+ * tears down its own Lenis ref and reverts its own GSAP context — but
+ * that teardown/setup pair is asynchronous (dynamic imports), so there
+ * is a window, right after a client-side navigation, where the browser
+ * is still sitting at the PREVIOUS page's scroll offset while the new
+ * page's (shorter, not-yet-pinned) DOM has just been inserted. A stray
+ * `new Lenis()` reading that stale `scrollY` as its baseline, or a
+ * `ScrollTrigger.refresh()` racing the layout before webfonts/images
+ * settle, is exactly what makes a destination page open mid-scroll with
+ * its pins mis-measured (symptom: the fixed topbar seems to "vanish"
+ * until the user scrolls, which is just ScrollTrigger catching up).
+ *
+ * Called from the root layout's `afterNavigate`, this resets the native
+ * scroll position unconditionally and, once GSAP is loaded, refreshes
+ * ScrollTrigger twice — immediately and on the next frame — so both the
+ * synchronous DOM and any late reflow are accounted for.
+ */
+export function hardResetScroll() {
+	if (!browser) return;
+	window.scrollTo(0, 0);
+	if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+	if (gsapPromise) {
+		gsapPromise.then((bits) => {
+			if (!bits) return;
+			const { ScrollTrigger } = bits;
+			ScrollTrigger.refresh();
+			requestAnimationFrame(() => ScrollTrigger.refresh());
+		});
+	}
 }
 
 /** Scroll to an element/offset through Lenis when it is running. */

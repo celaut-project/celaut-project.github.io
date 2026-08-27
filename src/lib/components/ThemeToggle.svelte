@@ -1,5 +1,6 @@
 <script>
 	import { theme, applyTheme, toggleTheme } from '$lib/theme.js';
+	import { t } from '$lib/i18n/index.js';
 
 	// Keep <html data-theme> in sync whenever the store changes, and spin
 	// the icon 180° per toggle so the sun/moon swap reads as a rotation.
@@ -15,8 +16,8 @@
 <button
 	class="theme-toggle"
 	on:click={onClick}
-	aria-label={$theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-	title="Toggle theme"
+	aria-label={$theme === 'dark' ? $t('theme.toLight') : $t('theme.toDark')}
+	title={$t('theme.toggle')}
 >
 	<span class="icon" style={`transform: rotate(${rotation}deg);`}>
 		{#if $theme === 'dark'}
@@ -36,10 +37,6 @@
 
 <style>
 	.theme-toggle {
-		position: fixed;
-		top: 18px;
-		right: 18px;
-		z-index: 60;
 		width: 44px;
 		height: 44px;
 		border-radius: 50%;

@@ -1,75 +1,49 @@
 <script>
-	// Nodes: what they do, and the two implementations that exist.
-	// Styling comes from the shared `.ground` layer in src/app.css.
+	/*
+	 * Nodes: what they do, and the two implementations that exist.
+	 * Styling comes from the shared `.ground` layer in src/app.css; the
+	 * words come from `home.nodes` in the dictionaries.
+	 *
+	 * Icons and repository URLs are structure, so they stay here and are
+	 * paired by index with the translated job / implementation lists.
+	 */
+	import { t } from '$lib/i18n/index.js';
 	import Cpu from '$lib/assets/icons/Cpu.svelte';
 	import Link from '$lib/assets/icons/Link.svelte';
 	import Lock from '$lib/assets/icons/Lock.svelte';
 	import Package from '$lib/assets/icons/Package.svelte';
 
-	const jobs = [
-		{
-			icon: Cpu,
-			title: 'Service execution',
-			body: 'It negotiates execution costs with peers and decides whether to run a service locally or delegate it, so resources go where they are cheapest.'
-		},
-		{
-			icon: Link,
-			title: 'Communication',
-			body: 'It declares the interfaces it supports and the payment methods it accepts on contact, which is what lets protocols evolve without prior agreement.'
-		},
-		{
-			icon: Lock,
-			title: 'Security',
-			body: 'It issues and manages the addresses and authentication tokens every service interaction is identified by.'
-		},
-		{
-			icon: Package,
-			title: 'Dependencies',
-			body: 'It makes sure a service can reach what it needs, wherever across the network that dependency happens to be running.'
-		}
-	];
-
-	const implementations = [
-		{
-			name: 'Nodo',
-			body: 'The reference implementation, built with Python3 and Rust — a working example of how a node is deployed in practice.',
-			href: 'https://github.com/celaut-project/nodo'
-		},
-		{
-			name: 'Chatui',
-			body: 'A node for Android devices. It exposes services through basic chat interfaces, without requiring trust in any other node.',
-			href: 'https://github.com/celaut-project/chatui'
-		}
+	const jobIcons = [Cpu, Link, Lock, Package];
+	const repos = [
+		'https://github.com/celaut-project/nodo',
+		'https://github.com/celaut-project/chatui'
 	];
 </script>
 
 <div class="block">
-	<p class="eyebrow">The machines</p>
-	<h2>Nodes: the foundation of the network</h2>
-	<p class="block-intro">
-		A node is a <strong>computer or device</strong> that communicates with peers and manages service
-		execution. Four jobs, and no coordinator above them.
-	</p>
+	<p class="eyebrow">{$t('home.nodes.eyebrow')}</p>
+	<h2>{$t('home.nodes.heading')}</h2>
+	<p class="block-intro">{@html $t('home.nodes.intro')}</p>
 
 	<div class="grid grid-pair">
-		{#each jobs as job}
+		{#each $t('home.nodes.jobs') as job, i}
 			<article class="card">
-				<span class="row-mark" aria-hidden="true"><svelte:component this={job.icon} /></span>
+				<span class="row-mark" aria-hidden="true"><svelte:component this={jobIcons[i]} /></span>
 				<h3>{job.title}</h3>
 				<p>{job.body}</p>
 			</article>
 		{/each}
 	</div>
 
-	<h3 class="sub">Implementations you can run today</h3>
+	<h3 class="sub">{$t('home.nodes.implementationsHeading')}</h3>
 	<div class="grid grid-2">
-		{#each implementations as impl}
+		{#each $t('home.nodes.implementations') as impl, i}
 			<article class="card">
 				<h3>{impl.name}</h3>
 				<p>{impl.body}</p>
 				<div class="actions">
-					<a class="btn" href={impl.href} target="_blank" rel="noopener noreferrer">
-						View on GitHub →
+					<a class="btn" href={repos[i]} target="_blank" rel="noopener noreferrer">
+						{$t('common.viewOnGitHub')}
 					</a>
 				</div>
 			</article>

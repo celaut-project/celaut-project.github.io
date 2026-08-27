@@ -106,6 +106,12 @@
 	--font-heading: 'Playfair Display', serif;
 	--font-body: 'Lato', sans-serif;
 
+	/* ---------- Layout reservations ----------
+	   The fixed top-right control cluster (language + theme). Anything
+	   that has to stay clear of it reserves this width instead of
+	   repeating a magic number. */
+	--floating-controls-w: 96px;
+
 	/* ---------- Legacy aliases ----------
 	   Kept so older component styles keep resolving. Prefer the
 	   semantic tokens above in anything new. */

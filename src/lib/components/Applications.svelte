@@ -1,35 +1,33 @@
 <script>
-	// Where Celaut is actually being used. Two projects from the
-	// project itself, then a third-party one, kept visibly separate.
-	// Styling comes from the shared `.ground` layer in src/app.css.
-	const ours = [
-		{
-			name: 'DePin',
-			href: '/depin',
-			external: false,
-			body: 'Anyone can run a Celaut node and become part of a decentralized physical infrastructure network. Each node discovers peers, executes and orchestrates services, and manages their dependencies — turning ordinary computers into shared, censorship-resistant compute.'
-		},
-		{
-			name: 'Unstoppable Skills',
-			href: 'https://celaut-project.github.io/skills',
-			external: true,
-			body: 'A fully on-chain, serverless registry where the problems are the protagonists. Instead of hunting for services, agents search for a skill and discover the services that cover it, with real benchmarks and reputation-based ranking. Built on Ergo and Celaut, with native skin-in-the-game: nobody spams without risking reputation.'
-		}
+	/*
+	 * Where Celaut is actually being used. Two projects from the project
+	 * itself, then a third-party one, kept visibly separate.
+	 * Styling comes from the shared `.ground` layer in src/app.css; the
+	 * words come from `home.applications` in the dictionaries.
+	 *
+	 * Icons and URLs pair by index with the translated list — they are
+	 * structure, not language.
+	 */
+	import { t, href } from '$lib/i18n/index.js';
+
+	const ourLinks = [
+		{ href: '/depin', external: false },
+		{ href: 'https://celaut-project.github.io/skills', external: true }
 	];
+	const GAME_OF_PROMPTS = 'https://game-of-prompts.github.io';
+	const ERGO_DOCS = 'https://docs.ergoplatform.com/eco/celaut/';
 </script>
 
 <div class="block">
-	<p class="eyebrow">Where it is already running</p>
-	<h2>Real-world impact and applications</h2>
-	<p class="block-intro">
-		The architecture is not a thought experiment. These are the places it is in use today.
-	</p>
+	<p class="eyebrow">{$t('home.applications.eyebrow')}</p>
+	<h2>{$t('home.applications.heading')}</h2>
+	<p class="block-intro">{$t('home.applications.intro')}</p>
 
 	<div class="grid grid-2">
-		{#each ours as app}
+		{#each $t('home.applications.ours') as app, i}
 			<article class="card">
 				<span class="row-mark" aria-hidden="true">
-					{#if app.name === 'DePin'}
+					{#if i === 0}
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="6.2" y2="16.5"/><line x1="12" y1="8" x2="17.8" y2="16.5"/><line x1="7.7" y1="19" x2="16.3" y2="19"/></svg>
 					{:else}
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -38,10 +36,12 @@
 				<h3>{app.name}</h3>
 				<p>{app.body}</p>
 				<div class="actions">
-					{#if app.external}
-						<a class="btn" href={app.href} target="_blank" rel="noopener noreferrer">Visit →</a>
+					{#if ourLinks[i].external}
+						<a class="btn" href={$href(ourLinks[i].href)} target="_blank" rel="noopener noreferrer"
+							>{$t('common.visit')}</a
+						>
 					{:else}
-						<a class="btn" href={app.href}>Read more →</a>
+						<a class="btn" href={$href(ourLinks[i].href)}>{$t('common.readMore')}</a>
 					{/if}
 				</div>
 			</article>
@@ -49,7 +49,8 @@
 	</div>
 
 	<h3 class="sub">
-		Third-party <span class="tag">not built by us</span>
+		{$t('home.applications.thirdPartyHeading')}
+		<span class="tag">{$t('home.applications.thirdPartyTag')}</span>
 	</h3>
 	<div class="grid grid-pair">
 		<article class="card">
@@ -60,29 +61,23 @@
 					loading="lazy"
 				/>
 			</span>
-			<h3>Game of Prompts</h3>
-			<p>
-				A competitive platform where creators design <strong>game-services</strong> that evaluate
-				the robots playing them, and players write <strong>solver-services</strong> that try to
-				maximise their score.
-			</p>
-			<p>
-				The services follow the Celaut paradigm, and the whole system uses the Ergo blockchain to
-				record results and transfer prizes.
-			</p>
+			<h3>{$t('home.applications.thirdParty.name')}</h3>
+			{#each $t('home.applications.thirdParty.body') as paragraph}
+				<p>{@html paragraph}</p>
+			{/each}
 			<div class="actions">
-				<a class="btn" href="https://game-of-prompts.github.io" target="_blank" rel="noopener noreferrer">
-					Visit →
+				<a class="btn" href={GAME_OF_PROMPTS} target="_blank" rel="noopener noreferrer">
+					{$t('common.visit')}
 				</a>
 			</div>
 		</article>
 	</div>
 
 	<div class="actions closing">
-		<a class="btn btn-primary" href="https://docs.ergoplatform.com/eco/celaut/" target="_blank" rel="noopener noreferrer">
-			Ergo docs
+		<a class="btn btn-primary" href={ERGO_DOCS} target="_blank" rel="noopener noreferrer">
+			{$t('home.applications.ergoDocs')}
 		</a>
-		<a class="btn" href="/paradigm">Formal paper</a>
+		<a class="btn" href={$href('/paradigm')}>{$t('home.applications.formalPaper')}</a>
 	</div>
 </div>
 

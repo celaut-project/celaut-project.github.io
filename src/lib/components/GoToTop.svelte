@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { t } from '$lib/i18n/index.js';
 
 	// Floating "scroll to top" control. Appears once the user has scrolled
 	// past roughly one viewport, and glides back to the top on click.
@@ -25,8 +26,8 @@
 	class="go-to-top"
 	class:visible
 	on:click={toTop}
-	aria-label="Scroll back to top"
-	title="Back to top"
+	aria-label={$t('common.backToTop')}
+	title={$t('common.backToTop')}
 	tabindex={visible ? 0 : -1}
 >
 	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

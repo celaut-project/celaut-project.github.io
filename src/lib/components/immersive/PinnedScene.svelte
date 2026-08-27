@@ -35,6 +35,7 @@
 	 */
 
 	import { onMount } from 'svelte';
+	import { locale, translator } from '$lib/i18n/index.js';
 	import {
 		loadGsap,
 		prefersReducedMotion,
@@ -48,7 +49,7 @@
 	export let id = undefined;
 	/** Small eyebrow label rendered above the caption. */
 	export let label = '';
-	/** draw(ctx, { width, height, progress, palette, mouse, time }) */
+	/** draw(ctx, { width, height, progress, palette, mouse, time, t }) */
 	export let draw = () => {};
 	/** Scroll distance for the pin, as a multiple of viewport height. */
 	export let scrollLength = 2.2;
@@ -69,6 +70,10 @@
 		let width = 0;
 		let height = 0;
 		let palette = readPalette();
+		// Scenes paint a handful of words onto the canvas, so they get a
+		// plain lookup function rather than a store — this runs inside a
+		// RAF loop, where a per-frame subscription would be silly.
+		let lookup = translator('en');
 		// Pointer in scene space (0–1). Starts centred so the first paint
 		// is never lopsided before the user moves the mouse.
 		const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, active: false };
@@ -112,7 +117,8 @@
 				// Scenes compose their focal point AWAY from the caption, so
 				// the visual and the copy never fight for the same pixels.
 				align,
-				reduced
+				reduced,
+				t: (key, vars) => lookup(key, vars)
 			});
 		}
 
@@ -121,6 +127,14 @@
 
 		const stopThemeWatch = onThemeChange(() => {
 			palette = readPalette();
+			render();
+		});
+		// Fires immediately with the current locale, then on every switch.
+		// The repaint matters most in the reduced-motion path, where the
+		// canvas is painted exactly once and would otherwise keep the old
+		// language's labels.
+		const stopLocaleWatch = locale.subscribe((code) => {
+			lookup = translator(code);
 			render();
 		});
 		// Observe the canvas itself (not the section): fitCanvas is
@@ -135,6 +149,7 @@
 			return () => {
 				ro.disconnect();
 				stopThemeWatch();
+				stopLocaleWatch();
 			};
 		}
 
@@ -193,6 +208,7 @@
 			root.removeEventListener('pointerleave', onPointerLeave);
 			ro.disconnect();
 			stopThemeWatch();
+			stopLocaleWatch();
 			cleanupGsap();
 		};
 	});
