@@ -108,7 +108,7 @@
 	// README. New locales fall back to the English documents, whose h2 is
 	// "System behavior" — using the i18n label ("Systemverhalten") here
 	// rewrote README.md#system-behavior to a fragment that doesn't exist.
-	function systemBehaviorSlug(readme, fallback) {
+	function systemBehaviorSlug(readme: string, fallback: string): string {
 		const headingRe = /^##[ \t]+(.+?)\s*$/gm;
 		const fallbackSlug = slugify(fallback);
 		let match;

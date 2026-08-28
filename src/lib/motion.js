@@ -180,7 +180,7 @@ export function killAllScrollTriggers() {
 	if (!browser || !gsapPromise) return;
 	gsapPromise.then((bits) => {
 		if (!bits) return;
-		bits.ScrollTrigger.getAll().forEach((st) => st.kill());
+		bits.ScrollTrigger.getAll().forEach((/** @type {any} */ st) => st.kill());
 		if (typeof bits.ScrollTrigger.clearScrollMemory === 'function') {
 			bits.ScrollTrigger.clearScrollMemory('manual');
 		}

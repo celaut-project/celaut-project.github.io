@@ -1,20 +1,12 @@
 <script>
 	import '../../app.css';
 	import { browser } from '$app/environment';
-	import { afterNavigate, beforeNavigate, disableScrollHandling } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { theme, applyTheme } from '$lib/theme.js';
 	import { locale, applyLocale, commitLocale, detectLocale, setLocale } from '$lib/i18n/index.js';
 	import { hardResetScroll, killAllScrollTriggers } from '$lib/motion.js';
 	import AmbientBackground from '$lib/components/AmbientBackground.svelte';
 	import FloatingControls from '$lib/components/FloatingControls.svelte';
-
-	// SvelteKit's own scroll restoration fights Lenis + GSAP pins and is
-	// exactly what lands a destination page halfway down. Client-only:
-	// calling this during SSR/prerender throws.
-	if (browser) {
-		disableScrollHandling();
-		if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-	}
 
 	/** @type {import('./$types').LayoutData} */
 	export let data;
