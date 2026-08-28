@@ -21,7 +21,7 @@
 	.floating-controls {
 		position: fixed;
 		top: 18px;
-		right: 18px;
+		inset-inline-end: 18px;
 		z-index: 60;
 		display: flex;
 		align-items: center;
@@ -31,7 +31,7 @@
 	@media (max-width: 560px) {
 		.floating-controls {
 			top: 12px;
-			right: 12px;
+			inset-inline-end: 12px;
 			gap: 6px;
 		}
 	}

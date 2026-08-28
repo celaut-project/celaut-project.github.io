@@ -49,6 +49,24 @@
      * @param {number} params.stagger - Retraso entre la animación de cada carácter.
      */
     function staggeredFadeIn(node, { delay = 0, duration = 300, stagger = 30 }) {
+        // Splitting Arabic (and any RTL script) into per-character spans
+        // destroys letter joining. Fade the whole string instead.
+        const isRTL =
+            typeof document !== 'undefined' &&
+            document.documentElement.getAttribute('dir') === 'rtl';
+        if (isRTL) {
+            node.style.opacity = '0';
+            const timer = setTimeout(() => {
+                node.style.transition = `opacity ${duration}ms ease-out`;
+                node.style.opacity = '1';
+            }, delay);
+            return {
+                destroy() {
+                    clearTimeout(timer);
+                }
+            };
+        }
+
         const text = node.textContent;
         // Dividimos por espacios para obtener un array de palabras
         const words = text.split(' '); 

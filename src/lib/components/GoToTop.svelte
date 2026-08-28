@@ -40,7 +40,7 @@
 	.go-to-top {
 		position: fixed;
 		bottom: 24px;
-		right: 18px;
+		inset-inline-end: 18px;
 		z-index: 55;
 		width: 46px;
 		height: 46px;

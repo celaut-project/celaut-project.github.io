@@ -174,8 +174,15 @@
 }
 
 html {
-	scroll-behavior: smooth;
+	/* Lenis owns smoothness. CSS `smooth` plus SvelteKit restoration is
+	   what made client-side navigations open mid-page. */
+	scroll-behavior: auto;
 	background-color: var(--surface);
+}
+
+html[lang='ar'] {
+	--font-heading: 'Noto Naskh Arabic', 'Playfair Display', serif;
+	--font-body: 'Noto Sans Arabic', 'Lato', sans-serif;
 }
 
 body {
@@ -391,7 +398,7 @@ section,
 
 .ground .points li {
 	position: relative;
-	padding-left: 18px;
+	padding-inline-start: 18px;
 	line-height: 1.6;
 	color: var(--on-surface-muted);
 }
@@ -399,7 +406,7 @@ section,
 .ground .points li::before {
 	content: '';
 	position: absolute;
-	left: 0;
+	inset-inline-start: 0;
 	top: 0.62em;
 	width: 6px;
 	height: 6px;
@@ -420,7 +427,7 @@ section,
 	gap: 18px;
 	background-color: var(--surface-raised);
 	border: 1px solid var(--border);
-	border-left: 3px solid var(--accent);
+	border-inline-start: 3px solid var(--accent);
 	border-radius: 12px;
 	padding: 22px 24px;
 	transition: background-color 0.4s ease, border-color 0.4s ease;

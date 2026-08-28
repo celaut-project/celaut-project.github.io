@@ -263,7 +263,7 @@
 		position: relative;
 		z-index: 1;
 		width: min(560px, 100%);
-		margin-left: clamp(24px, 8vw, 120px);
+		margin-inline-start: clamp(24px, 8vw, 120px);
 		padding: 32px 0;
 	}
 
@@ -298,13 +298,13 @@
 	}
 
 	.align-right .scene-copy {
-		margin-left: auto;
-		margin-right: clamp(24px, 8vw, 120px);
+		margin-inline-start: auto;
+		margin-inline-end: clamp(24px, 8vw, 120px);
 	}
 
 	.align-center .scene-copy {
-		margin-left: auto;
-		margin-right: auto;
+		margin-inline-start: auto;
+		margin-inline-end: auto;
 		text-align: center;
 	}
 
@@ -333,6 +333,10 @@
 		width: 100%;
 		transform-origin: 0 50%;
 		background: var(--accent);
+	}
+
+	:global(html[dir='rtl']) .scene-progress-fill {
+		transform-origin: 100% 50%;
 	}
 
 	/* Static / reduced-motion: normal document flow, canvas becomes a
@@ -378,7 +382,7 @@
 				rgba(var(--surface-deep-rgb), 0.92) 55%,
 				rgba(var(--surface-deep-rgb), 0) 100%
 			);
-			text-align: left;
+			text-align: start;
 		}
 
 		.is-static .scene-copy {

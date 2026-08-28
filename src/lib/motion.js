@@ -60,6 +60,9 @@ export async function loadGsap() {
 let lenis = null;
 let lenisRaf = null;
 let lenisRefs = 0;
+/** Set by hardResetScroll; consumed when Lenis (re)starts so a late
+ *  `new Lenis()` cannot inherit the previous page's scroll offset. */
+let pendingTop = false;
 
 /**
  * Start (or join) the shared Lenis smooth-scroll instance and wire it
@@ -86,6 +89,12 @@ export async function startSmoothScroll() {
 			// Native momentum on touch beats an emulated one every time.
 			syncTouch: false
 		});
+
+		if (pendingTop) {
+			window.scrollTo(0, 0);
+			lenis.scrollTo(0, { immediate: true, force: true });
+			pendingTop = false;
+		}
 
 		if (gsapBits) {
 			const { gsap, ScrollTrigger } = gsapBits;
@@ -140,16 +149,42 @@ export async function startSmoothScroll() {
  */
 export function hardResetScroll() {
 	if (!browser) return;
+	pendingTop = true;
 	window.scrollTo(0, 0);
+	document.documentElement.scrollTop = 0;
+	document.body.scrollTop = 0;
 	if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
 	if (gsapPromise) {
 		gsapPromise.then((bits) => {
 			if (!bits) return;
 			const { ScrollTrigger } = bits;
+			if (typeof ScrollTrigger.clearScrollMemory === 'function') {
+				ScrollTrigger.clearScrollMemory('manual');
+			}
+			window.scrollTo(0, 0);
+			if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
 			ScrollTrigger.refresh();
-			requestAnimationFrame(() => ScrollTrigger.refresh());
+			requestAnimationFrame(() => {
+				window.scrollTo(0, 0);
+				if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+				ScrollTrigger.refresh();
+				pendingTop = false;
+			});
 		});
 	}
+}
+
+/** Kill leftover pins from the outgoing page so the next route doesn't
+ *  inherit pin-spacers or a mid-scene scroll memory. */
+export function killAllScrollTriggers() {
+	if (!browser || !gsapPromise) return;
+	gsapPromise.then((bits) => {
+		if (!bits) return;
+		bits.ScrollTrigger.getAll().forEach((st) => st.kill());
+		if (typeof bits.ScrollTrigger.clearScrollMemory === 'function') {
+			bits.ScrollTrigger.clearScrollMemory('manual');
+		}
+	});
 }
 
 /** Scroll to an element/offset through Lenis when it is running. */

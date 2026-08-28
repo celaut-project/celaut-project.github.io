@@ -1,12 +1,20 @@
 <script>
 	import '../../app.css';
 	import { browser } from '$app/environment';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate, disableScrollHandling } from '$app/navigation';
 	import { theme, applyTheme } from '$lib/theme.js';
 	import { locale, applyLocale, commitLocale, detectLocale, setLocale } from '$lib/i18n/index.js';
-	import { hardResetScroll } from '$lib/motion.js';
+	import { hardResetScroll, killAllScrollTriggers } from '$lib/motion.js';
 	import AmbientBackground from '$lib/components/AmbientBackground.svelte';
 	import FloatingControls from '$lib/components/FloatingControls.svelte';
+
+	// SvelteKit's own scroll restoration fights Lenis + GSAP pins and is
+	// exactly what lands a destination page halfway down. Client-only:
+	// calling this during SSR/prerender throws.
+	if (browser) {
+		disableScrollHandling();
+		if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+	}
 
 	/** @type {import('./$types').LayoutData} */
 	export let data;
@@ -40,6 +48,9 @@
 	// was still true a moment ago on the previous page. Back/forward
 	// (`popstate`) is left alone so the browser's own scroll restoration
 	// keeps working.
+	beforeNavigate((nav) => {
+		if (nav.type !== 'popstate') killAllScrollTriggers();
+	});
 	afterNavigate((nav) => {
 		if (nav.type !== 'popstate') hardResetScroll();
 	});
@@ -49,7 +60,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
-		href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;700;800&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700;800&family=Noto+Sans+Arabic:wght@400;700&display=swap"
 		rel="stylesheet"
 	/>
 </svelte:head>

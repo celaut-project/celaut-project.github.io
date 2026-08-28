@@ -61,6 +61,22 @@ export default {
 			]
 		},
 
+		atoms: {
+			eyebrow: 'Les deux primitives',
+			heading: 'Nœuds et services',
+			intro: 'Celaut se construit à partir de deux concepts atomiques. Tout le reste — spécification, exécution, paiement, réputation — n’est que la manière dont ils interagissent.',
+			items: [
+				{
+					title: 'Un nœud',
+					body: 'Un <strong>ordinateur ou un appareil</strong> qui dialogue avec ses pairs et gère l’exécution des services. Il fournit le matériel, décide s’il exécute le travail localement ou le transmet, et n’a jamais besoin de comprendre ce que fait le logiciel.'
+				},
+				{
+					title: 'Un service',
+					body: 'Un <strong>conteneur logiciel déterministe</strong> conçu pour faire une seule chose. Il est scellé vis-à-vis du nœud qui l’exécute : le nœud n’inspecte pas le programme, et le programme ignore sur quelle machine il a atterri.'
+				}
+			]
+		},
+
 		index: {
 			nav: 'Navigation par section',
 			title: 'Sur cette page',
@@ -68,6 +84,7 @@ export default {
 			close: 'Fermer le menu des sections',
 			sections: {
 				foundations: 'Origines',
+				atoms: 'Nœuds et services',
 				nodes: 'Nœuds',
 				services: 'Services',
 				'service-spec': 'Spécification',
@@ -209,12 +226,12 @@ export default {
 						p: 'Les nœuds et les services <strong>ne se font pas confiance entre eux</strong> — Celaut est un système sans confiance préalable. Rien ne commence donc par une poignée de main ; tout commence par une vérification. La réputation, ce sont des <strong>enregistrements sur des registres</strong>, des opinions plutôt que des verdicts, et chaque acteur pèse les sources auxquelles il fait déjà confiance pour décider si un inconnu vaut la peine qu’on lui parle.'
 					},
 					{
-						h: 'Puis la valeur achète des droits sur des ressources.',
-						p: 'C’est seulement une fois l’enregistrement vérifié que quelque chose bouge. Le demandeur paie, et ce qu’il reçoit en retour n’est pas une promesse — c’est <strong>le droit de consommer les ressources d’un nœud</strong> : tant de calcul, pendant tant de temps. Les mécanismes de paiement restent <strong>en dehors de l’architecture centrale</strong>, si bien qu’aucun registre particulier n’y est intégré.'
+						h: 'Puis vous payez pour une promesse de ressources.',
+						p: 'C’est seulement une fois l’enregistrement vérifié que quelque chose bouge. Le demandeur paie <strong>d’avance</strong>, et ce qu’il achète est une promesse : <strong>tant de calcul, pendant tant de temps</strong>. Les mécanismes de paiement restent <strong>en dehors de l’architecture centrale</strong>, si bien qu’aucun registre particulier n’y est intégré.'
 					},
 					{
-						h: 'Et le nœud livre, parce que l’enregistrement est la garantie.',
-						p: 'Rien ne le force à honorer ce droit. Ce qui le retient, c’est que <strong>le résultat est réécrit dans le registre</strong> — et un nœud dont l’historique indique qu’il a été payé sans livrer ce qu’il devait cesse d’être choisi. Chaque partie a un intérêt permanent à ce que le prochain inconnu apprécie ce qu’il lit.',
+						h: 'La garantie du nœud, c’est sa réputation.',
+						p: 'Rien ne le force à honorer cette promesse. Ce qui le retient, c’est que <strong>le résultat est réécrit dans le registre</strong> — et un nœud dont l’historique indique qu’il a été payé sans livrer ce qu’il devait cesse d’être choisi. Chaque partie a un intérêt permanent à ce que le prochain inconnu apprécie ce qu’il lit.',
 						note: 'Vérifier · payer · livrer · enregistrer. Puis recommencer.'
 					}
 				]
@@ -356,11 +373,11 @@ export default {
 				},
 				{
 					title: 'Mécanismes de paiement',
-					body: 'De la valeur échangée contre des ressources consommées. Ce qu’un paiement achète, c’est <strong>un droit concret</strong> — tant de calcul, pendant tant de temps — et non la promesse d’un bon comportement.',
+					body: 'Un nœud est payé <strong>d’avance</strong> en échange d’une promesse de ressources à consommer — tant de calcul, pendant tant de temps. Sa garantie n’est pas une facture après coup ; c’est <strong>sa réputation</strong>.',
 					points: [
-						'Les nœuds sont compensés pour les ressources qu’un service dépense réellement.',
+						'Le paiement est encaissé d’avance, avant que l’exécution commence.',
 						'La preuve de paiement conditionne l’accès aux services qui l’exigent.',
-						'Les registres peuvent être publics et sans permission, ou privés et fermés.'
+						'Un nœud qui encaisse et livre moins que promis perd sa réputation, et cesse donc d’être choisi.'
 					]
 				}
 			],
@@ -519,8 +536,8 @@ export default {
 					body: 'Le prix par unité de calcul, les heures où vous êtes disponible, la part de la machine que vous êtes prêt à céder. Tout cela est à vous de le modifier.'
 				},
 				{
-					title: 'Payé à chaque exécution',
-					body: 'Le règlement se fait sur Ergo (ERG) dès la fin du travail — aucune facture, aucun calendrier de versements imposé par une plateforme, aucun seuil minimum.'
+					title: 'Payé d’avance',
+					body: 'Un nœud est payé en amont pour une promesse de ressources — sur Ergo (ERG), aucune facture, aucun calendrier de versements imposé par une plateforme, aucun seuil minimum. La réputation est la garantie qu’il livrera.'
 				},
 				{
 					title: 'Rien à qui faire confiance',
@@ -553,7 +570,7 @@ export default {
 				},
 				{
 					title: 'Soyez payé',
-					body: 'Le paiement et la réputation se règlent sur Ergo à la fin de chaque exécution. La contribution est récompensée ; les résultats restent vérifiables.'
+					body: 'Le paiement est encaissé d’avance sur Ergo ; la réputation est inscrite à mesure que le travail est honoré. La contribution est récompensée ; les résultats restent vérifiables.'
 				}
 			]
 		},
@@ -861,12 +878,12 @@ export default {
 				label: 'Avantage 03',
 				beats: [
 					{
-						h: 'Vous payez le travail. Point final.',
-						p: 'Les utilisateurs lancent des services sur des nœuds et <strong>paient pour les ressources de calcul utilisées</strong>. C’est là toute la relation commerciale.'
+						h: 'Vous payez avant l’exécution. Point final.',
+						p: 'Les utilisateurs lancent des services sur des nœuds et <strong>paient d’avance pour une promesse de ressources</strong>. C’est là toute la relation commerciale.'
 					},
 					{
 						h: 'Rien ne s’accumule pendant que vous êtes inactif.',
-						p: 'Il n’y a ni abonnement, ni palier, ni plancher mensuel. Quand l’exécution se termine, la facturation se termine avec elle — le paiement s’échange contre des ressources utilisées, et c’est la preuve de paiement qui conditionne l’accès.'
+						p: 'Il n’y a ni abonnement, ni palier, ni plancher mensuel. Le paiement est encaissé <strong>en amont</strong> en échange des ressources à consommer ; la preuve de paiement conditionne l’accès. La garantie du nœud, c’est sa réputation, pas une facture à la fin.'
 					},
 					{
 						h: 'Le prix vient d’un marché, pas d’une page tarifaire.',
@@ -921,8 +938,8 @@ export default {
 					body: 'Le nœud exécute le service comme une instance isolée — un conteneur ou une machine virtuelle — sans autre accès que celui demandé par la spécification.'
 				},
 				{
-					title: 'Payez ce qu’il a utilisé',
-					body: 'La compensation s’échange contre les ressources utilisées, et la preuve de paiement conditionne l’accès. Aucun abonnement, aucun minimum, aucune facture permanente.'
+					title: 'Payez d’avance',
+					body: 'Un nœud est payé en amont pour une promesse de ressources, et la preuve de paiement conditionne l’accès. La réputation est la garantie. Aucun abonnement, aucun minimum, aucune facture permanente.'
 				}
 			]
 		},

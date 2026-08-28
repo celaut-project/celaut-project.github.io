@@ -89,7 +89,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		z-index: 40;
+		z-index: 50;
 	}
 
 	.topbar.sticky {
@@ -115,6 +115,11 @@
 		color: var(--accent-text);
 	}
 
+	:global(html[dir='rtl']) .home-link span[aria-hidden] {
+		display: inline-block;
+		transform: scaleX(-1);
+	}
+
 	.wordmark {
 		font-family: var(--font-heading);
 		letter-spacing: 0.08em;
@@ -129,10 +134,10 @@
 	}
 
 	nav {
-		margin-left: auto;
-		/* The language + theme controls are fixed in the top-right corner;
+		margin-inline-start: auto;
+		/* The language + theme controls are fixed in the inline-end corner;
 		   keep the last link clear of them. */
-		padding-right: calc(var(--floating-controls-w) + 12px);
+		padding-inline-end: calc(var(--floating-controls-w) + 12px);
 		min-width: 0;
 	}
 

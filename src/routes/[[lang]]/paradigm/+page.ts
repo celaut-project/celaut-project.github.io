@@ -13,8 +13,8 @@ import balancerEn from '$lib/paradigm/service_balancer.md?raw';
  * One dynamic-import loader set per locale, so each language's three
  * paradigm documents become their own Vite chunks — fetched only for a
  * visitor who actually reads this page in that language, instead of
- * baking all ten languages' documents (~450 kB) into this route's
- * bundle. Mirrors the LOADERS pattern in `$lib/i18n/index.js`.
+ * baking every language's documents into this route's bundle. Mirrors
+ * the LOADERS pattern in `$lib/i18n/index.js`.
  */
 const DOC_LOADERS = {
 	es: {

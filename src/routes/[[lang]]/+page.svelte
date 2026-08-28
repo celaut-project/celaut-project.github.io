@@ -43,6 +43,7 @@
 		drawTrustScene
 	} from '$lib/components/home/scenes.js';
 	import AudienceRouter from '$lib/components/home/AudienceRouter.svelte';
+	import AtomicConcepts from '$lib/components/AtomicConcepts.svelte';
 	import CorePrinciples from '$lib/components/CorePrinciples.svelte';
 	import WhatIsNot from '$lib/components/WhatIsNot.svelte';
 	import Nodes from '$lib/components/Nodes.svelte';
@@ -215,6 +216,13 @@
 				{/each}
 			</div>
 		</PinnedScene>
+		{#if scene.id === 'foundations'}
+			<div id="atoms" class="atoms-band">
+				<div class="ground">
+					<AtomicConcepts />
+				</div>
+			</div>
+		{/if}
 	{/each}
 
 	<!-- ========== The fork in the road, then grounded detail ==========
@@ -237,6 +245,17 @@
 <style>
 	.section-anchor {
 		scroll-margin-top: 12px;
+	}
+
+	.atoms-band {
+		scroll-margin-top: 12px;
+		background: var(--surface);
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.atoms-band :global(.block) {
+		padding: 48px 0 40px;
 	}
 
 	/* Caption beats cross-fade in the same grid cell while pinned; in the
@@ -262,7 +281,7 @@
 	   the dots. */
 	@media (min-width: 1025px) {
 		.home :global(.scene:not(.align-right):not(.is-static) .scene-copy) {
-			margin-left: clamp(150px, 13vw, 220px);
+			margin-inline-start: clamp(150px, 13vw, 220px);
 			width: min(520px, 100%);
 		}
 	}

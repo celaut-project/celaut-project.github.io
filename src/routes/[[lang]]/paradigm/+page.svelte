@@ -104,13 +104,28 @@
 		return toc;
 	}
 
+	// Prefer the slug of the heading that actually appears in the loaded
+	// README. New locales fall back to the English documents, whose h2 is
+	// "System behavior" — using the i18n label ("Systemverhalten") here
+	// rewrote README.md#system-behavior to a fragment that doesn't exist.
+	function systemBehaviorSlug(readme, fallback) {
+		const headingRe = /^##[ \t]+(.+?)\s*$/gm;
+		const fallbackSlug = slugify(fallback);
+		let match;
+		while ((match = headingRe.exec(readme)) !== null) {
+			const slug = slugify(match[1].trim());
+			if (slug === 'system-behavior' || slug === fallbackSlug) return slug;
+		}
+		return fallbackSlug;
+	}
+
 	// The README references the two sub-docs under its "System behavior"
 	// section; they are appended here as their own anchored sections so the
 	// whole paradigm repo lives on this single page.
 	$: executionHeading = $t('paradigm.executionHeading');
 	$: balancerHeading = $t('paradigm.balancerHeading');
 	$: anchors = {
-		systemBehavior: slugify($t('paradigm.systemBehaviorHeading')),
+		systemBehavior: systemBehaviorSlug(docs.readme, $t('paradigm.systemBehaviorHeading')),
 		execution: slugify(executionHeading),
 		balancer: slugify(balancerHeading)
 	};

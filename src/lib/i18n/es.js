@@ -62,6 +62,22 @@ export default {
 			]
 		},
 
+		atoms: {
+			eyebrow: 'Las dos piezas primitivas',
+			heading: 'Nodos y servicios',
+			intro: 'Celaut se construye a partir de dos conceptos atómicos. Todo lo demás —especificación, ejecución, pago, reputación— es la forma en que interactúan.',
+			items: [
+				{
+					title: 'Un nodo',
+					body: 'Un <strong>ordenador o dispositivo</strong> que habla con sus pares y gestiona la ejecución de servicios. Aporta el hardware, decide si ejecutar el trabajo en local o pasarlo a otro, y nunca necesita entender qué hace el software.'
+				},
+				{
+					title: 'Un servicio',
+					body: 'Un <strong>contenedor de software determinista</strong> construido para hacer una sola cosa. Está sellado frente al nodo que lo ejecuta: el nodo no inspecciona el programa, y el programa no sabe en qué máquina ha aterrizado.'
+				}
+			]
+		},
+
 		index: {
 			nav: 'Navegación por secciones',
 			title: 'En esta página',
@@ -69,6 +85,7 @@ export default {
 			close: 'Cerrar el menú de secciones',
 			sections: {
 				foundations: 'Orígenes',
+				atoms: 'Nodos y servicios',
 				nodes: 'Nodos',
 				services: 'Servicios',
 				'service-spec': 'Especificación',
@@ -210,12 +227,12 @@ export default {
 						p: 'Los nodos y los servicios <strong>no confían entre sí</strong>: Celaut es un sistema trustless. Así que nada empieza con un apretón de manos, sino con una consulta. La reputación son <strong>registros en ledgers</strong>, opiniones más que veredictos, y cada actor pondera las fuentes en las que ya confía para decidir si merece la pena hablar con un desconocido.'
 					},
 					{
-						h: 'Después el valor compra derechos de recursos.',
-						p: 'Solo cuando el historial cuadra se mueve algo. Quien solicita paga, y lo que recibe no es una promesa: es <strong>el derecho a consumir los recursos de un nodo</strong>, tanta computación, durante tanto tiempo. Los mecanismos de pago quedan <strong>fuera de la arquitectura central</strong>, así que no hay ningún ledger empotrado.'
+						h: 'Después pagas por una promesa de recursos.',
+						p: 'Solo cuando el historial cuadra se mueve algo. Quien solicita paga <strong>por adelantado</strong>, y lo que compra es una promesa: <strong>tanta computación, durante tanto tiempo</strong>. Los mecanismos de pago quedan <strong>fuera de la arquitectura central</strong>, así que no hay ningún ledger empotrado.'
 					},
 					{
-						h: 'Y el nodo cumple, porque su historial es el aval.',
-						p: 'Nada le obliga a respetar ese derecho. Lo que lo sostiene es que <strong>el resultado se escribe de vuelta en el ledger</strong>, y un nodo cuyo historial dice que cobró y entregó de menos deja de ser elegido. Cada parte tiene un interés permanente en que al siguiente desconocido le guste lo que lea.',
+						h: 'El aval del nodo es su reputación.',
+						p: 'Nada le obliga a cumplir esa promesa. Lo que lo sostiene es que <strong>el resultado se escribe de vuelta en el ledger</strong>, y un nodo cuyo historial dice que cobró y entregó de menos deja de ser elegido. Cada parte tiene un interés permanente en que al siguiente desconocido le guste lo que lea.',
 						note: 'Consultar · pagar · entregar · registrar. Y vuelta a empezar.'
 					}
 				]
@@ -357,11 +374,11 @@ export default {
 				},
 				{
 					title: 'Mecanismos de pago',
-					body: 'Valor a cambio de recursos consumidos. Lo que compra un pago es <strong>un derecho concreto</strong> —tanta computación, durante tanto tiempo— y no una promesa de buen comportamiento.',
+					body: 'A un nodo se le paga <strong>por adelantado</strong> a cambio de la promesa de unos recursos a consumir: tanta computación, durante tanto tiempo. Su aval no es una factura a posteriori; es <strong>su reputación</strong>.',
 					points: [
-						'Los nodos son compensados por los recursos que un servicio gasta realmente.',
+						'El pago se cobra por adelantado, antes de que empiece la ejecución.',
 						'La prueba de pago da acceso a los servicios que lo exigen.',
-						'Los ledgers pueden ser públicos y sin permisos, o privados y cerrados.'
+						'Un nodo que cobra y entrega de menos pierde reputación, así que deja de ser elegido.'
 					]
 				}
 			],
@@ -520,8 +537,8 @@ export default {
 					body: 'Precio por unidad de computación, en qué horas estás disponible, cuánto de la máquina estás dispuesto a ceder. Todo tuyo y modificable.'
 				},
 				{
-					title: 'Cobras por ejecución',
-					body: 'La liquidación ocurre en Ergo (ERG) según se completa el trabajo: sin facturas, sin calendario de pagos de una plataforma, sin mínimos.'
+					title: 'Cobras por adelantado',
+					body: 'A un nodo se le paga de antemano por una promesa de recursos, en Ergo (ERG): sin facturas, sin calendario de pagos de una plataforma, sin mínimos. La reputación es el aval de que cumplirá.'
 				},
 				{
 					title: 'Nada en lo que confiar',
@@ -554,7 +571,7 @@ export default {
 				},
 				{
 					title: 'Cobra',
-					body: 'El pago y la reputación se liquidan en Ergo según termina cada ejecución. La contribución se recompensa; los resultados siguen siendo auditables.'
+					body: 'El pago se cobra por adelantado en Ergo; la reputación se registra a medida que el trabajo se cumple. La contribución se recompensa; los resultados siguen siendo auditables.'
 				}
 			]
 		},
@@ -862,12 +879,12 @@ export default {
 				label: 'Ventaja 03',
 				beats: [
 					{
-						h: 'Pagas por el trabajo. Punto.',
-						p: 'Los usuarios lanzan servicios en los nodos y <strong>pagan por los recursos computacionales utilizados</strong>. Esa es toda la relación comercial.'
+						h: 'Pagas antes de que se ejecute. Punto.',
+						p: 'Los usuarios lanzan servicios en los nodos y <strong>pagan por adelantado por una promesa de recursos</strong>. Esa es toda la relación comercial.'
 					},
 					{
 						h: 'Nada se acumula mientras no lo usas.',
-						p: 'No hay asientos, ni planes, ni mínimo mensual. Cuando termina la ejecución termina el cobro con ella: el pago se intercambia por recursos usados, y la prueba de pago es lo que da acceso.'
+						p: 'No hay asientos, ni planes, ni mínimo mensual. El pago se cobra <strong>de antemano</strong> a cambio de los recursos a consumir; la prueba de pago da acceso. El aval del nodo es su reputación, no una factura al final.'
 					},
 					{
 						h: 'Con precio de mercado, no de tarifario.',
@@ -922,8 +939,8 @@ export default {
 					body: 'El nodo ejecuta el servicio como una instancia aislada —un contenedor o una máquina virtual— sin más acceso que el que pedía la especificación.'
 				},
 				{
-					title: 'Paga por lo que usó',
-					body: 'Se intercambia compensación por los recursos usados, y la prueba de pago da acceso. Sin suscripción, sin mínimos y sin factura permanente.'
+					title: 'Paga por adelantado',
+					body: 'A un nodo se le paga de antemano por una promesa de recursos, y la prueba de pago da acceso. La reputación es el aval. Sin suscripción, sin mínimos y sin factura permanente.'
 				}
 			]
 		},

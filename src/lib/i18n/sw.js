@@ -62,6 +62,22 @@ export default {
 			]
 		},
 
+		atoms: {
+			eyebrow: 'Vipengele viwili vya msingi',
+			heading: 'Nodi na huduma',
+			intro: 'Celaut imejengwa kutoka kwa dhana mbili za kimsingi. Kila kitu kingine — maelezo, utekelezaji, malipo, sifa njema — ni jinsi vinavyoingiliana.',
+			items: [
+				{
+					title: 'Nodi',
+					body: '<strong>Kompyuta au kifaa</strong> kinachozungumza na nodi wenzake na kusimamia utekelezaji wa huduma. Hutoa maunzi, huamua kama kazi iendeshwe hapa au ipelekwe kwingine, na hakihitaji kamwe kuelewa programu inafanya nini.'
+				},
+				{
+					title: 'Huduma',
+					body: '<strong>Kifurushi cha programu chenye matokeo yanayotabirika</strong> kilichojengwa kufanya kazi moja. Kimefungwa mbali na nodi inayokiendesha: nodi haichungulii ndani ya programu, na programu haijui imefikia mashine gani.'
+				}
+			]
+		},
+
 		index: {
 			nav: 'Uongozaji wa sehemu',
 			title: 'Kwenye ukurasa huu',
@@ -69,6 +85,7 @@ export default {
 			close: 'Funga menyu ya sehemu',
 			sections: {
 				foundations: 'Asili',
+				atoms: 'Nodi na huduma',
 				nodes: 'Nodi',
 				services: 'Huduma',
 				'service-spec': 'Vipimo vya huduma',
@@ -210,12 +227,12 @@ export default {
 						p: 'Nodi na huduma <strong>haziaminiani</strong> — Celaut ni mfumo usio na imani ya awali. Hivyo hakuna kinachoanza kwa mkono wa salamu; kinaanza kwa uchunguzi. Sifa njema ni <strong>rekodi kwenye vitabu vya hesabu (ledgers)</strong>, ni maoni badala ya hukumu, na kila mhusika anapima vyanzo anavyoviamini tayari ili kuamua kama mgeni anastahili kuzungumza naye.'
 					},
 					{
-						h: 'Kisha thamani inanunua haki juu ya rasilimali.',
-						p: 'Ni pale tu rekodi inapothibitika ndipo kitu kinaposogea. Anayeomba analipa, na kile anachopata badala yake si ahadi — ni <strong>haki ya kutumia rasilimali za nodi</strong>: kiasi fulani cha uchakataji, kwa muda fulani. Mifumo ya malipo inabaki <strong>nje ya muundo msingi</strong>, hivyo hakuna kitabu maalum cha hesabu kilichowekwa ndani yake.'
+						h: 'Kisha unalipia ahadi ya rasilimali.',
+						p: 'Ni pale tu rekodi inapothibitika ndipo kitu kinaposogea. Anayeomba analipa <strong>kabla</strong>, na anachonunua ni ahadi: <strong>kiasi fulani cha uchakataji, kwa muda fulani</strong>. Mifumo ya malipo inabaki <strong>nje ya muundo msingi</strong>, hivyo hakuna kitabu maalum cha hesabu kilichowekwa ndani yake.'
 					},
 					{
-						h: 'Na nodi inatimiza, kwa sababu rekodi ndiyo dhamana.',
-						p: 'Hakuna kinachoilazimisha kutimiza haki hiyo. Kinachoishikilia ni kwamba <strong>matokeo yanaandikwa tena kwenye kitabu cha hesabu</strong> — na nodi ambayo rekodi yake inasema ilipokea malipo na kutolipa kikamilifu inakoma kuchaguliwa. Kila upande una maslahi ya kudumu kwamba mgeni ajaye atapenda anachosoma.',
+						h: 'Dhamana ya nodi ni sifa yake njema.',
+						p: 'Hakuna kinachoilazimisha kutimiza ahadi hiyo. Kinachoishikilia ni kwamba <strong>matokeo yanaandikwa tena kwenye kitabu cha hesabu</strong> — na nodi ambayo rekodi yake inasema ilipokea malipo na kutolipa kikamilifu inakoma kuchaguliwa. Kila upande una maslahi ya kudumu kwamba mgeni ajaye atapenda anachosoma.',
 						note: 'Kagua · lipa · tekeleza · rekodi. Kisha tena.'
 					}
 				]
@@ -357,11 +374,11 @@ export default {
 				},
 				{
 					title: 'Mifumo ya malipo',
-					body: 'Thamani inayobadilishwa kwa rasilimali zilizotumika. Kile ambacho malipo yananunua ni <strong>haki halisi</strong> — kiasi fulani cha uchakataji, kwa muda fulani — si ahadi ya tabia njema.',
+					body: 'Nodi inalipwa <strong>kabla</strong> kwa ajili ya ahadi ya rasilimali zitakazotumika — kiasi fulani cha uchakataji, kwa muda fulani. Dhamana yake si ankara ya baadaye; ni <strong>sifa yake njema</strong>.',
 					points: [
-						'Nodi zinalipwa kwa rasilimali ambazo huduma inatumia kikweli.',
+						'Malipo yanachukuliwa kabla, kabla utekelezaji haujaanza.',
 						'Uthibitisho wa malipo ndio unaofungua ufikiaji wa huduma zinazouhitaji.',
-						'Vitabu vya hesabu vinaweza kuwa vya wazi bila ruhusa, au vya faragha na vilivyofungwa.'
+						'Nodi inayopokea malipo kisha ikatoa pungufu inapoteza sifa njema, hivyo inakoma kuchaguliwa.'
 					]
 				}
 			],
@@ -520,8 +537,8 @@ export default {
 					body: 'Bei kwa kila kipimo cha uchakataji, ni masaa gani upo tayari, ni kiasi gani cha mashine uko tayari kutoa. Vyote hivyo ni vyako kubadilisha.'
 				},
 				{
-					title: 'Unalipwa kwa kila utekelezaji',
-					body: 'Ukamilishaji unatokea kwenye Ergo (ERG) mara kazi inapokamilika — hakuna ankara, hakuna ratiba ya malipo ya jukwaa, hakuna kiwango cha chini.'
+					title: 'Unalipwa kabla',
+					body: 'Nodi inalipwa mapema kwa ajili ya ahadi ya rasilimali — kwenye Ergo (ERG), hakuna ankara, hakuna ratiba ya malipo ya jukwaa, hakuna kiwango cha chini. Sifa njema ndiyo dhamana kwamba itatimiza.'
 				},
 				{
 					title: 'Hakuna cha kuamini',
@@ -554,7 +571,7 @@ export default {
 				},
 				{
 					title: 'Lipwa',
-					body: 'Malipo na sifa njema vinakamilishwa kwenye Ergo mara kila utekelezaji unapokamilika. Mchango unatuzwa; matokeo yanabaki kuweza kukaguliwa.'
+					body: 'Malipo yanachukuliwa mapema kwenye Ergo; sifa njema inaandikwa kadri kazi inavyotimizwa. Mchango unatuzwa; matokeo yanabaki kuweza kukaguliwa.'
 				}
 			]
 		},
@@ -862,12 +879,12 @@ export default {
 				label: 'Faida 03',
 				beats: [
 					{
-						h: 'Unalipia kazi. Hakuna zaidi.',
-						p: 'Watumiaji wanaendesha huduma kwenye nodi na <strong>kulipia rasilimali za uchakataji zilizotumika</strong>. Hicho ndicho uhusiano mzima wa kibiashara.'
+						h: 'Unalipa kabla haijaendeshwa. Hakuna zaidi.',
+						p: 'Watumiaji wanaendesha huduma kwenye nodi na <strong>wanalipa mapema kwa ajili ya ahadi ya rasilimali</strong>. Hicho ndicho uhusiano mzima wa kibiashara.'
 					},
 					{
 						h: 'Hakuna kinachokusanyika ukiwa hutumii.',
-						p: 'Hakuna nafasi maalum, hakuna daraja, hakuna kiwango cha chini cha kila mwezi. Utekelezaji unapokamilika, malipo yanakamilika pamoja nayo — malipo yanabadilishwa kwa rasilimali zilizotumika, na uthibitisho wa malipo ndio unaofungua ufikiaji.'
+						p: 'Hakuna nafasi maalum, hakuna daraja, hakuna kiwango cha chini cha kila mwezi. Malipo yanachukuliwa <strong>kabla</strong> kwa ajili ya rasilimali zitakazotumika; uthibitisho wa malipo ndio unaofungua ufikiaji. Dhamana ya nodi ni sifa yake njema, si ankara mwishoni.'
 					},
 					{
 						h: 'Bei inatokana na soko, si ukurasa wa bei.',
@@ -922,8 +939,8 @@ export default {
 					body: 'Nodi inaendesha huduma kama kielelezo kilichotengwa — chombo au mashine pepe — bila ufikiaji zaidi ya kile vipimo vilivyoomba.'
 				},
 				{
-					title: 'Lipia kilichotumika',
-					body: 'Malipo yanabadilishwa kwa rasilimali zilizotumika, na uthibitisho wa malipo ndio unaofungua ufikiaji. Hakuna usajili, hakuna kiwango cha chini, hakuna ankara ya kudumu.'
+					title: 'Lipa kabla',
+					body: 'Nodi inalipwa mapema kwa ajili ya ahadi ya rasilimali, na uthibitisho wa malipo ndio unaofungua ufikiaji. Sifa njema ndiyo dhamana. Hakuna usajili, hakuna kiwango cha chini, hakuna ankara ya kudumu.'
 				}
 			]
 		},
