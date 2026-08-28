@@ -35,7 +35,7 @@
 	 */
 
 	import { onMount } from 'svelte';
-	import { locale, translator } from '$lib/i18n/index.js';
+	import { locale, translator, isRTL } from '$lib/i18n/index.js';
 	import {
 		loadGsap,
 		prefersReducedMotion,
@@ -69,6 +69,7 @@
 		let ctx = null;
 		let width = 0;
 		let height = 0;
+		let currentLocale = 'en';
 		let palette = readPalette();
 		// Scenes paint a handful of words onto the canvas, so they get a
 		// plain lookup function rather than a store — this runs inside a
@@ -87,6 +88,8 @@
 				warm: cssVar('--viz-warm', '#ef9c82'),
 				accent: cssVar('--accent', '#ef9c82'),
 				accentText: cssVar('--accent-text', '#f2a98f'),
+				fontBody: cssVar('--font-body', 'Lato, sans-serif'),
+				direction: isRTL(currentLocale) ? 'rtl' : 'ltr',
 				surface: cssVar('--surface', '#12302e'),
 				surfaceDeep: cssVar('--surface-deep', '#0a1f1e'),
 				surfaceDeepRgb: cssVar('--surface-deep-rgb', '10, 31, 30'),
@@ -116,7 +119,13 @@
 				time: (performance.now() - start) / 1000,
 				// Scenes compose their focal point AWAY from the caption, so
 				// the visual and the copy never fight for the same pixels.
-				align,
+				align: isRTL(currentLocale)
+					? align === 'left'
+						? 'right'
+						: align === 'right'
+							? 'left'
+							: align
+					: align,
 				reduced,
 				t: (key, vars) => lookup(key, vars)
 			});
@@ -134,7 +143,9 @@
 		// canvas is painted exactly once and would otherwise keep the old
 		// language's labels.
 		const stopLocaleWatch = locale.subscribe((code) => {
+			currentLocale = code;
 			lookup = translator(code);
+			palette = readPalette();
 			render();
 		});
 		// Observe the canvas itself (not the section): fitCanvas is

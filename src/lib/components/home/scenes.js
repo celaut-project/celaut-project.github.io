@@ -172,7 +172,112 @@ export function drawAutomataScene(ctx, { width, height, progress, palette, mouse
 }
 
 /* ==================================================================
- * SCENE 2 — The network: nothing to agree on
+ * SCENE 2 — The two primitives
+ * The emergent field resolves into Celaut's two atomic pieces. A node
+ * appears as a peer-connected machine; a sealed service arrives, runs
+ * without exposing its interior, then leaves unchanged. Their boundary
+ * is the architecture: hardware on one side, deterministic software on
+ * the other.
+ * ================================================================== */
+export function drawAtomsScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
+	backdrop(ctx, width, height, palette, progress, mouse, align);
+	const { cx, cy, scale, compact } = stage(width, height, align);
+	const nodeIn = smoothstep(range(progress, 0, 0.28));
+	const serviceIn = smoothstep(range(progress, 0.3, 0.62));
+	const exchange = smoothstep(range(progress, 0.62, 1));
+	const atomCopy = t('home.atoms');
+
+	const nodeX = cx + (compact ? -68 : -116) * scale;
+	const serviceX = cx + (compact ? 70 : 122) * scale;
+	const radius = (compact ? 34 : 46) * scale;
+
+	// A node is physical capacity connected to peers. The small satellites
+	// arrive first, then the centre takes responsibility for execution.
+	for (let i = 0; i < 5; i++) {
+		const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+		const satelliteIn = smoothstep(clamp(nodeIn * 1.35 - i * 0.07));
+		const sx = nodeX + Math.cos(a) * radius * 1.65;
+		const sy = cy + Math.sin(a) * radius * 1.35;
+		ctx.save();
+		ctx.globalAlpha = satelliteIn * 0.48;
+		ctx.strokeStyle = palette.link;
+		ctx.lineWidth = 1.2;
+		ctx.beginPath();
+		ctx.moveTo(nodeX, cy);
+		ctx.lineTo(sx, sy);
+		ctx.stroke();
+		ctx.fillStyle = palette.node;
+		ctx.globalAlpha = satelliteIn;
+		ctx.beginPath();
+		ctx.arc(sx, sy, compact ? 3.5 : 4.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.restore();
+	}
+	ctx.save();
+	ctx.globalAlpha = nodeIn;
+	ctx.fillStyle = palette.node;
+	ctx.globalAlpha = nodeIn * 0.12;
+	ctx.strokeStyle = palette.node;
+	ctx.lineWidth = 2;
+	ctx.beginPath();
+	ctx.arc(nodeX, cy, radius, 0, Math.PI * 2);
+	ctx.fill();
+	ctx.globalAlpha = nodeIn;
+	ctx.stroke();
+	ctx.fillStyle = palette.node;
+	ctx.beginPath();
+	ctx.arc(nodeX, cy, 8 * scale, 0, Math.PI * 2);
+	ctx.fill();
+	ctx.restore();
+
+	// A service is a sealed, deterministic body. Its contents animate,
+	// but the node only ever sees the boundary and the declared interface.
+	const boxW = (compact ? 92 : 132) * scale;
+	const boxH = boxW * 0.72;
+	sealedBox(
+		ctx,
+		serviceX - boxW / 2,
+		cy - boxH / 2,
+		boxW,
+		boxH,
+		serviceIn,
+		palette,
+		{ scan: serviceIn }
+	);
+	if (serviceIn > 0.05) {
+		for (let i = 0; i < 7; i++) {
+			const a = time * (0.3 + rand(i) * 0.25) + rand(i + 9) * Math.PI * 2;
+			ctx.save();
+			ctx.globalAlpha = serviceIn * (1 - exchange * 0.35) * 0.7;
+			ctx.fillStyle = i % 3 ? palette.node : palette.accent;
+			ctx.beginPath();
+			ctx.arc(serviceX + Math.cos(a) * boxW * 0.22, cy + Math.sin(a) * boxH * 0.22, 2.2, 0, Math.PI * 2);
+			ctx.fill();
+			ctx.restore();
+		}
+	}
+
+	// The interface lights up only when the two primitives cooperate.
+	if (exchange > 0) {
+		ctx.save();
+		ctx.globalAlpha = exchange * 0.8;
+		ctx.strokeStyle = palette.accent;
+		ctx.lineWidth = 2;
+		ctx.setLineDash([6, 8]);
+		ctx.beginPath();
+		ctx.moveTo(nodeX + radius, cy);
+		ctx.lineTo(serviceX - boxW / 2, cy);
+		ctx.stroke();
+		ctx.restore();
+		packet(ctx, nodeX + radius, cy, serviceX - boxW / 2, cy, (time * 0.28) % 1, palette.accent, exchange);
+	}
+
+	label(ctx, atomCopy.items[0].title, nodeX, cy + radius * 1.85, palette, nodeIn, compact ? 11 : 13);
+	label(ctx, atomCopy.items[1].title, serviceX, cy + radius * 1.85, palette, serviceIn, compact ? 11 : 13);
+}
+
+/* ==================================================================
+ * SCENE 3 — The network: nothing to agree on
  * Having nodes is not what makes Celaut different. Every serious
  * decentralised network has nodes and most still bow to one powerful
  * thing: the protocol everybody is obliged to run. So the scene shows
@@ -321,7 +426,7 @@ export function drawNetworkScene(ctx, { width, height, progress, palette, mouse,
 				ctx.lineWidth = 1.3;
 				roundRect(ctx, n.x - 13, by - 8, 26, 16, 4);
 				ctx.stroke();
-				ctx.font = '700 10px Lato, sans-serif';
+				ctx.font = `700 10px ${palette.fontBody || 'Lato, sans-serif'}`;
 				ctx.textAlign = 'center';
 				ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.78);
 				ctx.fillText(diverged ? 'v2' : 'v1', n.x, by + 4);
@@ -911,7 +1016,7 @@ export function drawExecutionScene(ctx, { width, height, progress, palette, mous
 			ctx.lineWidth = 1.2;
 			roundRect(ctx, chipX - cw / 2, chipY - 9 * s, cw, 18 * s, 5);
 			ctx.stroke();
-			ctx.font = `600 ${compact ? 9 : 10.5}px Lato, sans-serif`;
+			ctx.font = `600 ${compact ? 9 : 10.5}px ${palette.fontBody || 'Lato, sans-serif'}`;
 			ctx.textAlign = 'center';
 			ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.78);
 			ctx.fillText(c.spec, chipX, chipY + 3.5 * s);
@@ -1167,7 +1272,7 @@ export function drawDeterminismScene(ctx, { width, height, progress, palette, mo
 			// The identical output value.
 			ctx.save();
 			ctx.globalAlpha = m;
-			ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
+			ctx.font = `700 ${compact ? 11 : 13}px ${palette.fontBody || 'Lato, sans-serif'}`;
 			ctx.fillStyle = palette.node;
 			ctx.fillText('a1f3…9c2e', outX + 8, y + 4);
 			ctx.restore();
@@ -1349,7 +1454,7 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.stroke();
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.06);
 		ctx.fill();
-		ctx.font = `700 ${compact ? 9 : 10.5}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 9 : 10.5}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.textAlign = 'center';
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.85);
 		ctx.fillText(compact ? t('viz.home.rightShort') : t('viz.home.rightLong'), cx, chipY + 4 * s);

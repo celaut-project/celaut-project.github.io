@@ -185,6 +185,11 @@ html[lang='ar'] {
 	--font-body: 'Noto Sans Arabic', 'Lato', sans-serif;
 }
 
+html[lang='ko'] {
+	--font-heading: 'Noto Serif KR', 'Playfair Display', serif;
+	--font-body: 'Noto Sans KR', 'Lato', sans-serif;
+}
+
 body {
 	margin: 0;
 	font-family: var(--font-body);

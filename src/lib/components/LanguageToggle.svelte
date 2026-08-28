@@ -16,6 +16,7 @@
 	 */
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { restoreScrollPosition } from '$lib/motion.js';
 	import {
 		locale,
 		setLocale,
@@ -54,9 +55,11 @@
 	async function pick(/** @type {string} */ code) {
 		open = false;
 		if (code === $locale) return;
+		const scrollPosition = window.scrollY;
 		await setLocale(code);
 		const bare = stripLocalePrefix($page.url.pathname);
-		goto(withLocale(bare, code) + $page.url.search + $page.url.hash);
+		await goto(withLocale(bare, code) + $page.url.search + $page.url.hash, { noScroll: true });
+		restoreScrollPosition(scrollPosition);
 	}
 
 	function onKeydown(/** @type {KeyboardEvent} */ event) {
@@ -97,6 +100,7 @@
 						aria-checked={l.code === $locale}
 						class:active={l.code === $locale}
 						lang={l.code}
+						dir={l.dir || 'ltr'}
 						on:click={() => pick(l.code)}
 					>
 						{l.label}

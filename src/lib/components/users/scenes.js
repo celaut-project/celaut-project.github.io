@@ -132,7 +132,7 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 			ctx.strokeStyle = isChosen && pick > 0 ? palette.accent : rgba(palette.onSurfaceRgb, 0.3);
 			ctx.lineWidth = 1.2;
 			ctx.stroke();
-			ctx.font = `700 ${compact ? 9 : 11}px Lato, sans-serif`;
+			ctx.font = `700 ${compact ? 9 : 11}px ${palette.fontBody || 'Lato, sans-serif'}`;
 			ctx.textAlign = 'center';
 			ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.82);
 			ctx.fillText(`${(0.4 + rand(i + 3) * 1.6).toFixed(2)} ERG`, px, py + 4);
@@ -489,7 +489,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		ctx.save();
 		ctx.globalAlpha = rf;
-		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 11 : 13}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.75);
 		ctx.fillText(t('viz.users.computeUsed'), ox, oy - 12);
 		ctx.restore();
@@ -515,7 +515,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		ctx.save();
 		ctx.globalAlpha = mf;
-		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 11 : 13}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillStyle = palette.accent;
 		ctx.fillText(t('viz.users.whatYouPay'), ox, oy - 30);
 		ctx.restore();
@@ -545,7 +545,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		ctx.save();
 		ctx.globalAlpha = f;
-		ctx.font = `700 ${compact ? 10 : 12}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 10 : 12}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.textAlign = 'center';
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.7);
 		ctx.fillText(t('viz.users.chargingStops'), stopX + 4, oy + chartH + 32);
@@ -567,7 +567,7 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.lineTo(ox + chartW, sy - chartH * 0.42 * f);
 		ctx.stroke();
 		ctx.setLineDash([]);
-		ctx.font = `500 ${compact ? 10 : 12}px Lato, sans-serif`;
+		ctx.font = `500 ${compact ? 10 : 12}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.6);
 		ctx.fillText(t('viz.users.subscription'), ox, sy + 20);
 		ctx.restore();
