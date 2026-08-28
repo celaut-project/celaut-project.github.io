@@ -11,6 +11,7 @@
 	// here; the labels come from home.index.sections.<id>.
 	const sections = [
 		'foundations',
+		'atoms',
 		'nodes',
 		'services',
 		'service-spec',
@@ -111,7 +112,7 @@
 	.rail {
 		position: fixed;
 		top: 50%;
-		left: 14px;
+		inset-inline-start: 14px;
 		transform: translateY(-50%);
 		z-index: 50;
 		padding: 10px 8px;
@@ -188,7 +189,7 @@
 		display: none;
 		position: fixed;
 		bottom: 24px;
-		left: 18px;
+		inset-inline-start: 18px;
 		z-index: 55;
 		width: 46px;
 		height: 46px;
@@ -211,7 +212,7 @@
 		display: none;
 		position: fixed;
 		bottom: 80px;
-		left: 18px;
+		inset-inline-start: 18px;
 		z-index: 55;
 		width: min(240px, 70vw);
 		padding: 14px 16px;

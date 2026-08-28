@@ -62,6 +62,22 @@ export default {
 			]
 		},
 
+		atoms: {
+			eyebrow: 'The two primitives',
+			heading: 'Nodes and services',
+			intro: 'Celaut is built from two atomic concepts. Everything else — specification, execution, payment, reputation — is how they interact.',
+			items: [
+				{
+					title: 'A node',
+					body: 'A <strong>computer or device</strong> that talks to peers and manages service execution. It provides hardware, decides whether to run work locally or pass it on, and never needs to understand what the software does.'
+				},
+				{
+					title: 'A service',
+					body: 'A <strong>deterministic software container</strong> built to do one job. It is sealed from the node that runs it: the node doesn’t inspect the program, and the program doesn’t know which machine it landed on.'
+				}
+			]
+		},
+
 		index: {
 			nav: 'Section navigation',
 			title: 'On this page',
@@ -69,6 +85,7 @@ export default {
 			close: 'Close section menu',
 			sections: {
 				foundations: 'Foundations',
+				atoms: 'Nodes & Services',
 				nodes: 'Nodes',
 				services: 'Services',
 				'service-spec': 'Service Spec',
@@ -210,11 +227,11 @@ export default {
 						p: 'Nodes and services <strong>do not trust each other</strong> — Celaut is a trustless system. So nothing starts with a handshake; it starts with a lookup. Reputation is <strong>records on ledgers</strong>, opinions rather than verdicts, and each actor weighs the sources it already trusts to decide whether a stranger is worth talking to.'
 					},
 					{
-						h: 'Then value buys resource rights.',
-						p: 'Only once the record checks out does anything move. The requester pays, and what comes back is not a promise — it’s <strong>the right to consume a node’s resources</strong>: this much compute, for this long. Payment mechanisms sit <strong>outside the core architecture</strong>, so no particular ledger is baked in.'
+						h: 'Then you pay for a promise of resources.',
+						p: 'Only once the record checks out does anything move. The requester pays <strong>up front</strong>, and what they buy is a promise: <strong>this much compute, for this long</strong>. Payment mechanisms sit <strong>outside the core architecture</strong>, so no particular ledger is baked in.'
 					},
 					{
-						h: 'And the node delivers, because the record is the collateral.',
+						h: 'The node’s guarantee is its reputation.',
 						p: 'Nothing forces it to honour that right. What holds it is that <strong>the outcome is written back to the ledger</strong> — and a node whose record says it took payment and under-delivered stops getting chosen. Each party has a standing interest in the next stranger liking what they read.',
 						note: 'Check · pay · deliver · record. Then round again.'
 					}
@@ -357,11 +374,11 @@ export default {
 				},
 				{
 					title: 'Payment mechanisms',
-					body: 'Value exchanged for resources consumed. What a payment buys is <strong>a concrete right</strong> — this much compute, for this long — not a promise of good behaviour.',
+					body: 'A node is paid <strong>beforehand</strong> in exchange for a promise of resources to be consumed — this much compute, for this long. Its guarantee is not an invoice after the fact; it is <strong>its reputation</strong>.',
 					points: [
-						'Nodes are compensated for the resources a service actually spends.',
+						'Payment is taken up front, before execution starts.',
 						'Proof of payment gates access to services that ask for it.',
-						'Ledgers can be public and permissionless or private and closed.'
+						'A node that takes payment and under-delivers loses reputation, so it stops getting chosen.'
 					]
 				}
 			],
@@ -448,7 +465,7 @@ export default {
 					},
 					{
 						h: 'Get paid for the work it does.',
-						p: 'Peers who need compute find your node, agree a price with it directly, and pay per execution. <strong>Payment settles on Ergo</strong> as each job finishes.',
+						p: 'Peers who need compute find your node, agree a price with it directly, and pay <strong>up front</strong> for a promise of resources. <strong>Payment settles on Ergo</strong>; reputation is the guarantee the node will deliver.',
 						note: 'No datacenter. No middleman. No monthly payout wait.'
 					}
 				]
@@ -520,8 +537,8 @@ export default {
 					body: "Price per unit of compute, which hours you're available, how much of the machine you're willing to hand over. All of it yours to change."
 				},
 				{
-					title: 'Paid per execution',
-					body: 'Settlement happens on Ergo (ERG) as work completes — no invoices, no platform payout schedule, no minimum threshold.'
+					title: 'Paid up front',
+					body: 'A node is paid beforehand for a promise of resources — on Ergo (ERG), no invoices, no platform payout schedule, no minimum threshold. Reputation is the guarantee it will deliver.'
 				},
 				{
 					title: 'Nothing to trust',
@@ -554,7 +571,7 @@ export default {
 				},
 				{
 					title: 'Get paid',
-					body: 'Payment and reputation settle on Ergo as each execution finishes. Contribution is rewarded; results stay auditable.'
+					body: 'Payment is taken up front on Ergo; reputation is recorded as the work is honoured. Contribution is rewarded; results stay auditable.'
 				}
 			]
 		},
@@ -862,12 +879,12 @@ export default {
 				label: 'Benefit 03',
 				beats: [
 					{
-						h: 'You pay for the work. Full stop.',
-						p: 'Users launch services on nodes and <strong>pay for the computational resources used</strong>. That’s the entire commercial relationship.'
+						h: 'You pay before it runs. Full stop.',
+						p: 'Users launch services on nodes and <strong>pay up front for a promise of resources</strong>. That’s the entire commercial relationship.'
 					},
 					{
 						h: 'Nothing accrues while you’re idle.',
-						p: 'There is no seat, no tier and no monthly floor. When the execution finishes, the charging finishes with it — payment is exchanged for resources used, and proof of payment is what gates access.'
+						p: 'There is no seat, no tier and no monthly floor. Payment is taken <strong>beforehand</strong> in exchange for resources to be consumed; proof of payment gates access. The node’s guarantee is its reputation, not a bill at the end.'
 					},
 					{
 						h: 'Priced by a market, not a pricing page.',
@@ -922,8 +939,8 @@ export default {
 					body: 'The node executes the service as an isolated instance — a container or a virtual machine — with no access beyond what the specification asked for.'
 				},
 				{
-					title: 'Pay for what it used',
-					body: 'Compensation is exchanged for the resources used, with proof of payment gating access. No subscription, no minimum, no standing bill.'
+					title: 'Pay up front',
+					body: 'A node is paid beforehand for a promise of resources, with proof of payment gating access. Reputation is the guarantee. No subscription, no minimum, no standing bill.'
 				}
 			]
 		},

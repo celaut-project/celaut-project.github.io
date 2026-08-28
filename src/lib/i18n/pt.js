@@ -61,6 +61,22 @@ export default {
 			]
 		},
 
+		atoms: {
+			eyebrow: 'As duas primitivas',
+			heading: 'Nós e serviços',
+			intro: 'Celaut é construído a partir de dois conceitos atômicos. Todo o resto — especificação, execução, pagamento, reputação — é a forma como eles interagem.',
+			items: [
+				{
+					title: 'Um nó',
+					body: 'Um <strong>computador ou dispositivo</strong> que conversa com seus pares e gerencia a execução de serviços. Fornece o hardware, decide se roda o trabalho localmente ou o repassa, e nunca precisa entender o que o software faz.'
+				},
+				{
+					title: 'Um serviço',
+					body: 'Um <strong>contêiner de software determinístico</strong> feito para cumprir uma única tarefa. Ele é selado em relação ao nó que o executa: o nó não inspeciona o programa, e o programa não sabe em qual máquina foi parar.'
+				}
+			]
+		},
+
 		index: {
 			nav: 'Navegação por seção',
 			title: 'Nesta página',
@@ -68,6 +84,7 @@ export default {
 			close: 'Fechar menu de seções',
 			sections: {
 				foundations: 'Origens',
+				atoms: 'Nós e serviços',
 				nodes: 'Nós',
 				services: 'Serviços',
 				'service-spec': 'Especificação do serviço',
@@ -209,12 +226,12 @@ export default {
 						p: 'Nós e serviços <strong>não confiam uns nos outros</strong> — o Celaut é um sistema sem confiança prévia. Então nada começa com um aperto de mãos; começa com uma consulta. Reputação são <strong>registros em ledgers</strong>, opiniões em vez de veredictos, e cada ator pondera as fontes em que já confia para decidir se vale a pena falar com um estranho.'
 					},
 					{
-						h: 'Depois, o valor compra direitos sobre recursos.',
-						p: 'Só depois que o registro se confirma é que algo se move. Quem solicita paga, e o que recebe de volta não é uma promessa — é <strong>o direito de consumir os recursos de um nó</strong>: tanta computação, por tanto tempo. Os mecanismos de pagamento ficam <strong>fora da arquitetura central</strong>, de modo que nenhum ledger específico é embutido nela.'
+						h: 'Depois você paga por uma promessa de recursos.',
+						p: 'Só depois que o registro se confirma é que algo se move. Quem solicita paga <strong>adiantado</strong>, e o que compra é uma promessa: <strong>tanta computação, por tanto tempo</strong>. Os mecanismos de pagamento ficam <strong>fora da arquitetura central</strong>, de modo que nenhum ledger específico é embutido nela.'
 					},
 					{
-						h: 'E o nó entrega, porque o registro é a garantia.',
-						p: 'Nada o obriga a honrar esse direito. O que o mantém fiel é que <strong>o resultado é escrito de volta no ledger</strong> — e um nó cujo histórico diz que recebeu pagamento e entregou menos do que devia deixa de ser escolhido. Cada parte tem um interesse constante em que o próximo estranho goste do que lê.',
+						h: 'A garantia do nó é a sua reputação.',
+						p: 'Nada o obriga a honrar essa promessa. O que o mantém fiel é que <strong>o resultado é escrito de volta no ledger</strong> — e um nó cujo histórico diz que recebeu pagamento e entregou menos do que devia deixa de ser escolhido. Cada parte tem um interesse constante em que o próximo estranho goste do que lê.',
 						note: 'Verificar · pagar · entregar · registrar. E recomeçar.'
 					}
 				]
@@ -356,11 +373,11 @@ export default {
 				},
 				{
 					title: 'Mecanismos de pagamento',
-					body: 'Valor trocado por recursos consumidos. O que um pagamento compra é <strong>um direito concreto</strong> — tanta computação, por tanto tempo —, não uma promessa de bom comportamento.',
+					body: 'Um nó é pago <strong>de antemão</strong> em troca da promessa de recursos a serem consumidos — tanta computação, por tanto tempo. Sua garantia não é uma fatura depois do fato; é <strong>a sua reputação</strong>.',
 					points: [
-						'Os nós são compensados pelos recursos que um serviço realmente gasta.',
+						'O pagamento é cobrado adiantado, antes de a execução começar.',
 						'A prova de pagamento é o que dá acesso aos serviços que a exigem.',
-						'Os ledgers podem ser públicos e sem permissão, ou privados e fechados.'
+						'Um nó que recebe o pagamento e entrega menos do que prometeu perde reputação, e deixa de ser escolhido.'
 					]
 				}
 			],
@@ -519,8 +536,8 @@ export default {
 					body: 'Preço por unidade de computação, quais horários você está disponível, quanto da máquina está disposto a ceder. Tudo isso é seu para mudar.'
 				},
 				{
-					title: 'Pago a cada execução',
-					body: 'A liquidação acontece na Ergo (ERG) assim que o trabalho é concluído — sem faturas, sem cronograma de pagamento de plataforma, sem limite mínimo.'
+					title: 'Pago adiantado',
+					body: 'Um nó é pago de antemão por uma promessa de recursos — na Ergo (ERG), sem faturas, sem cronograma de pagamento de plataforma, sem limite mínimo. A reputação é a garantia de que ele vai entregar.'
 				},
 				{
 					title: 'Nada em que confiar',
@@ -553,7 +570,7 @@ export default {
 				},
 				{
 					title: 'Receba o pagamento',
-					body: 'Pagamento e reputação são liquidados na Ergo assim que cada execução termina. A contribuição é recompensada; os resultados continuam auditáveis.'
+					body: 'O pagamento é cobrado adiantado na Ergo; a reputação é registrada à medida que o trabalho é honrado. A contribuição é recompensada; os resultados continuam auditáveis.'
 				}
 			]
 		},
@@ -861,12 +878,12 @@ export default {
 				label: 'Vantagem 03',
 				beats: [
 					{
-						h: 'Você paga pelo trabalho. Ponto final.',
-						p: 'Os usuários executam serviços em nós e <strong>pagam pelos recursos computacionais utilizados</strong>. Essa é toda a relação comercial.'
+						h: 'Você paga antes de rodar. Ponto final.',
+						p: 'Os usuários executam serviços em nós e <strong>pagam adiantado por uma promessa de recursos</strong>. Essa é toda a relação comercial.'
 					},
 					{
 						h: 'Nada se acumula enquanto você está inativo.',
-						p: 'Não há assento, nem plano, nem piso mensal. Quando a execução termina, a cobrança termina junto — o pagamento é trocado por recursos usados, e a prova de pagamento é o que libera o acesso.'
+						p: 'Não há assento, nem plano, nem piso mensal. O pagamento é cobrado <strong>de antemão</strong> em troca dos recursos a serem consumidos; a prova de pagamento libera o acesso. A garantia do nó é a sua reputação, não uma conta no final.'
 					},
 					{
 						h: 'Precificado por um mercado, não por uma página de preços.',
@@ -921,8 +938,8 @@ export default {
 					body: 'O nó executa o serviço como uma instância isolada — um contêiner ou uma máquina virtual — sem nenhum acesso além do que a especificação pedia.'
 				},
 				{
-					title: 'Pague pelo que foi usado',
-					body: 'A compensação é trocada pelos recursos usados, com a prova de pagamento liberando o acesso. Sem assinatura, sem mínimo, sem conta permanente.'
+					title: 'Pague adiantado',
+					body: 'Um nó é pago de antemão por uma promessa de recursos, com a prova de pagamento liberando o acesso. A reputação é a garantia. Sem assinatura, sem mínimo, sem conta permanente.'
 				}
 			]
 		},

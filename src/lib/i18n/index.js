@@ -1,17 +1,19 @@
 /*
- * i18n layer: 'en' | 'es' | 'zh' | 'hi' | 'ru' | 'fr' | 'pt' | 'sw' | 'ja' | 'ar'.
+ * i18n layer: 'en' | 'es' | 'zh' | 'hi' | 'ru' | 'fr' | 'pt' | 'sw' | 'ja' |
+ * 'ar' | 'de' | 'id' | 'ko' | 'ro' | 'tr' | 'uk' | 'vi'.
  *
  * Design constraints this file answers to:
  *
  *   • One copy of every component. Language is data, never a second
  *     template — every user-facing string lives in ./en.js, ./es.js,
- *     ./zh.js, ./hi.js, ./ru.js, ./fr.js, ./pt.js, ./sw.js, ./ja.js and
- *     ./ar.js under the same key, and components read it through `$t`.
+ *     ./zh.js, ./hi.js, ./ru.js, ./fr.js, ./pt.js, ./sw.js, ./ja.js,
+ *     ./ar.js, ./de.js, ./id.js, ./ko.js, ./ro.js, ./tr.js, ./uk.js and
+ *     ./vi.js under the same key, and components read it through `$t`.
  *   • Lazy dictionaries. Only English (`en.js`) is bundled eagerly, as
  *     the universal fallback. Every other dictionary is a separate Vite
  *     chunk, fetched only once that locale is actually selected — so a
  *     visitor who only ever reads English never downloads the other
- *     nine. `loadDictionary(code)` fetches-and-caches; `setLocale(code)`
+ *     sixteen. `loadDictionary(code)` fetches-and-caches; `setLocale(code)`
  *     awaits that before flipping the active locale, so `t`/`exists`/
  *     `translator` can stay synchronous everywhere else, on the
  *     invariant that `locale` never changes to a code whose dictionary
@@ -71,7 +73,14 @@ export const LOCALES = [
 	{ code: 'pt', label: 'Português', short: 'PT' },
 	{ code: 'sw', label: 'Kiswahili', short: 'SW' },
 	{ code: 'ja', label: '日本語', short: '日本語' },
-	{ code: 'ar', label: 'العربية', short: 'AR', dir: 'rtl' }
+	{ code: 'ar', label: 'العربية', short: 'AR', dir: 'rtl' },
+	{ code: 'de', label: 'Deutsch', short: 'DE' },
+	{ code: 'id', label: 'Bahasa Indonesia', short: 'ID' },
+	{ code: 'ko', label: '한국어', short: '한국어' },
+	{ code: 'ro', label: 'Română', short: 'RO' },
+	{ code: 'tr', label: 'Türkçe', short: 'TR' },
+	{ code: 'uk', label: 'Українська', short: 'UK' },
+	{ code: 'vi', label: 'Tiếng Việt', short: 'VI' }
 ];
 
 export const DEFAULT_LOCALE = 'en';
@@ -84,7 +93,7 @@ const RTL_LOCALES = new Set(LOCALES.filter((l) => l.dir === 'rtl').map((l) => l.
 
 /**
  * One dynamic-import loader per locale, so each dictionary becomes its
- * own Vite chunk instead of all ten landing in the shared bundle.
+ * own Vite chunk instead of all seventeen landing in the shared bundle.
  * English is imported eagerly above (it's the fallback for every other
  * locale, so there is no meaningful world in which it isn't needed).
  */
@@ -97,7 +106,14 @@ const LOADERS = {
 	pt: () => import('./pt.js'),
 	sw: () => import('./sw.js'),
 	ja: () => import('./ja.js'),
-	ar: () => import('./ar.js')
+	ar: () => import('./ar.js'),
+	de: () => import('./de.js'),
+	id: () => import('./id.js'),
+	ko: () => import('./ko.js'),
+	ro: () => import('./ro.js'),
+	tr: () => import('./tr.js'),
+	uk: () => import('./uk.js'),
+	vi: () => import('./vi.js')
 };
 
 /** @type {Record<string, any>} code -> dictionary, once loaded. */

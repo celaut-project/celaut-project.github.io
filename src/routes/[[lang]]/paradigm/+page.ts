@@ -13,8 +13,8 @@ import balancerEn from '$lib/paradigm/service_balancer.md?raw';
  * One dynamic-import loader set per locale, so each language's three
  * paradigm documents become their own Vite chunks — fetched only for a
  * visitor who actually reads this page in that language, instead of
- * baking all ten languages' documents (~450 kB) into this route's
- * bundle. Mirrors the LOADERS pattern in `$lib/i18n/index.js`.
+ * baking every language's documents into this route's bundle. Mirrors
+ * the LOADERS pattern in `$lib/i18n/index.js`.
  */
 const DOC_LOADERS = {
 	es: {
@@ -61,6 +61,41 @@ const DOC_LOADERS = {
 		readme: () => import('$lib/paradigm/ar/README.md?raw'),
 		execution: () => import('$lib/paradigm/ar/execution_of_a_service.md?raw'),
 		balancer: () => import('$lib/paradigm/ar/service_balancer.md?raw')
+	},
+	de: {
+		readme: () => import('$lib/paradigm/de/README.md?raw'),
+		execution: () => import('$lib/paradigm/de/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/de/service_balancer.md?raw')
+	},
+	id: {
+		readme: () => import('$lib/paradigm/id/README.md?raw'),
+		execution: () => import('$lib/paradigm/id/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/id/service_balancer.md?raw')
+	},
+	ko: {
+		readme: () => import('$lib/paradigm/ko/README.md?raw'),
+		execution: () => import('$lib/paradigm/ko/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/ko/service_balancer.md?raw')
+	},
+	ro: {
+		readme: () => import('$lib/paradigm/ro/README.md?raw'),
+		execution: () => import('$lib/paradigm/ro/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/ro/service_balancer.md?raw')
+	},
+	tr: {
+		readme: () => import('$lib/paradigm/tr/README.md?raw'),
+		execution: () => import('$lib/paradigm/tr/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/tr/service_balancer.md?raw')
+	},
+	uk: {
+		readme: () => import('$lib/paradigm/uk/README.md?raw'),
+		execution: () => import('$lib/paradigm/uk/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/uk/service_balancer.md?raw')
+	},
+	vi: {
+		readme: () => import('$lib/paradigm/vi/README.md?raw'),
+		execution: () => import('$lib/paradigm/vi/execution_of_a_service.md?raw'),
+		balancer: () => import('$lib/paradigm/vi/service_balancer.md?raw')
 	}
 };
 

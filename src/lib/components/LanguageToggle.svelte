@@ -163,7 +163,7 @@
 	.lang-menu {
 		position: absolute;
 		top: calc(100% + 8px);
-		right: 0;
+		inset-inline-end: 0;
 		min-width: 128px;
 		margin: 0;
 		padding: 6px;
@@ -178,7 +178,7 @@
 	.lang-menu button {
 		width: 100%;
 		display: block;
-		text-align: left;
+		text-align: start;
 		padding: 8px 10px;
 		border-radius: 8px;
 		border: none;

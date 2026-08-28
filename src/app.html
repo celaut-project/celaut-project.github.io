@@ -16,7 +16,8 @@
 			// not override it here.
 			(function () {
 				try {
-					var supported = ['en', 'es', 'zh', 'hi', 'ru', 'fr', 'pt', 'sw', 'ja', 'ar'];
+					// prettier-ignore
+					var supported = ['en', 'es', 'zh', 'hi', 'ru', 'fr', 'pt', 'sw', 'ja', 'ar', 'de', 'id', 'ko', 'ro', 'tr', 'uk', 'vi'];
 					var rtl = ['ar'];
 					var seg = location.pathname.split('/')[1];
 					if (supported.indexOf(seg) !== -1) return;
