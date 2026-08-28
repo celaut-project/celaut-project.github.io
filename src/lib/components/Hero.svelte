@@ -255,7 +255,7 @@
         class="content-wrapper"
         style="transform: translate({parallaxX * -30}px, {parallaxY * -20}px);"
     >
-        <h1 use:staggeredFadeIn={{ delay: 200, stagger: 70 }}>CELAUT</h1>
+        <h1 dir="ltr" use:staggeredFadeIn={{ delay: 200, stagger: 70 }}>CELAUT</h1>
 
         <!-- staggeredFadeIn rewrites the element's children into per-character
              spans, so Svelte can no longer patch the text in place. Keying on
@@ -324,6 +324,8 @@
     }
 
     h1 {
+		direction: ltr;
+		unicode-bidi: isolate;
         font-size: clamp(3.5rem, 10vw, 6rem);
         /* Weight + tighter tracking carry the emphasis now, not a heavy glow. */
         font-weight: 800;

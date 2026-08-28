@@ -187,6 +187,32 @@ export function killAllScrollTriggers() {
 	});
 }
 
+/**
+ * Restore an exact scroll coordinate after a locale-only navigation.
+ * Translated captions can reflow while Svelte updates the route, and
+ * ScrollTrigger may rebuild pin spacers from that intermediate layout.
+ * Re-applying the coordinate after refresh keeps the same story beat.
+ * @param {number} top
+ */
+export function restoreScrollPosition(top) {
+	if (!browser) return;
+	const restore = () => {
+		window.scrollTo(0, top);
+		if (lenis) lenis.scrollTo(top, { immediate: true, force: true });
+	};
+	restore();
+	requestAnimationFrame(() => {
+		restore();
+		if (gsapPromise) {
+			gsapPromise.then((bits) => {
+				if (!bits) return;
+				bits.ScrollTrigger.refresh();
+				restore();
+			});
+		}
+	});
+}
+
 /** Scroll to an element/offset through Lenis when it is running. */
 export function scrollTo(target, options = {}) {
 	if (!browser) return;

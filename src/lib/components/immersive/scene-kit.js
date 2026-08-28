@@ -121,7 +121,8 @@ export function label(ctx, text, x, y, palette, alpha = 1, size = 12, weight = 7
 	if (alpha <= 0.01) return;
 	ctx.save();
 	ctx.globalAlpha = alpha;
-	ctx.font = `${weight} ${size}px Lato, sans-serif`;
+	ctx.font = `${weight} ${size}px ${palette.fontBody || 'Lato, sans-serif'}`;
+	ctx.direction = palette.direction || 'ltr';
 	ctx.textAlign = 'center';
 	ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.78);
 	ctx.fillText(text, x, y);

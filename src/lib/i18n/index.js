@@ -65,22 +65,22 @@ import en from './en.js';
 /** Everything the language switcher needs to render itself. */
 export const LOCALES = [
 	{ code: 'en', label: 'English', short: 'EN' },
-	{ code: 'es', label: 'Español', short: 'ES' },
 	{ code: 'zh', label: '中文', short: '中文' },
+	{ code: 'es', label: 'Español', short: 'ES' },
 	{ code: 'hi', label: 'हिन्दी', short: 'हि' },
-	{ code: 'ru', label: 'Русский', short: 'RU' },
-	{ code: 'fr', label: 'Français', short: 'FR' },
 	{ code: 'pt', label: 'Português', short: 'PT' },
-	{ code: 'sw', label: 'Kiswahili', short: 'SW' },
-	{ code: 'ja', label: '日本語', short: '日本語' },
-	{ code: 'ar', label: 'العربية', short: 'AR', dir: 'rtl' },
-	{ code: 'de', label: 'Deutsch', short: 'DE' },
+	{ code: 'ru', label: 'Русский', short: 'RU' },
 	{ code: 'id', label: 'Bahasa Indonesia', short: 'ID' },
+	{ code: 'ar', label: 'العربية', short: 'AR', dir: 'rtl' },
+	{ code: 'fr', label: 'Français', short: 'FR' },
+	{ code: 'de', label: 'Deutsch', short: 'DE' },
 	{ code: 'ko', label: '한국어', short: '한국어' },
-	{ code: 'ro', label: 'Română', short: 'RO' },
 	{ code: 'tr', label: 'Türkçe', short: 'TR' },
+	{ code: 'vi', label: 'Tiếng Việt', short: 'VI' },
 	{ code: 'uk', label: 'Українська', short: 'UK' },
-	{ code: 'vi', label: 'Tiếng Việt', short: 'VI' }
+	{ code: 'ja', label: '日本語', short: '日本語' },
+	{ code: 'sw', label: 'Kiswahili', short: 'SW' },
+	{ code: 'ro', label: 'Română', short: 'RO' }
 ];
 
 export const DEFAULT_LOCALE = 'en';

@@ -379,7 +379,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.stroke();
 	}
 	ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.55);
-	ctx.font = `500 ${compact ? 10 : 12}px Lato, sans-serif`;
+	ctx.font = `500 ${compact ? 10 : 12}px ${palette.fontBody || 'Lato, sans-serif'}`;
 	['00:00', '06:00', '12:00', '18:00', '24:00'].forEach((lbl, i) => {
 		ctx.fillText(lbl, px(i * 6) - (i === 0 ? 0 : i === 4 ? 34 : 17), oy + chartH + 18);
 	});
@@ -425,7 +425,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 	// --- Legend ---
 	if (costIn > 0) {
 		ctx.save();
-		ctx.font = `700 ${compact ? 11 : 13}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 11 : 13}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.globalAlpha = smoothstep(costIn);
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.72);
 		ctx.fillText(t('viz.depin.electricityCost'), ox, oy - 26);
@@ -457,7 +457,7 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.lineTo(px(span - (24 - from)), oy + chartH);
 		ctx.stroke();
 		ctx.setLineDash([]);
-		ctx.font = `700 ${compact ? 10 : 12}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 10 : 12}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillStyle = palette.node;
 		ctx.fillText(t('viz.depin.availableWindow'), ox + 8, oy + chartH - 10);
 		ctx.restore();
@@ -483,9 +483,9 @@ export function drawPowerScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.stroke();
 		ctx.fillStyle = palette.onSurface;
 		ctx.textAlign = 'center';
-		ctx.font = `700 ${compact ? 15 : 20}px Lato, sans-serif`;
+		ctx.font = `700 ${compact ? 15 : 20}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillText(`${Math.round(f * 100)}%`, 0, compact ? -2 : 0);
-		ctx.font = `500 ${compact ? 9 : 11}px Lato, sans-serif`;
+		ctx.font = `500 ${compact ? 9 : 11}px ${palette.fontBody || 'Lato, sans-serif'}`;
 		ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.7);
 		ctx.fillText(t('viz.depin.marginCovered'), 0, compact ? 14 : 20);
 		ctx.textAlign = 'left';

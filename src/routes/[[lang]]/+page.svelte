@@ -35,6 +35,7 @@
 	import SceneBeat from '$lib/components/immersive/SceneBeat.svelte';
 	import {
 		drawAutomataScene,
+		drawAtomsScene,
 		drawNetworkScene,
 		drawBlackBoxScene,
 		drawSpecCellScene,
@@ -43,7 +44,6 @@
 		drawTrustScene
 	} from '$lib/components/home/scenes.js';
 	import AudienceRouter from '$lib/components/home/AudienceRouter.svelte';
-	import AtomicConcepts from '$lib/components/AtomicConcepts.svelte';
 	import CorePrinciples from '$lib/components/CorePrinciples.svelte';
 	import WhatIsNot from '$lib/components/WhatIsNot.svelte';
 	import Nodes from '$lib/components/Nodes.svelte';
@@ -58,6 +58,7 @@
 
 	const scenes = [
 		{ id: 'foundations', draw: drawAutomataScene, scrollLength: 2.4, beats: THREE },
+		{ id: 'atoms', draw: drawAtomsScene, scrollLength: 2.4, align: 'right', beats: THREE },
 		{ id: 'nodes', draw: drawNetworkScene, scrollLength: 2.6, align: 'right', beats: THREE },
 		{ id: 'services', draw: drawBlackBoxScene, scrollLength: 2.4, beats: THREE },
 		{
@@ -196,16 +197,24 @@
 	{#each scenes as scene}
 		<PinnedScene
 			id={scene.id}
-			label={$t(`home.scenes.${scene.id}.label`)}
+			label={scene.id === 'atoms' ? $t('home.atoms.eyebrow') : $t(`home.scenes.${scene.id}.label`)}
 			align={scene.align || 'left'}
 			draw={scene.draw}
 			scrollLength={scene.scrollLength}
 			let:progress
 			let:static={isStatic}
 		>
+			{@const atomCopy = $t('home.atoms')}
+			{@const beats = scene.id === 'atoms'
+					? [
+						{ h: atomCopy.heading, p: atomCopy.intro },
+						{ h: atomCopy.items[0].title, p: atomCopy.items[0].body },
+						{ h: atomCopy.items[1].title, p: atomCopy.items[1].body }
+					]
+					: $t(`home.scenes.${scene.id}.beats`)}
 			<div class="beats" class:flow={isStatic}>
 				{#each scene.beats as timing, i}
-					{@const beat = $t(`home.scenes.${scene.id}.beats`)[i]}
+					{@const beat = beats[i]}
 					{#if beat}
 						<SceneBeat {progress} {isStatic} from={timing.from} to={timing.to} hold={timing.hold}>
 							<h2>{@html beat.h}</h2>
@@ -216,13 +225,6 @@
 				{/each}
 			</div>
 		</PinnedScene>
-		{#if scene.id === 'foundations'}
-			<div id="atoms" class="atoms-band">
-				<div class="ground">
-					<AtomicConcepts />
-				</div>
-			</div>
-		{/if}
 	{/each}
 
 	<!-- ========== The fork in the road, then grounded detail ==========
@@ -245,17 +247,6 @@
 <style>
 	.section-anchor {
 		scroll-margin-top: 12px;
-	}
-
-	.atoms-band {
-		scroll-margin-top: 12px;
-		background: var(--surface);
-		border-top: 1px solid var(--border);
-		border-bottom: 1px solid var(--border);
-	}
-
-	.atoms-band :global(.block) {
-		padding: 48px 0 40px;
 	}
 
 	/* Caption beats cross-fade in the same grid cell while pinned; in the
