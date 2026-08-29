@@ -34,6 +34,35 @@ import {
  * Your request radiates out; peers answer with a price. You pick one
  * and talk to it directly — no signup, no gateway.
  * ================================================================== */
+
+/*
+ * A peer's quote, in whatever it happens to settle in.
+ *
+ * Payment sits OUTSIDE the core architecture, so no single ledger is
+ * baked in and quoting everything in ERG misrepresented that. Each peer
+ * names its own unit; every chip also carries the same amount converted
+ * to USD, because that is the number a reader can actually compare
+ * across peers. Rates are illustrative round numbers — this is a
+ * drawing of a market, not a ticker.
+ */
+const QUOTE_UNITS = [
+	{ code: 'ERG', min: 0.4, span: 1.6, digits: 2, usdPerUnit: 1.1 },
+	{ code: 'BTC', min: 0.000008, span: 0.000026, digits: 6, usdPerUnit: 68000 },
+	{ code: 'USD', min: 0.45, span: 1.7, digits: 2, usdPerUnit: 1 }
+];
+
+/** @param {number} i */
+function quoteFor(i) {
+	const unit = QUOTE_UNITS[i % QUOTE_UNITS.length];
+	const amount = unit.min + rand(i + 3) * unit.span;
+	const usd = amount * unit.usdPerUnit;
+	return {
+		primary: `${amount.toFixed(unit.digits)} ${unit.code}`,
+		// The USD line is the common scale; skipped when the quote is
+		// already in USD, where it would just repeat itself.
+		secondary: unit.code === 'USD' ? '' : `≈ $${usd.toFixed(2)}`
+	};
+}
 export function drawAskScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
@@ -118,24 +147,39 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 		ctx.fill();
 		ctx.restore();
 
-		// A quote chip: what this peer wants to run it.
+		// A quote chip: what this peer wants to run it, in its own unit,
+		// with the same figure in USD underneath so the offers compare.
 		const o = smoothstep(clamp(offers * 1.35 - i * 0.06));
 		if (o > 0) {
 			const px = p.x + (p.x - cx) * 0.3;
 			const py = p.y + (p.y - cy) * 0.3;
-			const w = compact ? 44 : 54;
+			const quote = quoteFor(i);
+			const font = palette.fontBody || 'Lato, sans-serif';
+			const topSize = compact ? 9 : 11;
+			const subSize = compact ? 8 : 9.5;
+			const twoLine = Boolean(quote.secondary);
 			ctx.save();
+			// Measure rather than assume: "0.000021 BTC" is a good deal wider
+			// than "1.24 ERG" and a fixed chip clipped it.
+			ctx.font = `700 ${topSize}px ${font}`;
+			const textW = ctx.measureText(quote.primary).width;
+			const w = Math.max(compact ? 46 : 56, textW + (compact ? 14 : 18));
+			const h = twoLine ? (compact ? 30 : 34) : 22;
 			ctx.globalAlpha = o * fade;
-			roundRect(ctx, px - w / 2, py - 11, w, 22, 11);
+			roundRect(ctx, px - w / 2, py - h / 2, w, h, 11);
 			ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.08);
 			ctx.fill();
 			ctx.strokeStyle = isChosen && pick > 0 ? palette.accent : rgba(palette.onSurfaceRgb, 0.3);
 			ctx.lineWidth = 1.2;
 			ctx.stroke();
-			ctx.font = `700 ${compact ? 9 : 11}px ${palette.fontBody || 'Lato, sans-serif'}`;
 			ctx.textAlign = 'center';
 			ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.82);
-			ctx.fillText(`${(0.4 + rand(i + 3) * 1.6).toFixed(2)} ERG`, px, py + 4);
+			ctx.fillText(quote.primary, px, twoLine ? py - 1 : py + 4);
+			if (twoLine) {
+				ctx.font = `500 ${subSize}px ${font}`;
+				ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.58);
+				ctx.fillText(quote.secondary, px, py + (compact ? 10 : 12));
+			}
 			ctx.textAlign = 'left';
 			ctx.restore();
 		}
@@ -195,6 +239,22 @@ export function drawAskScene(ctx, { width, height, progress, palette, mouse, tim
 			ctx.restore();
 			label(ctx, t('viz.users.noAccount'), cx, by - 10, palette, f, compact ? 10 : 12);
 		}
+	}
+
+	// Naming what the chips are showing: the unit is the peer's choice,
+	// not the network's.
+	const q = smoothstep(clamp(offers * 1.2 - 0.2));
+	if (q > 0.02) {
+		label(
+			ctx,
+			t('viz.users.eachPeerItsUnit'),
+			cx,
+			cy + radius * (compact ? 1.62 : 1.5) + 22,
+			palette,
+			q * 0.85,
+			compact ? 9 : 11,
+			500
+		);
 	}
 }
 

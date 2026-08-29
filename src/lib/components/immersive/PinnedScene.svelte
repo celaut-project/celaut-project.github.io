@@ -55,11 +55,26 @@
 	export let scrollLength = 2.2;
 	/** Caption placement on desktop. */
 	export let align = 'left';
+	/**
+	 * Optional scene-owned state, forwarded to `draw` untouched. Used by
+	 * scenes that respond to a control in the caption (the spec scene's
+	 * Explore buttons) rather than to scroll alone. Kept opaque here so
+	 * PinnedScene never has to know what any one scene means by it.
+	 * @type {any}
+	 */
+	export let state = null;
 
 	let root;
 	let canvasEl;
 	let progress = 0;
 	let motion = false;
+	// Assigned in onMount; lets the reactive block below repaint the
+	// single static frame when `state` changes under reduced motion.
+	let requestRender = () => {};
+
+	// `state` is read inside the RAF loop in motion mode, so this only
+	// has to do anything when there is no loop running.
+	$: state, requestRender();
 
 	onMount(() => {
 		const reduced = prefersReducedMotion();
@@ -127,10 +142,12 @@
 							: align
 					: align,
 				reduced,
+				state,
 				t: (key, vars) => lookup(key, vars)
 			});
 		}
 
+		requestRender = render;
 		resize();
 		start = performance.now();
 
@@ -158,6 +175,7 @@
 			progress = 1;
 			render();
 			return () => {
+				requestRender = () => {};
 				ro.disconnect();
 				stopThemeWatch();
 				stopLocaleWatch();
@@ -214,6 +232,7 @@
 
 		return () => {
 			cancelled = true;
+			requestRender = () => {};
 			cancelAnimationFrame(raf);
 			window.removeEventListener('pointermove', onPointerMove);
 			root.removeEventListener('pointerleave', onPointerLeave);
@@ -239,7 +258,7 @@
 		{#if label}
 			<p class="scene-label">{label}</p>
 		{/if}
-		<slot {progress} static={!motion} />
+		<slot {progress} static={!motion} reduced={!motion} />
 	</div>
 
 	{#if motion}

@@ -63,8 +63,7 @@ export default {
 
 		atoms: {
 			eyebrow: 'As duas primitivas',
-			heading: 'Nós e serviços',
-			intro: 'Celaut é construído a partir de dois conceitos atômicos. Todo o resto — especificação, execução, pagamento, reputação — é a forma como eles interagem.',
+			note: 'Dois átomos. Especificação, execução, pagamento e reputação são a forma como eles interagem.',
 			items: [
 				{
 					title: 'Um nó',
@@ -151,13 +150,15 @@ export default {
 					},
 					{
 						h: 'Isolado, sempre.',
-						p: 'Cada requisição roda como um <strong>processo isolado</strong> — em um contêiner ou em uma máquina virtual, dependendo do nó —, o que abstrai o ambiente de execução e mantém intacta a barreira de segurança.',
+						p: 'Cada requisição roda como um <strong>processo isolado</strong> — na sua própria <strong>máquina virtual</strong>, com kernel próprio e uma fronteira imposta pelo hardware —, o que abstrai o ambiente de execução e mantém intacta a barreira de segurança.',
 						note: 'O que entra, o que sai. Essa é toda a interface.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Como um serviço é especificado',
+				explore: 'Explorar {what}',
+				exploreClose: 'Voltar ao serviço inteiro',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — o ambiente.',
@@ -204,8 +205,12 @@ export default {
 				label: 'Por que isso se sustenta',
 				beats: [
 					{
-						h: 'Mesma entrada. Mesma saída. Sempre.',
-						p: 'Os serviços são totalmente especificados para garantir <strong>resultados reproduzíveis</strong> ao longo do tempo e entre nós. Com as mesmas entradas, eles sempre produzem as mesmas saídas, não importa onde ou quando sejam executados.'
+						h: 'Mesma entrada. Mesma saída.',
+						p: 'Os serviços são totalmente especificados para buscar <strong>resultados reproduzíveis</strong> ao longo do tempo e entre nós. Com as mesmas entradas, a mesma especificação deve produzir as mesmas saídas, não importa onde ou quando ela rode.'
+					},
+					{
+						h: 'Não é garantia em todos os casos.',
+						p: 'Um serviço que alcança uma rede não pode ser perfeitamente reproduzível — a rede responde diferente. Mas uma <strong>especificação carrega muito mais do que uma definição de Docker</strong>: a arquitetura, o sistema de arquivos inteiro, o entrypoint, a configuração. Isso fica bem mais perto de rodar um programa comum do que de baixar uma imagem e torcer.'
 					},
 					{
 						h: 'O que torna a confiança mensurável.',
@@ -220,10 +225,11 @@ export default {
 			},
 			coordination: {
 				label: 'Como estranhos cooperam',
+				more: 'O modelo de confiança por inteiro →',
 				beats: [
 					{
 						h: 'A reputação vem primeiro.',
-						p: 'Nós e serviços <strong>não confiam uns nos outros</strong> — o Celaut é um sistema sem confiança prévia. Então nada começa com um aperto de mãos; começa com uma consulta. Reputação são <strong>registros em ledgers</strong>, opiniões em vez de veredictos, e cada ator pondera as fontes em que já confia para decidir se vale a pena falar com um estranho.'
+						p: '<strong>Confiança nunca é presumida entre as partes.</strong> Nós não confiam em outros nós; você não confia de saída nem no serviço nem no nó que o executa; um nó também não precisa confiar no serviço que executa. A única direção que se sustenta é a inversa: um serviço pode confiar no seu nó, porque quem decidiu executá-lo escolheu aquele nó. Então nada começa com um aperto de mãos; começa com uma consulta: reputação são <strong>registros em ledgers</strong>, opiniões em vez de veredictos, ponderadas por cada ator segundo as fontes em que já confia.'
 					},
 					{
 						h: 'Depois você paga por uma promessa de recursos.',
@@ -865,7 +871,7 @@ export default {
 					},
 					{
 						h: 'Toda execução é isolada.',
-						p: 'O nó executa o serviço como uma <strong>instância isolada</strong> — um contêiner ou uma máquina virtual. Por padrão, um serviço está completamente cortado das redes externas, podendo falar apenas com seu pai, seus filhos e o nó que o executa.'
+						p: 'O nó executa o serviço como uma <strong>instância isolada</strong> — sua própria máquina virtual. Por padrão um serviço está completamente cortado das redes externas e só pode falar com seu pai, seus filhos e o nó que o executa.'
 					},
 					{
 						h: 'E o desenvolvedor não está do outro lado.',
@@ -935,7 +941,7 @@ export default {
 				},
 				{
 					title: 'Ele roda, lacrado',
-					body: 'O nó executa o serviço como uma instância isolada — um contêiner ou uma máquina virtual — sem nenhum acesso além do que a especificação pedia.'
+					body: 'O nó executa o serviço como uma instância isolada — sua própria máquina virtual — sem nenhum acesso além do que a especificação pedia.'
 				},
 				{
 					title: 'Pague adiantado',
@@ -1074,6 +1080,41 @@ export default {
 			environment: 'ambiente',
 			api: 'API',
 			interface: 'interface',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — a CPU e o ambiente de que precisa',
+						'filesystem — cada arquivo, embutido, não um nome de imagem',
+						'init — o entrypoint e como ele começa',
+						'config_declaration — quais arquivos são configuração',
+						'resources — at_init e at_most',
+						'environment_variables — declaradas, com seus formatos'
+					]
+				},
+				api: {
+					title: 'API · Interface',
+					rows: [
+						'slot — uma porta e o transporte que ela fala',
+						'protocol_stack — os protocolos daquele slot',
+						'mu_per_call — o preço de cada método',
+						'payment_contracts — os ledgers que aceita',
+						'um custo fixo para iniciar e depois custo por uso'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'uma entrada por domínio de comunicação que pode alcançar',
+						'tags / prose / formal — como o domínio é nomeado',
+						'protocol_stack — o que aqueles pares precisam falar',
+						'environment_variable — quais pares contam como seus',
+						'nada declarado aqui significa nenhuma saída para fora'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · declarado na especificação',
 			nowhereElse: 'e nenhum outro lugar',
 			itsNodeItsParent: 'seu nó · seu pai',
@@ -1115,6 +1156,7 @@ export default {
 		users: {
 			you: 'você',
 			noAccount: 'sem conta',
+			eachPeerItsUnit: 'cada par cota no que aceita',
 			whatYouAsked: 'o que você pediu',
 			whatNodeRuns: 'o que o nó executa',
 			identicalItRuns: 'idêntico — está rodando',

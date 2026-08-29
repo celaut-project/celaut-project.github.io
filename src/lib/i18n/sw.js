@@ -64,8 +64,7 @@ export default {
 
 		atoms: {
 			eyebrow: 'Vipengele viwili vya msingi',
-			heading: 'Nodi na huduma',
-			intro: 'Celaut imejengwa kutoka kwa dhana mbili za kimsingi. Kila kitu kingine — maelezo, utekelezaji, malipo, sifa njema — ni jinsi vinavyoingiliana.',
+			note: 'Atomu mbili. Maelezo, utekelezaji, malipo na sifa njema ni jinsi vinavyoingiliana.',
 			items: [
 				{
 					title: 'Nodi',
@@ -152,13 +151,15 @@ export default {
 					},
 					{
 						h: 'Zilizotengwa, kila wakati.',
-						p: 'Kila ombi linaendeshwa kama <strong>mchakato uliotengwa</strong> — ndani ya chombo au mashine pepe, kutegemea nodi — jambo linaloficha mazingira ya utekelezaji na kudumisha kizuizi cha usalama bila kuguswa.',
+						p: 'Kila ombi linaendeshwa kama <strong>mchakato uliotengwa</strong> — ndani ya <strong>mashine pepe</strong> yake yenyewe, yenye kernel yake na mpaka unaosimamiwa na maunzi — jambo linaloficha mazingira ya utekelezaji na kudumisha kizuizi cha usalama bila kuguswa.',
 						note: 'Kinachoingia, kinachotoka. Huo ndio muundo mzima wa kiunganishi.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Jinsi huduma inavyobainishwa',
+				explore: 'Chunguza {what}',
+				exploreClose: 'Rudi kwenye huduma nzima',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — mazingira.',
@@ -205,8 +206,12 @@ export default {
 				label: 'Kwa nini inashikilia',
 				beats: [
 					{
-						h: 'Pembejeo ile ile. Matokeo yale yale. Daima.',
-						p: 'Huduma zinabainishwa kikamilifu ili kuhakikisha <strong>matokeo yanayorudiwa</strong> katika muda na kati ya nodi. Zikipewa pembejeo zile zile, daima zinazalisha matokeo yale yale, bila kujali zinaendeshwa wapi au lini.'
+						h: 'Pembejeo ile ile. Matokeo yale yale.',
+						p: 'Huduma zinabainishwa kikamilifu ili kulenga <strong>matokeo yanayorudiwa</strong> katika muda na kati ya nodi. Zikipewa pembejeo zile zile, maelezo yale yale yanapaswa kuzalisha matokeo yale yale, bila kujali yanaendeshwa wapi au lini.'
+					},
+					{
+						h: 'Si hakikisho katika kila hali.',
+						p: 'Huduma inayofikia mtandao haiwezi kurudiwa kwa ukamilifu — mtandao hujibu tofauti. Lakini <strong>maelezo hubeba mengi zaidi kuliko ufafanuzi wa Docker</strong>: usanifu, mfumo mzima wa faili, entrypoint, na usanidi. Kwa hivyo hii iko karibu zaidi na kuendesha programu ya kawaida kuliko kuvuta image na kutumaini.'
 					},
 					{
 						h: 'Jambo linalofanya imani kupimika.',
@@ -221,10 +226,11 @@ export default {
 			},
 			coordination: {
 				label: 'Jinsi wageni wanavyoshirikiana',
+				more: 'Mfumo wa uaminifu kwa kina →',
 				beats: [
 					{
 						h: 'Sifa njema inakuja kwanza.',
-						p: 'Nodi na huduma <strong>haziaminiani</strong> — Celaut ni mfumo usio na imani ya awali. Hivyo hakuna kinachoanza kwa mkono wa salamu; kinaanza kwa uchunguzi. Sifa njema ni <strong>rekodi kwenye vitabu vya hesabu (ledgers)</strong>, ni maoni badala ya hukumu, na kila mhusika anapima vyanzo anavyoviamini tayari ili kuamua kama mgeni anastahili kuzungumza naye.'
+						p: '<strong>Uaminifu haudhaniwi kamwe kati ya pande.</strong> Nodi haziamini nodi nyingine; wewe huamini moja kwa moja huduma wala nodi inayoiendesha; na nodi si lazima iiamini huduma inayoitekeleza. Upande mmoja unaosimama ni ule wa kinyume: huduma inaweza kuiamini nodi yake, kwa sababu aliyeamua kuiendesha ndiye aliyechagua nodi hiyo. Hivyo hakuna kinachoanza kwa mkono wa salamu; kinaanza kwa uchunguzi: sifa njema ni <strong>rekodi kwenye ledgers</strong>, ni maoni badala ya hukumu, zinazopimwa na kila mhusika kwa vyanzo anavyoviamini tayari.'
 					},
 					{
 						h: 'Kisha unalipia ahadi ya rasilimali.',
@@ -866,7 +872,7 @@ export default {
 					},
 					{
 						h: 'Kila utekelezaji umetengwa.',
-						p: 'Nodi inaendesha huduma kama <strong>kielelezo kilichotengwa</strong> — chombo au mashine pepe. Kwa default huduma imekatwa kabisa kutoka mitandao ya nje, ikiweza kuzungumza tu na mzazi wake, watoto wake, na nodi inayoiendesha.'
+						p: 'Nodi inaendesha huduma kama <strong>kielelezo kilichotengwa</strong> — mashine pepe yake yenyewe. Kwa default huduma imekatwa kabisa kutoka mitandao ya nje, ikiweza kuzungumza tu na mzazi wake, watoto wake, na nodi inayoiendesha.'
 					},
 					{
 						h: 'Na msanidi hayuko upande mwingine.',
@@ -936,7 +942,7 @@ export default {
 				},
 				{
 					title: 'Inaendeshwa, ikiwa imefungwa',
-					body: 'Nodi inaendesha huduma kama kielelezo kilichotengwa — chombo au mashine pepe — bila ufikiaji zaidi ya kile vipimo vilivyoomba.'
+					body: 'Nodi inaendesha huduma kama kielelezo kilichotengwa — mashine pepe yake yenyewe — bila ufikiaji zaidi ya kile vipimo vilivyoomba.'
 				},
 				{
 					title: 'Lipa kabla',
@@ -1075,6 +1081,41 @@ export default {
 			environment: 'mazingira',
 			api: 'API',
 			interface: 'kiunganishi',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — CPU na mazingira inayohitaji',
+						'filesystem — kila faili ndani yake, si jina la image',
+						'init — entrypoint na jinsi inavyoanza',
+						'config_declaration — faili zipi ni usanidi',
+						'resources — at_init na at_most',
+						'environment_variables — zimetangazwa pamoja na miundo yake'
+					]
+				},
+				api: {
+					title: 'API · Kiolesura',
+					rows: [
+						'slot — mlango na usafirishaji anaouzungumza',
+						'protocol_stack — protokali za mlango huo',
+						'mu_per_call — bei ya kila mbinu',
+						'payment_contracts — ledgers inazokubali',
+						'gharama ya kudumu ya kuanzisha, kisha gharama kwa matumizi'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'kiingizo kimoja kwa kila eneo la mawasiliano inaloweza kufikia',
+						'tags / prose / formal — jinsi eneo hilo linavyoitwa',
+						'protocol_stack — kile wenzao hao wanapaswa kuzungumza',
+						'environment_variable — wenzao gani wanahesabika kuwa wake',
+						'kutotangaza chochote hapa ni kutokuwa na njia yoyote ya nje'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · imetangazwa kwenye vipimo',
 			nowhereElse: 'na hakuna mahali pengine',
 			itsNodeItsParent: 'nodi yake · mzazi wake',
@@ -1116,6 +1157,7 @@ export default {
 		users: {
 			you: 'wewe',
 			noAccount: 'hakuna akaunti',
+			eachPeerItsUnit: 'kila nodi inatoa bei kwa kile inachokubali',
 			whatYouAsked: 'ulichoomba',
 			whatNodeRuns: 'kinachoendeshwa na nodi',
 			identicalItRuns: 'inafanana — inaendeshwa',

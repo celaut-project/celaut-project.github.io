@@ -29,7 +29,7 @@
 	 */
 	import { onMount } from 'svelte';
 	import { loadGsap, startSmoothScroll, prefersReducedMotion } from '$lib/motion.js';
-	import { t } from '$lib/i18n/index.js';
+	import { t, href } from '$lib/i18n/index.js';
 	import Hero from '$lib/components/Hero.svelte';
 	import PinnedScene from '$lib/components/immersive/PinnedScene.svelte';
 	import SceneBeat from '$lib/components/immersive/SceneBeat.svelte';
@@ -53,7 +53,14 @@
 	import SectionIndex from '$lib/components/SectionIndex.svelte';
 	import GoToTop from '$lib/components/GoToTop.svelte';
 
-	// Three-beat rhythm, shared by five of the seven scenes.
+	/**
+	 * One caption beat's scroll window. `zoom` marks a beat whose
+	 * component can be explored in depth (the specification scene).
+	 * @typedef {{ from: number, to: number, hold?: boolean, zoom?: string }} BeatTiming
+	 */
+
+	// Three-beat rhythm, shared by four of the eight scenes.
+	/** @type {BeatTiming[]} */
 	const THREE = [{ from: 0, to: 0.34 }, { from: 0.3, to: 0.66 }, { from: 0.62, to: 1, hold: true }];
 
 	const scenes = [
@@ -67,6 +74,35 @@
 			scrollLength: 2.4,
 			align: 'right',
 			// Four components to introduce, so a tighter four-beat rhythm.
+			// The first three carry an Explore control into the caption.
+			/** @type {BeatTiming[]} */
+			beats: [
+				{ from: 0, to: 0.3, zoom: 'box' },
+				{ from: 0.28, to: 0.58, zoom: 'api' },
+				{ from: 0.56, to: 0.84, zoom: 'net' },
+				{ from: 0.82, to: 1, hold: true }
+			]
+		},
+		{
+			id: 'execution',
+			draw: drawExecutionScene,
+			scrollLength: 2.6,
+			/** @type {BeatTiming[]} */
+			beats: [
+				{ from: 0, to: 0.28 },
+				{ from: 0.26, to: 0.54 },
+				{ from: 0.52, to: 0.8 },
+				{ from: 0.78, to: 1, hold: true }
+			]
+		},
+		{
+			id: 'determinism',
+			draw: drawDeterminismScene,
+			scrollLength: 2.6,
+			align: 'right',
+			// Four beats: the claim, the honest limit on it, what it buys,
+			// and where it travels.
+			/** @type {BeatTiming[]} */
 			beats: [
 				{ from: 0, to: 0.3 },
 				{ from: 0.28, to: 0.58 },
@@ -75,21 +111,10 @@
 			]
 		},
 		{
-			id: 'execution',
-			draw: drawExecutionScene,
-			scrollLength: 2.6,
-			beats: [
-				{ from: 0, to: 0.28 },
-				{ from: 0.26, to: 0.54 },
-				{ from: 0.52, to: 0.8 },
-				{ from: 0.78, to: 1, hold: true }
-			]
-		},
-		{ id: 'determinism', draw: drawDeterminismScene, scrollLength: 2.4, align: 'right', beats: THREE },
-		{
 			id: 'coordination',
 			draw: drawTrustScene,
 			scrollLength: 2.6,
+			/** @type {BeatTiming[]} */
 			beats: [
 				{ from: 0, to: 0.3 },
 				{ from: 0.27, to: 0.6 },
@@ -110,7 +135,59 @@
 		{ id: 'applications', component: Applications }
 	];
 
+	/** @type {HTMLElement | undefined} */
 	let main;
+
+	/*
+	 * Explore mode for the specification scene.
+	 *
+	 * Each of BOX / API / NET carries far more in the actual schema
+	 * (`message Service` in celaut.proto) than a scroll caption can hold,
+	 * so the caption gets a control that magnifies that one component and
+	 * lists what the specification really declares for it. It is a mode of
+	 * the existing scene rather than a route: the reader keeps their place
+	 * in the story, and one button takes them back to it.
+	 *
+	 * `zoomT` is tweened here rather than inside the scene, because the
+	 * scene must stay a pure function of its inputs for the single
+	 * reduced-motion paint to be correct.
+	 */
+	const ZOOM_MS = 420;
+	/** @type {string | null} */
+	let specZoom = null;
+	let specZoomT = 0;
+	let zoomRaf = 0;
+	$: specState = { zoom: specZoom, zoomT: specZoomT };
+
+	/** @param {number} target */
+	function tweenZoom(target) {
+		cancelAnimationFrame(zoomRaf);
+		if (prefersReducedMotion()) {
+			specZoomT = target;
+			if (target === 0) specZoom = null;
+			return;
+		}
+		const from = specZoomT;
+		const startedAt = performance.now();
+		const step = (/** @type {number} */ now) => {
+			const k = Math.min(1, (now - startedAt) / ZOOM_MS);
+			const eased = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+			specZoomT = from + (target - from) * eased;
+			if (k < 1) zoomRaf = requestAnimationFrame(step);
+			else if (target === 0) specZoom = null;
+		};
+		zoomRaf = requestAnimationFrame(step);
+	}
+
+	/** @param {string} mode */
+	function openZoom(mode) {
+		specZoom = mode;
+		tweenZoom(1);
+	}
+
+	function closeZoom() {
+		tweenZoom(0);
+	}
 
 	onMount(() => {
 		let stopScroll = () => {};
@@ -179,6 +256,7 @@
 
 		return () => {
 			cancelled = true;
+			cancelAnimationFrame(zoomRaf);
 			stopScroll();
 			cleanupGsap();
 		};
@@ -201,25 +279,75 @@
 			align={scene.align || 'left'}
 			draw={scene.draw}
 			scrollLength={scene.scrollLength}
+			state={scene.id === 'service-spec' ? specState : null}
 			let:progress
 			let:static={isStatic}
 		>
 			{@const atomCopy = $t('home.atoms')}
 			{@const beats = scene.id === 'atoms'
 					? [
-						{ h: atomCopy.heading, p: atomCopy.intro },
+						// Deliberately empty: the first beat of the atoms scene says
+						// nothing while the stage is still blank, so each primitive
+						// is introduced by exactly one beat of its own.
+						{},
 						{ h: atomCopy.items[0].title, p: atomCopy.items[0].body },
-						{ h: atomCopy.items[1].title, p: atomCopy.items[1].body }
+						{ h: atomCopy.items[1].title, p: atomCopy.items[1].body, note: atomCopy.note }
 					]
 					: $t(`home.scenes.${scene.id}.beats`)}
 			<div class="beats" class:flow={isStatic}>
 				{#each scene.beats as timing, i}
 					{@const beat = beats[i]}
-					{#if beat}
+					<!-- A beat with no words renders nothing at all, not an empty
+					     box: the atoms scene opens on silence. -->
+					{#if beat && (beat.h || beat.p)}
 						<SceneBeat {progress} {isStatic} from={timing.from} to={timing.to} hold={timing.hold}>
-							<h2>{@html beat.h}</h2>
-							<p>{@html beat.p}</p>
+							{#if beat.h}<h2>{@html beat.h}</h2>{/if}
+							{#if beat.p}<p>{@html beat.p}</p>{/if}
 							{#if beat.note}<span class="beat-note">{beat.note}</span>{/if}
+							{#if timing.zoom}
+								<!-- Explore: magnify this component on the canvas and list
+								     what the specification actually declares for it. A mode
+								     of the same scene, so the reader keeps their place — and
+								     the detail lives in the DOM, because the canvas is
+								     aria-hidden and text painted onto it can be neither
+								     selected nor read out. -->
+								{@const detail = $t(`viz.home.zoom.${timing.zoom}`)}
+								{#if specZoom === timing.zoom}
+									<div class="zoom-detail">
+										<p class="zoom-title">{detail.title}</p>
+										<ul>
+											{#each detail.rows as row}
+												<li>{row}</li>
+											{/each}
+										</ul>
+										<p class="zoom-source">{$t('viz.home.zoom.source')}</p>
+									</div>
+								{/if}
+								<div class="beat-actions">
+									{#if specZoom === timing.zoom}
+										<button type="button" class="beat-action" on:click={closeZoom}>
+											{$t('home.scenes.service-spec.exploreClose')}
+										</button>
+									{:else}
+										<button
+											type="button"
+											class="beat-action"
+											on:click={() => openZoom(timing.zoom)}
+										>
+											{$t('home.scenes.service-spec.explore', {
+												what: $t(`viz.home.${timing.zoom}`)
+											})}
+										</button>
+									{/if}
+								</div>
+							{/if}
+							{#if scene.id === 'coordination' && i === 0}
+								<div class="beat-actions">
+									<a class="beat-action" href={`${$href('/paradigm')}#top`}>
+										{$t('home.scenes.coordination.more')}
+									</a>
+								</div>
+							{/if}
 						</SceneBeat>
 					{/if}
 				{/each}
@@ -263,6 +391,86 @@
 
 	.beats.flow :global(.beat + .beat) {
 		margin-top: 36px;
+	}
+
+	/* Explore / read-more controls inside a caption beat. Deliberately
+	   quiet: the beat's own words stay the loudest thing in the column. */
+	.beats :global(.beat-actions) {
+		margin-top: 16px;
+	}
+
+	.beats :global(.beat-action) {
+		display: inline-block;
+		padding: 8px 16px;
+		border-radius: 999px;
+		border: 1px solid var(--border-strong);
+		background: rgba(var(--on-surface-rgb), 0.05);
+		color: var(--accent-text);
+		font: inherit;
+		font-size: 0.86rem;
+		font-weight: 700;
+		text-decoration: none;
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.beats :global(.beat-action:hover),
+	.beats :global(.beat-action:focus-visible) {
+		background: rgba(var(--on-surface-rgb), 0.12);
+		border-color: var(--accent);
+	}
+
+	/* The Explore detail. Schema field names, so it is set in the mono
+	   face and kept deliberately terse — this is a landing page. */
+	.beats :global(.zoom-detail) {
+		margin-top: 18px;
+		padding: 16px 18px;
+		border-radius: 12px;
+		border: 1px solid var(--border-strong);
+		background: rgba(var(--on-surface-rgb), 0.05);
+	}
+
+	.beats :global(.zoom-title) {
+		margin: 0 0 10px;
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--accent-text);
+	}
+
+	.beats :global(.zoom-detail ul) {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 6px;
+	}
+
+	.beats :global(.zoom-detail li) {
+		position: relative;
+		padding-inline-start: 14px;
+		font-size: 0.84rem;
+		line-height: 1.5;
+		color: var(--on-surface-muted);
+	}
+
+	.beats :global(.zoom-detail li)::before {
+		content: '';
+		position: absolute;
+		inset-inline-start: 0;
+		top: 0.62em;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--viz-node, var(--accent));
+	}
+
+	.beats :global(.zoom-source) {
+		margin: 12px 0 0;
+		font-size: 0.72rem;
+		color: var(--on-surface-muted);
+		opacity: 0.7;
 	}
 
 	/* The landing page carries SectionIndex's fixed rail down the left

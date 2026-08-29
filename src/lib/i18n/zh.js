@@ -60,8 +60,7 @@ export default {
 
 		atoms: {
 			eyebrow: '两个基本元素',
-			heading: '节点与服务',
-			intro: 'Celaut 由两个原子概念构成。其余的一切——规格、执行、支付、信誉——都只是它们互相作用的方式。',
+			note: '两个原子。规格、执行、支付、信誉，都只是它们互相作用的方式。',
 			items: [
 				{
 					title: '节点',
@@ -148,13 +147,15 @@ export default {
 					},
 					{
 						h: '每一次都是隔离的。',
-						p: '每一次请求都作为一个<strong>隔离的进程</strong>运行——根据节点的实现,可能是容器或虚拟机——这抽象掉了执行环境,并保持安全边界完整无损。',
+						p: '每一次请求都作为一个<strong>隔离的进程</strong>运行——在它自己的<strong>虚拟机</strong>里,有独立的内核和由硬件强制的边界——这抽象掉了执行环境,并保持安全边界完整无损。',
 						note: '进去的是什么,出来的是什么。这就是全部接口。'
 					}
 				]
 			},
 			'service-spec': {
 				label: '服务是如何被规范定义的',
+				explore: '深入了解 {what}',
+				exploreClose: '回到完整的服务',
 				beats: [
 					{
 						h: '<strong>BOX</strong>——环境。',
@@ -201,8 +202,12 @@ export default {
 				label: '为什么它能成立',
 				beats: [
 					{
-						h: '相同输入,相同输出,永远如此。',
-						p: '服务被完整地规范定义,以确保<strong>跨时间、跨节点的结果可复现</strong>。给定相同的输入,它们总会产生相同的输出,无论在何处、何时运行。'
+						h: '相同输入,相同输出。',
+						p: '服务被完整地规范定义,以争取<strong>跨时间、跨节点的结果可复现</strong>。给定相同的输入,同一份规格本应产生相同的输出,无论在何处、何时运行。'
+					},
+					{
+						h: '但并非在任何情况下都是保证。',
+						p: '一个会连上网络的服务无法做到完美复现——网络每次的回答都不一样。但一份<strong>规格所承载的,远多于一个 Docker 定义</strong>:架构、整个文件系统、入口点、配置。所以这更接近于运行一个普通程序,而不是拉一个镜像然后碰运气。'
 					},
 					{
 						h: '这让信任变得可衡量。',
@@ -217,10 +222,11 @@ export default {
 			},
 			coordination: {
 				label: '陌生人之间如何合作',
+				more: '完整的信任模型 →',
 				beats: [
 					{
 						h: '信誉排在第一位。',
-						p: '节点与服务之间<strong>互不信任</strong>——Celaut 是一个无需信任的系统。所以一切都不是从一次握手开始,而是从一次查询开始。信誉就是<strong>记录在账本上的记录</strong>,是意见而非定论,每个参与者都会依据自己已经信任的来源来判断,一个陌生人是否值得打交道。'
+						p: '<strong>各方之间从不预设信任。</strong>节点不信任其他节点;你也不会天然信任某个服务或运行它的节点;节点同样不必信任自己执行的服务。唯一成立的是反方向:服务可以说是信任自己的节点,因为决定运行它的那一方选择了这个节点。所以一切不是从握手开始,而是从查证开始:信誉是<strong>账本上的记录</strong>,是意见而非判决,每个参与者都按自己本就信任的来源来权衡它。'
 					},
 					{
 						h: '接着，你为一份资源承诺付费。',
@@ -850,7 +856,7 @@ export default {
 					},
 					{
 						h: '每一次执行都是隔离的。',
-						p: '节点把服务作为<strong>隔离的实例</strong>来运行——一个容器或一台虚拟机。默认情况下,服务与外部网络完全切断,只能与自己的父服务、子服务以及运行它的节点通信。'
+						p: '节点把服务作为<strong>隔离的实例</strong>来运行——在它自己的虚拟机里。默认情况下,服务与外部网络完全隔断,只能与它的父服务、子服务以及运行它的节点通信。'
 					},
 					{
 						h: '而开发者并不在另一端。',
@@ -920,7 +926,7 @@ export default {
 				},
 				{
 					title: '它以密封状态运行',
-					body: '节点把服务作为一个隔离的实例来执行——一个容器或一台虚拟机——除了规范所要求的之外,没有任何其他访问权限。'
+					body: '节点把服务作为一个隔离的实例来执行——在它自己的虚拟机里——除了规范所要求的之外,没有任何其他访问权限。'
 				},
 				{
 					title: '预先付费',
@@ -1057,6 +1063,41 @@ export default {
 			environment: '环境',
 			api: 'API',
 			interface: '接口',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — 它需要的 CPU 与环境',
+						'filesystem — 每个文件都在里面,而不是一个镜像名',
+						'init — 入口点,以及它如何启动',
+						'config_declaration — 哪些文件属于配置',
+						'resources — at_init 与 at_most',
+						'environment_variables — 连同格式一并声明'
+					]
+				},
+				api: {
+					title: 'API · 接口',
+					rows: [
+						'slot — 一个端口,以及它使用的传输方式',
+						'protocol_stack — 该 slot 上的协议',
+						'mu_per_call — 每个方法的价格',
+						'payment_contracts — 它接受的账本',
+						'启动时的固定成本,之后按用量计费'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'它可能触及的每个通信域各占一条',
+						'tags / prose / formal — 这个域是如何被命名的',
+						'protocol_stack — 那些对端必须使用什么',
+						'environment_variable — 哪些对端算作自己人',
+						'这里什么都不声明,就意味着完全没有对外通路'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · 在规范中声明',
 			nowhereElse: '除此之外哪里也去不了',
 			itsNodeItsParent: '它的节点 · 它的父服务',
@@ -1098,6 +1139,7 @@ export default {
 		users: {
 			you: '你',
 			noAccount: '无需账号',
+			eachPeerItsUnit: '每个节点用自己接受的单位报价',
 			whatYouAsked: '你所要求的',
 			whatNodeRuns: '节点实际运行的',
 			identicalItRuns: '完全一致——它在运行',

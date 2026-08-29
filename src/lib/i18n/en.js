@@ -64,8 +64,10 @@ export default {
 
 		atoms: {
 			eyebrow: 'The two primitives',
-			heading: 'Nodes and services',
-			intro: 'Celaut is built from two atomic concepts. Everything else — specification, execution, payment, reputation — is how they interact.',
+			// The scene introduces one primitive at a time, so the first beat
+			// is deliberately silent: nothing is said while the stage is still
+			// empty. `note` closes the scene once both are on screen.
+			note: 'Two atoms. Specification, execution, payment and reputation are all how they interact.',
 			items: [
 				{
 					title: 'A node',
@@ -152,13 +154,17 @@ export default {
 					},
 					{
 						h: 'Isolated, every single time.',
-						p: 'Each request runs as an <strong>isolated process</strong> — in a container or a virtual machine, depending on the node — which abstracts away the execution environment and keeps the security barrier intact.',
+						p: 'Each request runs as an <strong>isolated process</strong> — in its own <strong>virtual machine</strong>, with its own kernel and a hardware-enforced boundary — which abstracts away the execution environment and keeps the security barrier intact.',
 						note: 'What goes in, what comes out. That’s the whole interface.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'How a service is specified',
+				// Labels for the Explore control that zooms the scene into one
+				// component. `{what}` is the component's own name.
+				explore: 'Explore {what}',
+				exploreClose: 'Back to the whole service',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — the environment.',
@@ -205,8 +211,12 @@ export default {
 				label: 'Why it holds',
 				beats: [
 					{
-						h: 'Same input. Same output. Always.',
-						p: 'Services are fully specified to ensure <strong>reproducible results</strong> across time and nodes. Given the same inputs they always produce the same outputs, regardless of where or when they’re run.'
+						h: 'Same input. Same output.',
+						p: 'Services are fully specified to aim at <strong>reproducible results</strong> across time and nodes. Given the same inputs, the same specification is meant to produce the same outputs, regardless of where or when it runs.'
+					},
+					{
+						h: 'Not a guarantee in every case.',
+						p: 'A service that reaches a network can’t be perfectly reproducible — the network answers differently. But a <strong>specification carries far more than a Docker definition does</strong>: the architecture, the whole filesystem, the entrypoint, the config. So this sits much closer to running a plain program than to pulling an image and hoping.'
 					},
 					{
 						h: 'Which makes trust measurable.',
@@ -221,10 +231,11 @@ export default {
 			},
 			coordination: {
 				label: 'How strangers cooperate',
+				more: 'The trust model in full →',
 				beats: [
 					{
 						h: 'Reputation comes first.',
-						p: 'Nodes and services <strong>do not trust each other</strong> — Celaut is a trustless system. So nothing starts with a handshake; it starts with a lookup. Reputation is <strong>records on ledgers</strong>, opinions rather than verdicts, and each actor weighs the sources it already trusts to decide whether a stranger is worth talking to.'
+						p: '<strong>Trust is never assumed between parties.</strong> Nodes don’t trust other nodes; you don’t inherently trust a service or the node running it; a node doesn’t have to trust the service it executes. The one direction that does hold is the other way round — a service can trust its node, because whoever decided to run it picked that node. So nothing starts with a handshake; it starts with a lookup: reputation is <strong>records on ledgers</strong>, opinions rather than verdicts, weighed by each actor against the sources it already trusts.'
 					},
 					{
 						h: 'Then you pay for a promise of resources.',
@@ -866,7 +877,7 @@ export default {
 					},
 					{
 						h: 'Every execution is isolated.',
-						p: 'The node runs the service as an <strong>isolated instance</strong> — a container or a virtual machine. By default a service is cut off from external networks entirely, able to talk only to its parent, its children and the node running it.'
+						p: 'The node runs the service as an <strong>isolated instance</strong> — its own virtual machine. By default a service is cut off from external networks entirely, able to talk only to its parent, its children and the node running it.'
 					},
 					{
 						h: 'And the developer isn’t on the other end.',
@@ -936,7 +947,7 @@ export default {
 				},
 				{
 					title: 'It runs, sealed',
-					body: 'The node executes the service as an isolated instance — a container or a virtual machine — with no access beyond what the specification asked for.'
+					body: 'The node executes the service as an isolated instance — its own virtual machine — with no access beyond what the specification asked for.'
 				},
 				{
 					title: 'Pay up front',
@@ -1075,6 +1086,57 @@ export default {
 			environment: 'environment',
 			api: 'API',
 			interface: 'interface',
+			// Example networks a specification can name. Identifiers rather
+			// than prose, and deliberately not all crypto: a service may
+			// declare a public chain, a plain web host, or a private network
+			// that exists on nobody's registry. The scene rotates through them.
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: ['bitcoin', 'ipfs', 'google.com', 'family-photos', 'nostr', 'weather-api'],
+			// The Explore panels: what the specification actually carries for
+			// each component (message Service in celaut.proto).
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — the CPU and environment it needs',
+						'filesystem — every file, inline, not an image name',
+						'init — the entrypoint and how it starts',
+						'config_declaration — which files are configuration',
+						'resources — at_init and at_most',
+						'environment_variables — declared, with their formats'
+					]
+				},
+				api: {
+					title: 'API · Interface',
+					rows: [
+						'slot — a port, plus the transport it speaks',
+						'protocol_stack — the protocols on that slot',
+						'mu_per_call — the price of each method',
+						'payment_contracts — the ledgers it accepts',
+						'a fixed cost to start, then cost by usage'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'one entry per communication domain it may reach',
+						'tags / prose / formal — how the domain is named',
+						'protocol_stack — what those peers must speak',
+						'environment_variable — which peers count as its own',
+						'nothing declared here means no outside reach at all'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · declared in the spec',
 			nowhereElse: 'and nowhere else',
 			itsNodeItsParent: 'its node · its parent',
@@ -1116,6 +1178,7 @@ export default {
 		users: {
 			you: 'you',
 			noAccount: 'no account',
+			eachPeerItsUnit: 'each peer quotes in what it accepts',
 			whatYouAsked: 'what you asked for',
 			whatNodeRuns: 'what the node runs',
 			identicalItRuns: 'identical — it runs',
