@@ -69,8 +69,7 @@ export default {
 		},
 		atoms: {
 			eyebrow: 'İki temel yapı taşı',
-			heading: "Node'lar ve servisler",
-			intro: 'Celaut iki atomik kavramdan kuruludur. Geri kalan her şey — şartname, yürütme, ödeme, itibar — bu ikisinin nasıl etkileştiğidir.',
+			note: 'İki atom. Şartname, yürütme, ödeme ve itibar bu ikisinin nasıl etkileştiğidir.',
 			items: [
 				{
 					title: 'Bir node',
@@ -155,13 +154,15 @@ export default {
 					},
 					{
 						h: 'Her seferinde, yalıtılmış olarak.',
-						p: "Her istek <strong>yalıtılmış bir süreç</strong> olarak çalışır — node'a göre bir konteynerde ya da sanal makinede — bu da yürütme ortamını soyutlar ve güvenlik sınırını sağlam tutar.",
+						p: 'Her istek <strong>yalıtılmış bir süreç</strong> olarak çalışır — kendi çekirdeğine ve donanımla dayatılan bir sınıra sahip, kendine ait bir <strong>sanal makinede</strong> — bu da yürütme ortamını soyutlar ve güvenlik sınırını sağlam tutar.',
 						note: 'Ne giriyor, ne çıkıyor. Arayüzün tamamı bu.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Bir servis nasıl tanımlanır',
+				explore: '{what} bölümünü keşfet',
+				exploreClose: 'Servisin tamamına dön',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — ortam.',
@@ -208,8 +209,12 @@ export default {
 				label: 'Neden ayakta kalıyor',
 				beats: [
 					{
-						h: 'Aynı girdi. Aynı çıktı. Her zaman.',
-						p: "Servisler, zaman ve node'lar boyunca <strong>yeniden üretilebilir sonuçlar</strong> sağlamak için tam olarak tanımlanır. Aynı girdiler verildiğinde, nerede ya da ne zaman çalıştırıldıklarından bağımsız olarak hep aynı çıktıları üretirler."
+						h: 'Aynı girdi. Aynı çıktı.',
+						p: "Servisler, zaman ve node'lar boyunca <strong>yeniden üretilebilir sonuçları</strong> hedefleyecek şekilde tam olarak tanımlanır. Aynı girdiler verildiğinde, aynı şartnamenin nerede ya da ne zaman çalıştığından bağımsız olarak aynı çıktıları üretmesi beklenir."
+					},
+					{
+						h: 'Her durumda bir garanti değil.',
+						p: 'Bir ağa uzanan servis kusursuz biçimde yeniden üretilebilir olamaz — ağ her seferinde başka yanıt verir. Ama bir <strong>şartname bir Docker tanımından çok daha fazlasını taşır</strong>: mimariyi, dosya sisteminin tamamını, giriş noktasını, yapılandırmayı. Yani bu, bir imaj çekip en iyisini ummaktan çok, sıradan bir programı çalıştırmaya yakındır.'
 					},
 					{
 						h: 'Bu da güveni ölçülebilir kılar.',
@@ -224,10 +229,11 @@ export default {
 			},
 			coordination: {
 				label: 'Yabancılar nasıl işbirliği yapar',
+				more: 'Güven modelinin tamamı →',
 				beats: [
 					{
 						h: 'Önce itibar gelir.',
-						p: "Node'lar ve servisler <strong>birbirine güvenmez</strong> — Celaut güvensiz (trustless) bir sistemdir. Dolayısıyla hiçbir şey el sıkışmayla başlamaz; bir sorgulamayla başlar. İtibar, <strong>defterlerdeki kayıtlardır</strong>, hüküm değil görüş; her aktör bir yabancının konuşmaya değer olup olmadığına karar verirken zaten güvendiği kaynakları tartar."
+						p: "<strong>Taraflar arasında güven asla varsayılmaz.</strong> Node'lar başka node'lara güvenmez; sen ne bir servise ne de onu çalıştıran node'a baştan güvenirsin; bir node da çalıştırdığı servise güvenmek zorunda değildir. Tutan tek yön bunun tersidir: bir servis kendi node'una güvenebilir, çünkü onu çalıştırmaya karar veren taraf o node'u seçmiştir. Dolayısıyla hiçbir şey el sıkışmayla başlamaz; bir sorgulamayla başlar: itibar, <strong>defterlerdeki kayıtlardır</strong>, hüküm değil görüş; her aktör bunları zaten güvendiği kaynaklara göre tartar."
 					},
 					{
 						h: 'Sonra bir kaynak vaadi için ödeme yaparsın.',
@@ -889,7 +895,7 @@ export default {
 					},
 					{
 						h: 'Her yürütme yalıtılmıştır.',
-						p: "Node servisi <strong>yalıtılmış bir örnek</strong> olarak çalıştırır — bir konteyner ya da sanal makine. Varsayılan olarak bir servis dış ağlardan tamamen koparılmıştır; yalnızca ebeveyniyle, çocuklarıyla ve kendisini çalıştıran node'la konuşabilir."
+						p: "Node servisi <strong>yalıtılmış bir örnek</strong> olarak çalıştırır — kendine ait bir sanal makinede. Varsayılan olarak bir servis dış ağlardan tamamen koparılmıştır; yalnızca ebeveyniyle, çocuklarıyla ve kendisini çalıştıran node'la konuşabilir."
 					},
 					{
 						h: 'Üstelik diğer uçta geliştirici oturmuyor.',
@@ -959,7 +965,7 @@ export default {
 				},
 				{
 					title: 'Mühürlü olarak çalışır',
-					body: 'Node servisi yalıtılmış bir örnek olarak çalıştırır — bir konteyner ya da sanal makine — şartnamenin istediğinin ötesinde hiçbir erişim olmadan.'
+					body: 'Node servisi yalıtılmış bir örnek olarak çalıştırır — kendine ait bir sanal makinede — şartnamenin istediğinin ötesinde hiçbir erişim olmadan.'
 				},
 				{
 					title: 'Peşin öde',
@@ -1089,6 +1095,41 @@ export default {
 			environment: 'ortam',
 			api: 'API',
 			interface: 'arayüz',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — ihtiyaç duyduğu işlemci ve ortam',
+						'filesystem — her dosya içeride, bir imaj adı değil',
+						'init — giriş noktası ve nasıl başladığı',
+						'config_declaration — hangi dosyaların yapılandırma olduğu',
+						'resources — at_init ve at_most',
+						'environment_variables — biçimleriyle birlikte beyan edilir'
+					]
+				},
+				api: {
+					title: 'API · Arayüz',
+					rows: [
+						'slot — bir port ve konuştuğu taşıma katmanı',
+						'protocol_stack — o slottaki protokoller',
+						'mu_per_call — her metodun fiyatı',
+						'payment_contracts — kabul ettiği defterler',
+						'başlangıçta sabit maliyet, sonrasında kullanım maliyeti'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'ulaşabileceği her iletişim alanı için bir kayıt',
+						'tags / prose / formal — alanın nasıl adlandırıldığı',
+						'protocol_stack — o eşlerin ne konuşması gerektiği',
+						'environment_variable — hangi eşlerin kendisinden sayıldığı',
+						'burada hiçbir şey beyan etmemek, hiç dışarı çıkmamak demektir'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · şartnamede beyan edilir',
 			nowhereElse: 've başka hiçbir yere',
 			itsNodeItsParent: "kendi node'u · kendi ebeveyni",
@@ -1134,6 +1175,7 @@ export default {
 		users: {
 			you: 'sen',
 			noAccount: 'hesap yok',
+			eachPeerItsUnit: 'her eş kabul ettiği birimden fiyat verir',
 			whatYouAsked: 'istediğin şey',
 			whatNodeRuns: "node'un çalıştırdığı şey",
 			identicalItRuns: 'birebir aynı — çalışıyor',

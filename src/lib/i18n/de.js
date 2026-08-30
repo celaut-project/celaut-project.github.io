@@ -69,8 +69,7 @@ export default {
 		},
 		atoms: {
 			eyebrow: 'Die zwei Grundbausteine',
-			heading: 'Nodes und Services',
-			intro: 'Celaut besteht aus zwei atomaren Konzepten. Alles andere — Spezifikation, Ausführung, Bezahlung, Reputation — ist nur die Art, wie sie zusammenspielen.',
+			note: 'Zwei Atome. Spezifikation, Ausführung, Bezahlung und Reputation sind nur die Art, wie sie zusammenspielen.',
 			items: [
 				{
 					title: 'Ein Node',
@@ -155,13 +154,15 @@ export default {
 					},
 					{
 						h: 'Isoliert, jedes einzelne Mal.',
-						p: 'Jede Anfrage läuft als <strong>isolierter Prozess</strong> — je nach Node in einem Container oder einer virtuellen Maschine —, was die Ausführungsumgebung wegabstrahiert und die Sicherheitsgrenze intakt hält.',
+						p: 'Jede Anfrage läuft als <strong>isolierter Prozess</strong> — in einer eigenen <strong>virtuellen Maschine</strong>, mit eigenem Kernel und einer hardwaregestützten Grenze —, was die Ausführungsumgebung wegabstrahiert und die Sicherheitsgrenze intakt hält.',
 						note: 'Was hineingeht, was herauskommt. Das ist die ganze Schnittstelle.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Wie ein Service spezifiziert wird',
+				explore: '{what} erkunden',
+				exploreClose: 'Zurück zum ganzen Service',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — die Umgebung.',
@@ -208,8 +209,12 @@ export default {
 				label: 'Warum es trägt',
 				beats: [
 					{
-						h: 'Gleiche Eingabe. Gleiche Ausgabe. Immer.',
-						p: 'Services sind vollständig spezifiziert, um <strong>reproduzierbare Ergebnisse</strong> über Zeit und Nodes hinweg zu sichern. Bei gleichen Eingaben liefern sie immer die gleichen Ausgaben, egal wo und wann sie laufen.'
+						h: 'Gleiche Eingabe. Gleiche Ausgabe.',
+						p: 'Services sind vollständig spezifiziert, um über Zeit und Nodes hinweg <strong>reproduzierbare Ergebnisse</strong> anzustreben. Bei gleichen Eingaben soll dieselbe Spezifikation dieselben Ausgaben liefern, egal wo und wann sie läuft.'
+					},
+					{
+						h: 'Keine Garantie in jedem Fall.',
+						p: 'Ein Service, der ein Netz erreicht, kann nicht perfekt reproduzierbar sein — das Netz antwortet anders. Aber eine <strong>Spezifikation trägt weit mehr als eine Docker-Definition</strong>: die Architektur, das gesamte Dateisystem, den Entrypoint, die Konfiguration. Das liegt also viel näher am Ausführen eines gewöhnlichen Programms als am Ziehen eines Images auf gut Glück.'
 					},
 					{
 						h: 'Das macht Vertrauen messbar.',
@@ -224,10 +229,11 @@ export default {
 			},
 			coordination: {
 				label: 'Wie Fremde kooperieren',
+				more: 'Das Vertrauensmodell im Detail →',
 				beats: [
 					{
 						h: 'Reputation kommt zuerst.',
-						p: 'Nodes und Services <strong>vertrauen einander nicht</strong> — Celaut ist ein trustless System. Nichts beginnt also mit einem Handschlag, sondern mit einem Nachschlagen. Reputation sind <strong>Einträge in Ledgern</strong>, Meinungen statt Urteile, und jeder Akteur gewichtet die Quellen, denen er ohnehin traut, um zu entscheiden, ob ein Fremder das Gespräch wert ist.'
+						p: '<strong>Vertrauen wird zwischen den Beteiligten nie vorausgesetzt.</strong> Nodes vertrauen anderen Nodes nicht; du vertraust weder einem Service noch dem Node, der ihn ausführt, von vornherein; und ein Node muss dem Service, den er ausführt, ebenfalls nicht vertrauen. Die eine Richtung, die trägt, ist die umgekehrte: ein Service kann seinem Node vertrauen, denn wer ihn ausführen ließ, hat genau diesen Node gewählt. Nichts beginnt also mit einem Handschlag, sondern mit einem Nachschlagen: Reputation sind <strong>Einträge in Ledgern</strong>, Meinungen statt Urteile, gewichtet nach den Quellen, denen jeder Akteur ohnehin traut.'
 					},
 					{
 						h: 'Dann zahlst du für ein Ressourcenversprechen.',
@@ -889,7 +895,7 @@ export default {
 					},
 					{
 						h: 'Jede Ausführung ist isoliert.',
-						p: 'Der Node führt den Service als <strong>isolierte Instanz</strong> aus — als Container oder virtuelle Maschine. Standardmäßig ist ein Service vollständig von externen Netzen abgeschnitten und kann nur mit seinem Eltern-Service, seinen Kindern und dem ausführenden Node sprechen.'
+						p: 'Der Node führt den Service als <strong>isolierte Instanz</strong> aus — in einer eigenen virtuellen Maschine. Standardmäßig ist ein Service vollständig von externen Netzen abgeschnitten und kann nur mit seinem Eltern-Service, seinen Kindern und dem ausführenden Node sprechen.'
 					},
 					{
 						h: 'Und der Entwickler sitzt nicht am anderen Ende.',
@@ -959,7 +965,7 @@ export default {
 				},
 				{
 					title: 'Es läuft, versiegelt',
-					body: 'Der Node führt den Service als isolierte Instanz aus — Container oder virtuelle Maschine — ohne Zugriff über das hinaus, was die Spezifikation verlangt hat.'
+					body: 'Der Node führt den Service als isolierte Instanz aus — in einer eigenen virtuellen Maschine — ohne Zugriff über das hinaus, was die Spezifikation verlangt hat.'
 				},
 				{
 					title: 'Im Voraus zahlen',
@@ -1089,6 +1095,41 @@ export default {
 			environment: 'Umgebung',
 			api: 'API',
 			interface: 'Schnittstelle',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — die CPU und Umgebung, die er braucht',
+						'filesystem — jede Datei enthalten, kein Image-Name',
+						'init — der Entrypoint und wie er startet',
+						'config_declaration — welche Dateien Konfiguration sind',
+						'resources — at_init und at_most',
+						'environment_variables — deklariert, samt Formaten'
+					]
+				},
+				api: {
+					title: 'API · Schnittstelle',
+					rows: [
+						'slot — ein Port samt Transport, den er spricht',
+						'protocol_stack — die Protokolle auf diesem Slot',
+						'mu_per_call — der Preis jeder Methode',
+						'payment_contracts — die Ledger, die er akzeptiert',
+						'fixe Kosten zum Start, danach Kosten nach Nutzung'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'ein Eintrag pro erreichbarer Kommunikationsdomäne',
+						'tags / prose / formal — wie die Domäne benannt wird',
+						'protocol_stack — was diese Peers sprechen müssen',
+						'environment_variable — welche Peers als seine gelten',
+						'hier nichts zu deklarieren heißt: gar kein Weg nach draußen'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · in der Spezifikation deklariert',
 			nowhereElse: 'und sonst nirgendwo',
 			itsNodeItsParent: 'sein Node · sein Eltern-Service',
@@ -1134,6 +1175,7 @@ export default {
 		users: {
 			you: 'du',
 			noAccount: 'kein Konto',
+			eachPeerItsUnit: 'jeder Peer nennt seinen Preis in dem, was er annimmt',
 			whatYouAsked: 'was du angefordert hast',
 			whatNodeRuns: 'was der Node ausführt',
 			identicalItRuns: 'identisch — es läuft',

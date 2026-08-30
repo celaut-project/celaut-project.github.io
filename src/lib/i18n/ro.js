@@ -70,8 +70,7 @@ export default {
 		},
 		atoms: {
 			eyebrow: 'Cele două elemente primitive',
-			heading: 'Noduri și servicii',
-			intro: 'Celaut este construit din două concepte atomice. Tot restul — specificație, execuție, plată, reputație — este modul în care ele interacționează.',
+			note: 'Două atome. Specificația, execuția, plata și reputația sunt doar modul în care ele interacționează.',
 			items: [
 				{
 					title: 'Un nod',
@@ -156,13 +155,15 @@ export default {
 					},
 					{
 						h: 'Izolat, de fiecare dată.',
-						p: 'Fiecare cerere rulează ca un <strong>proces izolat</strong> — într-un container sau într-o mașină virtuală, în funcție de nod — ceea ce abstractizează mediul de execuție și păstrează intactă bariera de securitate.',
+						p: 'Fiecare cerere rulează ca un <strong>proces izolat</strong> — într-o <strong>mașină virtuală</strong> proprie, cu propriul kernel și o graniță impusă de hardware —, ceea ce abstractizează mediul de execuție și păstrează intactă bariera de securitate.',
 						note: 'Ce intră, ce iese. Asta e toată interfața.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Cum se specifică un serviciu',
+				explore: 'Explorează {what}',
+				exploreClose: 'Înapoi la serviciul întreg',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — mediul.',
@@ -209,8 +210,12 @@ export default {
 				label: 'De ce rezistă',
 				beats: [
 					{
-						h: 'Aceeași intrare. Aceeași ieșire. Mereu.',
-						p: 'Serviciile sunt specificate complet, ca să asigure <strong>rezultate reproductibile</strong> în timp și între noduri. La aceleași intrări produc mereu aceleași ieșiri, indiferent unde sau când rulează.'
+						h: 'Aceeași intrare. Aceeași ieșire.',
+						p: 'Serviciile sunt specificate complet ca să urmărească <strong>rezultate reproductibile</strong> în timp și între noduri. La aceleași intrări, aceeași specificație ar trebui să producă aceleași ieșiri, indiferent unde sau când rulează.'
+					},
+					{
+						h: 'Nu e o garanție în orice caz.',
+						p: 'Un serviciu care ajunge la o rețea nu poate fi perfect reproductibil — rețeaua răspunde altfel. Dar o <strong>specificație duce cu ea mult mai mult decât o definiție Docker</strong>: arhitectura, întregul sistem de fișiere, entrypoint-ul, configurația. Așa că suntem mult mai aproape de a rula un program obișnuit decât de a trage o imagine și a spera.'
 					},
 					{
 						h: 'Ceea ce face încrederea măsurabilă.',
@@ -225,10 +230,11 @@ export default {
 			},
 			coordination: {
 				label: 'Cum cooperează necunoscuții',
+				more: 'Modelul de încredere, pe larg →',
 				beats: [
 					{
 						h: 'Reputația vine prima.',
-						p: 'Nodurile și serviciile <strong>nu au încredere unele în altele</strong> — Celaut este un sistem trustless. Așa că nimic nu începe cu o strângere de mână, ci cu o consultare. Reputația înseamnă <strong>înregistrări în registre</strong>, opinii mai degrabă decât verdicte, iar fiecare actor cântărește sursele în care are deja încredere ca să decidă dacă un necunoscut merită să fie ascultat.'
+						p: '<strong>Încrederea nu se presupune niciodată între părți.</strong> Nodurile nu au încredere în alte noduri; tu nu ai încredere din start nici în serviciu, nici în nodul care îl rulează; iar un nod nu trebuie neapărat să aibă încredere în serviciul pe care îl execută. Singura direcție care se susține e cea inversă: un serviciu poate avea încredere în nodul său, fiindcă cine a decis să îl ruleze a ales acel nod. Așa că nimic nu începe cu o strângere de mână, ci cu o consultare: reputația înseamnă <strong>înregistrări în registre</strong>, opinii mai degrabă decât verdicte, cântărite de fiecare actor după sursele în care are deja încredere.'
 					},
 					{
 						h: 'Apoi plătești pentru o promisiune de resurse.',
@@ -890,7 +896,7 @@ export default {
 					},
 					{
 						h: 'Fiecare execuție este izolată.',
-						p: 'Nodul rulează serviciul ca <strong>instanță izolată</strong> — un container sau o mașină virtuală. Implicit, un serviciu este complet rupt de rețelele externe și poate vorbi doar cu părintele său, cu copiii săi și cu nodul care îl rulează.'
+						p: 'Nodul rulează serviciul ca <strong>instanță izolată</strong> — într-o mașină virtuală proprie. Implicit, un serviciu este complet rupt de rețelele externe și poate vorbi doar cu părintele său, cu copiii săi și cu nodul care îl rulează.'
 					},
 					{
 						h: 'Iar dezvoltatorul nu stă la celălalt capăt.',
@@ -960,7 +966,7 @@ export default {
 				},
 				{
 					title: 'Rulează, sigilat',
-					body: 'Nodul execută serviciul ca instanță izolată — un container sau o mașină virtuală — fără niciun acces dincolo de ce a cerut specificația.'
+					body: 'Nodul execută serviciul ca instanță izolată — într-o mașină virtuală proprie — fără niciun acces dincolo de ce a cerut specificația.'
 				},
 				{
 					title: 'Plătește în avans',
@@ -1090,6 +1096,41 @@ export default {
 			environment: 'mediu',
 			api: 'API',
 			interface: 'interfață',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — procesorul și mediul de care are nevoie',
+						'filesystem — fiecare fișier inclus, nu un nume de imagine',
+						'init — entrypoint-ul și cum pornește',
+						'config_declaration — care fișiere sunt configurație',
+						'resources — at_init și at_most',
+						'environment_variables — declarate, cu formatele lor'
+					]
+				},
+				api: {
+					title: 'API · Interfață',
+					rows: [
+						'slot — un port și transportul pe care îl vorbește',
+						'protocol_stack — protocoalele de pe acel slot',
+						'mu_per_call — prețul fiecărei metode',
+						'payment_contracts — registrele pe care le acceptă',
+						'un cost fix la pornire, apoi cost după utilizare'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'o intrare pentru fiecare domeniu de comunicare accesibil',
+						'tags / prose / formal — cum este numit domeniul',
+						'protocol_stack — ce trebuie să vorbească acei semeni',
+						'environment_variable — care semeni contează ca ai săi',
+						'nimic declarat aici înseamnă niciun drum spre exterior'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · declarat în specificație',
 			nowhereElse: 'și nicăieri altundeva',
 			itsNodeItsParent: 'nodul său · părintele său',
@@ -1135,6 +1176,7 @@ export default {
 		users: {
 			you: 'tu',
 			noAccount: 'fără cont',
+			eachPeerItsUnit: 'fiecare nod cotează în ce acceptă',
 			whatYouAsked: 'ce ai cerut',
 			whatNodeRuns: 'ce rulează nodul',
 			identicalItRuns: 'identic — rulează',

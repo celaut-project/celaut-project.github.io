@@ -70,8 +70,7 @@ export default {
 		},
 		atoms: {
 			eyebrow: 'Dua unsur dasar',
-			heading: 'Node dan service',
-			intro: 'Celaut dibangun dari dua konsep atomik. Selebihnya — spesifikasi, eksekusi, pembayaran, reputasi — hanyalah cara keduanya berinteraksi.',
+			note: 'Dua atom. Spesifikasi, eksekusi, pembayaran, dan reputasi hanyalah cara keduanya berinteraksi.',
 			items: [
 				{
 					title: 'Sebuah node',
@@ -156,13 +155,15 @@ export default {
 					},
 					{
 						h: 'Terisolasi, setiap kali.',
-						p: 'Setiap permintaan berjalan sebagai <strong>proses terisolasi</strong> — dalam kontainer atau mesin virtual, tergantung node-nya — yang menyembunyikan lingkungan eksekusi dan menjaga batas keamanan tetap utuh.',
+						p: 'Setiap permintaan berjalan sebagai <strong>proses terisolasi</strong> — di dalam <strong>mesin virtual</strong>-nya sendiri, dengan kernel sendiri dan batas yang ditegakkan perangkat keras — yang menyembunyikan lingkungan eksekusi dan menjaga batas keamanan tetap utuh.',
 						note: 'Apa yang masuk, apa yang keluar. Itulah seluruh antarmukanya.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Bagaimana service dispesifikasikan',
+				explore: 'Jelajahi {what}',
+				exploreClose: 'Kembali ke service utuh',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — lingkungannya.',
@@ -209,8 +210,12 @@ export default {
 				label: 'Kenapa ini bertahan',
 				beats: [
 					{
-						h: 'Masukan sama. Keluaran sama. Selalu.',
-						p: 'Service dispesifikasikan sepenuhnya untuk menjamin <strong>hasil yang dapat direproduksi</strong> lintas waktu dan node. Dengan masukan yang sama, keluarannya selalu sama, terlepas dari di mana atau kapan dijalankan.'
+						h: 'Masukan sama. Keluaran sama.',
+						p: 'Service dispesifikasikan sepenuhnya untuk mengejar <strong>hasil yang dapat direproduksi</strong> lintas waktu dan node. Dengan masukan yang sama, spesifikasi yang sama semestinya menghasilkan keluaran yang sama, di mana pun dan kapan pun dijalankan.'
+					},
+					{
+						h: 'Bukan jaminan dalam setiap kasus.',
+						p: 'Service yang menjangkau jaringan tidak bisa sepenuhnya direproduksi — jaringan menjawab berbeda. Tapi sebuah <strong>spesifikasi membawa jauh lebih banyak daripada definisi Docker</strong>: arsitektur, seluruh sistem berkas, entrypoint, konfigurasi. Jadi ini jauh lebih dekat ke menjalankan program biasa ketimbang menarik image lalu berharap.'
 					},
 					{
 						h: 'Yang membuat kepercayaan bisa diukur.',
@@ -225,10 +230,11 @@ export default {
 			},
 			coordination: {
 				label: 'Bagaimana orang asing bekerja sama',
+				more: 'Model kepercayaan selengkapnya →',
 				beats: [
 					{
 						h: 'Reputasi lebih dulu.',
-						p: 'Node dan service <strong>tidak saling percaya</strong> — Celaut adalah sistem trustless. Jadi tak ada yang dimulai dengan jabat tangan; semuanya dimulai dengan penelusuran. Reputasi adalah <strong>catatan di ledger</strong>, opini alih-alih vonis, dan tiap pelaku menimbang sumber yang sudah ia percayai untuk memutuskan apakah orang asing layak diajak bicara.'
+						p: '<strong>Kepercayaan tidak pernah diandaikan antar pihak.</strong> Node tidak mempercayai node lain; kamu tidak secara bawaan mempercayai sebuah service maupun node yang menjalankannya; node pun tak harus mempercayai service yang dieksekusinya. Satu arah yang memang berlaku justru kebalikannya: sebuah service bisa mempercayai node-nya, karena pihak yang memutuskan menjalankannya sudah memilih node itu. Jadi tak ada yang dimulai dengan jabat tangan; semuanya dimulai dengan penelusuran: reputasi adalah <strong>catatan di ledger</strong>, opini alih-alih vonis, ditimbang tiap pelaku menurut sumber yang sudah ia percayai.'
 					},
 					{
 						h: 'Lalu kamu membayar untuk sebuah janji sumber daya.',
@@ -890,7 +896,7 @@ export default {
 					},
 					{
 						h: 'Setiap eksekusi terisolasi.',
-						p: 'Node menjalankan service sebagai <strong>instans terisolasi</strong> — sebuah kontainer atau mesin virtual. Secara bawaan sebuah service terputus sepenuhnya dari jaringan eksternal, hanya bisa bicara dengan induknya, anak-anaknya, dan node yang menjalankannya.'
+						p: 'Node menjalankan service sebagai <strong>instans terisolasi</strong> — mesin virtualnya sendiri. Secara bawaan sebuah service terputus sepenuhnya dari jaringan eksternal, hanya bisa bicara dengan induknya, anak-anaknya, dan node yang menjalankannya.'
 					},
 					{
 						h: 'Dan pengembangnya tak ada di ujung sana.',
@@ -960,7 +966,7 @@ export default {
 				},
 				{
 					title: 'Ia berjalan, tersegel',
-					body: 'Node menjalankan service sebagai instans terisolasi — sebuah kontainer atau mesin virtual — tanpa akses melebihi yang diminta spesifikasinya.'
+					body: 'Node menjalankan service sebagai instans terisolasi — mesin virtualnya sendiri — tanpa akses melebihi yang diminta spesifikasinya.'
 				},
 				{
 					title: 'Bayar di muka',
@@ -1090,6 +1096,41 @@ export default {
 			environment: 'lingkungan',
 			api: 'API',
 			interface: 'antarmuka',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — CPU dan lingkungan yang dibutuhkan',
+						'filesystem — setiap berkas disertakan, bukan nama image',
+						'init — entrypoint dan cara ia dimulai',
+						'config_declaration — berkas mana yang merupakan konfigurasi',
+						'resources — at_init dan at_most',
+						'environment_variables — dideklarasikan beserta formatnya'
+					]
+				},
+				api: {
+					title: 'API · Antarmuka',
+					rows: [
+						'slot — sebuah port beserta transport yang dipakainya',
+						'protocol_stack — protokol pada slot itu',
+						'mu_per_call — harga tiap metode',
+						'payment_contracts — ledger yang diterimanya',
+						'biaya tetap untuk memulai, lalu biaya menurut pemakaian'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'satu entri untuk tiap domain komunikasi yang bisa dijangkau',
+						'tags / prose / formal — bagaimana domain itu dinamai',
+						'protocol_stack — apa yang harus dipakai rekan-rekan itu',
+						'environment_variable — rekan mana yang dihitung miliknya',
+						'tidak mendeklarasikan apa pun di sini berarti tanpa akses keluar'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · dideklarasikan di spesifikasi',
 			nowhereElse: 'dan tak ke mana pun lagi',
 			itsNodeItsParent: 'node-nya · induknya',
@@ -1135,6 +1176,7 @@ export default {
 		users: {
 			you: 'kamu',
 			noAccount: 'tanpa akun',
+			eachPeerItsUnit: 'tiap rekan memberi harga dalam apa yang ia terima',
 			whatYouAsked: 'yang kamu minta',
 			whatNodeRuns: 'yang dijalankan node',
 			identicalItRuns: 'identik — ia berjalan',

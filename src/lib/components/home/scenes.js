@@ -182,9 +182,13 @@ export function drawAutomataScene(ctx, { width, height, progress, palette, mouse
 export function drawAtomsScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
-	const nodeIn = smoothstep(range(progress, 0, 0.28));
-	const serviceIn = smoothstep(range(progress, 0.3, 0.62));
-	const exchange = smoothstep(range(progress, 0.62, 1));
+	// One primitive per caption beat, in the caption's own order. The
+	// first beat says nothing at all, so the stage stays empty through
+	// its window [0, 0.34]; the node arrives with the second beat
+	// [0.3, 0.66] and the service with the third [0.62, 1].
+	const nodeIn = smoothstep(range(progress, 0.3, 0.52));
+	const serviceIn = smoothstep(range(progress, 0.62, 0.84));
+	const exchange = smoothstep(range(progress, 0.86, 1));
 	const atomCopy = t('home.atoms');
 
 	const nodeX = cx + (compact ? -68 : -116) * scale;
@@ -683,8 +687,94 @@ export function drawBlackBoxScene(ctx, { width, height, progress, palette, mouse
  * names up front — and the rest of the membrane holds, which is the
  * actual guarantee. The channel underneath is the default one every
  * service has: its node, its parent, its children.
+ *
+ * The scene also has a ZOOM mode, driven by the Explore buttons in the
+ * caption (`state.zoom` = 'box' | 'api' | 'net', `state.zoomT` = 0→1):
+ * it magnifies the chosen component and dims the rest, while the
+ * caption lists what the specification actually carries for it. The
+ * words stay in the DOM rather than on the canvas — the canvas is
+ * aria-hidden, and detail nobody can select, translate or hear read
+ * out is not detail.
  * ================================================================== */
-export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
+
+// The networks a spec can name are not a crypto-only list: a service
+// may declare bitcoin's mainnet, but equally a plain web host or a
+// private family network that exists on nobody's registry. Three
+// channels on desktop, two on compact, rotating slowly through the
+// pool so the examples stay varied without crowding the frame.
+const NET_ROTATE_PERIOD = 5.2;
+
+/**
+ * @param {string[]} pool
+ * @param {number} index
+ * @param {number} count
+ * @param {number} time
+ */
+function netNameAt(pool, index, count, time) {
+	if (!pool.length) return { name: '', fade: 1 };
+	const step = Math.floor(time / NET_ROTATE_PERIOD);
+	const k = (time % NET_ROTATE_PERIOD) / NET_ROTATE_PERIOD;
+	// Every visible channel holds a different entry: count < pool length,
+	// so consecutive offsets can never collide.
+	const name = pool[(step * count + index) % pool.length];
+	const fade = Math.min(1, smoothstep(clamp(k / 0.14)), smoothstep(clamp((1 - k) / 0.14)));
+	return { name, fade };
+}
+
+// The examples themselves. A network name is an identifier, not prose,
+// so they are not translated — but they DO come from the dictionary,
+// because a locale may want a local example in the private-network
+// slot. Compact viewports get the short forms.
+/**
+ * @param {(key: string) => any} t
+ * @param {boolean} compact
+ * @returns {string[]}
+ */
+function netPool(t, compact) {
+	const names = t(compact ? 'viz.home.netsCompact' : 'viz.home.nets');
+	return Array.isArray(names) && names.length ? names : ['bitcoin-mainnet', 'ipfs', 'nostr'];
+}
+
+/*
+ * The zoomed-in view of one component, opened from the Explore control
+ * in the caption. Each panel lists what the specification actually
+ * carries for that component — the fields of `message Service` in
+ * celaut.proto — rather than restating the caption in bigger type.
+ */
+/**
+ * @param {string | null} mode
+ * @param {number} cx
+ * @param {number} cy
+ * @param {number} r
+ * @param {boolean} compact
+ */
+function specZoomFocus(mode, cx, cy, r, compact) {
+	if (mode === 'api') return { x: cx - r * (compact ? 1.4 : 1.7), y: cy };
+	if (mode === 'net') return { x: cx, y: cy - r * (compact ? 1.5 : 1.8) };
+	return { x: cx, y: cy };
+}
+
+/**
+ * How much each part of the scene is dimmed while one of them is being
+ * explored. The focused component keeps its full weight; the rest fade
+ * back so the magnified frame reads as being ABOUT one thing.
+ * @param {string | null} mode
+ * @param {string} part
+ * @param {number} zoomT
+ */
+function specDim(mode, part, zoomT) {
+	if (!mode || zoomT <= 0) return 1;
+	return 1 - (mode === part ? 0 : 0.78) * zoomT;
+}
+
+/**
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {any} opts
+ */
+export function drawSpecCellScene(
+	ctx,
+	{ width, height, progress, palette, mouse, time, align, reduced, state, t }
+) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
 	const { cx, cy, scale, compact } = stage(width, height, align);
 
@@ -695,13 +785,44 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 
 	const s = Math.max(0.85, scale * 0.8);
 	const r = (compact ? 62 : 100) * s;
-	const boxF = smoothstep(boxIn);
-	const apiF = smoothstep(apiIn);
-	const netF = smoothstep(netIn);
 	const tg = smoothstep(together);
 	// The channel to node / parent / children is the DEFAULT, so it is
 	// already there rather than arriving as a third feature.
 	const innerF = smoothstep(range(progress, 0.12, 0.34));
+
+	// --- Explore mode: magnify one component and detail it ---
+	// `state` is owned by the page (a button in the caption sets it), so
+	// the scene stays a pure function of its inputs.
+	const zoomMode = state && state.zoom ? state.zoom : null;
+	const zoomT = zoomMode ? smoothstep(clamp(state.zoomT ?? 1)) : 0;
+	// Reduced motion still dims the other components — so the frame says
+	// which one you are reading about — but never magnifies: the caption
+	// gains its detail without the view lurching.
+	const magnify = reduced ? 0 : zoomT;
+	// Explore also FORCES its own component fully on: a reader who opens
+	// "Explore NET" must see NET, even if the scroll hasn't reached it.
+	// Kept separate from the dim factors below because these drive
+	// GEOMETRY — how far a channel has grown, how far the membrane has
+	// sealed — and a dimmed component must still be fully drawn.
+	const force = (/** @type {string} */ part, /** @type {number} */ f) =>
+		zoomMode === part ? Math.max(f, zoomT) : f;
+	const boxF = force('box', smoothstep(boxIn));
+	const apiF = force('api', smoothstep(apiIn));
+	const netF = force('net', smoothstep(netIn));
+	const netG = force('net', netIn);
+	// ...and these are pure opacity, so the explored component stands out
+	// against the rest of the body.
+	const dimBox = specDim(zoomMode, 'box', zoomT);
+	const dimApi = specDim(zoomMode, 'api', zoomT);
+	const dimNet = specDim(zoomMode, 'net', zoomT);
+	ctx.save();
+	if (magnify > 0.001) {
+		const focus = specZoomFocus(zoomMode, cx, cy, r, compact);
+		const k = 1 + 1.7 * magnify;
+		ctx.translate(focus.x, focus.y);
+		ctx.scale(k, k);
+		ctx.translate(-focus.x, -focus.y);
+	}
 
 	// --- A halo once everything is in place, behind the body ---
 	if (tg > 0) {
@@ -726,7 +847,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		const tame = r * (0.46 + rand(i + 23) * 0.32);
 		const rr = wild + (tame - wild) * g;
 		ctx.save();
-		ctx.globalAlpha = (0.25 + 0.45 * g) * (0.5 + 0.5 * boxF);
+		ctx.globalAlpha = (0.25 + 0.45 * g) * (0.5 + 0.5 * boxF) * dimBox;
 		ctx.fillStyle = i % 4 === 0 ? palette.accent : palette.node;
 		ctx.beginPath();
 		ctx.arc(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, 1.6 + rand(i + 31) * 2, 0, Math.PI * 2);
@@ -742,7 +863,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			ctx.fillStyle = rgba(palette.onSurfaceRgb, 0.06);
 			ctx.fill();
 		}
-		ctx.globalAlpha = Math.min(1, boxF * 1.6);
+		ctx.globalAlpha = Math.min(1, boxF * 1.6) * dimBox;
 		ctx.strokeStyle = palette.node;
 		ctx.lineWidth = 2.4;
 		ctx.lineJoin = 'round';
@@ -750,8 +871,17 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		ctx.stroke();
 		ctx.restore();
 	}
-	label(ctx, t('viz.home.box'), cx, cy - 2, palette, boxF, compact ? 14 : 18);
-	label(ctx, t('viz.home.environment'), cx, cy + (compact ? 16 : 20), palette, boxF * 0.7, compact ? 9 : 11, 500);
+	label(ctx, t('viz.home.box'), cx, cy - 2, palette, boxF * dimBox, compact ? 14 : 18);
+	label(
+		ctx,
+		t('viz.home.environment'),
+		cx,
+		cy + (compact ? 16 : 20),
+		palette,
+		boxF * 0.7 * dimBox,
+		compact ? 9 : 11,
+		500
+	);
 
 	// --- API: one wide channel, traffic in both directions ---
 	if (apiF > 0.01) {
@@ -760,7 +890,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		const reach = pore.x + (endX - pore.x) * apiF;
 		const half = (compact ? 5 : 7) * s;
 		ctx.save();
-		ctx.globalAlpha = apiF;
+		ctx.globalAlpha = apiF * dimApi;
 		ctx.strokeStyle = palette.accent;
 		ctx.lineWidth = 2.2;
 		ctx.lineCap = 'round';
@@ -777,28 +907,31 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		ctx.restore();
 		for (let i = 0; i < 3; i++) {
 			const k = (time * 0.5 + i * 0.33) % 1;
-			packet(ctx, endX, pore.y - half, pore.x, pore.y - half, k, palette.accent, apiF);
-			packet(ctx, pore.x, pore.y + half, endX, pore.y + half, k, palette.node, apiF);
+			packet(ctx, endX, pore.y - half, pore.x, pore.y - half, k, palette.accent, apiF * dimApi);
+			packet(ctx, pore.x, pore.y + half, endX, pore.y + half, k, palette.node, apiF * dimApi);
 		}
 		const mid = (pore.x + endX) / 2;
-		label(ctx, t('viz.home.api'), mid, pore.y - half - 14, palette, apiF, compact ? 12 : 15);
-		label(ctx, t('viz.home.interface'), mid, pore.y + half + 22, palette, apiF * 0.75, compact ? 9 : 11, 500);
+		label(ctx, t('viz.home.api'), mid, pore.y - half - 14, palette, apiF * dimApi, compact ? 12 : 15);
+		label(
+			ctx,
+			t('viz.home.interface'),
+			mid,
+			pore.y + half + 22,
+			palette,
+			apiF * 0.75 * dimApi,
+			compact ? 9 : 11,
+			500
+		);
 	}
 
 	// --- NET: thin channels, one per network the spec names ---
+	const pool = netPool(t, compact);
 	const nets = compact
-		? [
-				{ a: -Math.PI / 2 - 0.34, name: 'bitcoin' },
-				{ a: -Math.PI / 2 + 0.34, name: 'ipfs' }
-			]
-		: [
-				{ a: -Math.PI / 2 - 0.44, name: 'bitcoin-mainnet' },
-				{ a: -Math.PI / 2, name: 'ipfs' },
-				{ a: -Math.PI / 2 + 0.44, name: 'nostr' }
-			];
+		? [{ a: -Math.PI / 2 - 0.34 }, { a: -Math.PI / 2 + 0.34 }]
+		: [{ a: -Math.PI / 2 - 0.44 }, { a: -Math.PI / 2 }, { a: -Math.PI / 2 + 0.44 }];
 	const netR = r * (compact ? 2.0 : 2.4);
 	nets.forEach((n, i) => {
-		const f = smoothstep(clamp(netIn * 1.4 - i * 0.12));
+		const f = smoothstep(clamp(netG * 1.4 - i * 0.12)) * dimNet;
 		if (f <= 0.02) return;
 		const pore = poreAt(cx, cy, r, n.a, time);
 		const tx = cx + Math.cos(n.a) * netR;
@@ -825,7 +958,8 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			ctx.fill();
 		}
 		ctx.restore();
-		label(ctx, n.name, tx, ty - 18 * s, palette, f * 0.85, compact ? 9 : 11, 500);
+		const named = netNameAt(pool, i, nets.length, time);
+		label(ctx, named.name, tx, ty - 18 * s, palette, f * named.fade * 0.85, compact ? 9 : 11, 500);
 		packet(ctx, pore.x, pore.y, tx, ty, (time * 0.45 + i * 0.3) % 1, palette.node, f * 0.9);
 	});
 	label(
@@ -834,7 +968,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		cx,
 		cy - netR - 40 * s,
 		palette,
-		netF * 0.9,
+		netF * 0.9 * dimNet,
 		compact ? 10 : 12
 	);
 
@@ -845,14 +979,14 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			const t = k < 0.5 ? k * 2 : (1 - k) * 2;
 			const edge = poreAt(cx, cy, r, ba, time);
 			ctx.save();
-			ctx.globalAlpha = netF * 0.85;
+			ctx.globalAlpha = netF * 0.85 * dimNet;
 			ctx.fillStyle = palette.accent;
 			ctx.beginPath();
 			ctx.arc(cx + (edge.x - cx) * t, cy + (edge.y - cy) * t, 2.6, 0, Math.PI * 2);
 			ctx.fill();
 			if (t > 0.9) {
 				// Contact flash on the membrane: it does not get through.
-				ctx.globalAlpha = netF * (t - 0.9) * 6;
+				ctx.globalAlpha = netF * (t - 0.9) * 6 * dimNet;
 				ctx.strokeStyle = palette.accent;
 				ctx.lineWidth = 2;
 				ctx.beginPath();
@@ -867,7 +1001,7 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 			cx + r * 1.55,
 			cy + r * 0.95,
 			palette,
-			netF * 0.85,
+			netF * 0.85 * dimNet,
 			compact ? 9 : 11,
 			500
 		);
@@ -918,6 +1052,9 @@ export function drawSpecCellScene(ctx, { width, height, progress, palette, mouse
 		});
 		label(ctx, t('viz.home.itsNodeItsParent'), cx, endY + 26 * s, palette, innerF * 0.8, compact ? 9 : 11, 500);
 	}
+
+	// Close the magnification transform.
+	ctx.restore();
 }
 
 /* ==================================================================

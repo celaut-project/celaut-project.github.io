@@ -63,8 +63,7 @@ export default {
 
 		atoms: {
 			eyebrow: 'Les deux primitives',
-			heading: 'Nœuds et services',
-			intro: 'Celaut se construit à partir de deux concepts atomiques. Tout le reste — spécification, exécution, paiement, réputation — n’est que la manière dont ils interagissent.',
+			note: 'Deux atomes. La spécification, l’exécution, le paiement et la réputation ne sont que la manière dont ils interagissent.',
 			items: [
 				{
 					title: 'Un nœud',
@@ -151,13 +150,15 @@ export default {
 					},
 					{
 						h: 'Isolé, à chaque fois.',
-						p: 'Chaque requête s’exécute comme un <strong>processus isolé</strong> — dans un conteneur ou une machine virtuelle, selon le nœud — ce qui masque l’environnement d’exécution et préserve intacte la barrière de sécurité.',
+						p: 'Chaque requête s’exécute comme un <strong>processus isolé</strong>, dans sa propre <strong>machine virtuelle</strong>, avec son propre noyau et une frontière imposée par le matériel — ce qui masque l’environnement d’exécution et préserve intacte la barrière de sécurité.',
 						note: 'Ce qui entre, ce qui sort. C’est là toute l’interface.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Comment un service est spécifié',
+				explore: 'Explorer {what}',
+				exploreClose: 'Revenir au service entier',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — l’environnement.',
@@ -204,8 +205,12 @@ export default {
 				label: 'Pourquoi ça tient',
 				beats: [
 					{
-						h: 'Même entrée. Même sortie. Toujours.',
-						p: 'Les services sont entièrement spécifiés pour garantir des <strong>résultats reproductibles</strong> dans le temps et entre les nœuds. Avec les mêmes entrées, ils produisent toujours les mêmes sorties, quel que soit l’endroit ou le moment de leur exécution.'
+						h: 'Même entrée. Même sortie.',
+						p: 'Les services sont entièrement spécifiés pour viser des <strong>résultats reproductibles</strong> dans le temps et entre les nœuds. Avec les mêmes entrées, la même spécification est censée produire les mêmes sorties, quel que soit l’endroit ou le moment de son exécution.'
+					},
+					{
+						h: 'Pas une garantie dans tous les cas.',
+						p: 'Un service qui atteint un réseau ne peut pas être parfaitement reproductible : le réseau répond autrement. Mais une <strong>spécification porte bien plus qu’une définition Docker</strong> : l’architecture, tout le système de fichiers, le point d’entrée, la configuration. On est donc beaucoup plus proche d’exécuter un programme ordinaire que de tirer une image en espérant.'
 					},
 					{
 						h: 'Ce qui rend la confiance mesurable.',
@@ -220,10 +225,11 @@ export default {
 			},
 			coordination: {
 				label: 'Comment des inconnus coopèrent',
+				more: 'Le modèle de confiance en détail →',
 				beats: [
 					{
 						h: 'La réputation vient en premier.',
-						p: 'Les nœuds et les services <strong>ne se font pas confiance entre eux</strong> — Celaut est un système sans confiance préalable. Rien ne commence donc par une poignée de main ; tout commence par une vérification. La réputation, ce sont des <strong>enregistrements sur des registres</strong>, des opinions plutôt que des verdicts, et chaque acteur pèse les sources auxquelles il fait déjà confiance pour décider si un inconnu vaut la peine qu’on lui parle.'
+						p: '<strong>La confiance n’est jamais présupposée entre les parties.</strong> Les nœuds ne font pas confiance aux autres nœuds ; vous ne faites confiance ni d’emblée à un service ni au nœud qui l’exécute ; un nœud n’a pas non plus à faire confiance au service qu’il exécute. La seule direction qui tienne est l’inverse : un service peut faire confiance à son nœud, puisque celui qui a décidé de l’exécuter a choisi ce nœud. Rien ne commence donc par une poignée de main, mais par une vérification : la réputation, ce sont des <strong>enregistrements sur des registres</strong>, des opinions plutôt que des verdicts, que chaque acteur pèse selon les sources auxquelles il fait déjà confiance.'
 					},
 					{
 						h: 'Puis vous payez pour une promesse de ressources.',
@@ -865,7 +871,7 @@ export default {
 					},
 					{
 						h: 'Chaque exécution est isolée.',
-						p: 'Le nœud exécute le service comme une <strong>instance isolée</strong> — un conteneur ou une machine virtuelle. Par défaut, un service est entièrement coupé des réseaux externes, ne pouvant parler qu’à son parent, à ses enfants et au nœud qui l’exécute.'
+						p: 'Le nœud exécute le service comme une <strong>instance isolée</strong> — sa propre machine virtuelle. Par défaut, un service est entièrement coupé des réseaux externes, ne pouvant parler qu’à son parent, à ses enfants et au nœud qui l’exécute.'
 					},
 					{
 						h: 'Et le développeur n’est pas de l’autre côté.',
@@ -935,7 +941,7 @@ export default {
 				},
 				{
 					title: 'Il s’exécute, scellé',
-					body: 'Le nœud exécute le service comme une instance isolée — un conteneur ou une machine virtuelle — sans autre accès que celui demandé par la spécification.'
+					body: 'Le nœud exécute le service comme une instance isolée — sa propre machine virtuelle — sans autre accès que celui demandé par la spécification.'
 				},
 				{
 					title: 'Payez d’avance',
@@ -1074,6 +1080,41 @@ export default {
 			environment: 'environnement',
 			api: 'API',
 			interface: 'interface',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — le processeur et l’environnement requis',
+						'filesystem — chaque fichier, inclus, pas un nom d’image',
+						'init — le point d’entrée et son démarrage',
+						'config_declaration — quels fichiers sont de la configuration',
+						'resources — at_init et at_most',
+						'environment_variables — déclarées, avec leurs formats'
+					]
+				},
+				api: {
+					title: 'API · Interface',
+					rows: [
+						'slot — un port, et le transport qu’il parle',
+						'protocol_stack — les protocoles de ce slot',
+						'mu_per_call — le prix de chaque méthode',
+						'payment_contracts — les registres qu’il accepte',
+						'un coût fixe au départ, puis un coût à l’usage'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'une entrée par domaine de communication atteignable',
+						'tags / prose / formal — comment le domaine est nommé',
+						'protocol_stack — ce que ces pairs doivent parler',
+						'environment_variable — quels pairs comptent comme les siens',
+						'ne rien déclarer ici, c’est n’avoir aucune sortie'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · déclaré dans la spécification',
 			nowhereElse: 'et nulle part ailleurs',
 			itsNodeItsParent: 'son nœud · son parent',
@@ -1115,6 +1156,7 @@ export default {
 		users: {
 			you: 'vous',
 			noAccount: 'sans compte',
+			eachPeerItsUnit: 'chaque pair cote dans ce qu’il accepte',
 			whatYouAsked: 'ce que vous avez demandé',
 			whatNodeRuns: 'ce que le nœud exécute',
 			identicalItRuns: 'identique — ça tourne',

@@ -68,8 +68,7 @@ export default {
 		},
 		atoms: {
 			eyebrow: 'Hai thành tố cơ bản',
-			heading: 'Node và service',
-			intro: 'Celaut được dựng nên từ hai khái niệm nguyên tử. Mọi thứ còn lại — đặc tả, thực thi, thanh toán, danh tiếng — chỉ là cách hai thứ đó tương tác với nhau.',
+			note: 'Hai nguyên tử. Đặc tả, thực thi, thanh toán và danh tiếng chỉ là cách hai thứ đó tương tác với nhau.',
 			items: [
 				{
 					title: 'Một node',
@@ -154,13 +153,15 @@ export default {
 					},
 					{
 						h: 'Cách ly, mọi lần, không ngoại lệ.',
-						p: 'Mỗi yêu cầu chạy như một <strong>tiến trình cách ly</strong> — trong container hoặc máy ảo, tuỳ node — che đi hoàn toàn môi trường thực thi và giữ nguyên vẹn ranh giới bảo mật.',
+						p: 'Mỗi yêu cầu chạy như một <strong>tiến trình cách ly</strong> — trong <strong>máy ảo</strong> của riêng nó, với nhân riêng và một ranh giới do phần cứng áp đặt — che đi hoàn toàn môi trường thực thi và giữ nguyên vẹn ranh giới bảo mật.',
 						note: 'Cái gì vào, cái gì ra. Đó là toàn bộ giao diện.'
 					}
 				]
 			},
 			'service-spec': {
 				label: 'Cách một service được đặc tả',
+				explore: 'Khám phá {what}',
+				exploreClose: 'Quay lại toàn bộ service',
 				beats: [
 					{
 						h: '<strong>BOX</strong> — môi trường.',
@@ -207,8 +208,12 @@ export default {
 				label: 'Vì sao nó đứng vững',
 				beats: [
 					{
-						h: 'Cùng đầu vào. Cùng đầu ra. Luôn luôn.',
-						p: 'Service được đặc tả đầy đủ để bảo đảm <strong>kết quả tái lập được</strong> qua thời gian và qua các node. Với cùng đầu vào, chúng luôn cho ra cùng đầu ra, bất kể chạy ở đâu hay khi nào.'
+						h: 'Cùng đầu vào. Cùng đầu ra.',
+						p: 'Service được đặc tả đầy đủ để hướng tới <strong>kết quả tái lập được</strong> qua thời gian và qua các node. Với cùng đầu vào, cùng một bản đặc tả lẽ ra phải cho ra cùng đầu ra, bất kể chạy ở đâu hay khi nào.'
+					},
+					{
+						h: 'Không phải là bảo đảm trong mọi trường hợp.',
+						p: 'Một service có vươn ra mạng thì không thể tái lập hoàn hảo — mạng trả lời mỗi lúc một khác. Nhưng một <strong>bản đặc tả mang theo nhiều hơn hẳn một định nghĩa Docker</strong>: kiến trúc, toàn bộ hệ thống tệp, entrypoint, cấu hình. Nên chuyện này gần với chạy một chương trình bình thường hơn nhiều so với kéo một image về rồi hy vọng.'
 					},
 					{
 						h: 'Điều đó khiến niềm tin đo được.',
@@ -223,10 +228,11 @@ export default {
 			},
 			coordination: {
 				label: 'Người lạ hợp tác thế nào',
+				more: 'Mô hình tin cậy đầy đủ →',
 				beats: [
 					{
 						h: 'Danh tiếng đến trước.',
-						p: 'Node và service <strong>không tin nhau</strong> — Celaut là hệ thống trustless. Nên chẳng có gì bắt đầu bằng một cái bắt tay; nó bắt đầu bằng một lần tra cứu. Danh tiếng là <strong>các bản ghi trên ledger</strong>, là ý kiến chứ không phải phán quyết, và mỗi bên tự cân nhắc những nguồn mình vốn đã tin để quyết định người lạ kia có đáng nói chuyện hay không.'
+						p: '<strong>Không bao giờ mặc định có sự tin cậy giữa các bên.</strong> Node không tin node khác; bạn không mặc nhiên tin một service hay node đang chạy nó; node cũng không nhất thiết phải tin service mà nó thực thi. Chiều duy nhất đứng vững là chiều ngược lại: một service có thể tin node của mình, vì bên quyết định chạy nó đã chọn chính node đó. Nên chẳng có gì bắt đầu bằng một cái bắt tay; nó bắt đầu bằng một lần tra cứu: danh tiếng là <strong>các bản ghi trên ledger</strong>, là ý kiến chứ không phải phán quyết, được mỗi bên cân nhắc theo những nguồn mình vốn đã tin.'
 					},
 					{
 						h: 'Rồi bạn trả tiền cho một lời hứa về tài nguyên.',
@@ -888,7 +894,7 @@ export default {
 					},
 					{
 						h: 'Mọi lần thực thi đều cách ly.',
-						p: 'Node chạy service như một <strong>phiên bản cách ly</strong> — một container hoặc một máy ảo. Mặc định, service bị cắt hoàn toàn khỏi mạng bên ngoài, chỉ nói chuyện được với service cha, các service con và node đang chạy nó.'
+						p: 'Node chạy service như một <strong>phiên bản cách ly</strong> — máy ảo của riêng nó. Mặc định, service bị cắt hoàn toàn khỏi mạng bên ngoài, chỉ nói chuyện được với service cha, các service con và node đang chạy nó.'
 					},
 					{
 						h: 'Và lập trình viên không ngồi ở đầu bên kia.',
@@ -958,7 +964,7 @@ export default {
 				},
 				{
 					title: 'Nó chạy, niêm phong',
-					body: 'Node thực thi service như một phiên bản cách ly — một container hoặc một máy ảo — không có quyền truy cập nào vượt quá thứ bản đặc tả đã xin.'
+					body: 'Node thực thi service như một phiên bản cách ly — máy ảo của riêng nó — không có quyền truy cập nào vượt quá thứ bản đặc tả đã xin.'
 				},
 				{
 					title: 'Trả trước',
@@ -1088,6 +1094,41 @@ export default {
 			environment: 'môi trường',
 			api: 'API',
 			interface: 'giao diện',
+			zoom: {
+				source: 'celaut.proto · message Service',
+				box: {
+					title: 'BOX · Container',
+					rows: [
+						'architecture — CPU và môi trường mà nó cần',
+						'filesystem — từng tệp một, nằm ngay trong đó, không phải tên image',
+						'init — entrypoint và cách nó khởi động',
+						'config_declaration — những tệp nào là cấu hình',
+						'resources — at_init và at_most',
+						'environment_variables — khai báo sẵn, kèm định dạng'
+					]
+				},
+				api: {
+					title: 'API · Giao diện',
+					rows: [
+						'slot — một cổng, kèm lớp vận chuyển nó dùng',
+						'protocol_stack — các giao thức trên slot đó',
+						'mu_per_call — giá của mỗi phương thức',
+						'payment_contracts — những ledger nó chấp nhận',
+						'một chi phí cố định để khởi động, rồi tính theo mức dùng'
+					]
+				},
+				net: {
+					title: 'NET · Network',
+					rows: [
+						'mỗi miền liên lạc nó có thể chạm tới là một mục',
+						'tags / prose / formal — cách gọi tên miền đó',
+						'protocol_stack — những peer kia phải nói giao thức gì',
+						'environment_variable — peer nào được tính là của nó',
+						'không khai báo gì ở đây nghĩa là không hề ra ngoài được'
+					]
+				}
+			},
+			net: 'NET',
 			netDeclared: 'NET · khai báo trong đặc tả',
 			nowhereElse: 'và không đâu khác',
 			itsNodeItsParent: 'node của nó · cha của nó',
@@ -1133,6 +1174,7 @@ export default {
 		users: {
 			you: 'bạn',
 			noAccount: 'không tài khoản',
+			eachPeerItsUnit: 'mỗi peer báo giá bằng thứ nó nhận',
 			whatYouAsked: 'thứ bạn đã yêu cầu',
 			whatNodeRuns: 'thứ node chạy',
 			identicalItRuns: 'giống hệt — nó chạy',
