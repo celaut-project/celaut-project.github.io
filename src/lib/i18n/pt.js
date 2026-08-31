@@ -849,7 +849,7 @@ export default {
 				beats: [
 					{
 						h: 'Como você sabe o que realmente rodou?',
-						p: 'Com um serviço hospedado, você não sabe. O operador não consegue provar que o sistema não mudou — então, quando uma ferramenta fica popular, nada impede que seu desempenho caia silenciosamente para te empurrar em direção a uma mais nova.'
+						p: 'Com um serviço hospedado, você não sabe. O operador não consegue provar que o sistema não mudou — então, quando uma ferramenta fica popular, nada impede que seu desempenho caia silenciosamente para poupar custos.'
 					},
 					{
 						h: 'Aqui, o serviço <em>é</em> a sua especificação.',
@@ -916,7 +916,7 @@ export default {
 				},
 				{
 					title: 'Ele não pode mudar sem você perceber',
-					body: 'Um serviço é determinístico: as mesmas entradas produzem as mesmas saídas, não importa quando ou onde seja executado. Ninguém pode degradá-lo silenciosamente para te empurrar para um mais novo.'
+					body: 'Um serviço é determinístico: as mesmas entradas produzem as mesmas saídas, não importa quando ou onde seja executado. Ninguém pode degradá-lo silenciosamente para poupar custos.'
 				},
 				{
 					title: 'Julgado pela reputação, não por classificação',

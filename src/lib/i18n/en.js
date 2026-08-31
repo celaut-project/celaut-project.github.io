@@ -855,7 +855,7 @@ export default {
 				beats: [
 					{
 						h: 'How do you know what actually ran?',
-						p: 'With a hosted service you can’t. The operator can’t prove the system hasn’t changed — so when a tool gets popular, nothing stops its performance quietly dropping to push you toward a newer one.'
+						p: 'With a hosted service you can’t. The operator can’t prove the system hasn’t changed — so when a tool gets popular, nothing stops its performance quietly dropping to save costs.'
 					},
 					{
 						h: 'Here, the service <em>is</em> its specification.',
@@ -922,7 +922,7 @@ export default {
 				},
 				{
 					title: 'It can’t change under you',
-					body: 'A service is deterministic: the same inputs produce the same outputs, whenever and wherever it runs. Nobody can quietly degrade it to push you onto a newer one.'
+					body: 'A service is deterministic: the same inputs produce the same outputs, whenever and wherever it runs. Nobody can quietly throttle it to save costs.'
 				},
 				{
 					title: 'Judged by reputation, not ranking',

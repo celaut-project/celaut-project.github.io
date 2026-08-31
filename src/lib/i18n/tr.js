@@ -873,7 +873,7 @@ export default {
 				beats: [
 					{
 						h: 'Gerçekte ne çalıştığını nereden biliyorsun?',
-						p: 'Barındırılan bir serviste bilemezsin. İşletmeci sistemin değişmediğini kanıtlayamaz — dolayısıyla bir araç popülerleştiğinde, performansının seni daha yenisine itmek için sessizce düşmesini engelleyen hiçbir şey yoktur.'
+						p: 'Barındırılan bir serviste bilemezsin. İşletmeci sistemin değişmediğini kanıtlayamaz — dolayısıyla bir araç popülerleştiğinde, maliyetten kısmak için performansının sessizce düşmesini engelleyen hiçbir şey yoktur.'
 					},
 					{
 						h: 'Burada servis, kendi şartnamesinin <em>ta kendisidir</em>.',
@@ -940,7 +940,7 @@ export default {
 				},
 				{
 					title: 'Altından değişemez',
-					body: 'Bir servis deterministiktir: aynı girdiler, ne zaman ve nerede çalışırsa çalışsın aynı çıktıları üretir. Kimse seni daha yenisine itmek için onu sessizce kötüleştiremez.'
+					body: 'Bir servis deterministiktir: aynı girdiler, ne zaman ve nerede çalışırsa çalışsın aynı çıktıları üretir. Kimse maliyetten kısmak için onu sessizce kötüleştiremez.'
 				},
 				{
 					title: 'Sıralamayla değil, itibarla değerlendirilir',

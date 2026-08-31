@@ -849,7 +849,7 @@ export default {
 				beats: [
 					{
 						h: 'Comment savez-vous ce qui a vraiment tourné ?',
-						p: 'Avec un service hébergé, vous ne le savez pas. L’opérateur ne peut pas prouver que le système n’a pas changé — donc quand un outil devient populaire, rien n’empêche sa performance de baisser en silence pour vous pousser vers un plus récent.'
+						p: 'Avec un service hébergé, vous ne le savez pas. L’opérateur ne peut pas prouver que le système n’a pas changé — donc quand un outil devient populaire, rien n’empêche sa performance de baisser en silence pour réduire les coûts.'
 					},
 					{
 						h: 'Ici, le service <em>est</em> sa spécification.',
@@ -916,7 +916,7 @@ export default {
 				},
 				{
 					title: 'Il ne peut pas changer dans votre dos',
-					body: 'Un service est déterministe : les mêmes entrées produisent les mêmes sorties, quel que soit le moment ou l’endroit où il s’exécute. Personne ne peut le dégrader en silence pour vous pousser vers un plus récent.'
+					body: 'Un service est déterministe : les mêmes entrées produisent les mêmes sorties, quel que soit le moment ou l’endroit où il s’exécute. Personne ne peut le dégrader en silence pour réduire les coûts.'
 				},
 				{
 					title: 'Jugé par la réputation, pas par un classement',
