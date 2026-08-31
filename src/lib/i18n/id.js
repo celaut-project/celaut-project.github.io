@@ -874,7 +874,7 @@ export default {
 				beats: [
 					{
 						h: 'Bagaimana kamu tahu apa yang sebenarnya berjalan?',
-						p: 'Dengan layanan yang ditampung pihak lain, kamu tak bisa tahu. Operatornya tak bisa membuktikan sistemnya tak berubah — jadi ketika sebuah alat jadi populer, tak ada yang menghalangi performanya diam-diam menurun untuk mendorongmu ke yang lebih baru.'
+						p: 'Dengan layanan yang ditampung pihak lain, kamu tak bisa tahu. Operatornya tak bisa membuktikan sistemnya tak berubah — jadi ketika sebuah alat jadi populer, tak ada yang menghalangi performanya diam-diam menurun untuk menghemat biaya.'
 					},
 					{
 						h: 'Di sini, service <em>adalah</em> spesifikasinya.',
@@ -941,7 +941,7 @@ export default {
 				},
 				{
 					title: 'Ia tak bisa berubah di bawahmu',
-					body: 'Sebuah service bersifat deterministik: masukan yang sama menghasilkan keluaran yang sama, kapan pun dan di mana pun ia berjalan. Tak ada yang bisa diam-diam memburukkannya untuk mendorongmu ke yang lebih baru.'
+					body: 'Sebuah service bersifat deterministik: masukan yang sama menghasilkan keluaran yang sama, kapan pun dan di mana pun ia berjalan. Tak ada yang bisa diam-diam memburukkannya untuk menghemat biaya.'
 				},
 				{
 					title: 'Dinilai oleh reputasi, bukan peringkat',

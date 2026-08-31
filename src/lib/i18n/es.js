@@ -850,7 +850,7 @@ export default {
 				beats: [
 					{
 						h: '¿Cómo sabes qué se ejecutó realmente?',
-						p: 'Con un servicio alojado, no puedes. El operador no puede demostrar que el sistema no ha cambiado, así que cuando una herramienta se hace popular nada impide que su rendimiento baje discretamente para empujarte hacia otra más nueva.'
+						p: 'Con un servicio alojado, no puedes. El operador no puede demostrar que el sistema no ha cambiado, así que cuando una herramienta se hace popular nada impide que su rendimiento baje discretamente para ahorrar costes.'
 					},
 					{
 						h: 'Aquí el servicio <em>es</em> su especificación.',
@@ -917,7 +917,7 @@ export default {
 				},
 				{
 					title: 'No puede cambiar a tus espaldas',
-					body: 'Un servicio es determinista: las mismas entradas producen las mismas salidas, cuando sea y donde sea que se ejecute. Nadie puede degradarlo en silencio para empujarte a otro más nuevo.'
+					body: 'Un servicio es determinista: las mismas entradas producen las mismas salidas, cuando sea y donde sea que se ejecute. Nadie puede degradarlo en silencio para ahorrar costes.'
 				},
 				{
 					title: 'Juzgado por reputación, no por ranking',

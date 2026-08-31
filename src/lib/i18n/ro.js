@@ -874,7 +874,7 @@ export default {
 				beats: [
 					{
 						h: 'De unde știi ce a rulat de fapt?',
-						p: 'Cu un serviciu găzduit, nu ai de unde. Operatorul nu poate dovedi că sistemul nu s-a schimbat — așa că, atunci când un instrument devine popular, nimic nu împiedică performanța lui să scadă pe tăcute, ca să te împingă spre unul mai nou.'
+						p: 'Cu un serviciu găzduit, nu ai de unde. Operatorul nu poate dovedi că sistemul nu s-a schimbat — așa că, atunci când un instrument devine popular, nimic nu împiedică performanța lui să scadă pe tăcute, ca să reducă costurile.'
 					},
 					{
 						h: 'Aici, serviciul <em>este</em> specificația lui.',
@@ -941,7 +941,7 @@ export default {
 				},
 				{
 					title: 'Nu se poate schimba pe la spatele tău',
-					body: 'Un serviciu este determinist: aceleași intrări produc aceleași ieșiri, oricând și oriunde ar rula. Nimeni nu-l poate înrăutăți pe tăcute ca să te împingă spre unul mai nou.'
+					body: 'Un serviciu este determinist: aceleași intrări produc aceleași ieșiri, oricând și oriunde ar rula. Nimeni nu-l poate înrăutăți pe tăcute ca să reducă costurile.'
 				},
 				{
 					title: 'Judecat după reputație, nu după clasament',

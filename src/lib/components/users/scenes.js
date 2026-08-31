@@ -478,9 +478,9 @@ export function drawSealedScene(ctx, { width, height, progress, palette, mouse, 
 
 /* ==================================================================
  * SCENE 4 — "Pay for the execution. Nothing else."
- * A meter fills only while the job runs, stops dead when it finishes,
- * and settles — next to a subscription bar that keeps charging whether
- * you used it or not.
+ * Usage and what you pay are the same shape: two bursts of work, then
+ * nothing. When usage falls to 0, the charge falls to 0 with it — next
+ * to a subscription bar that keeps climbing whether you used it or not.
  * ================================================================== */
 export function drawMeterScene(ctx, { width, height, progress, palette, mouse, time, align, t }) {
 	backdrop(ctx, width, height, palette, progress, mouse, align);
@@ -498,11 +498,12 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 	const ox = compact ? (width - chartW) / 2 : stageCx - chartW / 2;
 	const oy = compact ? height * 0.16 : height * 0.42 - chartH / 2;
 
-	// Usage: two bursts of work, then nothing.
+	// Usage: two bursts of work, a true idle in between, then nothing.
+	// Pay tracks this rate — not a running total — so idle is actually 0.
 	const usage = (t) => {
 		if (t < 0.12) return 0;
 		if (t < 0.34) return 0.55 + 0.25 * Math.sin(t * 40);
-		if (t < 0.42) return 0.04;
+		if (t < 0.42) return 0;
 		if (t < 0.62) return 0.78 + 0.18 * Math.sin(t * 33);
 		return 0;
 	};
@@ -555,19 +556,16 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 	}
 
-	// --- What it cost, accumulating only where usage is non-zero ---
+	// --- What you pay tracks current usage. Idle → 0, running → the rate. ---
 	const mf = smoothstep(meterIn);
 	if (mf > 0) {
-		const upto = Math.min(rf, 0.62);
-		let acc = 0;
 		ctx.save();
 		ctx.strokeStyle = palette.accent;
 		ctx.lineWidth = 2.4;
 		ctx.beginPath();
-		for (let t = 0; t <= upto * mf + 0.0001; t += 0.01) {
-			acc += usage(t) * 0.016;
+		for (let t = 0; t <= rf + 0.0001; t += 0.01) {
 			const X = px(t);
-			const Y = py(clamp(acc));
+			const Y = py(usage(t));
 			if (t === 0) ctx.moveTo(X, Y);
 			else ctx.lineTo(X, Y);
 		}
@@ -599,8 +597,8 @@ export function drawMeterScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.strokeStyle = palette.accent;
 		ctx.lineWidth = 2.4;
 		ctx.beginPath();
-		ctx.moveTo(stopX, py(0.62));
-		ctx.lineTo(stopX + (chartW - (stopX - ox)) * f * 0.99, py(0.62));
+		ctx.moveTo(stopX, py(0));
+		ctx.lineTo(stopX + (chartW - (stopX - ox)) * f * 0.99, py(0));
 		ctx.stroke();
 		ctx.restore();
 		ctx.save();

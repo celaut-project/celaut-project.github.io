@@ -872,7 +872,7 @@ export default {
 				beats: [
 					{
 						h: 'Làm sao bạn biết thứ gì thực sự đã chạy?',
-						p: 'Với một dịch vụ được lưu trữ sẵn, bạn không thể biết. Bên vận hành không thể chứng minh hệ thống chưa đổi — nên khi một công cụ trở nên phổ biến, chẳng gì ngăn hiệu năng của nó lặng lẽ tụt xuống để đẩy bạn sang một bản mới hơn.'
+						p: 'Với một dịch vụ được lưu trữ sẵn, bạn không thể biết. Bên vận hành không thể chứng minh hệ thống chưa đổi — nên khi một công cụ trở nên phổ biến, chẳng gì ngăn hiệu năng của nó lặng lẽ tụt xuống để tiết kiệm chi phí.'
 					},
 					{
 						h: 'Ở đây, service <em>chính là</em> bản đặc tả của nó.',
@@ -939,7 +939,7 @@ export default {
 				},
 				{
 					title: 'Nó không thể đổi dưới chân bạn',
-					body: 'Một service là tất định: cùng đầu vào cho cùng đầu ra, bất kể khi nào và ở đâu nó chạy. Không ai có thể âm thầm làm nó kém đi để đẩy bạn sang bản mới hơn.'
+					body: 'Một service là tất định: cùng đầu vào cho cùng đầu ra, bất kể khi nào và ở đâu nó chạy. Không ai có thể âm thầm làm nó kém đi để tiết kiệm chi phí.'
 				},
 				{
 					title: 'Đánh giá bằng danh tiếng, không bằng bảng xếp hạng',

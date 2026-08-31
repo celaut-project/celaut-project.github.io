@@ -873,7 +873,7 @@ export default {
 				beats: [
 					{
 						h: 'Woher weißt du, was tatsächlich lief?',
-						p: 'Bei einem gehosteten Service gar nicht. Der Betreiber kann nicht beweisen, dass sich das System nicht geändert hat — wenn ein Werkzeug also beliebt wird, hindert nichts daran, seine Leistung still absinken zu lassen, um dich zu einem neueren zu drängen.'
+						p: 'Bei einem gehosteten Service gar nicht. Der Betreiber kann nicht beweisen, dass sich das System nicht geändert hat — wenn ein Werkzeug also beliebt wird, hindert nichts daran, seine Leistung still absinken zu lassen, um Kosten zu sparen.'
 					},
 					{
 						h: 'Hier <em>ist</em> der Service seine Spezifikation.',
@@ -940,7 +940,7 @@ export default {
 				},
 				{
 					title: 'Es kann sich nicht unter dir ändern',
-					body: 'Ein Service ist deterministisch: Gleiche Eingaben liefern gleiche Ausgaben, wann und wo auch immer er läuft. Niemand kann ihn still verschlechtern, um dich auf einen neueren zu drängen.'
+					body: 'Ein Service ist deterministisch: Gleiche Eingaben liefern gleiche Ausgaben, wann und wo auch immer er läuft. Niemand kann ihn still drosseln, um Kosten zu sparen.'
 				},
 				{
 					title: 'Nach Reputation beurteilt, nicht nach Ranking',
