@@ -23,28 +23,40 @@ export default {
 		readMore: 'Saiba mais →',
 		viewOnGitHub: 'Ver no GitHub →',
 		languageLabel: 'Idioma',
-		switchLanguage: 'Mudar de idioma'
+		switchLanguage: 'Mudar de idioma',
+		toc: {
+			nav: 'Navegação por seção',
+			title: 'Nesta página',
+			open: 'Abrir menu de seções',
+			close: 'Fechar menu de seções'
+		}
 	},
-
 	theme: {
 		toLight: 'Mudar para o tema claro',
 		toDark: 'Mudar para o tema escuro',
 		toggle: 'Alternar tema'
 	},
-
 	topbar: {
 		nav: 'Seções do Celaut',
 		links: {
-			depin: { label: 'Alugue seu PC', short: 'Alugar' },
-			developers: { label: 'Desenvolvedores', short: 'Devs' },
-			users: { label: 'Usuários', short: 'Usuários' },
-			paradigm: { label: 'Paradigma', short: 'Paradigma' }
+			depin: {
+				label: 'Alugue seu PC',
+				short: 'Alugar'
+			},
+			developers: {
+				label: 'Desenvolvedores',
+				short: 'Devs'
+			},
+			users: {
+				label: 'Usuários',
+				short: 'Usuários'
+			},
+			paradigm: {
+				label: 'Paradigma',
+				short: 'Paradigma'
+			}
 		}
 	},
-
-	/* ============================================================== *
-	 * Página inicial
-	 * ============================================================== */
 	home: {
 		hero: {
 			tagline: 'Uma arquitetura ponto a ponto para o design e a distribuição de software',
@@ -60,7 +72,6 @@ export default {
 				'Três princípios, do início ao fim: descentralização, simplicidade e determinismo.'
 			]
 		},
-
 		atoms: {
 			eyebrow: 'As duas primitivas',
 			note: 'Dois átomos. Especificação, execução, pagamento e reputação são a forma como eles interagem.',
@@ -75,31 +86,23 @@ export default {
 				}
 			]
 		},
-
 		index: {
-			nav: 'Navegação por seção',
-			title: 'Nesta página',
-			open: 'Abrir menu de seções',
-			close: 'Fechar menu de seções',
 			sections: {
 				foundations: 'Origens',
 				atoms: 'Nós e serviços',
-				nodes: 'Nós',
+				nodes: 'A rede',
 				services: 'Serviços',
 				'service-spec': 'Especificação do serviço',
 				execution: 'Execução',
 				determinism: 'Determinismo',
 				coordination: 'Coordenação',
-				'user-roles': 'Qual é o seu papel?',
 				'core-principles': 'Princípios fundamentais',
 				'what-is-not': 'O que não é',
 				implementations: 'Implementações',
-				'coordination-detail': 'Incentivos',
-				'service-distribution': 'Distribuição de serviços',
-				applications: 'Aplicações'
+				applications: 'Aplicações',
+				'user-roles': 'Qual é o seu papel?'
 			}
 		},
-
 		scenes: {
 			foundations: {
 				label: 'De onde isso vem',
@@ -241,9 +244,30 @@ export default {
 						note: 'Verificar · pagar · entregar · registrar. E recomeçar.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'As regras que sustenta',
+				beats: [
+					{
+						h: 'Nada disso era uma lista de funcionalidades.',
+						p: 'Uma rede sem protocolo a acordar, serviços selados perante as máquinas que os executam, redes declaradas à partida, pagamento antes da execução: cada uma dessas coisas é uma <strong>consequência</strong>. Três compromissos as produzem, e sustentam-se uns aos outros.'
+					},
+					{
+						h: 'Descentralização.',
+						p: 'Nenhum <strong>ponto único de controlo ou de falha</strong>. Os nós comunicam e coordenam-se dinamicamente, sem nada no meio a quem pedir permissão — que é precisamente por isso que não havia protocolo nenhum a acordar.'
+					},
+					{
+						h: 'Simplicidade.',
+						p: '<strong>Regras minimalistas</strong> que reduzem a complexidade, de modo que cada componente permanece pequeno o suficiente para ser compreendido e mantido isoladamente. Um serviço é um contentor, uma interface e um âmbito de rede, e é tudo.'
+					},
+					{
+						h: 'Determinismo.',
+						p: 'Os serviços são especificados de forma completa o suficiente para <strong>reproduzir os seus resultados</strong> ao longo do tempo e entre máquinas. Mesmas entradas, mesmas saídas, onde e quando quer que corram — é isso que faz com que uma reputação registada há um ano ainda valha a pena ler hoje.',
+						note: 'Tira qualquer um dos três e os outros dois deixam de valer grande coisa.'
+					}
+				]
 			}
 		},
-
 		roles: {
 			eyebrow: 'Escolha seu caminho',
 			heading: 'Qual é o seu papel?',
@@ -287,27 +311,19 @@ export default {
 				}
 			]
 		},
-
 		principles: {
-			eyebrow: 'As regras que ele segue',
-			heading: 'Princípios fundamentais do Celaut',
-			intro: 'Três compromissos dos quais toda a arquitetura deriva. Tudo o que foi dito acima — nós sem protocolo, serviços lacrados, redes declaradas — é consequência deles.',
 			items: [
 				{
-					title: 'Descentralização',
-					body: 'O Celaut elimina <strong>pontos únicos de controle ou falha</strong> ao permitir que os nós se comuniquem e se coordenem dinamicamente, sem nada no meio a quem pedir permissão.'
+					title: 'Descentralização'
 				},
 				{
-					title: 'Simplicidade',
-					body: 'A arquitetura segue <strong>regras minimalistas</strong> que reduzem a complexidade, para que cada componente permaneça pequeno o suficiente para ser compreendido e mantido de forma independente.'
+					title: 'Simplicidade'
 				},
 				{
-					title: 'Determinismo',
-					body: 'Os serviços são totalmente especificados para garantir <strong>resultados reproduzíveis</strong> ao longo do tempo e entre nós. Com as mesmas entradas, produzem as mesmas saídas, não importa onde ou quando sejam executados.'
+					title: 'Determinismo'
 				}
 			]
 		},
-
 		whatIsNot: {
 			eyebrow: 'Equívocos comuns',
 			heading: 'O que o Celaut não é',
@@ -327,102 +343,45 @@ export default {
 				}
 			]
 		},
-
-		nodes: {
-			eyebrow: 'Essas máquinas',
-			heading: 'Nós: a base da rede',
-			intro: 'Um nó é um <strong>computador ou dispositivo</strong> que se comunica com pares e gerencia a execução de serviços. Quatro tarefas, e nenhum coordenador acima delas.',
-			jobs: [
-				{
-					title: 'Execução de serviços',
-					body: 'Ele negocia custos de execução com os pares e decide se executa um serviço localmente ou o delega, para que os recursos vão para onde são mais baratos.'
-				},
-				{
-					title: 'Comunicação',
-					body: 'Ele declara as interfaces que suporta e os métodos de pagamento que aceita ao entrar em contato, o que é o que permite que os protocolos evoluam sem acordo prévio.'
-				},
-				{
-					title: 'Segurança',
-					body: 'Ele emite e gerencia os endereços e tokens de autenticação pelos quais cada interação com um serviço é identificada.'
-				},
-				{
-					title: 'Dependências',
-					body: 'Ele garante que um serviço possa alcançar o que precisa, onde quer que essa dependência esteja rodando na rede.'
-				}
-			],
-			implementationsHeading: 'Implementações que você já pode rodar hoje',
-			implementations: [
+		implementations: {
+			eyebrow: 'O software',
+			heading: 'O que existe hoje',
+			intro: 'A arquitetura é uma especificação, e qualquer pessoa pode implementar um nó contra ela. Uma implementação faz a rede funcionar agora; a segunda é uma direção anunciada, e está assinalada como tal.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'A implementação de referência, construída com Python3 e Rust — um exemplo funcional de como um nó é implantado na prática.'
+					stage: 'A funcionar',
+					body: 'A implementação de referência, em Python3 e Rust. Executa serviços, negoceia custos com os pares, fornece endereços e tokens, e resolve dependências onde quer que corram. Instalável em Linux com um único comando, e em Windows 11 através de um instalador oficial que prepara o seu próprio ambiente Linux isolado.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Um nó para dispositivos Android. Ele expõe serviços por meio de interfaces de chat básicas, sem exigir confiança em nenhum outro nó.'
-				}
-			]
-		},
-
-		coordination: {
-			eyebrow: 'O que faz estranhos cooperarem',
-			heading: 'Mecanismos de coordenação',
-			intro: 'Nenhum dos dois faz parte da arquitetura central, e isso é deliberado: ambos ficam fora dela, para que nenhum ledger ou moeda específicos sejam embutidos.',
-			items: [
-				{
-					title: 'Sistemas de reputação',
-					body: 'Um histórico de interações, registrado em ledgers como opiniões em vez de veredictos. É <strong>o que é consultado primeiro</strong>, antes que qualquer um se comprometa com algo.',
-					points: [
-						'Cada ator pondera, a seu próprio critério, as fontes em que já confia.',
-						'A reputação vale a pena ser protegida, então ela se torna a garantia por trás de uma promessa.',
-						'O resultado é uma autorregulação, sem nenhuma autoridade emitindo veredictos.'
-					]
-				},
-				{
-					title: 'Mecanismos de pagamento',
-					body: 'Um nó é pago <strong>de antemão</strong> em troca da promessa de recursos a serem consumidos — tanta computação, por tanto tempo. Sua garantia não é uma fatura depois do fato; é <strong>a sua reputação</strong>.',
-					points: [
-						'O pagamento é cobrado adiantado, antes de a execução começar.',
-						'A prova de pagamento é o que dá acesso aos serviços que a exigem.',
-						'Um nó que recebe o pagamento e entrega menos do que prometeu perde reputação, e deixa de ser escolhido.'
-					]
+					stage: 'Conceito',
+					body: 'A intenção declarada de construir um nó Android que alcance serviços através de uma interface de chat simples, sem confiar em nenhum outro nó. O repositório contém hoje essa descrição e nada mais — ainda não há código para correr.'
 				}
 			],
-			note: 'Verificar o registro · pagar pelo direito · entregar · registrar o resultado.'
+			note: 'Nada aqui é um marcador de posição para algo que já funciona noutro sítio. O que funciona, funciona; o que não funciona, di-lo.'
 		},
-
-		distribution: {
-			eyebrow: 'Fazendo chegar ao mundo',
-			heading: 'Distribuição de serviços',
-			intro: 'Não há loja para publicar nem revisão para esperar. Um desenvolvedor entrega o serviço a um nó, e a rede leva daí em diante.',
-			items: [
-				{
-					title: 'Descoberta descentralizada',
-					body: 'O Celaut não tem <strong>nenhum registro central de serviços</strong>. Os serviços se espalham entre os nós de ponto a ponto, para que possam ser encontrados diretamente — e não há nenhum guardião decidindo se você tem permissão para entrar.'
-				},
-				{
-					title: 'Integração opcional com blockchain',
-					body: 'Os serviços também podem ser declarados em uma blockchain que implemente um registro — como o <strong>Sigma Reputation System</strong> na Ergo — quando visibilidade e um histórico auditável valem mais do que ficar totalmente fora da cadeia.'
-				}
-			]
-		},
-
 		applications: {
 			eyebrow: 'Onde já está funcionando',
 			heading: 'Impacto e aplicações no mundo real',
-			intro: 'Essa arquitetura não é um experimento mental. Estes são os lugares onde ela está em uso hoje.',
-			ours: [
+			intro: 'A arquitetura não é uma experiência mental. Está em uso a duas distâncias diferentes — como a camada em si, e como alicerce de algo com a sua própria razão de existir.',
+			layerHeading: 'A arquitetura, ligada',
+			layerTag: 'A própria camada',
+			layerIntro: 'Nenhuma das duas é uma aplicação construída sobre Celaut. São o que Celaut <strong>é</strong>, assim que há nós realmente a funcionar.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Qualquer um pode rodar um nó Celaut e fazer parte de uma rede de infraestrutura física descentralizada. Cada nó descobre pares, executa e orquestra serviços, e gerencia suas dependências — transformando computadores comuns em computação compartilhada e resistente à censura.'
+					name: 'DePIN',
+					body: 'Qualquer pessoa pode correr um nó Celaut e passar a fazer parte de uma rede de infraestrutura física descentralizada. Cada nó descobre pares, executa e orquestra serviços, e gere as suas dependências — transformando computadores comuns em computação partilhada e resistente à censura. Isto é a rede, não um produto sobre ela.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Um registro totalmente on-chain e sem servidor onde os problemas são os protagonistas. Em vez de procurar serviços, os agentes buscam uma habilidade e descobrem os serviços que a cobrem, com benchmarks reais e classificação baseada em reputação. Construído sobre a Ergo e o Celaut, com incentivo nativo embutido: ninguém consegue enviar spam sem arriscar a própria reputação.'
+					body: 'Um registo totalmente on-chain e sem servidores onde os protagonistas são os problemas. Em vez de procurar serviços, os agentes procuram uma competência e descobrem os serviços que a cobrem, com benchmarks reais e classificação por reputação. É como se alcança na prática a camada de reputação do paradigma — sobre Ergo, com verdadeiro risco próprio: ninguém faz spam sem arriscar a sua reputação.'
 				}
 			],
-			thirdPartyHeading: 'Projetos de terceiros',
-			thirdPartyTag: 'não construídos por nós',
-			thirdParty: {
+			builtOnHeading: 'Construído por cima',
+			builtOnTag: 'Projeto independente',
+			builtOnIntro: 'Um passo mais além: um produto com o seu próprio propósito e os seus próprios utilizadores, que por acaso é montado a partir de serviços Celaut. Continuaria a fazer sentido se fosse reconstruído sobre outra coisa — e é exatamente isso que o torna uma prova.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Uma plataforma competitiva em que criadores projetam <strong>serviços-jogo</strong> que avaliam os robôs que jogam neles, e jogadores escrevem <strong>serviços-solucionadores</strong> que tentam maximizar sua pontuação.',
@@ -433,27 +392,47 @@ export default {
 			formalPaper: 'Artigo formal'
 		}
 	},
-
-	/* ============================================================== *
-	 * /depin — Alugue seu PC
-	 * ============================================================== */
 	depin: {
 		meta: {
 			title: 'Alugue seu PC — Celaut DePIN',
-			description:
-				'Venda os recursos do seu computador quando você não os estiver usando. A camada DePIN do Celaut é totalmente ponto a ponto, permite precificar a computação considerando seu custo de energia, e isola cada carga de trabalho dentro de uma microVM.'
+			description: 'Venda os recursos do seu computador quando você não os estiver usando. A camada DePIN do Celaut é totalmente ponto a ponto, permite precificar a computação considerando seu custo de energia, e isola cada carga de trabalho dentro de uma microVM.'
 		},
 		topbarTitle: 'Alugue seu PC',
+		index: {
+			sections: {
+				rent: 'A ideia',
+				p2p: 'Peer-to-peer',
+				electricity: 'A tua fatura da luz',
+				isolation: 'Isolamento',
+				payoff: 'O que ganhas',
+				responsibilities: 'O que faz um nó',
+				steps: 'Da instalação ao rendimento',
+				roles: 'O outro lado',
+				cta: 'Começar'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Alugue seu PC.',
 			tagline: 'Venda os recursos do seu computador quando você não os estiver usando.',
 			lede: 'Sua máquina passa a maior parte do dia ociosa. O Celaut transforma essa capacidade não utilizada em algo pelo qual as pessoas pagam — diretamente, nos seus termos, com cada carga de trabalho lacrada e isolada do seu sistema.',
-			actions: ['Comece a alugar seu PC', 'Veja como funciona'],
+			actions: [
+				'Comece a alugar seu PC',
+				'Veja como funciona'
+			],
 			stats: [
-				{ value: '100%', label: 'totalmente ponto a ponto — nenhuma empresa no meio' },
-				{ value: 'Você', label: 'define o preço, considerando sua conta de energia' },
-				{ value: 'microVM', label: 'isolamento para cada carga de trabalho que você hospeda' }
+				{
+					value: '100%',
+					label: 'totalmente ponto a ponto — nenhuma empresa no meio'
+				},
+				{
+					value: 'Você',
+					label: 'define o preço, considerando sua conta de energia'
+				},
+				{
+					value: 'microVM',
+					label: 'isolamento para cada carga de trabalho que você hospeda'
+				}
 			]
 		},
 		scenes: {
@@ -559,6 +538,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'O que o nó na tua máquina faz realmente',
+			intro: 'Um nó é um <strong>computador ou dispositivo</strong> que comunica com os seus pares e gere a execução de serviços. O paradigma atribui-lhe quatro tarefas, e não coloca nenhum coordenador acima dele.',
+			items: [
+				{
+					title: 'Execução de serviços',
+					body: 'Ele negocia custos de execução com os pares e decide se executa um serviço localmente ou o delega, para que os recursos vão para onde são mais baratos.'
+				},
+				{
+					title: 'Comunicação',
+					body: 'Ele declara as interfaces que suporta e os métodos de pagamento que aceita ao entrar em contato, o que é o que permite que os protocolos evoluam sem acordo prévio.'
+				},
+				{
+					title: 'Segurança',
+					body: 'Ele emite e gerencia os endereços e tokens de autenticação pelos quais cada interação com um serviço é identificada.'
+				},
+				{
+					title: 'Dependências',
+					body: 'Ele garante que um serviço possa alcançar o que precisa, onde quer que essa dependência esteja rodando na rede.'
+				}
+			],
+			note: 'Nada disso exige saber para que serve o software que executa.'
+		},
 		steps: {
 			heading: 'Da instalação à renda',
 			items: [
@@ -603,30 +605,54 @@ export default {
 		cta: {
 			heading: 'Ligue sua máquina ociosa.',
 			body: 'Instalar um nó leva apenas um comando. É a forma mais rápida de descobrir quanto vale o seu hardware quando ele não está fazendo mais nada.',
-			actions: ['Rodar um nó', 'Ler o paradigma']
+			actions: [
+				'Rodar um nó',
+				'Ler o paradigma'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /developers — Construa uma vez
-	 * ============================================================== */
 	developers: {
 		meta: {
 			title: 'Para desenvolvedores — construa uma vez, rode em qualquer lugar | Celaut',
-			description:
-				'Crie serviços Celaut: defina um BOX, uma API e um escopo NET, entregue-os a um nó, e deixe a rede distribuir e executar tudo. Sem infraestrutura, sem configuração, sem plataforma no meio.'
+			description: 'Crie serviços Celaut: defina um BOX, uma API e um escopo NET, entregue-os a um nó, e deixe a rede distribuir e executar tudo. Sem infraestrutura, sem configuração, sem plataforma no meio.'
 		},
 		topbarTitle: 'Para desenvolvedores',
+		index: {
+			sections: {
+				spec: 'A ideia',
+				agnostic: 'Corre em qualquer lado',
+				distribute: 'Distribuição',
+				compose: 'Composição',
+				payoff: 'O que ganhas',
+				distribution: 'Como se propaga',
+				steps: 'Do código à rede',
+				tradeoffs: 'A troca',
+				roles: 'Os outros',
+				cta: 'Começar'
+			}
+		},
 		hero: {
 			eyebrow: 'Desenvolvedores de serviços',
 			title: 'Construa uma vez.',
 			tagline: 'Depois pare de pensar em onde isso roda.',
 			lede: 'Um serviço Celaut não é uma implantação — é uma especificação. Descreva o ambiente, a interface e o escopo de rede, entregue-o a um único nó, e a rede assume a partir daí.',
-			actions: ['Explorar o Skills', 'Veja como funciona'],
+			actions: [
+				'Explorar o Skills',
+				'Veja como funciona'
+			],
 			stats: [
-				{ value: 'BOX · API · NET', label: 'três componentes — essa é toda a especificação' },
-				{ value: 'Sem DevOps', label: 'os nós cuidam da execução; nenhuma conta na nuvem a abrir' },
-				{ value: 'Determinístico', label: 'mesmas entradas, mesmas saídas, em qualquer nó, a qualquer momento' }
+				{
+					value: 'BOX · API · NET',
+					label: 'três componentes — essa é toda a especificação'
+				},
+				{
+					value: 'Sem DevOps',
+					label: 'os nós cuidam da execução; nenhuma conta na nuvem a abrir'
+				},
+				{
+					value: 'Determinístico',
+					label: 'mesmas entradas, mesmas saídas, em qualquer nó, a qualquer momento'
+				}
 			]
 		},
 		scenes: {
@@ -753,6 +779,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Como um serviço se propaga realmente',
+			intro: 'Não há loja onde publicar nem revisão pela qual esperar. Um serviço é entregue a um nó, e a rede leva-o a partir daí — por omissão fora da cadeia, e opcionalmente nela.',
+			items: [
+				{
+					title: 'Peer-to-peer por omissão',
+					body: 'O Celaut não tem <strong>nenhum registro central de serviços</strong>. Os serviços se espalham entre os nós de ponto a ponto, para que possam ser encontrados diretamente — e não há nenhum guardião decidindo se você tem permissão para entrar.'
+				},
+				{
+					title: 'Num registo, se o merecer',
+					body: 'Os serviços também podem ser declarados em uma blockchain que implemente um registro — como o <strong>Sigma Reputation System</strong> na Ergo — quando visibilidade e um histórico auditável valem mais do que ficar totalmente fora da cadeia.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'A troca que você realmente está fazendo',
 			intro: 'Hoje, publicar software significa escolher entre hospedá-lo você mesmo ou pedir que as pessoas o rodem por conta própria. As duas opções custam algo. A afirmação do Celaut é estreita e específica: ele pega as vantagens de cada uma sem suas desvantagens — ao custo do seu controle sobre o serviço em execução.',
@@ -799,30 +839,53 @@ export default {
 		cta: {
 			heading: 'Comece pelos problemas.',
 			body: 'O Unstoppable Skills é um registro onde os problemas são os protagonistas: busque uma habilidade e encontre os serviços que a cobrem, seus benchmarks e sua reputação. É o caminho mais curto entre “o que eu deveria construir” e “quem precisa disso”.',
-			actions: ['Explorar o Skills', 'Ler o paradigma']
+			actions: [
+				'Explorar o Skills',
+				'Ler o paradigma'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /users — Execute, pague pelo que foi usado
-	 * ============================================================== */
 	users: {
 		meta: {
 			title: 'Para usuários finais — execute, pague pelo que foi usado | Celaut',
-			description:
-				'Execute serviços em nós Celaut e pague apenas pelos recursos computacionais utilizados. Sem contas, sem assinaturas, sem plataforma no meio — os serviços rodam de forma isolada e determinística, então você recebe exatamente o que a especificação descreve.'
+			description: 'Execute serviços em nós Celaut e pague apenas pelos recursos computacionais utilizados. Sem contas, sem assinaturas, sem plataforma no meio — os serviços rodam de forma isolada e determinística, então você recebe exatamente o que a especificação descreve.'
 		},
 		topbarTitle: 'Para usuários finais',
+		index: {
+			sections: {
+				ask: 'A ideia',
+				proof: 'O que recebes',
+				sealed: 'Selado',
+				pay: 'O que pagas',
+				payoff: 'O que ganhas',
+				steps: 'Do pedido ao resultado',
+				tradeoffs: 'A troca',
+				roles: 'Os outros',
+				cta: 'Começar'
+			}
+		},
 		hero: {
 			eyebrow: 'Usuários de serviços',
 			title: 'Execute.',
 			tagline: 'Pague pelo que foi usado. Nada mais.',
 			lede: 'Execute um serviço em um nó, obtenha o resultado, pague pela computação que ele consumiu. Não há conta para criar, nenhuma assinatura para cancelar, e nenhuma empresa sentada entre você e a máquina que fez o trabalho.',
-			actions: ['Explorar o Skills', 'Veja como funciona'],
+			actions: [
+				'Explorar o Skills',
+				'Veja como funciona'
+			],
 			stats: [
-				{ value: 'Sem conta', label: 'nada para se cadastrar, nada de onde você possa ser bloqueado' },
-				{ value: 'Por execução', label: 'você paga apenas pelos recursos computacionais realmente usados' },
-				{ value: 'Isolado', label: 'os serviços rodam lacrados e não veem nada que não lhes foi dado' }
+				{
+					value: 'Sem conta',
+					label: 'nada para se cadastrar, nada de onde você possa ser bloqueado'
+				},
+				{
+					value: 'Por execução',
+					label: 'você paga apenas pelos recursos computacionais realmente usados'
+				},
+				{
+					value: 'Isolado',
+					label: 'os serviços rodam lacrados e não veem nada que não lhes foi dado'
+				}
 			]
 		},
 		scenes: {
@@ -995,13 +1058,12 @@ export default {
 		cta: {
 			heading: 'Comece pelo problema que você tem.',
 			body: 'O Unstoppable Skills é um registro totalmente on-chain e sem servidor, onde os próprios problemas são os protagonistas. Busque uma habilidade e encontre os serviços que a cobrem, benchmarks comparativos reais, discussões e classificação baseada em reputação.',
-			actions: ['Explorar o Skills', 'Alugar seu PC em vez disso']
+			actions: [
+				'Explorar o Skills',
+				'Alugar seu PC em vez disso'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /install
-	 * ============================================================== */
 	install: {
 		meta: {
 			title: 'Instalar o Nodo — Celaut',
@@ -1009,9 +1071,12 @@ export default {
 		},
 		topbarTitle: 'Instalar o nodo',
 		heading: 'Rode um nó Celaut',
-		subtitle:
-			'Instale o <strong>nodo</strong> e entre na rede descentralizada — descubra pares, execute e orquestre serviços, e transforme sua máquina em computação compartilhada e resistente à censura.',
-		tabs: { linux: 'Linux', windows: 'Windows', mac: 'macOS' },
+		subtitle: 'Instale o <strong>nodo</strong> e entre na rede descentralizada — descubra pares, execute e orquestre serviços, e transforme sua máquina em computação compartilhada e resistente à censura.',
+		tabs: {
+			linux: 'Linux',
+			windows: 'Windows',
+			mac: 'macOS'
+		},
 		copy: 'Copiar',
 		copied: 'Copiado ✓',
 		linux: {
@@ -1042,15 +1107,10 @@ export default {
 			repoLink: 'repositório do nodo'
 		}
 	},
-
-	/* ============================================================== *
-	 * /paradigm
-	 * ============================================================== */
 	paradigm: {
 		meta: {
 			title: 'Celaut — Artigo formal',
-			description:
-				'Celaut: uma arquitetura ponto a ponto para o design e a distribuição de software — o artigo formal.'
+			description: 'Celaut: uma arquitetura ponto a ponto para o design e a distribuição de software — o artigo formal.'
 		},
 		topbarTitle: 'Artigo formal',
 		toc: 'Índice',
@@ -1059,12 +1119,6 @@ export default {
 		executionHeading: 'Execução de um serviço',
 		balancerHeading: 'Balanceamento de carga de serviços'
 	},
-
-	/* ============================================================== *
-	 * Palavras exibidas nas cenas <canvas>.
-	 * Mantidas curtas de propósito — são rótulos, não frases, e seu
-	 * layout é posicionado manualmente.
-	 * ============================================================== */
 	viz: {
 		home: {
 			generation: 'geração {n}',
@@ -1080,6 +1134,23 @@ export default {
 			environment: 'ambiente',
 			api: 'API',
 			interface: 'interface',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1129,10 +1200,22 @@ export default {
 			aPeer: 'um par',
 			cost: 'custo {value}',
 			oneInput: 'uma entrada',
-			when: ['agora', 'daqui a um ano', 'em outro hardware'],
+			when: [
+				'agora',
+				'daqui a um ano',
+				'em outro hardware'
+			],
 			identicalEveryTime: 'idêntico, todas as vezes',
 			reputationLedger: 'reputação · registros em um ledger',
 			sourcesYouTrust: 'as fontes em que você confia',
+			principles: {
+				consequences: [
+					'→ nenhum protocolo a acordar',
+					'→ um contentor, uma interface, um âmbito',
+					'→ reputação que mantém o seu sentido'
+				],
+				derivedFrom: 'tudo o resto deriva daqui'
+			},
 			firstWhatSources: 'primeiro: o que dizem as minhas fontes?',
 			rightShort: '2 vCPU · 30 min',
 			rightLong: 'direito a 2 vCPU · 30 min',

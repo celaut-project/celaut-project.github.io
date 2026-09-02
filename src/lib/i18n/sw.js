@@ -24,28 +24,40 @@ export default {
 		readMore: 'Soma zaidi →',
 		viewOnGitHub: 'Ona kwenye GitHub →',
 		languageLabel: 'Lugha',
-		switchLanguage: 'Badilisha lugha'
+		switchLanguage: 'Badilisha lugha',
+		toc: {
+			nav: 'Uongozaji wa sehemu',
+			title: 'Kwenye ukurasa huu',
+			open: 'Fungua menyu ya sehemu',
+			close: 'Funga menyu ya sehemu'
+		}
 	},
-
 	theme: {
 		toLight: 'Badilisha kwenda mandhari nyepesi',
 		toDark: 'Badilisha kwenda mandhari nyeusi',
 		toggle: 'Badilisha mandhari'
 	},
-
 	topbar: {
 		nav: 'Sehemu za Celaut',
 		links: {
-			depin: { label: 'Kodisha PC yako', short: 'Kodisha' },
-			developers: { label: 'Wasanidi programu', short: 'Wasanidi' },
-			users: { label: 'Watumiaji', short: 'Watumiaji' },
-			paradigm: { label: 'Mfumo msingi', short: 'Mfumo' }
+			depin: {
+				label: 'Kodisha PC yako',
+				short: 'Kodisha'
+			},
+			developers: {
+				label: 'Wasanidi programu',
+				short: 'Wasanidi'
+			},
+			users: {
+				label: 'Watumiaji',
+				short: 'Watumiaji'
+			},
+			paradigm: {
+				label: 'Mfumo msingi',
+				short: 'Mfumo'
+			}
 		}
 	},
-
-	/* ============================================================== *
-	 * Ukurasa wa nyumbani
-	 * ============================================================== */
 	home: {
 		hero: {
 			tagline: 'Muundo wa mtandao usio na kituo kikuu (peer-to-peer) kwa ubunifu na usambazaji wa programu',
@@ -61,7 +73,6 @@ export default {
 				'Kanuni tatu, kwenye kila ngazi: ugatuaji, urahisi, na uhakika.'
 			]
 		},
-
 		atoms: {
 			eyebrow: 'Vipengele viwili vya msingi',
 			note: 'Atomu mbili. Maelezo, utekelezaji, malipo na sifa njema ni jinsi vinavyoingiliana.',
@@ -76,31 +87,23 @@ export default {
 				}
 			]
 		},
-
 		index: {
-			nav: 'Uongozaji wa sehemu',
-			title: 'Kwenye ukurasa huu',
-			open: 'Fungua menyu ya sehemu',
-			close: 'Funga menyu ya sehemu',
 			sections: {
 				foundations: 'Asili',
 				atoms: 'Nodi na huduma',
-				nodes: 'Nodi',
+				nodes: 'Mtandao',
 				services: 'Huduma',
 				'service-spec': 'Vipimo vya huduma',
 				execution: 'Utekelezaji',
 				determinism: 'Uhakika',
 				coordination: 'Uratibu',
-				'user-roles': 'Wewe ni yupi?',
 				'core-principles': 'Kanuni msingi',
 				'what-is-not': 'Ambacho si',
 				implementations: 'Utekelezaji halisi',
-				'coordination-detail': 'Vichocheo',
-				'service-distribution': 'Usambazaji wa huduma',
-				applications: 'Matumizi'
+				applications: 'Matumizi',
+				'user-roles': 'Wewe ni yupi?'
 			}
 		},
-
 		scenes: {
 			foundations: {
 				label: 'Chanzo chake',
@@ -242,9 +245,30 @@ export default {
 						note: 'Kagua · lipa · tekeleza · rekodi. Kisha tena.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Kanuni inazozishika',
+				beats: [
+					{
+						h: 'Hakuna kati ya hayo kilichokuwa orodha ya vipengele.',
+						p: 'Mtandao usio na itifaki ya kukubaliana, huduma zilizofungwa mbali na mashine zinazoziendesha, mitandao inayotangazwa mapema, malipo kabla ya utekelezaji — kila kimoja ni <strong>tokeo</strong>. Ahadi tatu zinazizaa, nazo zinategemeana.'
+					},
+					{
+						h: 'Ugatuzi.',
+						p: 'Hakuna <strong>kitovu kimoja cha udhibiti wala cha hitilafu</strong>. Nodi huwasiliana na kuratibu kwa kubadilika, bila mtu katikati wa kumwomba ruhusa — ndiyo sababu tangu mwanzo hakukuwa na itifaki ya kukubaliana.'
+					},
+					{
+						h: 'Urahisi.',
+						p: '<strong>Kanuni chache kabisa</strong> zinazopunguza utata, ili kila kipengele kibaki kidogo cha kutosha kueleweka na kutunzwa peke yake. Huduma ni chombo, kiolesura na upeo wa mtandao — basi.'
+					},
+					{
+						h: 'Uhakika wa matokeo.',
+						p: 'Huduma hufafanuliwa kikamilifu vya kutosha ili <strong>kurudia matokeo yake</strong> kwa muda na kwenye mashine tofauti. Ingizo lile lile, tokeo lile lile, popote na wakati wowote zinapoendeshwa — ndiyo maana sifa iliyorekodiwa mwaka mmoja uliopita bado inafaa kusomwa leo.',
+						note: 'Ondoa yoyote kati ya tatu, na mbili zilizobaki hazibaki na thamani kubwa.'
+					}
+				]
 			}
 		},
-
 		roles: {
 			eyebrow: 'Chagua njia yako',
 			heading: 'Wewe ni yupi?',
@@ -288,27 +312,19 @@ export default {
 				}
 			]
 		},
-
 		principles: {
-			eyebrow: 'Sheria inazoshikilia',
-			heading: 'Kanuni msingi za Celaut',
-			intro: 'Ahadi tatu ambazo muundo mzima unatokana nazo. Kila kitu kilichotajwa hapo juu — nodi bila itifaki, huduma zilizofungwa, mitandao iliyotangazwa — ni matokeo ya hizi.',
 			items: [
 				{
-					title: 'Ugatuaji',
-					body: 'Celaut inaondoa <strong>vituo vya pekee vya udhibiti au kushindwa</strong> kwa kuruhusu nodi kuwasiliana na kuratibiana kwa njia inayobadilika, bila chochote katikati cha kuomba ruhusa.'
+					title: 'Ugatuaji'
 				},
 				{
-					title: 'Urahisi',
-					body: 'Muundo unafuata <strong>sheria za msingi tu</strong> zinazopunguza utata, ili kila kipengele kibaki kidogo cha kutosha kueleweka na kutunzwa peke yake.'
+					title: 'Urahisi'
 				},
 				{
-					title: 'Uhakika',
-					body: 'Huduma zinabainishwa kikamilifu ili kuhakikisha <strong>matokeo yanayorudiwa</strong> katika muda na kati ya nodi. Zikipewa pembejeo zile zile, zinazalisha matokeo yale yale, bila kujali zinaendeshwa wapi au lini.'
+					title: 'Uhakika'
 				}
 			]
 		},
-
 		whatIsNot: {
 			eyebrow: 'Makosa ya kawaida ya kuelewa',
 			heading: 'Celaut si nini',
@@ -328,102 +344,45 @@ export default {
 				}
 			]
 		},
-
-		nodes: {
-			eyebrow: 'Mashine hizi',
-			heading: 'Nodi: msingi wa mtandao',
-			intro: 'Nodi ni <strong>kompyuta au kifaa</strong> kinachowasiliana na wenzake na kusimamia utekelezaji wa huduma. Kazi nne, na hakuna mratibu juu yake.',
-			jobs: [
-				{
-					title: 'Utekelezaji wa huduma',
-					body: 'Inajadiliana na wenzake kuhusu gharama za utekelezaji na kuamua kama kuendesha huduma kwa ndani au kuikabidhi, ili rasilimali ziende ambako ni nafuu zaidi.'
-				},
-				{
-					title: 'Mawasiliano',
-					body: 'Inatangaza violesura inavyoviunga mkono na njia za malipo inazokubali inapowasiliana, jambo linaloruhusu itifaki kubadilika bila makubaliano ya awali.'
-				},
-				{
-					title: 'Usalama',
-					body: 'Inatoa na kusimamia anwani na tokeni za uthibitishaji ambazo kila mwingiliano wa huduma unatambulishwa nazo.'
-				},
-				{
-					title: 'Utegemezi',
-					body: 'Inahakikisha huduma inaweza kufikia kile inachohitaji, popote katika mtandao ambako utegemezi huo unaendeshwa.'
-				}
-			],
-			implementationsHeading: 'Utekelezaji unaoweza kuuendesha leo',
-			implementations: [
+		implementations: {
+			eyebrow: 'Programu',
+			heading: 'Kilichopo leo',
+			intro: 'Muundo huu ni maelezo rasmi, na yeyote anaweza kutengeneza nodi kwa kuufuata. Utekelezaji mmoja unaendesha mtandao sasa hivi; wa pili ni mwelekeo uliotangazwa, na umewekwa alama hivyo.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'Utekelezaji wa rejea, uliojengwa kwa Python3 na Rust — mfano halisi wa jinsi nodi inavyowekwa kimatendo.'
+					stage: 'Inafanya kazi',
+					body: 'Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi rasmi kinachojiandalia mazingira yake ya Linux yaliyotengwa.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Nodi kwa vifaa vya Android. Inaonyesha huduma kupitia violesura vya mazungumzo vya msingi, bila kuhitaji imani kwa nodi nyingine yoyote.'
-				}
-			]
-		},
-
-		coordination: {
-			eyebrow: 'Kinachowafanya wageni kushirikiana',
-			heading: 'Mifumo ya uratibu',
-			intro: 'Hakuna kati ya hivi viwili kilicho sehemu ya muundo msingi, na hilo ni kwa makusudi: vyote viwili vinabaki nje yake, ili hakuna kitabu maalum cha hesabu au sarafu vinavyowekwa ndani.',
-			items: [
-				{
-					title: 'Mifumo ya sifa njema',
-					body: 'Historia ya mwingiliano, iliyorekodiwa kwenye vitabu vya hesabu kama maoni badala ya hukumu. Hicho ndicho <strong>kinachoangaliwa kwanza</strong>, kabla mtu yeyote hajajitolea kwa lolote.',
-					points: [
-						'Kila mhusika anapima kwa hiari yake vyanzo anavyoviamini tayari.',
-						'Hadhi njema inastahili kulindwa, hivyo inakuwa dhamana nyuma ya ahadi.',
-						'Matokeo ni kujidhibiti wenyewe, bila mamlaka yoyote kutoa hukumu.'
-					]
-				},
-				{
-					title: 'Mifumo ya malipo',
-					body: 'Nodi inalipwa <strong>kabla</strong> kwa ajili ya ahadi ya rasilimali zitakazotumika — kiasi fulani cha uchakataji, kwa muda fulani. Dhamana yake si ankara ya baadaye; ni <strong>sifa yake njema</strong>.',
-					points: [
-						'Malipo yanachukuliwa kabla, kabla utekelezaji haujaanza.',
-						'Uthibitisho wa malipo ndio unaofungua ufikiaji wa huduma zinazouhitaji.',
-						'Nodi inayopokea malipo kisha ikatoa pungufu inapoteza sifa njema, hivyo inakoma kuchaguliwa.'
-					]
+					stage: 'Wazo',
+					body: 'Nia iliyotangazwa ya kujenga nodi ya Android inayofikia huduma kupitia kiolesura rahisi cha mazungumzo, bila kuamini nodi nyingine yoyote. Hazina ina maelezo hayo tu kwa sasa — bado hakuna msimbo wa kuendesha.'
 				}
 			],
-			note: 'Kagua rekodi · lipa kwa haki · tekeleza · rekodi matokeo.'
+			note: 'Hakuna kitu hapa kinachoshika nafasi ya kitu kinachofanya kazi mahali pengine. Kinachofanya kazi, kinafanya kazi; kisichofanya, kinasema hivyo.'
 		},
-
-		distribution: {
-			eyebrow: 'Kuipeleka duniani',
-			heading: 'Usambazaji wa huduma',
-			intro: 'Hakuna duka la kuchapisha, wala ukaguzi wa kusubiri. Msanidi anakabidhi huduma kwa nodi moja, na mtandao unaibeba kutoka hapo.',
-			items: [
-				{
-					title: 'Ugunduzi usio na kituo kikuu',
-					body: 'Celaut haina <strong>orodha kuu ya usajili wa huduma</strong>. Huduma zinasambaa kati ya nodi moja kwa moja, hivyo zinaweza kupatikana moja kwa moja — na hakuna mlinzi wa lango anayeamua kama umeruhusiwa kuingia.'
-				},
-				{
-					title: 'Muunganisho wa hiari na blockchain',
-					body: 'Huduma zinaweza pia kutangazwa kwenye blockchain inayotekeleza orodha ya usajili — kama <strong>Sigma Reputation System</strong> kwenye Ergo — pale mwonekano na kumbukumbu inayoweza kukaguliwa vinapokuwa na thamani zaidi kuliko kubaki nje ya msururu wa data kabisa.'
-				}
-			]
-		},
-
 		applications: {
 			eyebrow: 'Ambako tayari inatumika',
 			heading: 'Athari halisi na matumizi',
-			intro: 'Muundo huu si jaribio la kifikra tu. Haya ndiyo mahali unapotumika leo.',
-			ours: [
+			intro: 'Muundo huu si jaribio la mawazo. Unatumika kwa umbali mbili tofauti — kama safu yenyewe, na kama msingi chini ya kitu chenye sababu yake ya kuwepo.',
+			layerHeading: 'Muundo, ukiwashwa',
+			layerTag: 'Safu yenyewe',
+			layerIntro: 'Hakuna kati ya hivi ni programu iliyojengwa juu ya Celaut. Hivi <strong>ndivyo</strong> Celaut ilivyo, mara nodi zinapoanza kufanya kazi kweli.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Yeyote anaweza kuendesha nodi ya Celaut na kuwa sehemu ya mtandao wa miundombinu halisi usio na kituo kikuu. Kila nodi inagundua wenzake, inaendesha na kuratibu huduma, na kusimamia utegemezi wake — ikigeuza kompyuta za kawaida kuwa uchakataji unaoshirikiwa na usiozuilika na udhibiti.'
+					name: 'DePIN',
+					body: 'Yeyote anaweza kuendesha nodi ya Celaut na kuwa sehemu ya mtandao uliogatuliwa wa miundombinu halisi. Kila nodi hutafuta wenzake, huendesha na kuratibu huduma, na kusimamia utegemezi wake — ikigeuza kompyuta za kawaida kuwa uwezo wa kukokotoa unaoshirikiwa na unaostahimili udhibiti. Huu ni mtandao wenyewe, si bidhaa juu yake.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Orodha ya usajili iliyo kabisa kwenye msururu wa data na isiyo na seva, ambapo mashujaa ni matatizo yenyewe. Badala ya kutafuta huduma, mawakala wanatafuta ujuzi fulani na kugundua huduma zinazoushughulikia, zikiwa na vipimo halisi (benchmarks) na uorodheshaji unaotegemea sifa njema. Imejengwa juu ya Ergo na Celaut, ikiwa na motisha halisi ya kushiriki hatari: hakuna anayeweza kutuma taka bila kuhatarisha sifa yake njema.'
+					body: 'Daftari lililo kwenye chaini kabisa, bila seva, ambapo mashujaa ni matatizo yenyewe. Badala ya kuwinda huduma, mawakala hutafuta ujuzi na kugundua huduma zinazoukidhi, zikiwa na vipimo halisi na madaraja yanayotegemea sifa. Ndiyo njia ambayo safu ya sifa ya dhana hii inafikiwa kivitendo — juu ya Ergo, na hatari halisi ya kibinafsi: hakuna anayejaza taka bila kuhatarisha sifa yake.'
 				}
 			],
-			thirdPartyHeading: 'Miradi ya wahusika wengine',
-			thirdPartyTag: 'haikujengwa na sisi',
-			thirdParty: {
+			builtOnHeading: 'Kilichojengwa juu yake',
+			builtOnTag: 'Mradi huru',
+			builtOnIntro: 'Hatua moja zaidi nje: bidhaa yenye lengo lake na watumiaji wake, ambayo kwa bahati imeundwa kwa huduma za Celaut. Ingebaki na maana hata ikijengwa upya juu ya kitu kingine — na hicho ndicho kinachoifanya kuwa ushahidi.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Jukwaa la ushindani ambapo wabunifu wanaunda <strong>huduma-mchezo</strong> zinazotathmini roboti zinazocheza ndani yake, na wachezaji wanaandika <strong>huduma-mtatuzi</strong> zinazojaribu kuongeza alama zao.',
@@ -434,27 +393,47 @@ export default {
 			formalPaper: 'Karatasi rasmi'
 		}
 	},
-
-	/* ============================================================== *
-	 * /depin — Kodisha PC yako
-	 * ============================================================== */
 	depin: {
 		meta: {
 			title: 'Kodisha PC yako — Celaut DePIN',
-			description:
-				'Uza rasilimali za kompyuta yako pale usipozitumia. Safu ya DePIN ya Celaut haina kituo kikuu kabisa, inakuruhusu kuweka bei ya uchakataji ukizingatia gharama zako za umeme, na kutenga kila mzigo wa kazi ndani ya microVM.'
+			description: 'Uza rasilimali za kompyuta yako pale usipozitumia. Safu ya DePIN ya Celaut haina kituo kikuu kabisa, inakuruhusu kuweka bei ya uchakataji ukizingatia gharama zako za umeme, na kutenga kila mzigo wa kazi ndani ya microVM.'
 		},
 		topbarTitle: 'Kodisha PC yako',
+		index: {
+			sections: {
+				rent: 'Wazo',
+				p2p: 'Nodi kwa nodi',
+				electricity: 'Bili yako ya umeme',
+				isolation: 'Utengaji',
+				payoff: 'Unachopata',
+				responsibilities: 'Nodi hufanya nini',
+				steps: 'Kutoka usakinishaji hadi mapato',
+				roles: 'Upande wa pili',
+				cta: 'Anza'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Kodisha PC yako.',
 			tagline: 'Uza rasilimali za kompyuta yako pale usipozitumia.',
 			lede: 'Mashine yako inatumia sehemu kubwa ya siku bila kazi. Celaut inageuza uwezo huo usiotumika kuwa kitu ambacho watu wanalipia — moja kwa moja, kwa masharti yako, huku kila mzigo wa kazi ukiwa umefungwa mbali na mfumo wako.',
-			actions: ['Anza kukodisha PC yako', 'Ona jinsi inavyofanya kazi'],
+			actions: [
+				'Anza kukodisha PC yako',
+				'Ona jinsi inavyofanya kazi'
+			],
 			stats: [
-				{ value: '100%', label: 'bila kituo kikuu kabisa — hakuna kampuni katikati' },
-				{ value: 'Wewe', label: 'unaweka bei, ukizingatia bili yako ya umeme' },
-				{ value: 'microVM', label: 'utenganishaji kwa kila mzigo wa kazi unaohifadhi' }
+				{
+					value: '100%',
+					label: 'bila kituo kikuu kabisa — hakuna kampuni katikati'
+				},
+				{
+					value: 'Wewe',
+					label: 'unaweka bei, ukizingatia bili yako ya umeme'
+				},
+				{
+					value: 'microVM',
+					label: 'utenganishaji kwa kila mzigo wa kazi unaohifadhi'
+				}
 			]
 		},
 		scenes: {
@@ -560,6 +539,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Nodi iliyo kwenye mashine yako hufanya nini hasa',
+			intro: 'Nodi ni <strong>kompyuta au kifaa</strong> kinachowasiliana na wenzake na kusimamia utekelezaji wa huduma. Dhana hii huipa kazi nne, na haiwekei mratibu yeyote juu yake.',
+			items: [
+				{
+					title: 'Utekelezaji wa huduma',
+					body: 'Inajadiliana na wenzake kuhusu gharama za utekelezaji na kuamua kama kuendesha huduma kwa ndani au kuikabidhi, ili rasilimali ziende ambako ni nafuu zaidi.'
+				},
+				{
+					title: 'Mawasiliano',
+					body: 'Inatangaza violesura inavyoviunga mkono na njia za malipo inazokubali inapowasiliana, jambo linaloruhusu itifaki kubadilika bila makubaliano ya awali.'
+				},
+				{
+					title: 'Usalama',
+					body: 'Inatoa na kusimamia anwani na tokeni za uthibitishaji ambazo kila mwingiliano wa huduma unatambulishwa nazo.'
+				},
+				{
+					title: 'Utegemezi',
+					body: 'Inahakikisha huduma inaweza kufikia kile inachohitaji, popote katika mtandao ambako utegemezi huo unaendeshwa.'
+				}
+			],
+			note: 'Hakuna kati ya hizo inayohitaji kujua programu inayoendeshwa ni ya kazi gani.'
+		},
 		steps: {
 			heading: 'Kutoka usakinishaji hadi kipato',
 			items: [
@@ -604,30 +606,54 @@ export default {
 		cta: {
 			heading: 'Washa mashine yako isiyotumika.',
 			body: 'Kusakinisha nodi kunahitaji amri moja tu. Ni njia ya haraka zaidi ya kugundua thamani ya maunzi yako pale yasipofanya kitu kingine chochote.',
-			actions: ['Endesha nodi', 'Soma mfumo msingi']
+			actions: [
+				'Endesha nodi',
+				'Soma mfumo msingi'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /developers — Jenga mara moja
-	 * ============================================================== */
 	developers: {
 		meta: {
 			title: 'Kwa wasanidi — jenga mara moja, endesha popote | Celaut',
-			description:
-				'Unda huduma za Celaut: bainisha BOX, API, na wigo wa NET, ikabidhi kwa nodi moja, na uache mtandao ukisambaze na kuutekeleze. Hakuna miundombinu, hakuna mipangilio, hakuna jukwaa katikati.'
+			description: 'Unda huduma za Celaut: bainisha BOX, API, na wigo wa NET, ikabidhi kwa nodi moja, na uache mtandao ukisambaze na kuutekeleze. Hakuna miundombinu, hakuna mipangilio, hakuna jukwaa katikati.'
 		},
 		topbarTitle: 'Kwa wasanidi',
+		index: {
+			sections: {
+				spec: 'Wazo',
+				agnostic: 'Huendeshwa popote',
+				distribute: 'Usambazaji',
+				compose: 'Uunganishaji',
+				payoff: 'Unachopata',
+				distribution: 'Jinsi inavyoenea',
+				steps: 'Kutoka msimbo hadi mtandao',
+				tradeoffs: 'Unachobadilishana',
+				roles: 'Wengine',
+				cta: 'Anza'
+			}
+		},
 		hero: {
 			eyebrow: 'Wasanidi wa huduma',
 			title: 'Jenga mara moja.',
 			tagline: 'Kisha acha kufikiria kuhusu inaendeshwa wapi.',
 			lede: 'Huduma ya Celaut si utekelezaji — ni vipimo. Eleza mazingira, kiunganishi, na wigo wa mtandao, ikabidhi kwa nodi moja tu, na mtandao unachukua jukumu kutoka hapo.',
-			actions: ['Chunguza Skills', 'Ona jinsi inavyofanya kazi'],
+			actions: [
+				'Chunguza Skills',
+				'Ona jinsi inavyofanya kazi'
+			],
 			stats: [
-				{ value: 'BOX · API · NET', label: 'vipengele vitatu — hivyo ndivyo vipimo vyote' },
-				{ value: 'Hakuna DevOps', label: 'nodi zinashughulikia utekelezaji; hakuna akaunti ya wingu ya kufungua' },
-				{ value: 'Uhakika', label: 'pembejeo zile zile, matokeo yale yale, kwenye nodi yoyote, wakati wowote' }
+				{
+					value: 'BOX · API · NET',
+					label: 'vipengele vitatu — hivyo ndivyo vipimo vyote'
+				},
+				{
+					value: 'Hakuna DevOps',
+					label: 'nodi zinashughulikia utekelezaji; hakuna akaunti ya wingu ya kufungua'
+				},
+				{
+					value: 'Uhakika',
+					label: 'pembejeo zile zile, matokeo yale yale, kwenye nodi yoyote, wakati wowote'
+				}
 			]
 		},
 		scenes: {
@@ -754,6 +780,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Jinsi huduma inavyoenea hasa',
+			intro: 'Hakuna duka la kuchapisha wala ukaguzi wa kusubiri. Huduma hukabidhiwa kwa nodi moja, na mtandao huipeleka kutoka hapo — kwa kawaida nje ya chaini, na kwa hiari juu yake.',
+			items: [
+				{
+					title: 'Nodi kwa nodi kwa kawaida',
+					body: 'Celaut haina <strong>orodha kuu ya usajili wa huduma</strong>. Huduma zinasambaa kati ya nodi moja kwa moja, hivyo zinaweza kupatikana moja kwa moja — na hakuna mlinzi wa lango anayeamua kama umeruhusiwa kuingia.'
+				},
+				{
+					title: 'Kwenye daftari, ikiwa inastahili',
+					body: 'Huduma zinaweza pia kutangazwa kwenye blockchain inayotekeleza orodha ya usajili — kama <strong>Sigma Reputation System</strong> kwenye Ergo — pale mwonekano na kumbukumbu inayoweza kukaguliwa vinapokuwa na thamani zaidi kuliko kubaki nje ya msururu wa data kabisa.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Mabadilishano unayoyafanya kwa kweli',
 			intro: 'Leo, kuchapisha programu kunamaanisha kuchagua kati ya kuihifadhi mwenyewe na kuwaomba watu waiendeshe wao wenyewe. Chaguzi zote mbili zina gharama. Dai la Celaut ni finyu na maalum: linachukua faida za kila moja bila hasara zake — kwa gharama ya udhibiti wako juu ya huduma inayoendeshwa.',
@@ -800,30 +840,53 @@ export default {
 		cta: {
 			heading: 'Anzia kwenye matatizo yenyewe.',
 			body: 'Unstoppable Skills ni orodha ya usajili ambapo mashujaa ni matatizo yenyewe: tafuta ujuzi, na upate huduma zinazoushughulikia, vipimo vyao, na sifa yao njema. Ni njia fupi zaidi kutoka “nijenge nini” hadi “nani anahitaji hili”.',
-			actions: ['Chunguza Skills', 'Soma mfumo msingi']
+			actions: [
+				'Chunguza Skills',
+				'Soma mfumo msingi'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /users — Iendeshe, lipia kilichotumika
-	 * ============================================================== */
 	users: {
 		meta: {
 			title: 'Kwa watumiaji wa mwisho — iendeshe, lipia kilichotumika | Celaut',
-			description:
-				'Endesha huduma kwenye nodi za Celaut na ulipie tu rasilimali za uchakataji zilizotumika. Hakuna akaunti, hakuna usajili wa kudumu, hakuna jukwaa katikati — huduma zinaendeshwa zikiwa zimetengwa na kwa uhakika, hivyo unapata sawasawa na vile vipimo vinavyoeleza.'
+			description: 'Endesha huduma kwenye nodi za Celaut na ulipie tu rasilimali za uchakataji zilizotumika. Hakuna akaunti, hakuna usajili wa kudumu, hakuna jukwaa katikati — huduma zinaendeshwa zikiwa zimetengwa na kwa uhakika, hivyo unapata sawasawa na vile vipimo vinavyoeleza.'
 		},
 		topbarTitle: 'Kwa watumiaji wa mwisho',
+		index: {
+			sections: {
+				ask: 'Wazo',
+				proof: 'Unachorudishiwa',
+				sealed: 'Imefungwa',
+				pay: 'Unacholipa',
+				payoff: 'Unachopata',
+				steps: 'Kutoka ombi hadi tokeo',
+				tradeoffs: 'Unachobadilishana',
+				roles: 'Wengine',
+				cta: 'Anza'
+			}
+		},
 		hero: {
 			eyebrow: 'Watumiaji wa huduma',
 			title: 'Iendeshe.',
 			tagline: 'Lipia kilichotumika. Hakuna kingine.',
 			lede: 'Endesha huduma kwenye nodi, pata matokeo, lipia uchakataji ulioutumia. Hakuna akaunti ya kuunda, hakuna usajili wa kufuta, na hakuna kampuni iliyoketi kati yako na mashine iliyofanya kazi hiyo.',
-			actions: ['Chunguza Skills', 'Ona jinsi inavyofanya kazi'],
+			actions: [
+				'Chunguza Skills',
+				'Ona jinsi inavyofanya kazi'
+			],
 			stats: [
-				{ value: 'Hakuna akaunti', label: 'hakuna cha kujiandikisha, hakuna cha kukuzuia' },
-				{ value: 'Kwa kila utekelezaji', label: 'unalipia tu rasilimali za uchakataji zilizotumika kikweli' },
-				{ value: 'Zilizotengwa', label: 'huduma zinaendeshwa zikiwa zimefungwa, na hazioni chochote wasichopewa' }
+				{
+					value: 'Hakuna akaunti',
+					label: 'hakuna cha kujiandikisha, hakuna cha kukuzuia'
+				},
+				{
+					value: 'Kwa kila utekelezaji',
+					label: 'unalipia tu rasilimali za uchakataji zilizotumika kikweli'
+				},
+				{
+					value: 'Zilizotengwa',
+					label: 'huduma zinaendeshwa zikiwa zimefungwa, na hazioni chochote wasichopewa'
+				}
 			]
 		},
 		scenes: {
@@ -996,13 +1059,12 @@ export default {
 		cta: {
 			heading: 'Anzia kwenye tatizo ulilonalo.',
 			body: 'Unstoppable Skills ni orodha ya usajili iliyo kabisa kwenye msururu wa data na isiyo na seva, ambapo mashujaa ni matatizo yenyewe. Tafuta ujuzi na upate huduma zinazoushughulikia, vipimo halisi vya kulinganisha, majadiliano, na uorodheshaji unaotegemea sifa njema.',
-			actions: ['Chunguza Skills', 'Kodisha PC yako badala yake']
+			actions: [
+				'Chunguza Skills',
+				'Kodisha PC yako badala yake'
+			]
 		}
 	},
-
-	/* ============================================================== *
-	 * /install
-	 * ============================================================== */
 	install: {
 		meta: {
 			title: 'Sakinisha Nodo — Celaut',
@@ -1010,9 +1072,12 @@ export default {
 		},
 		topbarTitle: 'Sakinisha nodo',
 		heading: 'Endesha Nodi ya Celaut',
-		subtitle:
-			'Sakinisha <strong>nodo</strong> na ujiunge na mtandao usio na kituo kikuu — gundua wenzako, endesha na ratibu huduma, na geuza mashine yako kuwa uchakataji unaoshirikiwa na usiozuilika na udhibiti.',
-		tabs: { linux: 'Linux', windows: 'Windows', mac: 'macOS' },
+		subtitle: 'Sakinisha <strong>nodo</strong> na ujiunge na mtandao usio na kituo kikuu — gundua wenzako, endesha na ratibu huduma, na geuza mashine yako kuwa uchakataji unaoshirikiwa na usiozuilika na udhibiti.',
+		tabs: {
+			linux: 'Linux',
+			windows: 'Windows',
+			mac: 'macOS'
+		},
 		copy: 'Nakili',
 		copied: 'Imenakiliwa ✓',
 		linux: {
@@ -1043,15 +1108,10 @@ export default {
 			repoLink: 'ghala la nodo'
 		}
 	},
-
-	/* ============================================================== *
-	 * /paradigm
-	 * ============================================================== */
 	paradigm: {
 		meta: {
 			title: 'Celaut — Karatasi Rasmi',
-			description:
-				'Celaut: muundo usio na kituo kikuu kwa ubunifu na usambazaji wa programu — karatasi rasmi.'
+			description: 'Celaut: muundo usio na kituo kikuu kwa ubunifu na usambazaji wa programu — karatasi rasmi.'
 		},
 		topbarTitle: 'Karatasi Rasmi',
 		toc: 'Yaliyomo',
@@ -1060,12 +1120,6 @@ export default {
 		executionHeading: 'Utekelezaji wa huduma',
 		balancerHeading: 'Ulinganishaji wa mzigo wa huduma'
 	},
-
-	/* ============================================================== *
-	 * Maneno yanayoonyeshwa kwenye maonyesho ya <canvas>.
-	 * Yamewekwa mafupi kwa makusudi — ni lebo, si sentensi, na
-	 * mpangilio wake umewekwa kwa mkono.
-	 * ============================================================== */
 	viz: {
 		home: {
 			generation: 'kizazi {n}',
@@ -1081,6 +1135,23 @@ export default {
 			environment: 'mazingira',
 			api: 'API',
 			interface: 'kiunganishi',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1130,10 +1201,22 @@ export default {
 			aPeer: 'mwenzake',
 			cost: 'gharama {value}',
 			oneInput: 'pembejeo moja',
-			when: ['sasa', 'baada ya mwaka mmoja', 'kwenye maunzi mengine'],
+			when: [
+				'sasa',
+				'baada ya mwaka mmoja',
+				'kwenye maunzi mengine'
+			],
 			identicalEveryTime: 'inafanana, kila wakati',
 			reputationLedger: 'sifa njema · rekodi kwenye kitabu cha hesabu',
 			sourcesYouTrust: 'vyanzo unavyoviamini',
+			principles: {
+				consequences: [
+					'→ hakuna itifaki ya kukubaliana',
+					'→ chombo, kiolesura, upeo',
+					'→ sifa inayobaki na maana yake'
+				],
+				derivedFrom: 'kingine chote kinatokana na hivi'
+			},
 			firstWhatSources: 'kwanza: vyanzo vyangu vinasemaje kuhusu hilo?',
 			rightShort: '2 vCPU · dakika 30',
 			rightLong: 'haki ya 2 vCPU · dakika 30',

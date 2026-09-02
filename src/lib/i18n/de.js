@@ -24,7 +24,13 @@ export default {
 		readMore: 'Mehr lesen →',
 		viewOnGitHub: 'Auf GitHub ansehen →',
 		languageLabel: 'Sprache',
-		switchLanguage: 'Sprache wechseln'
+		switchLanguage: 'Sprache wechseln',
+		toc: {
+			nav: 'Bereichsnavigation',
+			title: 'Auf dieser Seite',
+			open: 'Bereichsmenü öffnen',
+			close: 'Bereichsmenü schließen'
+		}
 	},
 	theme: {
 		toLight: 'Zum hellen Design wechseln',
@@ -82,26 +88,20 @@ export default {
 			]
 		},
 		index: {
-			nav: 'Bereichsnavigation',
-			title: 'Auf dieser Seite',
-			open: 'Bereichsmenü öffnen',
-			close: 'Bereichsmenü schließen',
 			sections: {
 				foundations: 'Ursprünge',
 				atoms: 'Nodes & Services',
-				nodes: 'Nodes',
+				nodes: 'Das Netzwerk',
 				services: 'Services',
 				'service-spec': 'Spezifikation',
 				execution: 'Ausführung',
 				determinism: 'Determinismus',
 				coordination: 'Koordination',
-				'user-roles': 'Welche Rolle hast du?',
 				'core-principles': 'Prinzipien',
 				'what-is-not': 'Was es nicht ist',
 				implementations: 'Implementierungen',
-				'coordination-detail': 'Anreize',
-				'service-distribution': 'Verteilung',
-				applications: 'Anwendungen'
+				applications: 'Anwendungen',
+				'user-roles': 'Welche Rolle hast du?'
 			}
 		},
 		scenes: {
@@ -245,6 +245,28 @@ export default {
 						note: 'Prüfen · zahlen · liefern · eintragen. Dann von vorn.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Die Regeln, an die es sich hält',
+				beats: [
+					{
+						h: 'Nichts davon war eine Funktionsliste.',
+						p: 'Ein Netzwerk ohne Protokoll, auf das man sich einigen muss, Services, die gegenüber den ausführenden Maschinen versiegelt sind, vorab deklarierte Netzwerke, Bezahlung vor der Ausführung — jedes Einzelne davon ist eine <strong>Folge</strong>. Drei Verpflichtungen bringen sie hervor, und sie tragen einander.'
+					},
+					{
+						h: 'Dezentralisierung.',
+						p: 'Kein <strong>einzelner Kontroll- oder Ausfallpunkt</strong>. Nodes kommunizieren und stimmen sich dynamisch ab, ohne etwas dazwischen, das um Erlaubnis gefragt werden müsste — weshalb es von vornherein kein Protokoll gab, auf das man sich hätte einigen müssen.'
+					},
+					{
+						h: 'Einfachheit.',
+						p: '<strong>Minimalistische Regeln</strong>, die Komplexität reduzieren, sodass jede Komponente klein genug bleibt, um für sich verstanden und gepflegt zu werden. Ein Service ist ein Container, eine Schnittstelle und ein Netzwerk-Scope — mehr nicht.'
+					},
+					{
+						h: 'Determinismus.',
+						p: 'Services sind vollständig genug spezifiziert, um ihre <strong>Ergebnisse reproduzierbar</strong> zu machen, über die Zeit und über Maschinen hinweg. Gleiche Eingaben, gleiche Ausgaben, wo und wann immer sie laufen — genau das macht eine vor einem Jahr aufgezeichnete Reputation heute noch lesenswert.',
+						note: 'Nimm eines der drei weg, und die anderen beiden sind kaum noch etwas wert.'
+					}
+				]
 			}
 		},
 		roles: {
@@ -291,21 +313,15 @@ export default {
 			]
 		},
 		principles: {
-			eyebrow: 'Die Regeln, an die es sich hält',
-			heading: 'Die Kernprinzipien von Celaut',
-			intro: 'Drei Festlegungen, aus denen die gesamte Architektur folgt. Alles darüber — Nodes ohne Protokoll, versiegelte Services, deklarierte Netze — ist eine Konsequenz daraus.',
 			items: [
 				{
-					title: 'Dezentralisierung',
-					body: 'Celaut beseitigt <strong>einzelne Kontroll- oder Ausfallpunkte</strong>, indem Nodes dynamisch kommunizieren und sich abstimmen — ohne eine Instanz dazwischen, die man um Erlaubnis fragen müsste.'
+					title: 'Dezentralisierung'
 				},
 				{
-					title: 'Einfachheit',
-					body: 'Die Architektur folgt <strong>minimalistischen Regeln</strong>, die Komplexität reduzieren, sodass jede Komponente klein genug bleibt, um für sich verstanden und gepflegt zu werden.'
+					title: 'Einfachheit'
 				},
 				{
-					title: 'Determinismus',
-					body: 'Services sind vollständig spezifiziert, um <strong>reproduzierbare Ergebnisse</strong> über Zeit und Nodes hinweg zu sichern. Bei gleichen Eingaben liefern sie gleiche Ausgaben, egal wo und wann sie laufen.'
+					title: 'Determinismus'
 				}
 			]
 		},
@@ -328,98 +344,45 @@ export default {
 				}
 			]
 		},
-		nodes: {
-			eyebrow: 'Die Maschinen',
-			heading: 'Nodes: das Fundament des Netzwerks',
-			intro: 'Ein Node ist ein <strong>Rechner oder Gerät</strong>, das mit Peers kommuniziert und die Ausführung von Services verwaltet. Vier Aufgaben, und keine Koordinationsinstanz darüber.',
-			jobs: [
-				{
-					title: 'Service-Ausführung',
-					body: 'Er verhandelt Ausführungskosten mit Peers und entscheidet, ob ein Service lokal läuft oder delegiert wird, damit Ressourcen dorthin gehen, wo sie am günstigsten sind.'
-				},
-				{
-					title: 'Kommunikation',
-					body: 'Er nennt beim Kontakt die Schnittstellen, die er unterstützt, und die Zahlungsmittel, die er akzeptiert — das lässt Protokolle ohne vorherige Absprache weiterwachsen.'
-				},
-				{
-					title: 'Sicherheit',
-					body: 'Er vergibt und verwaltet die Adressen und Authentifizierungs-Token, über die jede Service-Interaktion identifiziert wird.'
-				},
-				{
-					title: 'Abhängigkeiten',
-					body: 'Er stellt sicher, dass ein Service erreicht, was er braucht — wo auch immer im Netzwerk diese Abhängigkeit gerade läuft.'
-				}
-			],
-			implementationsHeading: 'Implementierungen, die du heute betreiben kannst',
-			implementations: [
+		implementations: {
+			eyebrow: 'Die Software',
+			heading: 'Was es heute gibt',
+			intro: 'Die Architektur ist eine Spezifikation, und jede und jeder kann einen Node dagegen implementieren. Eine Implementierung trägt das Netzwerk heute; eine zweite ist eine angekündigte Richtung und wird auch so gekennzeichnet.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'Die Referenzimplementierung, gebaut mit Python3 und Rust — ein funktionierendes Beispiel dafür, wie ein Node in der Praxis betrieben wird.'
+					stage: 'Läuft',
+					body: 'Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen offiziellen Installer, der seine eigene isolierte Linux-Umgebung einrichtet.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Ein Node für Android-Geräte. Er stellt Services über einfache Chat-Oberflächen bereit, ohne dass man einem anderen Node vertrauen müsste.'
-				}
-			]
-		},
-		coordination: {
-			eyebrow: 'Was Fremde zur Kooperation bringt',
-			heading: 'Koordinationsmechanismen',
-			intro: 'Keiner von beiden gehört zur Kernarchitektur, und das ist Absicht: Beide sitzen außerhalb, damit nie ein bestimmtes Ledger oder eine bestimmte Währung fest eingebaut wird.',
-			items: [
-				{
-					title: 'Reputationssysteme',
-					body: 'Eine Historie von Interaktionen, in Ledgern festgehalten als Meinungen, nicht als Urteile. Sie ist <strong>das, was zuerst konsultiert wird</strong>, bevor sich irgendjemand festlegt.',
-					points: [
-						'Jeder Akteur gewichtet nach eigenem Ermessen die Quellen, denen er ohnehin traut.',
-						'Ansehen ist es wert, geschützt zu werden — und wird so zur Sicherheit hinter einem Versprechen.',
-						'Das Ergebnis ist Selbstregulierung, ohne eine Autorität, die Urteile spricht.'
-					]
-				},
-				{
-					title: 'Zahlungsmechanismen',
-					body: 'Ein Node wird <strong>im Voraus</strong> bezahlt, im Gegenzug für ein Versprechen über zu verbrauchende Ressourcen — so viel Rechenleistung, für so lange. Seine Garantie ist keine Rechnung im Nachhinein; sie ist <strong>seine Reputation</strong>.',
-					points: [
-						'Bezahlt wird im Voraus, bevor die Ausführung beginnt.',
-						'Der Zahlungsnachweis öffnet den Zugang zu Services, die ihn verlangen.',
-						'Ein Node, der kassiert und zu wenig liefert, verliert Reputation — und wird nicht mehr gewählt.'
-					]
+					stage: 'Konzept',
+					body: 'Die erklärte Absicht, einen Android-Node zu bauen, der Services über eine schlichte Chat-Oberfläche erreicht, ohne einem anderen Node vertrauen zu müssen. Das Repository enthält derzeit diese Beschreibung und sonst nichts — es gibt noch keinen Code zum Ausführen.'
 				}
 			],
-			note: 'Eintrag prüfen · für das Recht zahlen · liefern · Ergebnis eintragen.'
-		},
-		distribution: {
-			eyebrow: 'Unter die Leute bringen',
-			heading: 'Service-Verteilung',
-			intro: 'Es gibt keinen Store zum Veröffentlichen und keine Prüfung, auf die man wartet. Ein Entwickler übergibt den Service an einen Node, und das Netzwerk trägt ihn von dort weiter.',
-			items: [
-				{
-					title: 'Dezentrale Auffindbarkeit',
-					body: 'Celaut hat <strong>kein zentrales Service-Register</strong>. Services verbreiten sich peer-to-peer über Nodes und lassen sich direkt finden — und niemand entscheidet als Türsteher, ob du reindarfst.'
-				},
-				{
-					title: 'Optionale Blockchain-Anbindung',
-					body: 'Services können auch auf einer Blockchain mit Registerfunktion deklariert werden — etwa im <strong>Sigma Reputation System</strong> auf Ergo —, wenn Sichtbarkeit und eine prüfbare Spur mehr wert sind als vollständige Off-Chain-Zurückhaltung.'
-				}
-			]
+			note: 'Nichts hier ist ein Platzhalter für etwas, das anderswo schon funktioniert. Was läuft, läuft; was nicht läuft, sagt es.'
 		},
 		applications: {
 			eyebrow: 'Wo es bereits läuft',
 			heading: 'Wirkung und Anwendungen in der Praxis',
-			intro: 'Die Architektur ist kein Gedankenexperiment. Das sind die Orte, an denen sie heute im Einsatz ist.',
-			ours: [
+			intro: 'Die Architektur ist kein Gedankenexperiment. Sie ist in zwei unterschiedlichen Abständen im Einsatz — als die Schicht selbst, und als Fundament unter etwas, das seinen eigenen Daseinsgrund hat.',
+			layerHeading: 'Die Architektur, eingeschaltet',
+			layerTag: 'Die Schicht selbst',
+			layerIntro: 'Keines von beiden ist eine auf Celaut gebaute Anwendung. Sie sind das, was Celaut <strong>ist</strong>, sobald tatsächlich Nodes laufen.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Jeder kann einen Celaut-Node betreiben und Teil eines dezentralen physischen Infrastrukturnetzes werden. Jeder Node findet Peers, führt Services aus, orchestriert sie und verwaltet ihre Abhängigkeiten — und macht so aus gewöhnlichen Rechnern geteilte, zensurresistente Rechenleistung.'
+					name: 'DePIN',
+					body: 'Jede und jeder kann einen Celaut-Node betreiben und Teil eines dezentralen physischen Infrastrukturnetzwerks werden. Jeder Node findet Peers, führt Services aus und orchestriert sie, und verwaltet ihre Abhängigkeiten — gewöhnliche Rechner werden so zu geteilter, zensurresistenter Rechenleistung. Das ist das Netzwerk, kein Produkt darauf.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Ein vollständig on-chain laufendes, serverloses Register, in dem die Probleme die Hauptrolle spielen. Statt nach Services zu suchen, suchen Agenten nach einem Skill und entdecken die Services, die ihn abdecken — mit echten Benchmarks und reputationsbasiertem Ranking. Gebaut auf Ergo und Celaut, mit echtem Einsatz: niemand spammt, ohne Reputation zu riskieren.'
+					body: 'Ein vollständig on-chain betriebenes, serverloses Register, in dem die Probleme die Hauptrolle spielen. Statt nach Services zu suchen, suchen Agenten nach einer Fähigkeit und finden die Services, die sie abdecken — mit echten Benchmarks und reputationsbasiertem Ranking. So wird die Reputationsschicht des Paradigmas praktisch erreichbar: auf Ergo, mit echtem Einsatz, denn niemand spammt, ohne Reputation zu riskieren.'
 				}
 			],
-			thirdPartyHeading: 'Von Dritten',
-			thirdPartyTag: 'nicht von uns gebaut',
-			thirdParty: {
+			builtOnHeading: 'Darauf aufgebaut',
+			builtOnTag: 'Eigenständiges Projekt',
+			builtOnIntro: 'Einen Schritt weiter draußen: ein Produkt mit eigenem Zweck und eigenen Nutzern, das zufällig aus Celaut-Services zusammengesetzt ist. Es ergäbe auch dann noch Sinn, wenn es auf etwas anderem neu gebaut würde — und genau das macht es zum Beleg.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Eine Wettbewerbsplattform, auf der Kreative <strong>Game-Services</strong> entwerfen, die die spielenden Roboter bewerten, und Spieler <strong>Solver-Services</strong> schreiben, die ihre Punktzahl maximieren sollen.',
@@ -436,6 +399,19 @@ export default {
 			description: 'Verkaufe die Ressourcen deines Rechners, wenn du ihn gerade nicht brauchst. Die DePIN-Schicht von Celaut ist vollständig peer-to-peer, lässt dich Rechenleistung rund um deine Stromkosten bepreisen und kapselt jede Last in einer microVM.'
 		},
 		topbarTitle: 'PC vermieten',
+		index: {
+			sections: {
+				rent: 'Die Idee',
+				p2p: 'Peer-to-Peer',
+				electricity: 'Deine Stromrechnung',
+				isolation: 'Isolation',
+				payoff: 'Was du bekommst',
+				responsibilities: 'Was ein Node tut',
+				steps: 'Von der Installation zum Ertrag',
+				roles: 'Die andere Seite',
+				cta: 'Loslegen'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Vermiete deinen PC.',
@@ -563,6 +539,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Was der Node auf deiner Maschine tatsächlich tut',
+			intro: 'Ein Node ist ein <strong>Rechner oder Gerät</strong>, das mit Peers kommuniziert und die Ausführung von Services verwaltet. Das Paradigma gibt ihm vier Aufgaben — und setzt keinen Koordinator über ihn.',
+			items: [
+				{
+					title: 'Service-Ausführung',
+					body: 'Er verhandelt Ausführungskosten mit Peers und entscheidet, ob ein Service lokal läuft oder delegiert wird, damit Ressourcen dorthin gehen, wo sie am günstigsten sind.'
+				},
+				{
+					title: 'Kommunikation',
+					body: 'Er nennt beim Kontakt die Schnittstellen, die er unterstützt, und die Zahlungsmittel, die er akzeptiert — das lässt Protokolle ohne vorherige Absprache weiterwachsen.'
+				},
+				{
+					title: 'Sicherheit',
+					body: 'Er vergibt und verwaltet die Adressen und Authentifizierungs-Token, über die jede Service-Interaktion identifiziert wird.'
+				},
+				{
+					title: 'Abhängigkeiten',
+					body: 'Er stellt sicher, dass ein Service erreicht, was er braucht — wo auch immer im Netzwerk diese Abhängigkeit gerade läuft.'
+				}
+			],
+			note: 'Nichts davon setzt voraus, zu wissen, wofür die ausgeführte Software gedacht ist.'
+		},
 		steps: {
 			heading: 'Von der Installation zum Einkommen',
 			items: [
@@ -619,6 +618,20 @@ export default {
 			description: 'Baue Celaut-Services: spezifiziere eine BOX, eine API und einen NET-Bereich, übergib es einem Node und lass das Netzwerk es verteilen und ausführen. Keine Infrastruktur, keine Konfiguration, keine Plattform dazwischen.'
 		},
 		topbarTitle: 'Für Entwickler',
+		index: {
+			sections: {
+				spec: 'Die Idee',
+				agnostic: 'Läuft überall',
+				distribute: 'Verteilung',
+				compose: 'Komposition',
+				payoff: 'Was du bekommst',
+				distribution: 'Wie es sich verbreitet',
+				steps: 'Vom Code ins Netzwerk',
+				tradeoffs: 'Der Handel',
+				roles: 'Die anderen',
+				cta: 'Loslegen'
+			}
+		},
 		hero: {
 			eyebrow: 'Service-Entwickler',
 			title: 'Bau es einmal.',
@@ -767,6 +780,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Wie sich ein Service tatsächlich verbreitet',
+			intro: 'Es gibt keinen Store zum Veröffentlichen und keine Prüfung, auf die man warten müsste. Ein Service wird einem Node übergeben, und das Netzwerk trägt ihn von dort weiter — standardmäßig off-chain, optional on-chain.',
+			items: [
+				{
+					title: 'Standardmäßig Peer-to-Peer',
+					body: 'Celaut hat <strong>kein zentrales Service-Register</strong>. Services verbreiten sich peer-to-peer über Nodes und lassen sich direkt finden — und niemand entscheidet als Türsteher, ob du reindarfst.'
+				},
+				{
+					title: 'In einem Register, wenn es sich lohnt',
+					body: 'Services können auch auf einer Blockchain mit Registerfunktion deklariert werden — etwa im <strong>Sigma Reputation System</strong> auf Ergo —, wenn Sichtbarkeit und eine prüfbare Spur mehr wert sind als vollständige Off-Chain-Zurückhaltung.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Der Handel, den du wirklich eingehst',
 			intro: 'Heute heißt Software ausliefern: entweder selbst hosten oder die Leute bitten, sie selbst zu betreiben. Beides kostet etwas. Celauts Behauptung ist eng und konkret: Es nimmt die Vorteile von beidem ohne deren Nachteile — zum Preis deiner Kontrolle über den laufenden Service.',
@@ -825,6 +852,19 @@ export default {
 			description: 'Starte Services auf Celaut-Nodes und zahle nur für die genutzten Rechenressourcen. Keine Konten, keine Abos, keine Plattform dazwischen — Services laufen isoliert und deterministisch, du bekommst also genau das, was die Spezifikation beschreibt.'
 		},
 		topbarTitle: 'Für Endnutzer',
+		index: {
+			sections: {
+				ask: 'Die Idee',
+				proof: 'Was du zurückbekommst',
+				sealed: 'Versiegelt',
+				pay: 'Was du zahlst',
+				payoff: 'Was du bekommst',
+				steps: 'Von der Anfrage zum Ergebnis',
+				tradeoffs: 'Der Handel',
+				roles: 'Die anderen',
+				cta: 'Loslegen'
+			}
+		},
 		hero: {
 			eyebrow: 'Service-Nutzer',
 			title: 'Führ es aus.',
@@ -1095,6 +1135,23 @@ export default {
 			environment: 'Umgebung',
 			api: 'API',
 			interface: 'Schnittstelle',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1152,6 +1209,14 @@ export default {
 			identicalEveryTime: 'identisch, jedes Mal',
 			reputationLedger: 'Reputation · Einträge in einem Ledger',
 			sourcesYouTrust: 'die Quellen, denen du traust',
+			principles: {
+				consequences: [
+					'→ kein Protokoll zum Einigen',
+					'→ ein Container, eine Schnittstelle, ein Scope',
+					'→ Reputation, die ihre Bedeutung behält'
+				],
+				derivedFrom: 'alles andere folgt daraus'
+			},
 			firstWhatSources: 'zuerst: was sagen meine Quellen dazu?',
 			rightShort: '2 vCPU · 30 Min',
 			rightLong: 'Recht auf 2 vCPU · 30 Min',

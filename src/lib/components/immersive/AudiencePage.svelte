@@ -32,6 +32,7 @@
 	import ImmersiveHero from './ImmersiveHero.svelte';
 	import PinnedScene from './PinnedScene.svelte';
 	import SceneBeat from './SceneBeat.svelte';
+	import SectionIndex from '$lib/components/SectionIndex.svelte';
 	import { startSmoothScroll, loadGsap, prefersReducedMotion, scrollTo } from '$lib/motion.js';
 	import { t, exists, href } from '$lib/i18n/index.js';
 
@@ -60,6 +61,38 @@
 	// Optional sections are gated on `$exists` rather than `$t`, so an
 	// intentional absence (/depin has no trade-off table) is not reported
 	// as a missing translation.
+
+	/*
+	 * Section index (the left rail / mobile FAB).
+	 *
+	 * These pages are as long as the landing page — four pinned scenes
+	 * plus up to five grounded blocks — and had no way to see their own
+	 * shape or jump within it. The list is derived rather than declared:
+	 * every scene, then whichever grounded blocks this page's dictionary
+	 * actually defines, in the order they render. That way a route that
+	 * gains or loses a block gets the right rail for free, and the rail
+	 * can never list an anchor that isn't on the page.
+	 *
+	 * `groundBlocks` is also what the markup iterates for its ids, so the
+	 * two orders are the same order by construction.
+	 */
+	const GROUND_BLOCKS = [
+		'payoff',
+		'responsibilities',
+		'distribution',
+		'steps',
+		'tradeoffs',
+		'roles',
+		'cta'
+	];
+
+	$: indexSections = [
+		...scenes.map((s) => ({ id: s.id, labelKey: `${page}.index.sections.${s.id}` })),
+		...GROUND_BLOCKS.filter((b) => $exists(`${page}.${b}`)).map((b) => ({
+			id: b,
+			labelKey: `${page}.index.sections.${b}`
+		}))
+	];
 
 	/** @type {HTMLElement | undefined} */
 	let revealRoot;
@@ -129,6 +162,8 @@
 <div id="top" class="audience-page" style={`--beats-min-h: ${beatsMinHeight};`}>
 	<SiteTopbar title={$t(`${page}.topbarTitle`)} />
 
+	<SectionIndex sections={indexSections} />
+
 	<main>
 		<ImmersiveHero
 			eyebrow={$t(`${page}.hero.eyebrow`)}
@@ -177,7 +212,7 @@
 		<!-- ================= Grounded content below ================= -->
 		<div class="ground" bind:this={revealRoot}>
 			{#if $exists(`${page}.payoff`)}
-				<section class="block">
+				<section class="block" id="payoff">
 					<h2 data-reveal>{$t(`${page}.payoff.heading`)}</h2>
 					<div class="grid" data-reveal-group>
 						{#each $t(`${page}.payoff.items`) as item}
@@ -190,8 +225,31 @@
 				</section>
 			{/if}
 
+			<!-- A plain two-or-more card block with an intro and an optional
+			     closing note. /depin uses it for the four node responsibilities
+			     the paradigm defines; /developers for how a service spreads. -->
+			{#each ['responsibilities', 'distribution'] as key}
+				{#if $exists(`${page}.${key}`)}
+					<section class="block" id={key}>
+						<h2 data-reveal>{$t(`${page}.${key}.heading`)}</h2>
+						<p class="block-intro" data-reveal>{@html $t(`${page}.${key}.intro`)}</p>
+						<div class="grid" data-reveal-group>
+							{#each $t(`${page}.${key}.items`) as item}
+								<article class="card">
+									<h3>{@html item.title}</h3>
+									<p>{@html item.body}</p>
+								</article>
+							{/each}
+						</div>
+						{#if $exists(`${page}.${key}.note`)}
+							<span class="block-note" data-reveal>{$t(`${page}.${key}.note`)}</span>
+						{/if}
+					</section>
+				{/if}
+			{/each}
+
 			{#if $exists(`${page}.steps`)}
-				<section class="block">
+				<section class="block" id="steps">
 					<h2 data-reveal>{$t(`${page}.steps.heading`)}</h2>
 					<ol class="flow" data-reveal-group>
 						{#each $t(`${page}.steps.items`) as step, i}
@@ -210,7 +268,7 @@
 			{/if}
 
 			{#if $exists(`${page}.tradeoffs`)}
-				<section class="block">
+				<section class="block" id="tradeoffs">
 					<h2 data-reveal>{$t(`${page}.tradeoffs.heading`)}</h2>
 					<p class="block-intro" data-reveal>{@html $t(`${page}.tradeoffs.intro`)}</p>
 					<div class="tradeoffs" data-reveal-group>
@@ -230,7 +288,7 @@
 			{/if}
 
 			{#if $exists(`${page}.roles`)}
-				<section class="block">
+				<section class="block" id="roles">
 					<h2 data-reveal>{$t(`${page}.roles.heading`)}</h2>
 					<p class="block-intro" data-reveal>{@html $t(`${page}.roles.intro`)}</p>
 					<div class="roles" data-reveal-group>
@@ -250,7 +308,7 @@
 			{/if}
 
 			{#if $exists(`${page}.cta`)}
-				<section class="cta" data-reveal>
+				<section class="cta" id="cta" data-reveal>
 					<h2>{$t(`${page}.cta.heading`)}</h2>
 					<p>{@html $t(`${page}.cta.body`)}</p>
 					<div class="cta-actions">
@@ -284,6 +342,25 @@
 		font-family: var(--font-body);
 	}
 
+	/*
+	 * These pages now carry SectionIndex's fixed rail down the leading
+	 * edge. The rail sits ~14px from the edge and grows to ~200px wide
+	 * once a label is active, so left-aligned scene captions need a
+	 * gutter wider than that or the copy renders under the dots. Only on
+	 * desktop: below 1025px the rail is a FAB in the bottom corner, and
+	 * below 820px the caption is a full-width scrim anyway.
+	 *
+	 * `margin-inline-start` rather than `margin-left`, because the rail
+	 * is positioned with `inset-inline-start` — both flip together under
+	 * dir="rtl".
+	 */
+	@media (min-width: 1025px) {
+		.audience-page :global(.scene:not(.align-right):not(.is-static) .scene-copy) {
+			margin-inline-start: clamp(150px, 13vw, 220px);
+			width: min(520px, 100%);
+		}
+	}
+
 	/* Caption beats cross-fade in the same grid cell while pinned; in the
 	   static/reduced-motion path they stack as normal blocks. */
 	.beats {
@@ -306,8 +383,12 @@
 		padding: 24px clamp(20px, 6vw, 24px) 110px;
 	}
 
+
+
 	.block {
 		padding: 72px 0 8px;
+		/* Clear the fixed topbar when the section index jumps here. */
+		scroll-margin-top: 76px;
 	}
 
 	.block h2 {
@@ -323,6 +404,18 @@
 		max-width: 760px;
 		margin: 0 0 32px;
 		line-height: 1.7;
+		color: var(--on-surface-muted);
+	}
+
+	/* The same closing pill the scene captions use. */
+	.block-note {
+		display: inline-block;
+		margin-top: 22px;
+		padding: 7px 14px;
+		border-radius: 999px;
+		border: 1px solid var(--border-strong);
+		background: rgba(var(--on-surface-rgb), 0.05);
+		font-size: 0.86rem;
 		color: var(--on-surface-muted);
 	}
 
@@ -501,6 +594,7 @@
 	/* --- CTA --- */
 	.cta {
 		margin-top: 72px;
+		scroll-margin-top: 76px;
 		text-align: center;
 		background-color: var(--surface-alt);
 		border: 1px solid var(--accent);
@@ -561,9 +655,18 @@
 		transform: translateY(-2px);
 	}
 
+	/*
+	 * Logical inset, not `right`. These pages now carry SectionIndex,
+	 * whose mobile FAB is pinned to `inset-inline-start` — so under
+	 * dir="rtl" a physical `right` put this control in the same bottom
+	 * corner as the FAB and the two overlapped, covering body copy.
+	 * `inset-inline-end` flips with the FAB and they stay on opposite
+	 * corners in both directions. (GoToTop, the landing page's
+	 * equivalent, already did this.)
+	 */
 	.to-top {
 		position: fixed;
-		right: 24px;
+		inset-inline-end: 24px;
 		bottom: 24px;
 		background-color: var(--accent);
 		color: var(--on-accent);
