@@ -655,9 +655,18 @@
 		transform: translateY(-2px);
 	}
 
+	/*
+	 * Logical inset, not `right`. These pages now carry SectionIndex,
+	 * whose mobile FAB is pinned to `inset-inline-start` — so under
+	 * dir="rtl" a physical `right` put this control in the same bottom
+	 * corner as the FAB and the two overlapped, covering body copy.
+	 * `inset-inline-end` flips with the FAB and they stay on opposite
+	 * corners in both directions. (GoToTop, the landing page's
+	 * equivalent, already did this.)
+	 */
 	.to-top {
 		position: fixed;
-		right: 24px;
+		inset-inline-end: 24px;
 		bottom: 24px;
 		background-color: var(--accent);
 		color: var(--on-accent);
