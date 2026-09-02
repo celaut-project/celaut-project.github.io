@@ -353,7 +353,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Berjalan',
-					body: 'Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang bertanda tangan yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.'
+					body: 'Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang resmi yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.'
 				},
 				{
 					name: 'Chatui',

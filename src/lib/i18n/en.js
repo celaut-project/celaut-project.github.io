@@ -381,7 +381,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Running',
-					body: 'The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through a signed installer that provisions its own isolated Linux environment.'
+					body: 'The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through an official installer that provisions its own isolated Linux environment.'
 				},
 				{
 					name: 'Chatui',

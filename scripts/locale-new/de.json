@@ -16,7 +16,7 @@
   "home.implementations.heading": "Was es heute gibt",
   "home.implementations.intro": "Die Architektur ist eine Spezifikation, und jede und jeder kann einen Node dagegen implementieren. Eine Implementierung trägt das Netzwerk heute; eine zweite ist eine angekündigte Richtung und wird auch so gekennzeichnet.",
   "home.implementations.items.0.stage": "Läuft",
-  "home.implementations.items.0.body": "Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen signierten Installer, der seine eigene isolierte Linux-Umgebung einrichtet.",
+  "home.implementations.items.0.body": "Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen offiziellen Installer, der seine eigene isolierte Linux-Umgebung einrichtet.",
   "home.implementations.items.1.stage": "Konzept",
   "home.implementations.items.1.body": "Die erklärte Absicht, einen Android-Node zu bauen, der Services über eine schlichte Chat-Oberfläche erreicht, ohne einem anderen Node vertrauen zu müssen. Das Repository enthält derzeit diese Beschreibung und sonst nichts — es gibt noch keinen Code zum Ausführen.",
   "home.implementations.note": "Nichts hier ist ein Platzhalter für etwas, das anderswo schon funktioniert. Was läuft, läuft; was nicht läuft, sagt es.",

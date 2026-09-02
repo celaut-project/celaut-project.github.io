@@ -16,7 +16,7 @@
   "home.implementations.heading": "오늘 존재하는 것",
   "home.implementations.intro": "이 아키텍처는 명세이며, 누구나 그에 맞춰 노드를 구현할 수 있습니다. 지금 네트워크를 실제로 굴리는 구현이 하나 있고, 두 번째는 발표된 방향일 뿐이며 그렇게 표시되어 있습니다.",
   "home.implementations.items.0.stage": "가동 중",
-  "home.implementations.items.0.body": "Python3와 Rust로 만든 레퍼런스 구현입니다. 서비스를 실행하고, 피어와 비용을 협상하며, 주소와 토큰을 발급하고, 의존성이 어디서 돌든 해결합니다. 리눅스에서는 명령 한 줄로, Windows 11에서는 자체 격리 리눅스 환경을 준비하는 서명된 설치 프로그램으로 설치합니다.",
+  "home.implementations.items.0.body": "Python3와 Rust로 만든 레퍼런스 구현입니다. 서비스를 실행하고, 피어와 비용을 협상하며, 주소와 토큰을 발급하고, 의존성이 어디서 돌든 해결합니다. 리눅스에서는 명령 한 줄로, Windows 11에서는 자체 격리 리눅스 환경을 준비하는 공식 설치 프로그램으로 설치합니다.",
   "home.implementations.items.1.stage": "구상",
   "home.implementations.items.1.body": "다른 어떤 노드도 신뢰하지 않고 단순한 채팅 인터페이스로 서비스에 접근하는 안드로이드 노드를 만들겠다는 선언된 의도입니다. 저장소에는 현재 그 설명만 있을 뿐 — 아직 실행할 코드는 없습니다.",
   "home.implementations.note": "여기 있는 어느 것도 다른 데서 이미 동작하는 무언가의 자리를 대신 채우고 있지 않습니다. 되는 것은 된다고, 안 되는 것은 안 된다고 말합니다.",

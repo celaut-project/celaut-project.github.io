@@ -352,7 +352,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Inafanya kazi',
-					body: 'Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi kilichotiwa saini kinachojiandalia mazingira yake ya Linux yaliyotengwa.'
+					body: 'Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi rasmi kinachojiandalia mazingira yake ya Linux yaliyotengwa.'
 				},
 				{
 					name: 'Chatui',

@@ -16,7 +16,7 @@
   "home.implementations.heading": "今日あるもの",
   "home.implementations.intro": "このアーキテクチャは仕様であり、誰でもそれに沿ってノードを実装できます。いま実際にネットワークを動かしている実装が一つ。もう一つは表明された方向性であり、そう明記してあります。",
   "home.implementations.items.0.stage": "稼働中",
-  "home.implementations.items.0.body": "Python3 と Rust によるリファレンス実装です。サービスを実行し、ピアとコストを交渉し、アドレスとトークンを払い出し、依存関係がどこで走っていても解決します。Linux ではコマンド一つで、Windows 11 では専用の隔離 Linux 環境を用意する署名済みインストーラーで導入できます。",
+  "home.implementations.items.0.body": "Python3 と Rust によるリファレンス実装です。サービスを実行し、ピアとコストを交渉し、アドレスとトークンを払い出し、依存関係がどこで走っていても解決します。Linux ではコマンド一つで、Windows 11 では専用の隔離 Linux 環境を用意する公式インストーラーで導入できます。",
   "home.implementations.items.1.stage": "構想",
   "home.implementations.items.1.body": "他のどのノードも信頼せずに、素朴なチャット画面からサービスへ届く Android ノードを作るという表明です。リポジトリには現在その説明があるだけで——動かせるコードはまだありません。",
   "home.implementations.note": "ここにあるものは、どこかで既に動いている何かの穴埋めではありません。動くものは動く、動かないものはそう言う。",

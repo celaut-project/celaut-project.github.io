@@ -16,7 +16,7 @@
   "home.implementations.heading": "Bugün ne var",
   "home.implementations.intro": "Mimari bir şartname; isteyen herkes ona uygun bir düğüm geliştirebilir. Ağı bugün fiilen çalıştıran bir uygulama var; ikincisi ise duyurulmuş bir yön ve öyle işaretlenmiş durumda.",
   "home.implementations.items.0.stage": "Çalışıyor",
-  "home.implementations.items.0.body": "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran imzalı bir yükleyiciyle kurulur.",
+  "home.implementations.items.0.body": "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran resmî bir yükleyiciyle kurulur.",
   "home.implementations.items.1.stage": "Kavram",
   "home.implementations.items.1.body": "Başka hiçbir düğüme güvenmeden, sade bir sohbet arayüzü üzerinden servislere ulaşan bir Android düğümü yapma niyetinin beyanı. Depo şu an yalnızca bu açıklamayı barındırıyor — çalıştırılacak bir kod henüz yok.",
   "home.implementations.note": "Burada hiçbir şey, başka bir yerde zaten çalışan bir şeyin yerini geçici olarak tutmuyor. Çalışan çalışır; çalışmayan da bunu söyler.",

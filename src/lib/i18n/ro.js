@@ -353,7 +353,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Funcțional',
-					body: 'Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator semnat care își pregătește propriul mediu Linux izolat.'
+					body: 'Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator oficial care își pregătește propriul mediu Linux izolat.'
 				},
 				{
 					name: 'Chatui',

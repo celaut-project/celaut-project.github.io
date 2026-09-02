@@ -16,7 +16,7 @@
   "home.implementations.heading": "Ce qui existe aujourd’hui",
   "home.implementations.intro": "L’architecture est une spécification, et n’importe qui peut implémenter un nœud qui s’y conforme. Une implémentation fait tourner le réseau aujourd’hui ; la seconde est une direction annoncée, et elle est signalée comme telle.",
   "home.implementations.items.0.stage": "En service",
-  "home.implementations.items.0.body": "L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur signé qui provisionne son propre environnement Linux isolé.",
+  "home.implementations.items.0.body": "L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur officiel qui prépare son propre environnement Linux isolé.",
   "home.implementations.items.1.stage": "Concept",
   "home.implementations.items.1.body": "L’intention déclarée de construire un nœud Android qui atteint les services via une simple interface de discussion, sans faire confiance à aucun autre nœud. Le dépôt contient aujourd’hui cette description et rien d’autre — il n’y a pas encore de code à exécuter.",
   "home.implementations.note": "Rien ici ne remplace provisoirement quelque chose qui fonctionnerait déjà ailleurs. Ce qui tourne, tourne ; ce qui ne tourne pas, le dit.",

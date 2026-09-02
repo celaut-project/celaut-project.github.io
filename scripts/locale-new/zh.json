@@ -16,7 +16,7 @@
   "home.implementations.heading": "今天已有什么",
   "home.implementations.intro": "这套架构是一份规范，任何人都可以据此实现节点。目前有一个实现在真正支撑网络运行；第二个只是已宣布的方向，并被如实标注。",
   "home.implementations.items.0.stage": "运行中",
-  "home.implementations.items.0.body": "参考实现，用 Python3 与 Rust 编写。它执行服务、与对等节点协商成本、分配地址与令牌，并解析依赖——无论依赖在何处运行。在 Linux 上一条命令即可安装，在 Windows 11 上通过签名安装程序安装，后者会自行准备一个隔离的 Linux 环境。",
+  "home.implementations.items.0.body": "参考实现，用 Python3 与 Rust 编写。它执行服务、与对等节点协商成本、分配地址与令牌，并解析依赖——无论依赖在何处运行。在 Linux 上一条命令即可安装，在 Windows 11 上通过官方安装程序安装，后者会自行准备一个隔离的 Linux 环境。",
   "home.implementations.items.1.stage": "构想",
   "home.implementations.items.1.body": "一个已表明的意图：构建一个 Android 节点，通过朴素的聊天界面访问服务，且不必信任任何其他节点。该仓库目前只有这段描述——还没有可运行的代码。",
   "home.implementations.note": "这里没有任何东西是在替某个别处已经跑起来的东西占位。能跑的就是能跑；不能跑的，它自己会说明。",

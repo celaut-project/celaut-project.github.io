@@ -351,7 +351,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'En service',
-					body: 'L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur signé qui provisionne son propre environnement Linux isolé.'
+					body: 'L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur officiel qui prépare son propre environnement Linux isolé.'
 				},
 				{
 					name: 'Chatui',

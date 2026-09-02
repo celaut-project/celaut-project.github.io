@@ -352,7 +352,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Çalışıyor',
-					body: "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran imzalı bir yükleyiciyle kurulur."
+					body: "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran resmî bir yükleyiciyle kurulur."
 				},
 				{
 					name: 'Chatui',

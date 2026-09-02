@@ -16,7 +16,7 @@
   "home.implementations.heading": "Ce există astăzi",
   "home.implementations.intro": "Arhitectura este o specificație, iar oricine poate implementa un nod după ea. O implementare susține rețeaua acum; a doua este o direcție anunțată și este marcată ca atare.",
   "home.implementations.items.0.stage": "Funcțional",
-  "home.implementations.items.0.body": "Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator semnat care își pregătește propriul mediu Linux izolat.",
+  "home.implementations.items.0.body": "Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator oficial care își pregătește propriul mediu Linux izolat.",
   "home.implementations.items.1.stage": "Concept",
   "home.implementations.items.1.body": "Intenția declarată de a construi un nod Android care ajunge la servicii printr-o interfață simplă de chat, fără a avea încredere în vreun alt nod. Depozitul conține momentan doar această descriere — încă nu există cod care să poată fi rulat.",
   "home.implementations.note": "Nimic de aici nu ține locul a ceva ce funcționează deja în altă parte. Ce merge, merge; ce nu merge, o spune.",

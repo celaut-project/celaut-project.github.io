@@ -16,7 +16,7 @@
   "home.implementations.heading": "Apa yang ada hari ini",
   "home.implementations.intro": "Arsitektur ini adalah sebuah spesifikasi, dan siapa pun bisa mengimplementasikan node yang sesuai dengannya. Satu implementasi menjalankan jaringan sekarang; yang kedua adalah arah yang diumumkan, dan ditandai sebagai itu.",
   "home.implementations.items.0.stage": "Berjalan",
-  "home.implementations.items.0.body": "Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang bertanda tangan yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.",
+  "home.implementations.items.0.body": "Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang resmi yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.",
   "home.implementations.items.1.stage": "Konsep",
   "home.implementations.items.1.body": "Niat yang dinyatakan untuk membangun node Android yang menjangkau layanan lewat antarmuka obrolan sederhana, tanpa memercayai node mana pun. Repositorinya saat ini hanya memuat deskripsi itu — belum ada kode yang bisa dijalankan.",
   "home.implementations.note": "Tidak ada satu pun di sini yang menjadi pengganti sementara bagi sesuatu yang sudah berjalan di tempat lain. Yang berjalan, berjalan; yang tidak, mengatakannya.",

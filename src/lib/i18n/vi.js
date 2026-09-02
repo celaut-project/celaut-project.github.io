@@ -351,7 +351,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Đang chạy',
-					body: 'Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt có chữ ký, tự dựng môi trường Linux cách ly riêng.'
+					body: 'Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt chính thức, tự dựng môi trường Linux cách ly riêng.'
 				},
 				{
 					name: 'Chatui',

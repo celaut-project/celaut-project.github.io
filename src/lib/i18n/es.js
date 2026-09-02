@@ -352,7 +352,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'En marcha',
-					body: 'La implementación de referencia, en Python3 y Rust. Ejecuta servicios, negocia el coste con los pares, provee direcciones y tokens, y resuelve dependencias se ejecuten donde se ejecuten. Se instala en Linux con un solo comando, y en Windows 11 mediante un instalador firmado que provisiona su propio entorno Linux aislado.'
+					body: 'La implementación de referencia, en Python3 y Rust. Ejecuta servicios, negocia el coste con los pares, provee direcciones y tokens, y resuelve dependencias se ejecuten donde se ejecuten. Se instala en Linux con un solo comando, y en Windows 11 mediante un instalador oficial que prepara su propio entorno Linux aislado.'
 				},
 				{
 					name: 'Chatui',

@@ -16,7 +16,7 @@
   "home.implementations.heading": "Qué existe hoy",
   "home.implementations.intro": "La arquitectura es una especificación, y cualquiera puede implementar un nodo contra ella. Una implementación mueve la red ahora mismo; la segunda es una dirección anunciada, y así queda marcada.",
   "home.implementations.items.0.stage": "En marcha",
-  "home.implementations.items.0.body": "La implementación de referencia, en Python3 y Rust. Ejecuta servicios, negocia el coste con los pares, provee direcciones y tokens, y resuelve dependencias se ejecuten donde se ejecuten. Se instala en Linux con un solo comando, y en Windows 11 mediante un instalador firmado que provisiona su propio entorno Linux aislado.",
+  "home.implementations.items.0.body": "La implementación de referencia, en Python3 y Rust. Ejecuta servicios, negocia el coste con los pares, provee direcciones y tokens, y resuelve dependencias se ejecuten donde se ejecuten. Se instala en Linux con un solo comando, y en Windows 11 mediante un instalador oficial que prepara su propio entorno Linux aislado.",
   "home.implementations.items.1.stage": "Concepto",
   "home.implementations.items.1.body": "La intención declarada de construir un nodo para Android que llegue a los servicios mediante una interfaz de chat sencilla, sin confiar en ningún otro nodo. El repositorio contiene hoy esa descripción y nada más: todavía no hay código que ejecutar.",
   "home.implementations.note": "Aquí nada es un marcador de posición de algo que ya funciona en otra parte. Lo que funciona, funciona; lo que no, lo dice.",

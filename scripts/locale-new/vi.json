@@ -16,7 +16,7 @@
   "home.implementations.heading": "Hôm nay có gì",
   "home.implementations.intro": "Kiến trúc này là một đặc tả, và ai cũng có thể hiện thực một node theo nó. Một hiện thực đang thực sự vận hành mạng lưới; cái thứ hai là một hướng đi đã công bố, và được ghi rõ như vậy.",
   "home.implementations.items.0.stage": "Đang chạy",
-  "home.implementations.items.0.body": "Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt có chữ ký, tự dựng môi trường Linux cách ly riêng.",
+  "home.implementations.items.0.body": "Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt chính thức, tự dựng môi trường Linux cách ly riêng.",
   "home.implementations.items.1.stage": "Ý tưởng",
   "home.implementations.items.1.body": "Một dự định đã tuyên bố: xây một node Android tiếp cận dịch vụ qua giao diện trò chuyện đơn giản, không cần tin tưởng bất kỳ node nào khác. Kho mã hiện chỉ chứa mô tả đó và không có gì hơn — chưa có mã nào để chạy.",
   "home.implementations.note": "Ở đây không có gì đứng thế chỗ cho một thứ đã chạy được ở nơi khác. Cái gì chạy thì chạy; cái gì chưa, thì nói rõ.",
