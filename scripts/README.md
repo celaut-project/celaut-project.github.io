@@ -73,3 +73,47 @@ node scripts/show-keys.mjs es zh -- home.applications.intro
 
 Prints the current value of specific dotted key paths, per locale.
 Useful when reviewing one sentence across several languages at once.
+
+## `perf-measure.mjs` — memory and CPU, separated honestly
+
+```
+npx vite preview --port 4174 &
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless=new --remote-debugging-port=9225 \
+  --user-data-dir=/tmp/chrome-perf --hide-scrollbars
+node scripts/perf-measure.mjs --label baseline --dpr 2
+```
+
+Walks each route at idle / mid-scroll / bottom / back-to-top and reports
+three numbers that people routinely conflate:
+
+* **jsHeapMB** — what the site's own JavaScript allocated. Small.
+* **canvasMB** — the sum of every `<canvas>` backing store
+  (`width * height * 4`). This is invisible to heap profilers, and on a
+  page of full-bleed scenes it is the dominant cost.
+* **rendererRssMB** — real resident memory of the renderer process,
+  including the browser baseline the site cannot control.
+
+`--dpr 2` matters: a canvas costs four times as much on a retina panel
+as it does in default headless, so measuring only at DPR 1 hides most
+of the problem.
+
+## `perf-profile.mjs` — where the CPU actually goes
+
+```
+node scripts/perf-profile.mjs --route / --at top --ms 5000
+```
+
+Sampling profile aggregated by function and by file, so "the page idles
+at 11%" can be attributed rather than guessed at.
+
+## `perf-shots.mjs` — before/after visual comparison
+
+```
+node scripts/perf-shots.mjs --label before --dpr 2
+```
+
+Screenshots at fixed absolute scroll offsets, so the same offset lands
+on the same story beat in two different builds. The scenes animate on a
+clock, so two captures are never byte-identical — these are for looking
+at, not for diffing.
