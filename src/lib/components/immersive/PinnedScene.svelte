@@ -63,6 +63,17 @@
 	 * @type {any}
 	 */
 	export let state = null;
+	/**
+	 * Called with the scene's normalised progress on every scroll update.
+	 *
+	 * The slot already receives `progress`, but a slot prop cannot be read
+	 * from the parent's own script, and a scene whose caption opens a mode
+	 * (the spec scene's Explore zoom) has to know when the reader has
+	 * scrolled out of the beat that owns that mode — otherwise the mode
+	 * stays latched over copy it no longer belongs to.
+	 * @type {(progress: number) => void}
+	 */
+	export let onProgress = () => {};
 
 	let root;
 	let canvasEl;
@@ -224,6 +235,7 @@
 					invalidateOnRefresh: true,
 					onUpdate: (self) => {
 						progress = self.progress;
+						onProgress(progress);
 					}
 				});
 			}, root);

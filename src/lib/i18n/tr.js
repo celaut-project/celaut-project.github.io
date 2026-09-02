@@ -24,7 +24,13 @@ export default {
 		readMore: 'Devamını oku →',
 		viewOnGitHub: "GitHub'da görüntüle →",
 		languageLabel: 'Dil',
-		switchLanguage: 'Dili değiştir'
+		switchLanguage: 'Dili değiştir',
+		toc: {
+			nav: 'Bölüm gezintisi',
+			title: 'Bu sayfada',
+			open: 'Bölüm menüsünü aç',
+			close: 'Bölüm menüsünü kapat'
+		}
 	},
 	theme: {
 		toLight: 'Açık temaya geç',
@@ -82,26 +88,20 @@ export default {
 			]
 		},
 		index: {
-			nav: 'Bölüm gezintisi',
-			title: 'Bu sayfada',
-			open: 'Bölüm menüsünü aç',
-			close: 'Bölüm menüsünü kapat',
 			sections: {
 				foundations: 'Kökenler',
 				atoms: "Node'lar ve servisler",
-				nodes: "Node'lar",
+				nodes: 'Ağ',
 				services: 'Servisler',
 				'service-spec': 'Şartname',
 				execution: 'Yürütme',
 				determinism: 'Determinizm',
 				coordination: 'Eşgüdüm',
-				'user-roles': 'Sen hangisisin?',
 				'core-principles': 'İlkeler',
 				'what-is-not': 'Ne değildir',
 				implementations: 'Uygulamalar',
-				'coordination-detail': 'Teşvikler',
-				'service-distribution': 'Dağıtım',
-				applications: 'Kullanım alanları'
+				applications: 'Kullanım alanları',
+				'user-roles': 'Sen hangisisin?'
 			}
 		},
 		scenes: {
@@ -245,6 +245,28 @@ export default {
 						note: 'Kontrol et · öde · teslim et · kaydet. Sonra bir tur daha.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Bağlı kaldığı kurallar',
+				beats: [
+					{
+						h: 'Bunların hiçbiri bir özellik listesi değildi.',
+						p: 'Üzerinde anlaşılacak protokolü olmayan bir ağ, kendisini çalıştıran makinelere karşı mühürlenmiş servisler, önceden bildirilen ağlar, yürütmeden önce yapılan ödeme — bunların her biri birer <strong>sonuç</strong>. Üç taahhüt bunları üretiyor ve üçü birbirini ayakta tutuyor.'
+					},
+					{
+						h: 'Merkeziyetsizlik.',
+						p: 'Tek bir <strong>denetim ya da arıza noktası</strong> yok. Düğümler, izin isteyeceği hiçbir aracı olmadan dinamik biçimde iletişim kurar ve eşgüdüm sağlar — zaten üzerinde anlaşılacak bir protokolün en baştan bulunmamasının nedeni bu.'
+					},
+					{
+						h: 'Yalınlık.',
+						p: 'Karmaşıklığı azaltan <strong>asgari kurallar</strong>; böylece her bileşen tek başına anlaşılıp bakımı yapılabilecek kadar küçük kalır. Bir servis bir kapsayıcı, bir arayüz ve bir ağ kapsamıdır; hepsi bu.'
+					},
+					{
+						h: 'Belirlenimcilik.',
+						p: 'Servisler, zamana ve makineye bağlı kalmadan <strong>sonuçlarını yeniden üretebilecek</strong> kadar eksiksiz tanımlanır. Aynı girdi, aynı çıktı; nerede ve ne zaman çalışırsa çalışsın. Bir yıl önce kaydedilmiş bir itibarın bugün hâlâ okunmaya değer olmasının nedeni budur.',
+						note: 'Üçünden birini çıkarın, kalan ikisinin kıymeti neredeyse kalmaz.'
+					}
+				]
 			}
 		},
 		roles: {
@@ -291,21 +313,15 @@ export default {
 			]
 		},
 		principles: {
-			eyebrow: 'Bağlı kaldığı kurallar',
-			heading: "Celaut'un temel ilkeleri",
-			intro: "Tüm mimarinin türetildiği üç taahhüt. Yukarıdaki her şey — protokolsüz node'lar, mühürlü servisler, beyan edilen ağlar — bunların sonucudur.",
 			items: [
 				{
-					title: 'Merkeziyetsizlik',
-					body: "Celaut, node'ların dinamik olarak iletişim kurup eşgüdüm sağlamasına izin vererek <strong>tek denetim ya da tek arıza noktalarını</strong> ortadan kaldırır; arada izin istenecek kimse yoktur."
+					title: 'Merkeziyetsizlik'
 				},
 				{
-					title: 'Sadelik',
-					body: 'Mimari, karmaşıklığı azaltan <strong>minimalist kuralları</strong> izler; böylece her bileşen tek başına anlaşılıp bakımı yapılabilecek kadar küçük kalır.'
+					title: 'Sadelik'
 				},
 				{
-					title: 'Determinizm',
-					body: "Servisler, zaman ve node'lar boyunca <strong>yeniden üretilebilir sonuçlar</strong> sağlamak için tam olarak tanımlanır. Aynı girdiler verildiğinde, nerede ya da ne zaman çalıştıklarından bağımsız olarak aynı çıktıları üretirler."
+					title: 'Determinizm'
 				}
 			]
 		},
@@ -328,98 +344,45 @@ export default {
 				}
 			]
 		},
-		nodes: {
-			eyebrow: 'Makineler',
-			heading: "Node'lar: ağın temeli",
-			intro: 'Node, eşleriyle iletişim kuran ve servis yürütmesini yöneten bir <strong>bilgisayar ya da cihazdır</strong>. Dört iş ve üstlerinde hiçbir koordinatör yok.',
-			jobs: [
-				{
-					title: 'Servis yürütme',
-					body: 'Eşleriyle yürütme maliyetlerini pazarlık eder ve bir servisi yerelde mi çalıştıracağına yoksa devredeceğine mi karar verir; böylece kaynaklar en ucuz oldukları yere gider.'
-				},
-				{
-					title: 'İletişim',
-					body: 'Temas anında desteklediği arayüzleri ve kabul ettiği ödeme yöntemlerini beyan eder; protokollerin önceden anlaşma olmadan evrilmesini sağlayan da budur.'
-				},
-				{
-					title: 'Güvenlik',
-					body: 'Her servis etkileşiminin kendisiyle tanımlandığı adresleri ve kimlik doğrulama jetonlarını üretir ve yönetir.'
-				},
-				{
-					title: 'Bağımlılıklar',
-					body: 'Bir servisin ihtiyaç duyduğu şeye ulaşabilmesini sağlar — o bağımlılık ağın neresinde çalışıyor olursa olsun.'
-				}
-			],
-			implementationsHeading: 'Bugün çalıştırabileceğin uygulamalar',
-			implementations: [
+		implementations: {
+			eyebrow: 'Yazılım',
+			heading: 'Bugün ne var',
+			intro: 'Mimari bir şartname; isteyen herkes ona uygun bir düğüm geliştirebilir. Ağı bugün fiilen çalıştıran bir uygulama var; ikincisi ise duyurulmuş bir yön ve öyle işaretlenmiş durumda.',
+			items: [
 				{
 					name: 'Nodo',
-					body: "Python3 ve Rust ile yazılmış referans uygulama — bir node'un pratikte nasıl kurulduğunun çalışan bir örneği."
+					stage: 'Çalışıyor',
+					body: "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran imzalı bir yükleyiciyle kurulur."
 				},
 				{
 					name: 'Chatui',
-					body: "Android cihazlar için bir node. Servisleri temel sohbet arayüzleri üzerinden sunar; başka hiçbir node'a güvenmeni gerektirmeden."
-				}
-			]
-		},
-		coordination: {
-			eyebrow: 'Yabancıları işbirliğine iten şey',
-			heading: 'Eşgüdüm mekanizmaları',
-			intro: 'İkisi de çekirdek mimarinin parçası değil ve bu bilinçli: ikisi de dışarıda durur ki içine hiçbir zaman belirli bir defter ya da para birimi gömülmesin.',
-			items: [
-				{
-					title: 'İtibar sistemleri',
-					body: 'Defterlere hüküm olarak değil görüş olarak kaydedilmiş bir etkileşim geçmişi. Kimse bir şeye söz vermeden önce <strong>ilk bakılan şey</strong> budur.',
-					points: [
-						'Her aktör, zaten güvendiği kaynakları kendi takdirine göre tartar.',
-						'İtibar korunmaya değerdir, dolayısıyla bir vaadin arkasındaki teminata dönüşür.',
-						'Sonuç, hüküm veren bir otorite olmaksızın öz düzenlemedir.'
-					]
-				},
-				{
-					title: 'Ödeme mekanizmaları',
-					body: "Bir node'a, tüketilecek kaynaklara dair bir vaat karşılığında <strong>önceden</strong> ödeme yapılır — şu kadar işlem gücü, şu kadar süre. Güvencesi sonradan gelen bir fatura değil, <strong>kendi itibarıdır</strong>.",
-					points: [
-						'Ödeme, yürütme başlamadan önce peşin alınır.',
-						'Ödeme kanıtı, bunu isteyen servislere erişimi açar.',
-						'Ödemeyi alıp eksik teslim eden bir node itibar kaybeder ve artık seçilmez olur.'
-					]
+					stage: 'Kavram',
+					body: 'Başka hiçbir düğüme güvenmeden, sade bir sohbet arayüzü üzerinden servislere ulaşan bir Android düğümü yapma niyetinin beyanı. Depo şu an yalnızca bu açıklamayı barındırıyor — çalıştırılacak bir kod henüz yok.'
 				}
 			],
-			note: 'Kaydı kontrol et · hakkı için öde · teslim et · sonucu kaydet.'
-		},
-		distribution: {
-			eyebrow: 'Dışarı çıkarmak',
-			heading: 'Servis dağıtımı',
-			intro: "Yayınlanacak bir mağaza ve beklenecek bir inceleme yok. Geliştirici servisi tek bir node'a verir, oradan sonrasını ağ taşır.",
-			items: [
-				{
-					title: 'Merkeziyetsiz keşif',
-					body: "Celaut'ta <strong>merkezi bir servis kayıt defteri yoktur</strong>. Servisler node'lar arasında eşler arası yayılır, böylece doğrudan bulunabilirler — ve içeri girip giremeyeceğine karar veren bir kapı bekçisi yoktur."
-				},
-				{
-					title: 'İsteğe bağlı blok zinciri entegrasyonu',
-					body: 'Görünürlük ve denetlenebilir bir iz, tamamen zincir dışında kalmaktan daha değerliyse servisler bir kayıt defteri uygulayan blok zincirinde de beyan edilebilir — Ergo üzerindeki <strong>Sigma Reputation System</strong> gibi.'
-				}
-			]
+			note: 'Burada hiçbir şey, başka bir yerde zaten çalışan bir şeyin yerini geçici olarak tutmuyor. Çalışan çalışır; çalışmayan da bunu söyler.'
 		},
 		applications: {
 			eyebrow: 'Zaten çalıştığı yerler',
 			heading: 'Gerçek dünyadaki etki ve kullanım alanları',
-			intro: 'Bu mimari bir düşünce deneyi değil. Aşağıdakiler bugün kullanımda olduğu yerler.',
-			ours: [
+			intro: 'Bu mimari bir düşünce deneyi değil. İki farklı mesafede kullanılıyor — katmanın kendisi olarak ve var olmak için kendi gerekçesi olan bir şeyin temeli olarak.',
+			layerHeading: 'Açılmış hâliyle mimari',
+			layerTag: 'Katmanın kendisi',
+			layerIntro: "İkisi de Celaut üzerine kurulmuş birer uygulama değil. Düğümler gerçekten çalışmaya başladığında Celaut'un <strong>kendisi</strong> bunlardır.",
+			layer: [
 				{
-					name: 'DePin',
-					body: "Herkes bir Celaut node'u çalıştırıp merkeziyetsiz fiziksel altyapı ağının parçası olabilir. Her node eşlerini bulur, servisleri çalıştırıp düzenler ve bağımlılıklarını yönetir — sıradan bilgisayarları paylaşılan, sansüre dirençli hesaplama gücüne dönüştürür."
+					name: 'DePIN',
+					body: 'İsteyen herkes bir Celaut düğümü çalıştırıp merkeziyetsiz fiziksel altyapı ağının parçası olabilir. Her düğüm eşleri bulur, servisleri çalıştırıp düzenler ve bağımlılıklarını yönetir — sıradan bilgisayarları paylaşılan, sansüre dirençli işlem gücüne dönüştürür. Bu, ağın üzerindeki bir ürün değil, ağın kendisidir.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Tamamen zincir üzerinde çalışan, sunucusuz bir kayıt defteri; burada başrolde problemler var. Ajanlar servis avlamak yerine bir beceri arar ve onu karşılayan servisleri keşfeder; gerçek kıyaslamalar ve itibara dayalı sıralamayla birlikte. Ergo ve Celaut üzerine kurulu, gerçek bir riskle: kimse itibarını tehlikeye atmadan spam yapamaz.'
+					body: 'Baş rolde problemlerin olduğu, tamamen zincir üstünde ve sunucusuz bir kayıt defteri. Ajanlar servis aramak yerine bir beceri arar ve o beceriyi karşılayan servisleri, gerçek kıyaslamalar ve itibara dayalı sıralamayla bulur. Paradigmanın itibar katmanına pratikte böyle ulaşılır — Ergo üzerinde ve gerçek bir riskle: kimse itibarını tehlikeye atmadan ortalığı doldurmaz.'
 				}
 			],
-			thirdPartyHeading: 'Üçüncü taraf',
-			thirdPartyTag: 'bizim yapımımız değil',
-			thirdParty: {
+			builtOnHeading: 'Üzerine inşa edilenler',
+			builtOnTag: 'Bağımsız proje',
+			builtOnIntro: 'Bir adım daha dışarıda: kendi amacı ve kendi kullanıcıları olan, tesadüfen Celaut servislerinden kurulmuş bir ürün. Başka bir şeyin üzerine yeniden yapılsa da anlamlı kalırdı — onu bir kanıt hâline getiren de tam olarak bu.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Yaratıcıların, oynayan robotları değerlendiren <strong>oyun servisleri</strong> tasarladığı, oyuncuların ise puanlarını en üst düzeye çıkarmaya çalışan <strong>çözücü servisler</strong> yazdığı rekabetçi bir platform.',
@@ -436,6 +399,19 @@ export default {
 			description: "Kullanmadığın zamanlarda bilgisayarının kaynaklarını sat. Celaut'un DePIN katmanı tamamen eşler arasıdır, hesaplama gücünü elektrik maliyetine göre fiyatlandırmana izin verir ve her iş yükünü bir microVM içinde yalıtır."
 		},
 		topbarTitle: "PC'ni kirala",
+		index: {
+			sections: {
+				rent: 'Fikir',
+				p2p: 'Uçtan uca',
+				electricity: 'Elektrik faturan',
+				isolation: 'Yalıtım',
+				payoff: 'Eline ne geçer',
+				responsibilities: 'Düğüm ne yapar',
+				steps: 'Kurulumdan gelire',
+				roles: 'Öbür taraf',
+				cta: 'Başla'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: "PC'ni kirala.",
@@ -563,6 +539,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Makinendeki düğüm aslında ne yapıyor',
+			intro: 'Düğüm, eşlerle iletişim kuran ve servislerin çalıştırılmasını yöneten bir <strong>bilgisayar ya da cihazdır</strong>. Paradigma ona dört iş verir ve üstüne hiçbir eşgüdümcü koymaz.',
+			items: [
+				{
+					title: 'Servis yürütme',
+					body: 'Eşleriyle yürütme maliyetlerini pazarlık eder ve bir servisi yerelde mi çalıştıracağına yoksa devredeceğine mi karar verir; böylece kaynaklar en ucuz oldukları yere gider.'
+				},
+				{
+					title: 'İletişim',
+					body: 'Temas anında desteklediği arayüzleri ve kabul ettiği ödeme yöntemlerini beyan eder; protokollerin önceden anlaşma olmadan evrilmesini sağlayan da budur.'
+				},
+				{
+					title: 'Güvenlik',
+					body: 'Her servis etkileşiminin kendisiyle tanımlandığı adresleri ve kimlik doğrulama jetonlarını üretir ve yönetir.'
+				},
+				{
+					title: 'Bağımlılıklar',
+					body: 'Bir servisin ihtiyaç duyduğu şeye ulaşabilmesini sağlar — o bağımlılık ağın neresinde çalışıyor olursa olsun.'
+				}
+			],
+			note: 'Bunların hiçbiri, çalıştırdığı yazılımın ne işe yaradığını bilmeyi gerektirmez.'
+		},
 		steps: {
 			heading: 'Kurulumdan gelire',
 			items: [
@@ -619,6 +618,20 @@ export default {
 			description: "Celaut servisleri kur: bir BOX, bir API ve bir NET kapsamı tanımla, tek bir node'a ver ve dağıtmayı ve çalıştırmayı ağa bırak. Altyapı yok, yapılandırma yok, arada platform yok."
 		},
 		topbarTitle: 'Geliştiriciler için',
+		index: {
+			sections: {
+				spec: 'Fikir',
+				agnostic: 'Her yerde çalışır',
+				distribute: 'Dağıtım',
+				compose: 'Bileşim',
+				payoff: 'Eline ne geçer',
+				distribution: 'Nasıl yayılır',
+				steps: 'Koddan ağa',
+				tradeoffs: 'Yaptığın takas',
+				roles: 'Diğerleri',
+				cta: 'Başla'
+			}
+		},
 		hero: {
 			eyebrow: 'Servis geliştiricileri',
 			title: 'Bir kez kur.',
@@ -767,6 +780,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Bir servis gerçekte nasıl yayılır',
+			intro: 'Yayınlanacak bir mağaza ve beklenecek bir inceleme yok. Servis tek bir düğüme teslim edilir, gerisini ağ taşır — varsayılan olarak zincir dışında, isteğe bağlı olarak zincir üstünde.',
+			items: [
+				{
+					title: 'Varsayılan olarak uçtan uca',
+					body: "Celaut'ta <strong>merkezi bir servis kayıt defteri yoktur</strong>. Servisler node'lar arasında eşler arası yayılır, böylece doğrudan bulunabilirler — ve içeri girip giremeyeceğine karar veren bir kapı bekçisi yoktur."
+				},
+				{
+					title: 'Değerse, bir kayıt defterinde',
+					body: 'Görünürlük ve denetlenebilir bir iz, tamamen zincir dışında kalmaktan daha değerliyse servisler bir kayıt defteri uygulayan blok zincirinde de beyan edilebilir — Ergo üzerindeki <strong>Sigma Reputation System</strong> gibi.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Aslında yaptığın takas',
 			intro: "Bugün yazılım göndermek, onu kendin barındırmakla insanlardan kendilerinin çalıştırmasını istemek arasında seçim yapmak demek. İkisinin de bir bedeli var. Celaut'un iddiası dar ve belirli: her ikisinin avantajını dezavantajları olmadan alıyor — çalışan servis üzerindeki denetimin karşılığında.",
@@ -825,6 +852,19 @@ export default {
 			description: "Celaut node'larında servis başlat ve yalnızca kullanılan hesaplama kaynakları için öde. Hesap yok, abonelik yok, arada platform yok — servisler yalıtılmış ve deterministik çalışır, dolayısıyla tam olarak şartnamede tarif edileni alırsın."
 		},
 		topbarTitle: 'Son kullanıcılar için',
+		index: {
+			sections: {
+				ask: 'Fikir',
+				proof: 'Sana ne döner',
+				sealed: 'Mühürlü',
+				pay: 'Ne ödersin',
+				payoff: 'Eline ne geçer',
+				steps: 'İstekten sonuca',
+				tradeoffs: 'Yaptığın takas',
+				roles: 'Diğerleri',
+				cta: 'Başla'
+			}
+		},
 		hero: {
 			eyebrow: 'Servis kullanıcıları',
 			title: 'Çalıştır.',
@@ -1095,6 +1135,23 @@ export default {
 			environment: 'ortam',
 			api: 'API',
 			interface: 'arayüz',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1152,6 +1209,14 @@ export default {
 			identicalEveryTime: 'her seferinde birebir aynı',
 			reputationLedger: 'itibar · defterdeki kayıtlar',
 			sourcesYouTrust: 'güvendiğin kaynaklar',
+			principles: {
+				consequences: [
+					'→ anlaşılacak protokol yok',
+					'→ bir kapsayıcı, bir arayüz, bir kapsam',
+					'→ anlamını koruyan itibar'
+				],
+				derivedFrom: 'geri kalan her şey buradan türer'
+			},
 			firstWhatSources: 'önce: kaynaklarım bunun hakkında ne diyor?',
 			rightShort: '2 vCPU · 30 dk',
 			rightLong: '2 vCPU · 30 dk hakkı',

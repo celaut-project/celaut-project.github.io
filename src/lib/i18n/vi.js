@@ -23,7 +23,13 @@ export default {
 		readMore: 'Đọc thêm →',
 		viewOnGitHub: 'Xem trên GitHub →',
 		languageLabel: 'Ngôn ngữ',
-		switchLanguage: 'Đổi ngôn ngữ'
+		switchLanguage: 'Đổi ngôn ngữ',
+		toc: {
+			nav: 'Điều hướng các phần',
+			title: 'Trên trang này',
+			open: 'Mở menu các phần',
+			close: 'Đóng menu các phần'
+		}
 	},
 	theme: {
 		toLight: 'Chuyển sang giao diện sáng',
@@ -81,26 +87,20 @@ export default {
 			]
 		},
 		index: {
-			nav: 'Điều hướng các phần',
-			title: 'Trên trang này',
-			open: 'Mở menu các phần',
-			close: 'Đóng menu các phần',
 			sections: {
 				foundations: 'Nguồn gốc',
 				atoms: 'Node & service',
-				nodes: 'Node',
+				nodes: 'Mạng lưới',
 				services: 'Service',
 				'service-spec': 'Đặc tả',
 				execution: 'Thực thi',
 				determinism: 'Tính tất định',
 				coordination: 'Phối hợp',
-				'user-roles': 'Bạn thuộc nhóm nào?',
 				'core-principles': 'Nguyên tắc',
 				'what-is-not': 'Những gì không phải',
 				implementations: 'Triển khai',
-				'coordination-detail': 'Động lực',
-				'service-distribution': 'Phân phối',
-				applications: 'Ứng dụng'
+				applications: 'Ứng dụng',
+				'user-roles': 'Bạn thuộc nhóm nào?'
 			}
 		},
 		scenes: {
@@ -244,6 +244,28 @@ export default {
 						note: 'Kiểm tra · trả tiền · giao hàng · ghi nhận. Rồi lại một vòng.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Những quy tắc nó giữ',
+				beats: [
+					{
+						h: 'Chẳng có gì trong đó là một danh sách tính năng.',
+						p: 'Một mạng lưới không có giao thức nào phải thống nhất, các dịch vụ được niêm phong khỏi những cỗ máy chạy chúng, các mạng được khai báo trước, thanh toán trước khi thực thi — mỗi thứ đều là một <strong>hệ quả</strong>. Ba cam kết sinh ra chúng, và ba cam kết ấy nâng đỡ lẫn nhau.'
+					},
+					{
+						h: 'Phi tập trung.',
+						p: 'Không có <strong>điểm kiểm soát hay điểm hỏng đơn lẻ</strong> nào. Các node giao tiếp và phối hợp một cách động, không có ai ở giữa để phải xin phép — đó chính là lý do ngay từ đầu đã chẳng có giao thức nào phải thống nhất.'
+					},
+					{
+						h: 'Đơn giản.',
+						p: '<strong>Những quy tắc tối giản</strong> làm giảm độ phức tạp, nhờ đó mỗi thành phần vẫn đủ nhỏ để hiểu và bảo trì riêng lẻ. Một dịch vụ là một container, một giao diện và một phạm vi mạng — chỉ có vậy.'
+					},
+					{
+						h: 'Tất định.',
+						p: 'Dịch vụ được đặc tả đủ đầy để <strong>tái lập kết quả của chính nó</strong> qua thời gian và qua các máy khác nhau. Cùng đầu vào thì cùng đầu ra, chạy ở đâu và khi nào cũng vậy — đó là điều khiến một uy tín được ghi lại từ một năm trước hôm nay vẫn đáng đọc.',
+						note: 'Bỏ đi bất kỳ cái nào trong ba, hai cái còn lại gần như hết giá trị.'
+					}
+				]
 			}
 		},
 		roles: {
@@ -290,21 +312,15 @@ export default {
 			]
 		},
 		principles: {
-			eyebrow: 'Những quy tắc nó tuân theo',
-			heading: 'Các nguyên tắc cốt lõi của Celaut',
-			intro: 'Ba cam kết mà toàn bộ kiến trúc được suy ra từ đó. Mọi thứ ở trên — node không giao thức, service niêm phong, mạng được khai báo — đều là hệ quả của chúng.',
 			items: [
 				{
-					title: 'Phi tập trung',
-					body: 'Celaut loại bỏ <strong>điểm kiểm soát hay điểm hỏng duy nhất</strong> bằng cách để các node giao tiếp và phối hợp linh hoạt, không có ai ở giữa để phải xin phép.'
+					title: 'Phi tập trung'
 				},
 				{
-					title: 'Đơn giản',
-					body: 'Kiến trúc tuân theo <strong>các quy tắc tối giản</strong> giúp giảm độ phức tạp, để mỗi thành phần đủ nhỏ để có thể tự nó được hiểu và bảo trì.'
+					title: 'Đơn giản'
 				},
 				{
-					title: 'Tất định',
-					body: 'Service được đặc tả đầy đủ để bảo đảm <strong>kết quả tái lập được</strong> qua thời gian và qua các node. Với cùng đầu vào, chúng cho ra cùng đầu ra, bất kể chạy ở đâu hay khi nào.'
+					title: 'Tất định'
 				}
 			]
 		},
@@ -327,98 +343,45 @@ export default {
 				}
 			]
 		},
-		nodes: {
-			eyebrow: 'Những cỗ máy',
-			heading: 'Node: nền móng của mạng lưới',
-			intro: 'Node là một <strong>máy tính hoặc thiết bị</strong> giao tiếp với các node ngang hàng và quản lý việc thực thi service. Bốn công việc, và không có ai điều phối ở trên.',
-			jobs: [
-				{
-					title: 'Thực thi service',
-					body: 'Nó thương lượng chi phí thực thi với các node ngang hàng và quyết định chạy service tại chỗ hay uỷ thác đi, để tài nguyên chảy về nơi rẻ nhất.'
-				},
-				{
-					title: 'Giao tiếp',
-					body: 'Nó khai báo các giao diện nó hỗ trợ và các phương thức thanh toán nó chấp nhận ngay khi tiếp xúc, và chính điều đó cho phép giao thức tiến hoá mà không cần thoả thuận trước.'
-				},
-				{
-					title: 'Bảo mật',
-					body: 'Nó cấp phát và quản lý các địa chỉ cùng token xác thực dùng để định danh mọi tương tác service.'
-				},
-				{
-					title: 'Phụ thuộc',
-					body: 'Nó bảo đảm một service chạm được tới thứ nó cần, dù phụ thuộc đó tình cờ đang chạy ở đâu trong mạng lưới.'
-				}
-			],
-			implementationsHeading: 'Những bản triển khai bạn có thể chạy ngay hôm nay',
-			implementations: [
+		implementations: {
+			eyebrow: 'Phần mềm',
+			heading: 'Hôm nay có gì',
+			intro: 'Kiến trúc này là một đặc tả, và ai cũng có thể hiện thực một node theo nó. Một hiện thực đang thực sự vận hành mạng lưới; cái thứ hai là một hướng đi đã công bố, và được ghi rõ như vậy.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'Bản triển khai tham chiếu, viết bằng Python3 và Rust — một ví dụ thực tế về cách một node được vận hành.'
+					stage: 'Đang chạy',
+					body: 'Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt có chữ ký, tự dựng môi trường Linux cách ly riêng.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Một node cho thiết bị Android. Nó phơi bày service qua giao diện trò chuyện cơ bản, mà không đòi bạn phải tin bất kỳ node nào khác.'
-				}
-			]
-		},
-		coordination: {
-			eyebrow: 'Thứ khiến người lạ hợp tác',
-			heading: 'Các cơ chế phối hợp',
-			intro: 'Cả hai đều không thuộc kiến trúc lõi, và đó là chủ ý: cả hai nằm ngoài, để không bao giờ có một ledger hay đồng tiền cụ thể nào bị đóng cứng vào trong.',
-			items: [
-				{
-					title: 'Hệ thống danh tiếng',
-					body: 'Một lịch sử tương tác, ghi trên ledger dưới dạng ý kiến chứ không phải phán quyết. Đó là <strong>thứ được tra cứu đầu tiên</strong>, trước khi ai đó cam kết điều gì.',
-					points: [
-						'Mỗi bên tự cân nhắc, theo ý mình, những nguồn mà mình vốn đã tin.',
-						'Uy tín đáng để giữ gìn, nên nó trở thành vật bảo chứng đứng sau một lời hứa.',
-						'Kết quả là sự tự điều tiết, không có nhà chức trách nào phán xử.'
-					]
-				},
-				{
-					title: 'Cơ chế thanh toán',
-					body: 'Một node được trả tiền <strong>trước</strong> để đổi lấy lời hứa về tài nguyên sẽ được tiêu thụ — ngần này năng lực tính toán, trong ngần này thời gian. Bảo chứng của nó không phải một hoá đơn sau khi xong việc; mà là <strong>danh tiếng của nó</strong>.',
-					points: [
-						'Tiền được thu trước, trước khi việc thực thi bắt đầu.',
-						'Bằng chứng thanh toán mở cửa vào những service có yêu cầu nó.',
-						'Node nào nhận tiền rồi giao thiếu sẽ mất danh tiếng, và thôi được chọn.'
-					]
+					stage: 'Ý tưởng',
+					body: 'Một dự định đã tuyên bố: xây một node Android tiếp cận dịch vụ qua giao diện trò chuyện đơn giản, không cần tin tưởng bất kỳ node nào khác. Kho mã hiện chỉ chứa mô tả đó và không có gì hơn — chưa có mã nào để chạy.'
 				}
 			],
-			note: 'Kiểm tra hồ sơ · trả tiền cho quyền · giao hàng · ghi nhận kết quả.'
-		},
-		distribution: {
-			eyebrow: 'Đưa nó ra ngoài',
-			heading: 'Phân phối service',
-			intro: 'Không có cửa hàng nào để đăng lên và chẳng có vòng duyệt nào để chờ. Lập trình viên trao service cho một node, và mạng lưới mang nó đi tiếp từ đó.',
-			items: [
-				{
-					title: 'Khám phá phi tập trung',
-					body: 'Celaut <strong>không có sổ đăng ký service trung tâm</strong>. Service lan giữa các node theo kiểu ngang hàng, nên có thể tìm thấy trực tiếp — và không có người gác cổng nào quyết định bạn có được vào hay không.'
-				},
-				{
-					title: 'Tích hợp blockchain tuỳ chọn',
-					body: 'Service cũng có thể được khai báo trên một blockchain có triển khai sổ đăng ký — như <strong>Sigma Reputation System</strong> trên Ergo — khi khả năng hiển thị và một dấu vết kiểm toán được đáng giá hơn việc hoàn toàn ở ngoài chuỗi.'
-				}
-			]
+			note: 'Ở đây không có gì đứng thế chỗ cho một thứ đã chạy được ở nơi khác. Cái gì chạy thì chạy; cái gì chưa, thì nói rõ.'
 		},
 		applications: {
 			eyebrow: 'Nơi nó đã đang chạy',
 			heading: 'Tác động và ứng dụng thực tế',
-			intro: 'Kiến trúc này không phải một thí nghiệm tư duy. Đây là những nơi nó đang được dùng hôm nay.',
-			ours: [
+			intro: 'Kiến trúc này không phải một thí nghiệm tư duy. Nó đang được dùng ở hai khoảng cách khác nhau — với tư cách chính lớp đó, và với tư cách nền móng bên dưới một thứ có lý do tồn tại riêng.',
+			layerHeading: 'Kiến trúc, khi được bật lên',
+			layerTag: 'Chính lớp đó',
+			layerIntro: 'Cả hai đều không phải ứng dụng dựng trên Celaut. Chúng <strong>chính là</strong> Celaut, một khi các node thực sự chạy.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Ai cũng có thể chạy một node Celaut và trở thành một phần của mạng hạ tầng vật lý phi tập trung. Mỗi node tìm các node ngang hàng, thực thi và điều phối service, quản lý các phụ thuộc của chúng — biến những chiếc máy tính bình thường thành năng lực tính toán chung, chống kiểm duyệt.'
+					name: 'DePIN',
+					body: 'Ai cũng có thể chạy một node Celaut và trở thành một phần của mạng hạ tầng vật lý phi tập trung. Mỗi node tìm peer, thực thi và điều phối dịch vụ, quản lý phụ thuộc của chúng — biến những máy tính bình thường thành năng lực tính toán dùng chung, kháng kiểm duyệt. Đây là mạng lưới, không phải một sản phẩm đặt trên nó.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi chính các bài toán mới là nhân vật chính. Thay vì săn lùng service, các agent tìm một skill rồi khám phá những service bao phủ nó, kèm benchmark thật và xếp hạng dựa trên danh tiếng. Dựng trên Ergo và Celaut, với phần đặt cược thật sự: không ai spam mà không phải đánh đổi danh tiếng.'
+					body: 'Một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi các bài toán mới là nhân vật chính. Thay vì lùng tìm dịch vụ, các tác nhân tìm một kỹ năng và khám phá những dịch vụ bao phủ nó, kèm benchmark thật và xếp hạng dựa trên uy tín. Đó là cách lớp uy tín của mô hình thực sự chạm tới được — trên Ergo, với phần thiệt hơn thật sự: không ai spam mà không đánh cược uy tín của mình.'
 				}
 			],
-			thirdPartyHeading: 'Bên thứ ba',
-			thirdPartyTag: 'không do chúng tôi làm',
-			thirdParty: {
+			builtOnHeading: 'Dựng bên trên nó',
+			builtOnTag: 'Dự án độc lập',
+			builtOnIntro: 'Xa thêm một bước: một sản phẩm có mục đích riêng và người dùng riêng, tình cờ được lắp ráp từ các dịch vụ Celaut. Nó vẫn có lý nếu được dựng lại trên một nền khác — và chính điều đó khiến nó trở thành bằng chứng.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Một nền tảng thi đấu nơi người sáng tạo thiết kế <strong>game-service</strong> để chấm điểm những con robot chơi chúng, còn người chơi viết <strong>solver-service</strong> nhằm tối đa hoá điểm số.',
@@ -435,6 +398,19 @@ export default {
 			description: 'Bán tài nguyên máy tính của bạn những lúc bạn không dùng đến. Tầng DePIN của Celaut hoàn toàn ngang hàng, cho phép bạn định giá năng lực tính toán quanh chi phí điện, và cách ly mọi tải công việc bên trong một microVM.'
 		},
 		topbarTitle: 'Cho thuê PC',
+		index: {
+			sections: {
+				rent: 'Ý tưởng',
+				p2p: 'Ngang hàng',
+				electricity: 'Hóa đơn điện',
+				isolation: 'Cách ly',
+				payoff: 'Bạn được gì',
+				responsibilities: 'Node làm gì',
+				steps: 'Từ cài đặt đến thu nhập',
+				roles: 'Phía bên kia',
+				cta: 'Bắt đầu'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Cho thuê chiếc PC của bạn.',
@@ -562,6 +538,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Node trên máy bạn thực sự làm gì',
+			intro: 'Node là một <strong>máy tính hoặc thiết bị</strong> giao tiếp với các peer và quản lý việc thực thi dịch vụ. Mô hình giao cho nó bốn việc, và không đặt bất kỳ bộ điều phối nào bên trên.',
+			items: [
+				{
+					title: 'Thực thi service',
+					body: 'Nó thương lượng chi phí thực thi với các node ngang hàng và quyết định chạy service tại chỗ hay uỷ thác đi, để tài nguyên chảy về nơi rẻ nhất.'
+				},
+				{
+					title: 'Giao tiếp',
+					body: 'Nó khai báo các giao diện nó hỗ trợ và các phương thức thanh toán nó chấp nhận ngay khi tiếp xúc, và chính điều đó cho phép giao thức tiến hoá mà không cần thoả thuận trước.'
+				},
+				{
+					title: 'Bảo mật',
+					body: 'Nó cấp phát và quản lý các địa chỉ cùng token xác thực dùng để định danh mọi tương tác service.'
+				},
+				{
+					title: 'Phụ thuộc',
+					body: 'Nó bảo đảm một service chạm được tới thứ nó cần, dù phụ thuộc đó tình cờ đang chạy ở đâu trong mạng lưới.'
+				}
+			],
+			note: 'Không việc nào trong đó đòi hỏi phải biết phần mềm nó chạy dùng để làm gì.'
+		},
 		steps: {
 			heading: 'Từ lúc cài đến lúc có thu nhập',
 			items: [
@@ -618,6 +617,20 @@ export default {
 			description: 'Xây service Celaut: đặc tả một BOX, một API và phạm vi NET, trao cho một node, rồi để mạng lưới phân phối và thực thi nó. Không hạ tầng, không cấu hình, không nền tảng nào ở giữa.'
 		},
 		topbarTitle: 'Dành cho lập trình viên',
+		index: {
+			sections: {
+				spec: 'Ý tưởng',
+				agnostic: 'Chạy ở đâu cũng được',
+				distribute: 'Phân phối',
+				compose: 'Kết hợp',
+				payoff: 'Bạn được gì',
+				distribution: 'Cách nó lan ra',
+				steps: 'Từ mã đến mạng lưới',
+				tradeoffs: 'Cái bạn đánh đổi',
+				roles: 'Những người còn lại',
+				cta: 'Bắt đầu'
+			}
+		},
 		hero: {
 			eyebrow: 'Lập trình viên service',
 			title: 'Viết nó một lần.',
@@ -766,6 +779,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Một dịch vụ thực sự lan ra thế nào',
+			intro: 'Không có cửa hàng nào để đăng và không có vòng duyệt nào để chờ. Dịch vụ được trao cho một node, và mạng lưới mang nó đi từ đó — mặc định là ngoài chuỗi, và tùy chọn là trên chuỗi.',
+			items: [
+				{
+					title: 'Mặc định là ngang hàng',
+					body: 'Celaut <strong>không có sổ đăng ký service trung tâm</strong>. Service lan giữa các node theo kiểu ngang hàng, nên có thể tìm thấy trực tiếp — và không có người gác cổng nào quyết định bạn có được vào hay không.'
+				},
+				{
+					title: 'Lên sổ đăng ký, nếu xứng đáng',
+					body: 'Service cũng có thể được khai báo trên một blockchain có triển khai sổ đăng ký — như <strong>Sigma Reputation System</strong> trên Ergo — khi khả năng hiển thị và một dấu vết kiểm toán được đáng giá hơn việc hoàn toàn ở ngoài chuỗi.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Cuộc đánh đổi bạn thực sự đang làm',
 			intro: 'Ngày nay, đưa phần mềm ra ngoài nghĩa là chọn giữa tự lưu trữ nó hoặc bảo người ta tự chạy lấy. Cả hai đều có cái giá. Tuyên bố của Celaut hẹp và cụ thể: nó lấy ưu điểm của cả hai mà không kèm nhược điểm — đổi lại bằng quyền kiểm soát của bạn với service đang chạy.',
@@ -824,6 +851,19 @@ export default {
 			description: 'Khởi chạy service trên các node Celaut và chỉ trả tiền cho tài nguyên tính toán đã dùng. Không tài khoản, không thuê bao, không nền tảng ở giữa — service chạy cách ly và tất định, nên bạn nhận đúng thứ bản đặc tả mô tả.'
 		},
 		topbarTitle: 'Dành cho người dùng cuối',
+		index: {
+			sections: {
+				ask: 'Ý tưởng',
+				proof: 'Bạn nhận lại gì',
+				sealed: 'Niêm phong',
+				pay: 'Bạn trả gì',
+				payoff: 'Bạn được gì',
+				steps: 'Từ yêu cầu đến kết quả',
+				tradeoffs: 'Cái bạn đánh đổi',
+				roles: 'Những người còn lại',
+				cta: 'Bắt đầu'
+			}
+		},
 		hero: {
 			eyebrow: 'Người dùng service',
 			title: 'Chạy nó.',
@@ -1094,6 +1134,23 @@ export default {
 			environment: 'môi trường',
 			api: 'API',
 			interface: 'giao diện',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1151,6 +1208,14 @@ export default {
 			identicalEveryTime: 'giống hệt, mọi lần',
 			reputationLedger: 'danh tiếng · bản ghi trên ledger',
 			sourcesYouTrust: 'những nguồn bạn tin',
+			principles: {
+				consequences: [
+					'→ không có giao thức phải thống nhất',
+					'→ một container, một giao diện, một phạm vi',
+					'→ uy tín giữ nguyên ý nghĩa'
+				],
+				derivedFrom: 'mọi thứ còn lại suy ra từ đây'
+			},
 			firstWhatSources: 'trước hết: nguồn của tôi nói gì về nó?',
 			rightShort: '2 vCPU · 30 phút',
 			rightLong: 'quyền dùng 2 vCPU · 30 phút',

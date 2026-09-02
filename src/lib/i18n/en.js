@@ -24,7 +24,17 @@ export default {
 		readMore: 'Read more →',
 		viewOnGitHub: 'View on GitHub →',
 		languageLabel: 'Language',
-		switchLanguage: 'Change language'
+		switchLanguage: 'Change language',
+		// Chrome for the section-index rail. Shared by every long page
+		// (the landing page and the three audience pages), so it lives
+		// here rather than being repeated per namespace. The section
+		// LABELS stay with their page, under `<page>.index.sections`.
+		toc: {
+			nav: 'Section navigation',
+			title: 'On this page',
+			open: 'Open section menu',
+			close: 'Close section menu'
+		}
 	},
 
 	theme: {
@@ -81,26 +91,20 @@ export default {
 		},
 
 		index: {
-			nav: 'Section navigation',
-			title: 'On this page',
-			open: 'Open section menu',
-			close: 'Close section menu',
 			sections: {
 				foundations: 'Foundations',
 				atoms: 'Nodes & Services',
-				nodes: 'Nodes',
+				nodes: 'The network',
 				services: 'Services',
 				'service-spec': 'Service Spec',
 				execution: 'Execution',
 				determinism: 'Determinism',
 				coordination: 'Coordination',
-				'user-roles': 'Which one are you?',
 				'core-principles': 'Core Principles',
 				'what-is-not': 'What It Is Not',
 				implementations: 'Implementations',
-				'coordination-detail': 'Incentives',
-				'service-distribution': 'Service Distribution',
-				applications: 'Applications'
+				applications: 'Applications',
+				'user-roles': 'Which one are you?'
 			}
 		},
 
@@ -247,6 +251,34 @@ export default {
 						note: 'Check · pay · deliver · record. Then round again.'
 					}
 				]
+			},
+
+			// The closing scene of the paradigm sequence. Not a new idea:
+			// the three commitments every scene before it is a consequence
+			// of. The canvas draws them as a closed figure and takes the
+			// vertex names from `home.principles.items`, so the drawing and
+			// the words can never disagree in any locale.
+			'core-principles': {
+				label: 'The rules it holds to',
+				beats: [
+					{
+						h: 'None of that was a feature list.',
+						p: 'A network with no protocol to agree on, services sealed from the machines that run them, networks named up front, payment before execution — every one of those is a <strong>consequence</strong>. Three commitments produce them, and they hold each other up.'
+					},
+					{
+						h: 'Decentralization.',
+						p: 'No <strong>single point of control or failure</strong>. Nodes communicate and coordinate dynamically, with nothing in the middle to ask permission from — which is why there was no protocol to agree on in the first place.'
+					},
+					{
+						h: 'Simplicity.',
+						p: '<strong>Minimalist rules</strong> that reduce complexity, so each component stays small enough to be understood and maintained on its own. A service is a container, an interface and a network scope, and that is the whole of it.'
+					},
+					{
+						h: 'Determinism.',
+						p: 'Services are specified completely enough to <strong>reproduce their results</strong> across time and across machines. Same inputs, same outputs, wherever and whenever they run — which is what makes a reputation recorded a year ago still worth reading today.',
+						note: 'Drop any one of the three and the other two stop being worth much.'
+					}
+				]
 			}
 		},
 
@@ -294,22 +326,19 @@ export default {
 			]
 		},
 
+		// The three principle NAMES, read by the core-principles canvas
+		// scene for its vertex labels. The prose that used to live here is
+		// now the scene's caption beats, under `home.scenes.core-principles`.
 		principles: {
-			eyebrow: 'The rules it holds to',
-			heading: 'Core principles of Celaut',
-			intro: 'Three commitments the whole architecture is derived from. Everything above — nodes without a protocol, sealed services, declared networks — is a consequence of these.',
 			items: [
 				{
-					title: 'Decentralization',
-					body: 'Celaut eliminates <strong>single points of control or failure</strong> by letting nodes communicate and coordinate dynamically, with nothing in the middle to ask permission from.'
+					title: 'Decentralization'
 				},
 				{
-					title: 'Simplicity',
-					body: 'The architecture follows <strong>minimalist rules</strong> that reduce complexity, so each component stays small enough to be understood and maintained on its own.'
+					title: 'Simplicity'
 				},
 				{
-					title: 'Determinism',
-					body: 'Services are fully specified to ensure <strong>reproducible results</strong> across time and nodes. Given the same inputs they produce the same outputs, regardless of where or when they run.'
+					title: 'Determinism'
 				}
 			]
 		},
@@ -334,101 +363,69 @@ export default {
 			]
 		},
 
-		nodes: {
-			eyebrow: 'The machines',
-			heading: 'Nodes: the foundation of the network',
-			intro: 'A node is a <strong>computer or device</strong> that communicates with peers and manages service execution. Four jobs, and no coordinator above them.',
-			jobs: [
-				{
-					title: 'Service execution',
-					body: 'It negotiates execution costs with peers and decides whether to run a service locally or delegate it, so resources go where they are cheapest.'
-				},
-				{
-					title: 'Communication',
-					body: 'It declares the interfaces it supports and the payment methods it accepts on contact, which is what lets protocols evolve without prior agreement.'
-				},
-				{
-					title: 'Security',
-					body: 'It issues and manages the addresses and authentication tokens every service interaction is identified by.'
-				},
-				{
-					title: 'Dependencies',
-					body: 'It makes sure a service can reach what it needs, wherever across the network that dependency happens to be running.'
-				}
-			],
-			implementationsHeading: 'Implementations you can run today',
-			implementations: [
+		// What exists, and at what stage. This block used to be a
+		// subsection of a "Nodes: the foundation of the network" block whose
+		// four node responsibilities duplicated the /depin page wholesale;
+		// those moved to `depin.responsibilities` and this stands on its own.
+		//
+		// The `stage` field is the honest part. Nodo is a running node with
+		// installers for two operating systems; Chatui is a repository with
+		// a README and no implementation behind it yet. Presenting the two as
+		// a matched pair of "implementations you can run today" was a claim
+		// the second one could not support.
+		implementations: {
+			eyebrow: 'The software',
+			heading: 'What exists today',
+			intro: 'The architecture is a specification, and anyone can implement a node against it. One implementation runs the network now; a second is an announced direction, and is marked as such.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'The reference implementation, built with Python3 and Rust — a working example of how a node is deployed in practice.'
+					stage: 'Running',
+					body: 'The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through a signed installer that provisions its own isolated Linux environment.'
 				},
 				{
 					name: 'Chatui',
-					body: 'A node for Android devices. It exposes services through basic chat interfaces, without requiring trust in any other node.'
-				}
-			]
-		},
-
-		coordination: {
-			eyebrow: 'What makes strangers cooperate',
-			heading: 'Coordination mechanisms',
-			intro: 'Neither is part of the core architecture, and that is deliberate: both sit outside it, so no particular ledger or currency is ever baked in.',
-			items: [
-				{
-					title: 'Reputation systems',
-					body: 'A history of interactions, recorded on ledgers as opinions rather than verdicts. It is <strong>what gets consulted first</strong>, before anyone commits anything.',
-					points: [
-						'Each actor weighs the sources it already trusts, at its own discretion.',
-						'Standing is worth protecting, so it becomes the collateral behind a promise.',
-						'The result is self-regulation, with no authority handing out verdicts.'
-					]
-				},
-				{
-					title: 'Payment mechanisms',
-					body: 'A node is paid <strong>beforehand</strong> in exchange for a promise of resources to be consumed — this much compute, for this long. Its guarantee is not an invoice after the fact; it is <strong>its reputation</strong>.',
-					points: [
-						'Payment is taken up front, before execution starts.',
-						'Proof of payment gates access to services that ask for it.',
-						'A node that takes payment and under-delivers loses reputation, so it stops getting chosen.'
-					]
+					stage: 'Concept',
+					body: 'A stated intention to build an Android node that reaches services through a plain chat interface, without trusting any other node. The repository currently holds that description and nothing more — there is no code to run yet.'
 				}
 			],
-			note: 'Check the record · pay for the right · deliver · record the outcome.'
+			note: 'Nothing here is a placeholder for something that already works elsewhere. What runs, runs; what does not, says so.'
 		},
 
-		distribution: {
-			eyebrow: 'Getting it out there',
-			heading: 'Service distribution',
-			intro: 'There is no store to publish to and no review to wait for. A developer hands the service to one node, and the network carries it from there.',
-			items: [
-				{
-					title: 'Decentralized discovery',
-					body: 'Celaut has <strong>no central service registry</strong>. Services spread across nodes peer-to-peer, so they can be found directly — and there is no gatekeeper deciding whether you are allowed in.'
-				},
-				{
-					title: 'Optional blockchain integration',
-					body: 'Services can also be declared on a blockchain that implements a registry — like the <strong>Sigma Reputation System</strong> on Ergo — when visibility and an auditable trail are worth more than staying entirely off-chain.'
-				}
-			]
-		},
-
+		// Two layers, not two owners.
+		//
+		// The old shape here was "ours" versus "third-party / not built by
+		// us", which put a company voice on a page that has none, and drew
+		// the wrong line anyway: what actually separates these things is
+		// DISTANCE FROM THE ARCHITECTURE. DePIN and Skills are what the
+		// architecture does when you switch it on — remove Celaut and there
+		// is nothing left of them. Game of Prompts is a product with its own
+		// reason to exist that happens to be built out of Celaut services;
+		// it would still be a game if it were rebuilt on something else.
+		// That is the distinction worth drawing, and it is one the reader
+		// can act on: the first layer is what running a node gets you, the
+		// second is what other people can go and make with it.
 		applications: {
 			eyebrow: 'Where it is already running',
 			heading: 'Real-world impact and applications',
-			intro: 'The architecture is not a thought experiment. These are the places it is in use today.',
-			ours: [
+			intro: 'The architecture is not a thought experiment. It is in use at two different distances — as the layer itself, and as the foundation under something with its own reason to exist.',
+			layerHeading: 'The architecture, switched on',
+			layerTag: 'The layer itself',
+			layerIntro: 'Neither of these is an application built on Celaut. They are what Celaut <strong>is</strong>, once nodes are actually running.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Anyone can run a Celaut node and become part of a decentralized physical infrastructure network. Each node discovers peers, executes and orchestrates services, and manages their dependencies — turning ordinary computers into shared, censorship-resistant compute.'
+					name: 'DePIN',
+					body: 'Anyone can run a Celaut node and become part of a decentralized physical infrastructure network. Each node discovers peers, executes and orchestrates services, and manages their dependencies — turning ordinary computers into shared, censorship-resistant compute. This is the network, not a product on it.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'A fully on-chain, serverless registry where the problems are the protagonists. Instead of hunting for services, agents search for a skill and discover the services that cover it, with real benchmarks and reputation-based ranking. Built on Ergo and Celaut, with native skin-in-the-game: nobody spams without risking reputation.'
+					body: 'A fully on-chain, serverless registry where the problems are the protagonists. Instead of hunting for services, agents search for a skill and discover the services that cover it, with real benchmarks and reputation-based ranking. It is how the paradigm’s reputation layer is actually reached — on Ergo, with native skin-in-the-game: nobody spams without risking reputation.'
 				}
 			],
-			thirdPartyHeading: 'Third-party',
-			thirdPartyTag: 'not built by us',
-			thirdParty: {
+			builtOnHeading: 'Built on top of it',
+			builtOnTag: 'Independent project',
+			builtOnIntro: 'One step further out: a product with its own purpose and its own users, which happens to be assembled from Celaut services. It would still make sense if it were rebuilt on something else — that is exactly what makes it evidence.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'A competitive platform where creators design <strong>game-services</strong> that evaluate the robots playing them, and players write <strong>solver-services</strong> that try to maximise their score.',
@@ -450,6 +447,20 @@ export default {
 				"Sell your computer's resources when you're not using them. Celaut's DePIN layer is fully peer-to-peer, lets you price compute around your electricity costs, and isolates every workload inside a microVM."
 		},
 		topbarTitle: 'Rent your PC',
+		// Section-index labels for the left rail, in page order.
+		index: {
+			sections: {
+				rent: 'The idea',
+				p2p: 'Peer-to-peer',
+				electricity: 'Your power bill',
+				isolation: 'Isolation',
+				payoff: 'What you get',
+				responsibilities: 'What a node does',
+				steps: 'Install to income',
+				roles: 'The other side',
+				cta: 'Get started'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Rent your PC.',
@@ -565,6 +576,35 @@ export default {
 				}
 			]
 		},
+		// The four responsibilities the paradigm assigns to a node. These
+		// used to sit on the landing page as "Nodes: the foundation of the
+		// network", which restated an entire page that already exists — this
+		// one. They belong here, between what you get for running a node and
+		// how you start one: this is the answer to "what is the software on
+		// my machine actually doing all day?"
+		responsibilities: {
+			heading: 'What the node on your machine actually does',
+			intro: 'A node is a <strong>computer or device</strong> that communicates with peers and manages service execution. The paradigm gives it four jobs, and puts no coordinator above it.',
+			items: [
+				{
+					title: 'Service execution',
+					body: 'It negotiates execution costs with peers and decides whether to run a service locally or delegate it, so resources go where they are cheapest.'
+				},
+				{
+					title: 'Communication',
+					body: 'It declares the interfaces it supports and the payment methods it accepts on contact, which is what lets protocols evolve without prior agreement.'
+				},
+				{
+					title: 'Security',
+					body: 'It issues and manages the addresses and authentication tokens every service interaction is identified by.'
+				},
+				{
+					title: 'Dependencies',
+					body: 'It makes sure a service can reach what it needs, wherever across the network that dependency happens to be running.'
+				}
+			],
+			note: 'None of it requires knowing what the software it runs is for.'
+		},
 		steps: {
 			heading: 'From install to income',
 			items: [
@@ -623,6 +663,21 @@ export default {
 				'Build Celaut services: specify a BOX, an API and a NET scope, hand it to one node, and let the network distribute and execute it. No infrastructure, no configuration, no platform in the middle.'
 		},
 		topbarTitle: 'For developers',
+		// Section-index labels for the left rail, in page order.
+		index: {
+			sections: {
+				spec: 'The idea',
+				agnostic: 'Run anywhere',
+				distribute: 'Distribution',
+				compose: 'Composition',
+				payoff: 'What you get',
+				distribution: 'How it spreads',
+				steps: 'Code to network',
+				tradeoffs: 'The trade',
+				roles: 'The rest',
+				cta: 'Get started'
+			}
+		},
 		hero: {
 			eyebrow: 'Service developers',
 			title: 'Build it once.',
@@ -759,6 +814,27 @@ export default {
 				}
 			]
 		},
+		// The two routes a service takes once it leaves its developer.
+		// This used to be a "Service distribution" block on the landing
+		// page, where it duplicated the coordination and specification
+		// scenes above it and served an audience the landing page had not
+		// yet asked the reader to identify with. Distribution is a
+		// developer's problem, so it sits on the developer's page, directly
+		// after the distribute scene it makes concrete.
+		distribution: {
+			heading: 'How a service actually spreads',
+			intro: 'There is no store to publish to and no review to wait for. A service is handed to one node, and the network carries it from there — by default off-chain, and optionally on it.',
+			items: [
+				{
+					title: 'Peer-to-peer by default',
+					body: 'Celaut has <strong>no central service registry</strong>. Services spread across nodes peer-to-peer, so they can be found directly — and there is no gatekeeper deciding whether you are allowed in.'
+				},
+				{
+					title: 'On a registry, if it earns its place',
+					body: 'Services can also be declared on a blockchain that implements a registry — like the <strong>Sigma Reputation System</strong> on Ergo — when visibility and an auditable trail are worth more than staying entirely off-chain. It is an option, never a requirement.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'The trade you’re actually making',
 			intro: "Today, shipping software means picking between hosting it yourself and asking people to run it themselves. Both options cost something. Celaut's claim is narrow and specific: it takes the advantages of each without their disadvantages — at the price of your control over the running service.",
@@ -819,6 +895,20 @@ export default {
 				'Launch services on Celaut nodes and pay only for the computational resources used. No accounts, no subscriptions, no platform in the middle — services run isolated and deterministically, so you get exactly what the specification describes.'
 		},
 		topbarTitle: 'For final users',
+		// Section-index labels for the left rail, in page order.
+		index: {
+			sections: {
+				ask: 'The idea',
+				proof: 'What you get back',
+				sealed: 'Sealed',
+				pay: 'What you pay',
+				payoff: 'What you get',
+				steps: 'Ask to result',
+				tradeoffs: 'The trade',
+				roles: 'The others',
+				cta: 'Get started'
+			}
+		},
 		hero: {
 			eyebrow: 'Service users',
 			title: 'Run it.',
@@ -1155,6 +1245,18 @@ export default {
 			identicalEveryTime: 'identical, every time',
 			reputationLedger: 'reputation · records on a ledger',
 			sourcesYouTrust: 'the sources you trust',
+			// Painted onto the core-principles scene. The vertex NAMES come
+			// from home.principles.items, so only the derived consequences
+			// and the closing line live here. Order matches the vertices:
+			// decentralization, simplicity, determinism.
+			principles: {
+				consequences: [
+					'→ no protocol to agree on',
+					'→ a container, an interface, a scope',
+					'→ reputation that keeps its meaning'
+				],
+				derivedFrom: 'everything else is derived'
+			},
 			firstWhatSources: 'first: what do my sources say about it?',
 			rightShort: '2 vCPU · 30 min',
 			rightLong: 'right to 2 vCPU · 30 min',

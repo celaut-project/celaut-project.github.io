@@ -25,7 +25,13 @@ export default {
 		readMore: 'Baca selengkapnya →',
 		viewOnGitHub: 'Lihat di GitHub →',
 		languageLabel: 'Bahasa',
-		switchLanguage: 'Ganti bahasa'
+		switchLanguage: 'Ganti bahasa',
+		toc: {
+			nav: 'Navigasi bagian',
+			title: 'Di halaman ini',
+			open: 'Buka menu bagian',
+			close: 'Tutup menu bagian'
+		}
 	},
 	theme: {
 		toLight: 'Beralih ke tema terang',
@@ -83,26 +89,20 @@ export default {
 			]
 		},
 		index: {
-			nav: 'Navigasi bagian',
-			title: 'Di halaman ini',
-			open: 'Buka menu bagian',
-			close: 'Tutup menu bagian',
 			sections: {
 				foundations: 'Asal usul',
 				atoms: 'Node & service',
-				nodes: 'Node',
+				nodes: 'Jaringannya',
 				services: 'Service',
 				'service-spec': 'Spesifikasi',
 				execution: 'Eksekusi',
 				determinism: 'Determinisme',
 				coordination: 'Koordinasi',
-				'user-roles': 'Kamu yang mana?',
 				'core-principles': 'Prinsip',
 				'what-is-not': 'Yang bukan Celaut',
 				implementations: 'Implementasi',
-				'coordination-detail': 'Insentif',
-				'service-distribution': 'Distribusi',
-				applications: 'Aplikasi'
+				applications: 'Aplikasi',
+				'user-roles': 'Kamu yang mana?'
 			}
 		},
 		scenes: {
@@ -246,6 +246,28 @@ export default {
 						note: 'Periksa · bayar · antarkan · catat. Lalu berputar lagi.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Aturan yang dipegangnya',
+				beats: [
+					{
+						h: 'Semua itu bukan daftar fitur.',
+						p: 'Jaringan tanpa protokol yang harus disepakati, layanan yang tersegel dari mesin yang menjalankannya, jaringan yang dideklarasikan di muka, pembayaran sebelum eksekusi — masing-masing adalah sebuah <strong>konsekuensi</strong>. Tiga komitmen menghasilkan semuanya, dan ketiganya saling menopang.'
+					},
+					{
+						h: 'Desentralisasi.',
+						p: 'Tidak ada <strong>titik kendali maupun titik kegagalan tunggal</strong>. Node berkomunikasi dan berkoordinasi secara dinamis, tanpa siapa pun di tengah untuk dimintai izin — itulah sebabnya sejak awal tidak ada protokol yang perlu disepakati.'
+					},
+					{
+						h: 'Kesederhanaan.',
+						p: '<strong>Aturan yang minimalis</strong> untuk menekan kerumitan, sehingga setiap komponen tetap cukup kecil untuk dipahami dan dirawat sendiri. Sebuah layanan adalah sebuah kontainer, sebuah antarmuka, dan sebuah cakupan jaringan — hanya itu.'
+					},
+					{
+						h: 'Determinisme.',
+						p: 'Layanan dispesifikasikan cukup lengkap untuk <strong>mereproduksi hasilnya</strong> lintas waktu dan lintas mesin. Masukan sama, keluaran sama, di mana pun dan kapan pun dijalankan — itulah yang membuat reputasi yang dicatat setahun lalu masih layak dibaca hari ini.',
+						note: 'Hilangkan salah satu dari ketiganya, dan dua sisanya nyaris tak berarti lagi.'
+					}
+				]
 			}
 		},
 		roles: {
@@ -292,21 +314,15 @@ export default {
 			]
 		},
 		principles: {
-			eyebrow: 'Aturan yang dipegangnya',
-			heading: 'Prinsip inti Celaut',
-			intro: 'Tiga komitmen yang menurunkan seluruh arsitekturnya. Semua di atas — node tanpa protokol, service tersegel, jaringan yang dideklarasikan — adalah konsekuensi dari ketiganya.',
 			items: [
 				{
-					title: 'Desentralisasi',
-					body: 'Celaut menghapus <strong>titik kendali atau titik gagal tunggal</strong> dengan membiarkan node berkomunikasi dan berkoordinasi secara dinamis, tanpa perantara yang harus dimintai izin.'
+					title: 'Desentralisasi'
 				},
 				{
-					title: 'Kesederhanaan',
-					body: 'Arsitekturnya mengikuti <strong>aturan minimalis</strong> yang menekan kerumitan, sehingga tiap komponen tetap cukup kecil untuk dipahami dan dirawat sendiri.'
+					title: 'Kesederhanaan'
 				},
 				{
-					title: 'Determinisme',
-					body: 'Service dispesifikasikan sepenuhnya untuk menjamin <strong>hasil yang dapat direproduksi</strong> lintas waktu dan node. Dengan masukan yang sama, keluarannya sama, terlepas dari di mana atau kapan dijalankan.'
+					title: 'Determinisme'
 				}
 			]
 		},
@@ -329,98 +345,45 @@ export default {
 				}
 			]
 		},
-		nodes: {
-			eyebrow: 'Mesin-mesinnya',
-			heading: 'Node: fondasi jaringan',
-			intro: 'Node adalah <strong>komputer atau perangkat</strong> yang berkomunikasi dengan sesamanya dan mengelola eksekusi service. Empat tugas, tanpa koordinator di atasnya.',
-			jobs: [
-				{
-					title: 'Eksekusi service',
-					body: 'Ia menegosiasikan biaya eksekusi dengan rekan-rekannya dan memutuskan apakah menjalankan service secara lokal atau mendelegasikannya, agar sumber daya mengalir ke tempat termurah.'
-				},
-				{
-					title: 'Komunikasi',
-					body: 'Ia menyatakan antarmuka yang didukung dan metode pembayaran yang diterima saat berkontak, dan itulah yang membuat protokol bisa berkembang tanpa kesepakatan sebelumnya.'
-				},
-				{
-					title: 'Keamanan',
-					body: 'Ia menerbitkan dan mengelola alamat serta token autentikasi yang menjadi identitas tiap interaksi service.'
-				},
-				{
-					title: 'Dependensi',
-					body: 'Ia memastikan sebuah service bisa menjangkau apa yang dibutuhkannya, di mana pun dependensi itu kebetulan berjalan di jaringan.'
-				}
-			],
-			implementationsHeading: 'Implementasi yang bisa kamu jalankan hari ini',
-			implementations: [
+		implementations: {
+			eyebrow: 'Perangkat lunaknya',
+			heading: 'Apa yang ada hari ini',
+			intro: 'Arsitektur ini adalah sebuah spesifikasi, dan siapa pun bisa mengimplementasikan node yang sesuai dengannya. Satu implementasi menjalankan jaringan sekarang; yang kedua adalah arah yang diumumkan, dan ditandai sebagai itu.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'Implementasi rujukan, dibangun dengan Python3 dan Rust — contoh nyata bagaimana sebuah node dijalankan dalam praktik.'
+					stage: 'Berjalan',
+					body: 'Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang bertanda tangan yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Node untuk perangkat Android. Ia menyajikan service lewat antarmuka obrolan sederhana, tanpa menuntut kepercayaan pada node mana pun.'
-				}
-			]
-		},
-		coordination: {
-			eyebrow: 'Yang membuat orang asing mau bekerja sama',
-			heading: 'Mekanisme koordinasi',
-			intro: 'Keduanya bukan bagian dari arsitektur inti, dan itu disengaja: keduanya berada di luar, supaya tak pernah ada ledger atau mata uang tertentu yang dipatri di dalamnya.',
-			items: [
-				{
-					title: 'Sistem reputasi',
-					body: 'Riwayat interaksi, dicatat di ledger sebagai opini, bukan vonis. Inilah <strong>yang pertama kali dilihat</strong>, sebelum siapa pun menyanggupi apa pun.',
-					points: [
-						'Tiap pelaku menimbang sendiri sumber-sumber yang sudah ia percayai.',
-						'Nama baik layak dijaga, sehingga ia menjadi jaminan di balik sebuah janji.',
-						'Hasilnya adalah pengaturan diri, tanpa otoritas yang menjatuhkan vonis.'
-					]
-				},
-				{
-					title: 'Mekanisme pembayaran',
-					body: 'Sebuah node dibayar <strong>di muka</strong> sebagai imbalan atas janji sumber daya yang akan dikonsumsi — sekian komputasi, selama sekian lama. Jaminannya bukan tagihan setelah pekerjaan usai; melainkan <strong>reputasinya</strong>.',
-					points: [
-						'Pembayaran ditarik di muka, sebelum eksekusi dimulai.',
-						'Bukti pembayaran membuka akses ke service yang memintanya.',
-						'Node yang menerima bayaran lalu kurang menyampaikan kehilangan reputasi, sehingga berhenti dipilih.'
-					]
+					stage: 'Konsep',
+					body: 'Niat yang dinyatakan untuk membangun node Android yang menjangkau layanan lewat antarmuka obrolan sederhana, tanpa memercayai node mana pun. Repositorinya saat ini hanya memuat deskripsi itu — belum ada kode yang bisa dijalankan.'
 				}
 			],
-			note: 'Periksa catatannya · bayar haknya · antarkan · catat hasilnya.'
-		},
-		distribution: {
-			eyebrow: 'Menyebarkannya',
-			heading: 'Distribusi service',
-			intro: 'Tak ada toko untuk menerbitkannya dan tak ada tinjauan untuk ditunggu. Pengembang menyerahkan service ke satu node, dan jaringan membawanya dari sana.',
-			items: [
-				{
-					title: 'Penemuan terdesentralisasi',
-					body: 'Celaut <strong>tak punya registri service pusat</strong>. Service menyebar antar node secara peer-to-peer, jadi bisa ditemukan langsung — dan tak ada penjaga gerbang yang memutuskan apakah kamu boleh masuk.'
-				},
-				{
-					title: 'Integrasi blockchain opsional',
-					body: 'Service juga bisa dideklarasikan pada blockchain yang mengimplementasikan registri — seperti <strong>Sigma Reputation System</strong> di Ergo — ketika visibilitas dan jejak yang bisa diaudit lebih berharga daripada tetap sepenuhnya off-chain.'
-				}
-			]
+			note: 'Tidak ada satu pun di sini yang menjadi pengganti sementara bagi sesuatu yang sudah berjalan di tempat lain. Yang berjalan, berjalan; yang tidak, mengatakannya.'
 		},
 		applications: {
 			eyebrow: 'Di mana ia sudah berjalan',
 			heading: 'Dampak dan penerapan di dunia nyata',
-			intro: 'Arsitektur ini bukan eksperimen pikiran. Inilah tempat-tempat ia dipakai hari ini.',
-			ours: [
+			intro: 'Arsitektur ini bukan eksperimen pikiran. Ia dipakai pada dua jarak yang berbeda — sebagai lapisannya sendiri, dan sebagai fondasi di bawah sesuatu yang punya alasan sendiri untuk ada.',
+			layerHeading: 'Arsitektur yang dinyalakan',
+			layerTag: 'Lapisannya sendiri',
+			layerIntro: 'Keduanya bukan aplikasi yang dibangun di atas Celaut. Keduanya <strong>adalah</strong> Celaut, begitu node benar-benar berjalan.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Siapa pun bisa menjalankan node Celaut dan menjadi bagian dari jaringan infrastruktur fisik terdesentralisasi. Tiap node menemukan rekan, menjalankan dan mengorkestrasi service, serta mengelola dependensinya — mengubah komputer biasa menjadi komputasi bersama yang tahan sensor.'
+					name: 'DePIN',
+					body: 'Siapa pun bisa menjalankan node Celaut dan menjadi bagian dari jaringan infrastruktur fisik terdesentralisasi. Setiap node menemukan peer, mengeksekusi dan mengorkestrasi layanan, serta mengelola dependensinya — mengubah komputer biasa menjadi komputasi bersama yang tahan sensor. Ini jaringannya sendiri, bukan produk di atasnya.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Registri tanpa server yang sepenuhnya on-chain, di mana masalah menjadi tokoh utamanya. Alih-alih memburu service, agen mencari sebuah skill lalu menemukan service yang menutupinya, lengkap dengan tolok ukur nyata dan peringkat berbasis reputasi. Dibangun di atas Ergo dan Celaut, dengan taruhan yang nyata: tak ada yang bisa spam tanpa mempertaruhkan reputasi.'
+					body: 'Registri sepenuhnya on-chain dan tanpa server, dengan masalah sebagai tokoh utamanya. Alih-alih memburu layanan, agen mencari sebuah keterampilan dan menemukan layanan yang menutupinya, lengkap dengan benchmark nyata dan peringkat berbasis reputasi. Inilah cara lapisan reputasi paradigma benar-benar dijangkau — di atas Ergo, dengan taruhan yang nyata: tak seorang pun bisa nyampah tanpa mempertaruhkan reputasinya.'
 				}
 			],
-			thirdPartyHeading: 'Pihak ketiga',
-			thirdPartyTag: 'bukan buatan kami',
-			thirdParty: {
+			builtOnHeading: 'Dibangun di atasnya',
+			builtOnTag: 'Proyek independen',
+			builtOnIntro: 'Satu langkah lebih jauh: sebuah produk dengan tujuan dan penggunanya sendiri, yang kebetulan dirakit dari layanan-layanan Celaut. Ia akan tetap masuk akal seandainya dibangun ulang di atas hal lain — dan justru itulah yang menjadikannya bukti.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'Platform kompetitif tempat kreator merancang <strong>game-service</strong> yang menilai robot yang memainkannya, dan pemain menulis <strong>solver-service</strong> yang berusaha memaksimalkan skornya.',
@@ -437,6 +400,19 @@ export default {
 			description: 'Jual sumber daya komputermu saat sedang tak kamu pakai. Lapisan DePIN Celaut sepenuhnya peer-to-peer, membiarkanmu menetapkan harga komputasi berdasarkan biaya listrikmu, dan mengisolasi tiap beban kerja di dalam microVM.'
 		},
 		topbarTitle: 'Sewakan PC-mu',
+		index: {
+			sections: {
+				rent: 'Idenya',
+				p2p: 'Peer-to-peer',
+				electricity: 'Tagihan listrikmu',
+				isolation: 'Isolasi',
+				payoff: 'Apa yang kamu dapat',
+				responsibilities: 'Apa yang node lakukan',
+				steps: 'Dari pasang ke penghasilan',
+				roles: 'Sisi seberang',
+				cta: 'Mulai'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Sewakan PC-mu.',
@@ -564,6 +540,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Apa yang sebenarnya dikerjakan node di mesinmu',
+			intro: 'Node adalah <strong>komputer atau perangkat</strong> yang berkomunikasi dengan peer dan mengelola eksekusi layanan. Paradigma memberinya empat tugas, dan tidak menempatkan koordinator apa pun di atasnya.',
+			items: [
+				{
+					title: 'Eksekusi service',
+					body: 'Ia menegosiasikan biaya eksekusi dengan rekan-rekannya dan memutuskan apakah menjalankan service secara lokal atau mendelegasikannya, agar sumber daya mengalir ke tempat termurah.'
+				},
+				{
+					title: 'Komunikasi',
+					body: 'Ia menyatakan antarmuka yang didukung dan metode pembayaran yang diterima saat berkontak, dan itulah yang membuat protokol bisa berkembang tanpa kesepakatan sebelumnya.'
+				},
+				{
+					title: 'Keamanan',
+					body: 'Ia menerbitkan dan mengelola alamat serta token autentikasi yang menjadi identitas tiap interaksi service.'
+				},
+				{
+					title: 'Dependensi',
+					body: 'Ia memastikan sebuah service bisa menjangkau apa yang dibutuhkannya, di mana pun dependensi itu kebetulan berjalan di jaringan.'
+				}
+			],
+			note: 'Tak satu pun dari itu menuntut pengetahuan tentang untuk apa perangkat lunak yang dijalankannya.'
+		},
 		steps: {
 			heading: 'Dari pasang sampai penghasilan',
 			items: [
@@ -620,6 +619,20 @@ export default {
 			description: 'Bangun service Celaut: tentukan BOX, API, dan cakupan NET, serahkan ke satu node, lalu biarkan jaringan mendistribusikan dan menjalankannya. Tanpa infrastruktur, tanpa konfigurasi, tanpa platform di tengah.'
 		},
 		topbarTitle: 'Untuk pengembang',
+		index: {
+			sections: {
+				spec: 'Idenya',
+				agnostic: 'Jalan di mana saja',
+				distribute: 'Distribusi',
+				compose: 'Komposisi',
+				payoff: 'Apa yang kamu dapat',
+				distribution: 'Cara ia menyebar',
+				steps: 'Dari kode ke jaringan',
+				tradeoffs: 'Pertukarannya',
+				roles: 'Yang lain',
+				cta: 'Mulai'
+			}
+		},
 		hero: {
 			eyebrow: 'Pengembang service',
 			title: 'Bangun sekali saja.',
@@ -768,6 +781,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Bagaimana sebuah layanan benar-benar menyebar',
+			intro: 'Tidak ada toko tempat menerbitkan dan tidak ada peninjauan yang perlu ditunggu. Layanan diserahkan ke satu node, dan jaringan membawanya dari sana — secara bawaan off-chain, dan on-chain jika mau.',
+			items: [
+				{
+					title: 'Peer-to-peer secara bawaan',
+					body: 'Celaut <strong>tak punya registri service pusat</strong>. Service menyebar antar node secara peer-to-peer, jadi bisa ditemukan langsung — dan tak ada penjaga gerbang yang memutuskan apakah kamu boleh masuk.'
+				},
+				{
+					title: 'Di registri, bila memang sepadan',
+					body: 'Service juga bisa dideklarasikan pada blockchain yang mengimplementasikan registri — seperti <strong>Sigma Reputation System</strong> di Ergo — ketika visibilitas dan jejak yang bisa diaudit lebih berharga daripada tetap sepenuhnya off-chain.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Pertukaran yang sebenarnya kamu lakukan',
 			intro: 'Hari ini, mengirim perangkat lunak berarti memilih antara menampungnya sendiri atau meminta orang menjalankannya sendiri. Kedua pilihan itu ada harganya. Klaim Celaut sempit dan spesifik: ia mengambil kelebihan keduanya tanpa kekurangannya — dengan harga kendalimu atas service yang sedang berjalan.',
@@ -826,6 +853,19 @@ export default {
 			description: 'Jalankan service di node Celaut dan bayar hanya sumber daya komputasi yang dipakai. Tanpa akun, tanpa langganan, tanpa platform di tengah — service berjalan terisolasi dan deterministik, jadi kamu mendapat persis yang diuraikan spesifikasinya.'
 		},
 		topbarTitle: 'Untuk pengguna akhir',
+		index: {
+			sections: {
+				ask: 'Idenya',
+				proof: 'Apa yang kembali padamu',
+				sealed: 'Tersegel',
+				pay: 'Apa yang kamu bayar',
+				payoff: 'Apa yang kamu dapat',
+				steps: 'Dari permintaan ke hasil',
+				tradeoffs: 'Pertukarannya',
+				roles: 'Yang lain',
+				cta: 'Mulai'
+			}
+		},
 		hero: {
 			eyebrow: 'Pengguna service',
 			title: 'Jalankan.',
@@ -1096,6 +1136,23 @@ export default {
 			environment: 'lingkungan',
 			api: 'API',
 			interface: 'antarmuka',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1153,6 +1210,14 @@ export default {
 			identicalEveryTime: 'identik, setiap kali',
 			reputationLedger: 'reputasi · catatan di ledger',
 			sourcesYouTrust: 'sumber yang kamu percayai',
+			principles: {
+				consequences: [
+					'→ tak ada protokol untuk disepakati',
+					'→ satu kontainer, antarmuka, cakupan',
+					'→ reputasi yang tetap bermakna'
+				],
+				derivedFrom: 'sisanya diturunkan dari sini'
+			},
 			firstWhatSources: 'pertama: apa kata sumberku tentangnya?',
 			rightShort: '2 vCPU · 30 mnt',
 			rightLong: 'hak atas 2 vCPU · 30 mnt',

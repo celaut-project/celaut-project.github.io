@@ -2,26 +2,63 @@
 	/*
 	 * Landing page.
 	 *
-	 * The ideas that make up the paradigm are full-screen pinned scenes
-	 * with scroll-scrubbed procedural canvases:
+	 * NARRATIVE ORDER
+	 * ---------------
+	 * The page tells the paradigm as one continuous argument, then hands
+	 * the reader off. Nine pinned scenes with scroll-scrubbed procedural
+	 * canvases:
 	 *
-	 *   1. Foundations   — Conway's Life, stepped by your scroll
-	 *   2. Network       — everyone has nodes; nobody else lets you skip
-	 *                      the protocol. One node forks a ring, then the
-	 *                      same peers wire up wherever they overlap
-	 *   3. Services      — machinery is sealed into a black box
-	 *   4. Specification — one body: BOX, its API, its declared NET
-	 *   5. Execution     — children with budgets, and a node deciding
-	 *                      where they land
-	 *   6. Determinism   — one input, three runs, one answer
-	 *   7. Coordination  — payment and reputation between strangers
+	 *   1. Foundations     — Conway's Life, stepped by your scroll
+	 *   2. Atoms           — the two primitives: a node, a service
+	 *   3. Network         — everyone has nodes; nobody else lets you
+	 *                        skip the protocol
+	 *   4. Services        — machinery is sealed into a black box
+	 *   5. Specification   — one body: BOX, its API, its declared NET
+	 *   6. Execution       — children with budgets, and a node deciding
+	 *                        where they land
+	 *   7. Determinism     — one input, three runs, one answer
+	 *   8. Coordination    — payment and reputation between strangers
+	 *   9. Core principles — and none of that was a feature list: three
+	 *                        commitments the other eight derive from
+	 *
+	 * Scene 9 is the close of the argument rather than a new claim,
+	 * which is why it is last of the scenes and why its canvas draws a
+	 * closed figure instead of a sequence. It used to be a static card
+	 * grid sitting below the scenes, where the one section whose job was
+	 * to say "everything above follows from this" was also the first one
+	 * to stop looking like everything above it.
+	 *
+	 * Then three grounded blocks, in the order a sceptical reader asks
+	 * for them:
+	 *
+	 *   • What it is NOT   — clear the near-misses before claiming
+	 *                        anything else
+	 *   • Implementations  — what software actually exists, and at what
+	 *                        stage
+	 *   • Applications     — where it runs, at two distances
+	 *
+	 * ...and the fork in the road LAST. "Which one are you?" was in the
+	 * middle of the page, which asked the reader to pick a door before
+	 * they had been told what was behind any of them, and put the page's
+	 * strongest set of outbound links where nothing had yet earned a
+	 * click. As the closing section it is the call to action the whole
+	 * argument has been building toward.
+	 *
+	 * WHAT MOVED OFF THIS PAGE
+	 * ------------------------
+	 *   • "Nodes: the foundation of the network" → /depin, where the
+	 *     entire page is about running a node. Its four responsibilities
+	 *     are now `depin.responsibilities`.
+	 *   • "Coordination mechanisms" → deleted. The coordination scene
+	 *     above it already stages reputation-then-payment beat by beat,
+	 *     and the card grid restated it in weaker words.
+	 *   • "Service distribution" → /developers. Distribution is a
+	 *     developer's problem, and that page already has the scene it
+	 *     makes concrete.
 	 *
 	 * The words live in the dictionaries under `home.scenes.<id>`; what
 	 * stays here is the pairing of each scene with its draw function and
 	 * its scroll timings, which are layout rather than copy.
-	 *
-	 * Below the scenes the page hands off to the three audience pages
-	 * (/depin, /developers, /users) and then to the grounded sections.
 	 *
 	 * Under prefers-reduced-motion every pin and scrub is skipped: each
 	 * canvas paints one static frame and every caption beat renders
@@ -41,14 +78,12 @@
 		drawSpecCellScene,
 		drawExecutionScene,
 		drawDeterminismScene,
-		drawTrustScene
+		drawTrustScene,
+		drawPrinciplesScene
 	} from '$lib/components/home/scenes.js';
 	import AudienceRouter from '$lib/components/home/AudienceRouter.svelte';
-	import CorePrinciples from '$lib/components/CorePrinciples.svelte';
 	import WhatIsNot from '$lib/components/WhatIsNot.svelte';
-	import Nodes from '$lib/components/Nodes.svelte';
-	import Coordination from '$lib/components/Coordination.svelte';
-	import ServiceDistribution from '$lib/components/ServiceDistribution.svelte';
+	import Implementations from '$lib/components/Implementations.svelte';
 	import Applications from '$lib/components/Applications.svelte';
 	import SectionIndex from '$lib/components/SectionIndex.svelte';
 	import GoToTop from '$lib/components/GoToTop.svelte';
@@ -59,9 +94,17 @@
 	 * @typedef {{ from: number, to: number, hold?: boolean, zoom?: string }} BeatTiming
 	 */
 
-	// Three-beat rhythm, shared by four of the eight scenes.
+	// Three-beat rhythm, shared by four of the nine scenes.
 	/** @type {BeatTiming[]} */
 	const THREE = [{ from: 0, to: 0.34 }, { from: 0.3, to: 0.66 }, { from: 0.62, to: 1, hold: true }];
+
+	/** @type {BeatTiming[]} */
+	const FOUR = [
+		{ from: 0, to: 0.3 },
+		{ from: 0.28, to: 0.58 },
+		{ from: 0.56, to: 0.84 },
+		{ from: 0.82, to: 1, hold: true }
+	];
 
 	const scenes = [
 		{ id: 'foundations', draw: drawAutomataScene, scrollLength: 2.4, beats: THREE },
@@ -102,13 +145,7 @@
 			align: 'right',
 			// Four beats: the claim, the honest limit on it, what it buys,
 			// and where it travels.
-			/** @type {BeatTiming[]} */
-			beats: [
-				{ from: 0, to: 0.3 },
-				{ from: 0.28, to: 0.58 },
-				{ from: 0.56, to: 0.84 },
-				{ from: 0.82, to: 1, hold: true }
-			]
+			beats: FOUR
 		},
 		{
 			id: 'coordination',
@@ -120,19 +157,33 @@
 				{ from: 0.27, to: 0.6 },
 				{ from: 0.57, to: 1, hold: true }
 			]
+		},
+		{
+			id: 'core-principles',
+			draw: drawPrinciplesScene,
+			scrollLength: 2.6,
+			align: 'right',
+			// The recap, then one beat per vertex of the figure. The
+			// scene's `lit` windows are tuned to these same boundaries.
+			beats: FOUR
 		}
 	];
 
 	// The grounded blocks, in page order. Each is a self-contained
-	// component that reads its own copy from the dictionary.
+	// component that reads its own copy from the dictionary. The
+	// audience fork is last on purpose — see the header comment.
 	const groundSections = [
-		{ id: 'user-roles', component: AudienceRouter },
-		{ id: 'core-principles', component: CorePrinciples },
 		{ id: 'what-is-not', component: WhatIsNot },
-		{ id: 'implementations', component: Nodes },
-		{ id: 'coordination-detail', component: Coordination },
-		{ id: 'service-distribution', component: ServiceDistribution },
-		{ id: 'applications', component: Applications }
+		{ id: 'implementations', component: Implementations },
+		{ id: 'applications', component: Applications },
+		{ id: 'user-roles', component: AudienceRouter }
+	];
+
+	// The section index reads the same two lists, so the rail can never
+	// drift out of step with the page it indexes.
+	$: indexSections = [
+		...scenes.map((s) => ({ id: s.id, labelKey: `home.index.sections.${s.id}` })),
+		...groundSections.map((s) => ({ id: s.id, labelKey: `home.index.sections.${s.id}` }))
 	];
 
 	/** @type {HTMLElement | undefined} */
@@ -186,7 +237,52 @@
 	}
 
 	function closeZoom() {
+		if (specZoom === null && specZoomT === 0) return;
 		tweenZoom(0);
+	}
+
+	/*
+	 * Un-zoom when the reader scrolls away from the beat that opened it.
+	 *
+	 * The Explore control magnifies one component of the specification
+	 * body and dims the other two. That is right while the reader is in
+	 * that beat — and wrong the moment they are not, because the caption
+	 * beside the canvas has moved on to a different component while the
+	 * canvas is still holding a magnified view of the previous one, or
+	 * of a scene the reader has scrolled out of entirely.
+	 *
+	 * The fix is to make the zoom a function of scroll position and not
+	 * only of the button: each zoom belongs to the beat window that
+	 * offers it, and leaving that window (with a small margin, so the
+	 * cross-fade between two beats doesn't strobe the zoom off and on)
+	 * eases it back to the wide view through the same tween the close
+	 * button uses. Scrolling back into the beat does NOT re-open it —
+	 * an automatic un-zoom is a correction, but an automatic re-zoom
+	 * would be the page taking a decision away from the reader.
+	 *
+	 * The other eight scenes need no equivalent: every one of them is a
+	 * pure function of `progress` with no latched state at all, so
+	 * scrubbing backwards already un-draws them exactly as it drew them.
+	 * This scene is the only one on the site with a mode that outlives
+	 * the scroll position that set it.
+	 */
+	const ZOOM_EXIT_MARGIN = 0.06;
+
+	/** @type {Record<string, { from: number, to: number }>} */
+	const zoomWindows = Object.fromEntries(
+		/** @type {BeatTiming[]} */ (scenes.find((s) => s.id === 'service-spec')?.beats ?? [])
+			.filter((b) => b.zoom)
+			.map((b) => [/** @type {string} */ (b.zoom), { from: b.from, to: b.to }])
+	);
+
+	/** @param {number} progress */
+	function onSpecProgress(progress) {
+		if (!specZoom) return;
+		const win = zoomWindows[specZoom];
+		if (!win) return;
+		if (progress < win.from - ZOOM_EXIT_MARGIN || progress > win.to + ZOOM_EXIT_MARGIN) {
+			closeZoom();
+		}
 	}
 
 	onMount(() => {
@@ -263,7 +359,7 @@
 	});
 </script>
 
-<SectionIndex />
+<SectionIndex sections={indexSections} />
 
 <main bind:this={main} class="home">
 	<Hero />
@@ -271,7 +367,7 @@
 	<!-- #learn-more is kept for the Hero CTA, which predates the TOC. -->
 	<div id="learn-more"></div>
 
-	<!-- ========== The seven pinned scenes ========== -->
+	<!-- ========== The nine pinned scenes ========== -->
 	{#each scenes as scene}
 		<PinnedScene
 			id={scene.id}
@@ -280,6 +376,7 @@
 			draw={scene.draw}
 			scrollLength={scene.scrollLength}
 			state={scene.id === 'service-spec' ? specState : null}
+			onProgress={scene.id === 'service-spec' ? onSpecProgress : undefined}
 			let:progress
 			let:static={isStatic}
 		>
@@ -310,7 +407,8 @@
 								     of the same scene, so the reader keeps their place — and
 								     the detail lives in the DOM, because the canvas is
 								     aria-hidden and text painted onto it can be neither
-								     selected nor read out. -->
+								     selected nor read out. Scrolling out of this beat
+								     releases the zoom; see onSpecProgress above. -->
 								{@const detail = $t(`viz.home.zoom.${timing.zoom}`)}
 								{#if specZoom === timing.zoom}
 									<div class="zoom-detail">
@@ -355,7 +453,7 @@
 		</PinnedScene>
 	{/each}
 
-	<!-- ========== The fork in the road, then grounded detail ==========
+	<!-- ========== Grounded detail, then the fork in the road ==========
 	     Everything from here down shares one reading language, defined
 	     once as the `.ground` layer in src/app.css — the same one the
 	     /depin, /developers and /users pages use below their scenes.
@@ -474,10 +572,9 @@
 	}
 
 	/* The landing page carries SectionIndex's fixed rail down the left
-	   edge, which /depin does not. The rail is ~14px from the edge and
-	   grows to ~200px wide when a label is active, so left-aligned scene
-	   captions need a gutter wider than that or the copy renders under
-	   the dots. */
+	   edge. The rail is ~14px from the edge and grows to ~200px wide
+	   when a label is active, so left-aligned scene captions need a
+	   gutter wider than that or the copy renders under the dots. */
 	@media (min-width: 1025px) {
 		.home :global(.scene:not(.align-right):not(.is-static) .scene-copy) {
 			margin-inline-start: clamp(150px, 13vw, 220px);

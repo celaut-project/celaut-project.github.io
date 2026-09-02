@@ -15,6 +15,7 @@
  *   5. execution    — children, budgets, and who decides where they run
  *   6. determinism  — the same input, run in three places, three times
  *   7. coordination — reputation and payment, the trustless glue
+ *   8. principles   — the three commitments all of the above derive from
  *
  * All pure functions of (progress, palette, mouse, time).
  */
@@ -1708,4 +1709,252 @@ export function drawTrustScene(ctx, { width, height, progress, palette, mouse, t
 		ctx.restore();
 		label(ctx, p.name, p.x, partyY - 26 * s, palette, partyF, compact ? 10 : 12);
 	});
+}
+
+/* ==================================================================
+ * SCENE 9 — Core principles
+ * The closing recap of the paradigm story, and the one scene that is
+ * deliberately NOT a new idea: everything the previous eight scenes
+ * showed is a consequence of three commitments, so this one draws the
+ * three of them as a closed figure and hangs each consequence off the
+ * vertex it comes from.
+ *
+ * A triangle rather than three cards, because the point is that they
+ * hold each other up: drop decentralization and determinism stops
+ * being worth anything (nobody to check the answer against); drop
+ * simplicity and neither of the other two survives contact with an
+ * implementation. Each vertex carries a tiny motif of its own —
+ * a mesh with no centre, three rules and nothing more, one answer
+ * repeated — so the figure states the principle as well as naming it.
+ *
+ * Principle names come from `home.principles.items`, the same array
+ * the caption beats read, so the canvas can never drift out of sync
+ * with the words beside it in any locale.
+ * ================================================================== */
+
+/**
+ * The mesh with no middle: peers wired to each other and to nothing
+ * above them. Drawn small, as a vertex motif.
+ */
+function motifDecentralized(ctx, x, y, r, f, palette, time) {
+	const n = 6;
+	const pts = [];
+	for (let i = 0; i < n; i++) {
+		const a = (i / n) * Math.PI * 2 + time * 0.12;
+		pts.push({ x: x + Math.cos(a) * r, y: y + Math.sin(a) * r });
+	}
+	ctx.save();
+	ctx.globalAlpha = f * 0.4;
+	ctx.strokeStyle = palette.link;
+	ctx.lineWidth = 1;
+	for (let i = 0; i < n; i++) {
+		for (let j = i + 1; j < n; j++) {
+			// Every peer to every other peer, and to nothing else.
+			ctx.beginPath();
+			ctx.moveTo(pts[i].x, pts[i].y);
+			ctx.lineTo(pts[j].x, pts[j].y);
+			ctx.stroke();
+		}
+	}
+	ctx.globalAlpha = f;
+	ctx.fillStyle = palette.node;
+	for (const p of pts) {
+		ctx.beginPath();
+		ctx.arc(p.x, p.y, 2.4, 0, Math.PI * 2);
+		ctx.fill();
+	}
+	ctx.restore();
+}
+
+/**
+ * Three rules and nothing more. The strokes arrive one at a time and
+ * then stop — the motif is as much about the fourth line never showing
+ * up as about the three that do.
+ */
+function motifSimple(ctx, x, y, r, f, palette) {
+	ctx.save();
+	ctx.strokeStyle = palette.node;
+	ctx.lineWidth = 2.2;
+	ctx.lineCap = 'round';
+	for (let i = 0; i < 3; i++) {
+		const k = clamp(f * 1.5 - i * 0.22);
+		if (k <= 0) continue;
+		const yy = y - r * 0.55 + i * r * 0.55;
+		ctx.globalAlpha = smoothstep(k);
+		ctx.beginPath();
+		ctx.moveTo(x - r, yy);
+		ctx.lineTo(x - r + 2 * r * smoothstep(k), yy);
+		ctx.stroke();
+	}
+	ctx.restore();
+}
+
+/**
+ * One answer, repeated. Three identical marks, so the eye reads
+ * "same" before it reads anything else.
+ */
+function motifDeterministic(ctx, x, y, r, f, palette) {
+	ctx.save();
+	ctx.strokeStyle = palette.node;
+	ctx.lineWidth = 1.6;
+	const w = r * 0.52;
+	for (let i = 0; i < 3; i++) {
+		const k = clamp(f * 1.5 - i * 0.2);
+		if (k <= 0) continue;
+		ctx.globalAlpha = smoothstep(k);
+		const cxx = x + (i - 1) * r * 0.78;
+		roundRect(ctx, cxx - w / 2, y - w / 2, w, w, 3);
+		ctx.stroke();
+		// The identical mark inside each one.
+		ctx.globalAlpha = smoothstep(k) * 0.75;
+		ctx.beginPath();
+		ctx.moveTo(cxx - w * 0.22, y);
+		ctx.lineTo(cxx - w * 0.04, y + w * 0.2);
+		ctx.lineTo(cxx + w * 0.24, y - w * 0.2);
+		ctx.stroke();
+	}
+	ctx.restore();
+}
+
+const PRINCIPLE_MOTIFS = [motifDecentralized, motifSimple, motifDeterministic];
+
+export function drawPrinciplesScene(
+	ctx,
+	{ width, height, progress, palette, mouse, time, align, t }
+) {
+	backdrop(ctx, width, height, palette, progress, mouse, align);
+	const { cx, cy, scale, compact } = stage(width, height, align);
+
+	const s = Math.max(0.85, scale * 0.8);
+	const R = (compact ? 96 : 138) * s;
+
+	const form = smoothstep(range(progress, 0.0, 0.2));
+	// One window per principle, matching the caption beats: the vertex
+	// the reader is being told about is the vertex that is lit.
+	const lit = [
+		smoothstep(range(progress, 0.18, 0.42)),
+		smoothstep(range(progress, 0.4, 0.64)),
+		smoothstep(range(progress, 0.62, 0.86))
+	];
+	const whole = smoothstep(range(progress, 0.84, 1.0));
+
+	const items = t('home.principles.items');
+	const names = Array.isArray(items) ? items.map((/** @type {any} */ i) => i.title) : ['', '', ''];
+	const consequences = t('viz.home.principles.consequences');
+	const conseq = Array.isArray(consequences) ? consequences : ['', '', ''];
+
+	// Vertices: apex up, then clockwise. The apex is the one the eye
+	// lands on first, so it carries the principle everything else is
+	// usually mistaken for being about.
+	const angles = [-Math.PI / 2, Math.PI / 6, (Math.PI * 5) / 6];
+	const verts = angles.map((a) => ({
+		x: cx + Math.cos(a) * R,
+		y: cy + Math.sin(a) * R,
+		a
+	}));
+
+	/* ---- The figure itself: three edges, drawn in sequence -------- */
+	ctx.save();
+	ctx.strokeStyle = palette.node;
+	ctx.lineWidth = 2;
+	ctx.lineJoin = 'round';
+	ctx.lineCap = 'round';
+	for (let i = 0; i < 3; i++) {
+		const k = smoothstep(clamp(form * 1.6 - i * 0.22));
+		if (k <= 0.01) continue;
+		const a = verts[i];
+		const b = verts[(i + 1) % 3];
+		// Each edge is brightest while either of the principles it joins
+		// is being read about — the edges are the mutual dependency.
+		const near = Math.max(lit[i], lit[(i + 1) % 3]);
+		ctx.globalAlpha = (0.34 + 0.42 * near) * k;
+		ctx.beginPath();
+		ctx.moveTo(a.x, a.y);
+		ctx.lineTo(a.x + (b.x - a.x) * k, a.y + (b.y - a.y) * k);
+		ctx.stroke();
+	}
+	ctx.restore();
+
+	/* ---- The interior, once all three are in place ---------------- */
+	if (whole > 0.01) {
+		ctx.save();
+		ctx.globalAlpha = whole * 0.5;
+		const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+		g.addColorStop(0, rgba(palette.onSurfaceRgb, 0.1));
+		g.addColorStop(1, 'rgba(0,0,0,0)');
+		ctx.fillStyle = g;
+		ctx.beginPath();
+		ctx.moveTo(verts[0].x, verts[0].y);
+		ctx.lineTo(verts[1].x, verts[1].y);
+		ctx.lineTo(verts[2].x, verts[2].y);
+		ctx.closePath();
+		ctx.fill();
+		ctx.restore();
+
+		// A slow sweep from the centre out to each vertex: the derivation
+		// running, rather than a static diagram.
+		verts.forEach((v, i) => {
+			const k = (time * 0.32 + i * 0.33) % 1;
+			packet(ctx, cx, cy, v.x, v.y, k, palette.accent, whole * 0.8, 2.6);
+		});
+	}
+
+	/* ---- Each vertex: its motif, its name, its consequence -------- */
+	verts.forEach((v, i) => {
+		const f = Math.max(form * 0.32, lit[i]);
+		if (f <= 0.02) return;
+		const mr = (compact ? 20 : 27) * s;
+
+		// A disc behind the motif so the edges do not run through it.
+		ctx.save();
+		ctx.globalAlpha = f;
+		ctx.fillStyle = palette.surfaceDeep;
+		ctx.beginPath();
+		ctx.arc(v.x, v.y, mr * 1.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.globalAlpha = f * (0.3 + 0.6 * lit[i]);
+		ctx.strokeStyle = lit[i] > 0.5 ? palette.accent : palette.node;
+		ctx.lineWidth = 1.4;
+		ctx.beginPath();
+		ctx.arc(v.x, v.y, mr * 1.5, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.restore();
+
+		PRINCIPLE_MOTIFS[i](ctx, v.x, v.y, mr * 0.78, f, palette, time);
+
+		// The name sits outside the figure, pushed along the vertex's own
+		// angle so it never lands on an edge.
+		const lx = v.x + Math.cos(v.a) * mr * 2.5;
+		const ly = v.y + Math.sin(v.a) * mr * 2.5 + (i === 0 ? -4 : 10) * s;
+		label(ctx, names[i] || '', lx, ly, palette, f, compact ? 11 : 13.5);
+
+		// ...and under it, the thing the previous scenes showed, which
+		// this principle is where it came from.
+		if (lit[i] > 0.05) {
+			label(
+				ctx,
+				conseq[i] || '',
+				lx,
+				ly + (compact ? 15 : 18) * s,
+				palette,
+				lit[i] * 0.8,
+				compact ? 9 : 10.5,
+				500
+			);
+		}
+	});
+
+	/* ---- The closing line, in the middle of the figure ------------- */
+	if (whole > 0.05) {
+		label(
+			ctx,
+			t('viz.home.principles.derivedFrom'),
+			cx,
+			cy + (compact ? 4 : 5) * s,
+			palette,
+			whole * 0.9,
+			compact ? 9.5 : 11.5,
+			500
+		);
+	}
 }

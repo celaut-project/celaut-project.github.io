@@ -25,7 +25,13 @@ export default {
 		readMore: 'Citește mai mult →',
 		viewOnGitHub: 'Vezi pe GitHub →',
 		languageLabel: 'Limbă',
-		switchLanguage: 'Schimbă limba'
+		switchLanguage: 'Schimbă limba',
+		toc: {
+			nav: 'Navigare pe secțiuni',
+			title: 'Pe această pagină',
+			open: 'Deschide meniul de secțiuni',
+			close: 'Închide meniul de secțiuni'
+		}
 	},
 	theme: {
 		toLight: 'Comută pe tema luminoasă',
@@ -83,26 +89,20 @@ export default {
 			]
 		},
 		index: {
-			nav: 'Navigare pe secțiuni',
-			title: 'Pe această pagină',
-			open: 'Deschide meniul de secțiuni',
-			close: 'Închide meniul de secțiuni',
 			sections: {
 				foundations: 'Origini',
 				atoms: 'Noduri și servicii',
-				nodes: 'Noduri',
+				nodes: 'Rețeaua',
 				services: 'Servicii',
 				'service-spec': 'Specificație',
 				execution: 'Execuție',
 				determinism: 'Determinism',
 				coordination: 'Coordonare',
-				'user-roles': 'Tu care ești?',
 				'core-principles': 'Principii',
 				'what-is-not': 'Ce nu este',
 				implementations: 'Implementări',
-				'coordination-detail': 'Stimulente',
-				'service-distribution': 'Distribuire',
-				applications: 'Aplicații'
+				applications: 'Aplicații',
+				'user-roles': 'Tu care ești?'
 			}
 		},
 		scenes: {
@@ -246,6 +246,28 @@ export default {
 						note: 'Verifică · plătește · livrează · înregistrează. Apoi din nou.'
 					}
 				]
+			},
+			'core-principles': {
+				label: 'Regulile de care se ține',
+				beats: [
+					{
+						h: 'Nimic din toate acestea nu a fost o listă de funcționalități.',
+						p: 'O rețea fără vreun protocol asupra căruia să te înțelegi, servicii sigilate față de mașinile care le execută, rețele declarate din start, plata înainte de execuție — fiecare dintre ele este o <strong>consecință</strong>. Trei angajamente le produc, iar cele trei se sprijină reciproc.'
+					},
+					{
+						h: 'Descentralizare.',
+						p: 'Niciun <strong>punct unic de control sau de eșec</strong>. Nodurile comunică și se coordonează dinamic, fără nimic la mijloc de la care să ceară permisiunea — exact de aceea nu a existat de la bun început vreun protocol asupra căruia să te înțelegi.'
+					},
+					{
+						h: 'Simplitate.',
+						p: '<strong>Reguli minimaliste</strong> care reduc complexitatea, astfel încât fiecare componentă rămâne suficient de mică pentru a fi înțeleasă și întreținută separat. Un serviciu este un container, o interfață și un domeniu de rețea — atât.'
+					},
+					{
+						h: 'Determinism.',
+						p: 'Serviciile sunt specificate suficient de complet pentru a-și <strong>reproduce rezultatele</strong> în timp și de la o mașină la alta. Aceleași intrări, aceleași ieșiri, oriunde și oricând ar rula — tocmai de aceea o reputație înregistrată acum un an merită citită și astăzi.',
+						note: 'Scoate oricare dintre cele trei și celelalte două nu mai valorează mare lucru.'
+					}
+				]
 			}
 		},
 		roles: {
@@ -292,21 +314,15 @@ export default {
 			]
 		},
 		principles: {
-			eyebrow: 'Regulile de care se ține',
-			heading: 'Principiile fundamentale ale Celaut',
-			intro: 'Trei angajamente din care derivă întreaga arhitectură. Tot ce e mai sus — noduri fără protocol, servicii sigilate, rețele declarate — este o consecință a lor.',
 			items: [
 				{
-					title: 'Descentralizare',
-					body: 'Celaut elimină <strong>punctele unice de control sau de eșec</strong>, lăsând nodurile să comunice și să se coordoneze dinamic, fără nimeni la mijloc de la care să ceri permisiunea.'
+					title: 'Descentralizare'
 				},
 				{
-					title: 'Simplitate',
-					body: 'Arhitectura urmează <strong>reguli minimaliste</strong> care reduc complexitatea, astfel încât fiecare componentă rămâne suficient de mică pentru a fi înțeleasă și întreținută pe cont propriu.'
+					title: 'Simplitate'
 				},
 				{
-					title: 'Determinism',
-					body: 'Serviciile sunt specificate complet, ca să asigure <strong>rezultate reproductibile</strong> în timp și între noduri. La aceleași intrări produc aceleași ieșiri, indiferent unde sau când rulează.'
+					title: 'Determinism'
 				}
 			]
 		},
@@ -329,98 +345,45 @@ export default {
 				}
 			]
 		},
-		nodes: {
-			eyebrow: 'Mașinile',
-			heading: 'Nodurile: temelia rețelei',
-			intro: 'Un nod este un <strong>calculator sau dispozitiv</strong> care comunică cu semenii săi și gestionează execuția serviciilor. Patru sarcini și niciun coordonator deasupra lor.',
-			jobs: [
-				{
-					title: 'Execuția serviciilor',
-					body: 'Negociază costurile de execuție cu semenii săi și decide dacă rulează un serviciu local sau îl deleagă, astfel încât resursele să meargă acolo unde sunt cele mai ieftine.'
-				},
-				{
-					title: 'Comunicare',
-					body: 'Își declară interfețele acceptate și metodele de plată primite chiar la contact, ceea ce permite protocoalelor să evolueze fără o înțelegere prealabilă.'
-				},
-				{
-					title: 'Securitate',
-					body: 'Emite și gestionează adresele și jetoanele de autentificare prin care este identificată fiecare interacțiune cu un serviciu.'
-				},
-				{
-					title: 'Dependențe',
-					body: 'Se asigură că un serviciu poate ajunge la ce are nevoie, oriunde în rețea s-ar întâmpla să ruleze acea dependență.'
-				}
-			],
-			implementationsHeading: 'Implementări pe care le poți rula chiar azi',
-			implementations: [
+		implementations: {
+			eyebrow: 'Software-ul',
+			heading: 'Ce există astăzi',
+			intro: 'Arhitectura este o specificație, iar oricine poate implementa un nod după ea. O implementare susține rețeaua acum; a doua este o direcție anunțată și este marcată ca atare.',
+			items: [
 				{
 					name: 'Nodo',
-					body: 'Implementarea de referință, construită cu Python3 și Rust — un exemplu funcțional al modului în care un nod este pus în practică.'
+					stage: 'Funcțional',
+					body: 'Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator semnat care își pregătește propriul mediu Linux izolat.'
 				},
 				{
 					name: 'Chatui',
-					body: 'Un nod pentru dispozitive Android. Expune serviciile prin interfețe de chat simple, fără să-ți ceară încredere în vreun alt nod.'
-				}
-			]
-		},
-		coordination: {
-			eyebrow: 'Ce îi face pe necunoscuți să coopereze',
-			heading: 'Mecanisme de coordonare',
-			intro: 'Niciunul nu face parte din arhitectura de bază și asta e intenționat: amândouă stau în afara ei, ca să nu fie încastrat vreodată un anumit registru sau o anumită monedă.',
-			items: [
-				{
-					title: 'Sisteme de reputație',
-					body: 'Un istoric al interacțiunilor, înregistrat în registre ca opinii, nu ca verdicte. Este <strong>primul lucru consultat</strong>, înainte ca cineva să se angajeze la ceva.',
-					points: [
-						'Fiecare actor cântărește, după propria judecată, sursele în care are deja încredere.',
-						'Bunul renume merită protejat, așa că devine garanția din spatele unei promisiuni.',
-						'Rezultatul este autoreglarea, fără vreo autoritate care să dea verdicte.'
-					]
-				},
-				{
-					title: 'Mecanisme de plată',
-					body: 'Un nod este plătit <strong>în avans</strong>, în schimbul unei promisiuni privind resursele ce vor fi consumate — atâta calcul, pentru atâta timp. Garanția lui nu e o factură ulterioară; este <strong>reputația sa</strong>.',
-					points: [
-						'Plata se încasează în avans, înainte ca execuția să înceapă.',
-						'Dovada plății deschide accesul la serviciile care o cer.',
-						'Un nod care încasează și livrează mai puțin pierde reputație, deci încetează să mai fie ales.'
-					]
+					stage: 'Concept',
+					body: 'Intenția declarată de a construi un nod Android care ajunge la servicii printr-o interfață simplă de chat, fără a avea încredere în vreun alt nod. Depozitul conține momentan doar această descriere — încă nu există cod care să poată fi rulat.'
 				}
 			],
-			note: 'Verifică istoricul · plătește dreptul · livrează · înregistrează rezultatul.'
-		},
-		distribution: {
-			eyebrow: 'Cum ajunge în lume',
-			heading: 'Distribuirea serviciilor',
-			intro: 'Nu există niciun magazin în care să publici și nicio verificare de așteptat. Dezvoltatorul predă serviciul unui nod, iar de acolo îl duce mai departe rețeaua.',
-			items: [
-				{
-					title: 'Descoperire descentralizată',
-					body: 'Celaut <strong>nu are un registru central de servicii</strong>. Serviciile se răspândesc între noduri peer-to-peer, deci pot fi găsite direct — și nu există niciun portar care să decidă dacă ai voie înăuntru.'
-				},
-				{
-					title: 'Integrare opțională cu blockchain',
-					body: 'Serviciile pot fi declarate și pe un blockchain care implementează un registru — precum <strong>Sigma Reputation System</strong> pe Ergo — atunci când vizibilitatea și o urmă auditabilă valorează mai mult decât a rămâne complet off-chain.'
-				}
-			]
+			note: 'Nimic de aici nu ține locul a ceva ce funcționează deja în altă parte. Ce merge, merge; ce nu merge, o spune.'
 		},
 		applications: {
 			eyebrow: 'Unde rulează deja',
 			heading: 'Impact și aplicații în lumea reală',
-			intro: 'Arhitectura nu este un experiment mental. Acestea sunt locurile în care se folosește azi.',
-			ours: [
+			intro: 'Arhitectura nu este un experiment de gândire. Este folosită la două distanțe diferite — ca strat în sine și ca temelie sub ceva ce are propriul motiv de a exista.',
+			layerHeading: 'Arhitectura, pornită',
+			layerTag: 'Stratul în sine',
+			layerIntro: 'Niciuna dintre ele nu este o aplicație construită peste Celaut. Ele <strong>sunt</strong> Celaut, odată ce nodurile chiar funcționează.',
+			layer: [
 				{
-					name: 'DePin',
-					body: 'Oricine poate rula un nod Celaut și poate deveni parte dintr-o rețea descentralizată de infrastructură fizică. Fiecare nod își descoperă semenii, execută și orchestrează servicii și le gestionează dependențele — transformând calculatoare obișnuite în putere de calcul partajată și rezistentă la cenzură.'
+					name: 'DePIN',
+					body: 'Oricine poate rula un nod Celaut și poate deveni parte dintr-o rețea descentralizată de infrastructură fizică. Fiecare nod descoperă perechi, execută și orchestrează servicii și le gestionează dependențele — transformând calculatoare obișnuite în putere de calcul partajată și rezistentă la cenzură. Aceasta este rețeaua, nu un produs așezat peste ea.'
 				},
 				{
 					name: 'Unstoppable Skills',
-					body: 'Un registru complet on-chain, fără server, în care protagonistele sunt problemele. În loc să vâneze servicii, agenții caută o abilitate și descoperă serviciile care o acoperă, cu benchmark-uri reale și clasare bazată pe reputație. Construit pe Ergo și Celaut, cu miză reală: nimeni nu face spam fără să-și riște reputația.'
+					body: 'Un registru complet on-chain și fără servere, în care protagonistele sunt problemele. În loc să vâneze servicii, agenții caută o competență și descoperă serviciile care o acoperă, cu benchmark-uri reale și clasare bazată pe reputație. Așa devine efectiv accesibil stratul de reputație al paradigmei — pe Ergo, cu o miză reală: nimeni nu inundă registrul fără să-și rișteze reputația.'
 				}
 			],
-			thirdPartyHeading: 'Terți',
-			thirdPartyTag: 'nu este făcut de noi',
-			thirdParty: {
+			builtOnHeading: 'Construit peste ea',
+			builtOnTag: 'Proiect independent',
+			builtOnIntro: 'Un pas mai departe: un produs cu propriul scop și propriii utilizatori, care se întâmplă să fie asamblat din servicii Celaut. Ar avea sens și dacă ar fi reconstruit pe altceva — exact acest lucru îl transformă în dovadă.',
+			builtOn: {
 				name: 'Game of Prompts',
 				body: [
 					'O platformă competitivă în care creatorii proiectează <strong>servicii-joc</strong> ce evaluează roboții care le joacă, iar jucătorii scriu <strong>servicii-rezolvitor</strong> care încearcă să-și maximizeze scorul.',
@@ -437,6 +400,19 @@ export default {
 			description: 'Vinde resursele calculatorului tău când nu-l folosești. Stratul DePIN al Celaut este complet peer-to-peer, îți permite să stabilești prețul calculului în funcție de costurile cu electricitatea și izolează fiecare sarcină într-un microVM.'
 		},
 		topbarTitle: 'Închiriază-ți PC-ul',
+		index: {
+			sections: {
+				rent: 'Ideea',
+				p2p: 'Peer-to-peer',
+				electricity: 'Factura la curent',
+				isolation: 'Izolare',
+				payoff: 'Ce primești',
+				responsibilities: 'Ce face un nod',
+				steps: 'De la instalare la venit',
+				roles: 'Cealaltă parte',
+				cta: 'Începe'
+			}
+		},
 		hero: {
 			eyebrow: 'Celaut DePIN',
 			title: 'Închiriază-ți PC-ul.',
@@ -564,6 +540,29 @@ export default {
 				}
 			]
 		},
+		responsibilities: {
+			heading: 'Ce face de fapt nodul de pe mașina ta',
+			intro: 'Un nod este un <strong>calculator sau dispozitiv</strong> care comunică cu perechile sale și gestionează execuția serviciilor. Paradigma îi dă patru sarcini și nu pune niciun coordonator deasupra lui.',
+			items: [
+				{
+					title: 'Execuția serviciilor',
+					body: 'Negociază costurile de execuție cu semenii săi și decide dacă rulează un serviciu local sau îl deleagă, astfel încât resursele să meargă acolo unde sunt cele mai ieftine.'
+				},
+				{
+					title: 'Comunicare',
+					body: 'Își declară interfețele acceptate și metodele de plată primite chiar la contact, ceea ce permite protocoalelor să evolueze fără o înțelegere prealabilă.'
+				},
+				{
+					title: 'Securitate',
+					body: 'Emite și gestionează adresele și jetoanele de autentificare prin care este identificată fiecare interacțiune cu un serviciu.'
+				},
+				{
+					title: 'Dependențe',
+					body: 'Se asigură că un serviciu poate ajunge la ce are nevoie, oriunde în rețea s-ar întâmpla să ruleze acea dependență.'
+				}
+			],
+			note: 'Niciuna dintre ele nu cere să știi la ce folosește software-ul pe care îl rulează.'
+		},
 		steps: {
 			heading: 'De la instalare la venit',
 			items: [
@@ -620,6 +619,20 @@ export default {
 			description: 'Construiește servicii Celaut: specifică un BOX, un API și un domeniu NET, predă-l unui nod și lasă rețeaua să-l distribuie și să-l execute. Fără infrastructură, fără configurare, fără platformă la mijloc.'
 		},
 		topbarTitle: 'Pentru dezvoltatori',
+		index: {
+			sections: {
+				spec: 'Ideea',
+				agnostic: 'Rulează oriunde',
+				distribute: 'Distribuție',
+				compose: 'Compunere',
+				payoff: 'Ce primești',
+				distribution: 'Cum se răspândește',
+				steps: 'De la cod la rețea',
+				tradeoffs: 'Schimbul',
+				roles: 'Ceilalți',
+				cta: 'Începe'
+			}
+		},
 		hero: {
 			eyebrow: 'Dezvoltatori de servicii',
 			title: 'Construiește-l o singură dată.',
@@ -768,6 +781,20 @@ export default {
 				}
 			]
 		},
+		distribution: {
+			heading: 'Cum se răspândește de fapt un serviciu',
+			intro: 'Nu există magazin în care să publici și nici recenzie pe care să o aștepți. Serviciul este predat unui nod, iar rețeaua îl duce mai departe — implicit off-chain și, opțional, on-chain.',
+			items: [
+				{
+					title: 'Implicit peer-to-peer',
+					body: 'Celaut <strong>nu are un registru central de servicii</strong>. Serviciile se răspândesc între noduri peer-to-peer, deci pot fi găsite direct — și nu există niciun portar care să decidă dacă ai voie înăuntru.'
+				},
+				{
+					title: 'Într-un registru, dacă merită',
+					body: 'Serviciile pot fi declarate și pe un blockchain care implementează un registru — precum <strong>Sigma Reputation System</strong> pe Ergo — atunci când vizibilitatea și o urmă auditabilă valorează mai mult decât a rămâne complet off-chain.'
+				}
+			]
+		},
 		tradeoffs: {
 			heading: 'Schimbul pe care îl faci de fapt',
 			intro: 'Azi, a livra software înseamnă să alegi între a-l găzdui tu însuți și a le cere oamenilor să-l ruleze singuri. Ambele variante costă ceva. Afirmația Celaut este îngustă și precisă: preia avantajele fiecăreia fără dezavantajele lor — cu prețul controlului tău asupra serviciului aflat în execuție.',
@@ -826,6 +853,19 @@ export default {
 			description: 'Lansează servicii pe noduri Celaut și plătește doar resursele de calcul folosite. Fără conturi, fără abonamente, fără platformă la mijloc — serviciile rulează izolat și determinist, deci primești exact ce descrie specificația.'
 		},
 		topbarTitle: 'Pentru utilizatori finali',
+		index: {
+			sections: {
+				ask: 'Ideea',
+				proof: 'Ce primești înapoi',
+				sealed: 'Sigilat',
+				pay: 'Ce plătești',
+				payoff: 'Ce primești',
+				steps: 'De la cerere la rezultat',
+				tradeoffs: 'Schimbul',
+				roles: 'Ceilalți',
+				cta: 'Începe'
+			}
+		},
 		hero: {
 			eyebrow: 'Utilizatori de servicii',
 			title: 'Rulează-l.',
@@ -1096,6 +1136,23 @@ export default {
 			environment: 'mediu',
 			api: 'API',
 			interface: 'interfață',
+			nets: [
+				'bitcoin-mainnet',
+				'ipfs',
+				'nostr',
+				'google.com',
+				'family-photos.lan',
+				'api.weather.gov',
+				'pg-cluster-a'
+			],
+			netsCompact: [
+				'bitcoin',
+				'ipfs',
+				'google.com',
+				'family-photos',
+				'nostr',
+				'weather-api'
+			],
 			zoom: {
 				source: 'celaut.proto · message Service',
 				box: {
@@ -1153,6 +1210,14 @@ export default {
 			identicalEveryTime: 'identic, de fiecare dată',
 			reputationLedger: 'reputație · înregistrări într-un registru',
 			sourcesYouTrust: 'sursele în care ai încredere',
+			principles: {
+				consequences: [
+					'→ niciun protocol de negociat',
+					'→ un container, o interfață, un domeniu',
+					'→ reputație care își păstrează sensul'
+				],
+				derivedFrom: 'restul derivă de aici'
+			},
 			firstWhatSources: 'mai întâi: ce spun sursele mele despre el?',
 			rightShort: '2 vCPU · 30 min',
 			rightLong: 'drept la 2 vCPU · 30 min',
