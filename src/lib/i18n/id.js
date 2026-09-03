@@ -337,7 +337,7 @@ export default {
 				},
 				{
 					title: 'Bukan tumpukan protokol yang lengkap',
-					body: 'Ia menyediakan <strong>prinsip inti</strong> untuk membangun tumpukan distribusi komputasi, bukan tumpukan penuh yang serba menentukan. Implementasi saat ini bersandar pada komponen seperti gRPC atau Docker, dan itu pilihan yang bisa ditukar.'
+					body: 'Ia menyediakan <strong>prinsip inti</strong> untuk membangun tumpukan distribusi komputasi, bukan tumpukan penuh yang serba menentukan. Implementasi saat ini bersandar pada komponen seperti gRPC dan Ergo, dan itu pilihan yang bisa ditukar.'
 				},
 				{
 					title: 'Bukan proyek blockchain',

@@ -336,7 +336,7 @@ export default {
 				},
 				{
 					title: 'Si mkusanyiko kamili wa itifaki',
-					body: 'Inatoa <strong>kanuni msingi</strong> za kujenga mikusanyiko ya usambazaji wa uchakataji, si mkusanyiko kamili uliowekwa. Utekelezaji wa sasa unategemea vipengele kama gRPC au Docker, na hivyo ni chaguzi zinazoweza kubadilishwa.'
+					body: 'Inatoa <strong>kanuni msingi</strong> za kujenga mikusanyiko ya usambazaji wa uchakataji, si mkusanyiko kamili uliowekwa. Utekelezaji wa sasa unategemea vipengele kama gRPC na Ergo, na hivyo ni chaguzi zinazoweza kubadilishwa.'
 				},
 				{
 					title: 'Si mradi wa blockchain',

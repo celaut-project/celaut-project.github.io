@@ -336,7 +336,7 @@ export default {
 				},
 				{
 					title: 'Eksiksiz bir protokol yığını değil',
-					body: 'Hesaplama dağıtım yığınları kurmak için <strong>temel ilkeler</strong> sunar, her şeye karar vermiş eksiksiz bir yığın değil. Mevcut uygulamalar gRPC ya da Docker gibi bileşenlere yaslanıyor ve bunlar değiştirilebilir tercihler.'
+					body: 'Hesaplama dağıtım yığınları kurmak için <strong>temel ilkeler</strong> sunar, her şeye karar vermiş eksiksiz bir yığın değil. Mevcut uygulamalar gRPC ya da Ergo gibi bileşenlere yaslanıyor ve bunlar değiştirilebilir tercihler.'
 				},
 				{
 					title: 'Bir blok zinciri projesi değil',
