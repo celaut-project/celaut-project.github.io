@@ -336,7 +336,7 @@ export default {
 				},
 				{
 					title: 'Kein vollständiger Protokoll-Stack',
-					body: 'Es liefert <strong>Kernprinzipien</strong> für den Bau von Stacks zur Verteilung von Berechnungen, keinen fertigen, meinungsstarken Stack. Aktuelle Implementierungen stützen sich auf Komponenten wie gRPC oder Docker, und das sind austauschbare Entscheidungen.'
+					body: 'Es liefert <strong>Kernprinzipien</strong> für den Bau von Stacks zur Verteilung von Berechnungen, keinen fertigen, meinungsstarken Stack. Aktuelle Implementierungen stützen sich auf Komponenten wie gRPC und Ergo, und das sind austauschbare Entscheidungen.'
 				},
 				{
 					title: 'Kein Blockchain-Projekt',

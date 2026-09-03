@@ -354,7 +354,7 @@ export default {
 				},
 				{
 					title: 'Not a complete protocol stack',
-					body: 'It provides <strong>core principles</strong> for building computation distribution stacks, not a full opinionated stack. Current implementations lean on components like gRPC or Docker, and those are interchangeable choices.'
+					body: 'It provides <strong>core principles</strong> for building computation distribution stacks, not a full opinionated stack. Current implementations lean on components like gRPC and Ergo, and those are interchangeable choices.'
 				},
 				{
 					title: 'Not a blockchain project',

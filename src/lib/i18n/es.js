@@ -336,7 +336,7 @@ export default {
 				},
 				{
 					title: 'No es una pila de protocolos completa',
-					body: 'Aporta <strong>principios fundamentales</strong> para construir pilas de distribución de computación, no una pila completa y cerrada. Las implementaciones actuales se apoyan en componentes como gRPC o Docker, y esas son elecciones intercambiables.'
+					body: 'Aporta <strong>principios fundamentales</strong> para construir pilas de distribución de computación, no una pila completa y cerrada. Las implementaciones actuales se apoyan en componentes como gRPC y Ergo, y esas son elecciones intercambiables.'
 				},
 				{
 					title: 'No es un proyecto blockchain',

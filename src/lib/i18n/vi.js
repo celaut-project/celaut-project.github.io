@@ -335,7 +335,7 @@ export default {
 				},
 				{
 					title: 'Không phải một ngăn xếp giao thức hoàn chỉnh',
-					body: 'Nó cung cấp <strong>các nguyên tắc cốt lõi</strong> để dựng các ngăn xếp phân phối tính toán, chứ không phải một ngăn xếp đầy đủ và áp đặt. Các bản triển khai hiện tại dựa vào những thành phần như gRPC hay Docker, và đó là những lựa chọn có thể thay thế.'
+					body: 'Nó cung cấp <strong>các nguyên tắc cốt lõi</strong> để dựng các ngăn xếp phân phối tính toán, chứ không phải một ngăn xếp đầy đủ và áp đặt. Các bản triển khai hiện tại dựa vào những thành phần như gRPC hay Ergo, và đó là những lựa chọn có thể thay thế.'
 				},
 				{
 					title: 'Không phải một dự án blockchain',

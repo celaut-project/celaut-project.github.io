@@ -335,7 +335,7 @@ export default {
 				},
 				{
 					title: 'Não é uma pilha de protocolos completa',
-					body: 'Ele fornece <strong>princípios fundamentais</strong> para construir pilhas de distribuição de computação, não uma pilha completa e fechada. As implementações atuais se apoiam em componentes como gRPC ou Docker, e essas são escolhas intercambiáveis.'
+					body: 'Ele fornece <strong>princípios fundamentais</strong> para construir pilhas de distribuição de computação, não uma pilha completa e fechada. As implementações atuais se apoiam em componentes como gRPC e Ergo, e essas são escolhas intercambiáveis.'
 				},
 				{
 					title: 'Não é um projeto blockchain',
