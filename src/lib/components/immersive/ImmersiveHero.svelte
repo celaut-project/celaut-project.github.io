@@ -24,6 +24,8 @@
 		loadGsap,
 		prefersReducedMotion,
 		fitCanvas,
+		releaseCanvas,
+		createViewportGate,
 		cssVar,
 		onThemeChange,
 		scrollTo
@@ -79,8 +81,12 @@
 			};
 		}
 
+		// See PinnedScene: a released canvas is 0x0, so nothing may paint
+		// into it until the gate has handed the pixels back.
+		let allocated = false;
+
 		function render() {
-			if (!ctx) return;
+			if (!ctx || !allocated) return;
 			ctx.clearRect(0, 0, width, height);
 			drawHeroField(ctx, {
 				width,
@@ -93,7 +99,7 @@
 		}
 
 		function resize() {
-			if (!canvasEl) return;
+			if (!canvasEl || !allocated) return;
 			const fitted = fitCanvas(canvasEl);
 			ctx = fitted.ctx;
 			width = fitted.width;
@@ -101,7 +107,18 @@
 			render();
 		}
 
-		resize();
+		function allocate() {
+			if (allocated || !canvasEl) return;
+			allocated = true;
+			resize();
+		}
+		function release() {
+			if (!allocated || !canvasEl) return;
+			allocated = false;
+			ctx = null;
+			releaseCanvas(canvasEl);
+		}
+
 		const ro = new ResizeObserver(() => resize());
 		ro.observe(canvasEl);
 		const stopThemeWatch = onThemeChange(() => {
@@ -110,13 +127,22 @@
 		});
 
 		if (reduced) {
+			const stopGate = createViewportGate(canvasEl, {
+				onNear: (near) => (near ? allocate() : release()),
+				onLive: () => {}
+			});
 			return () => {
+				stopGate();
 				ro.disconnect();
 				stopThemeWatch();
 			};
 		}
 
 		function onPointerMove(event) {
+			// Only measure while the hero is actually animating; once it has
+			// scrolled away this listener would otherwise force a layout read
+			// on every mouse move for a canvas nobody can see.
+			if (!raf) return;
 			const rect = canvasEl.getBoundingClientRect();
 			mouse.tx = (event.clientX - rect.left) / Math.max(1, rect.width);
 			mouse.ty = (event.clientY - rect.top) / Math.max(1, rect.height);
@@ -134,7 +160,24 @@
 			render();
 			raf = requestAnimationFrame(loop);
 		}
-		raf = requestAnimationFrame(loop);
+
+		// The hero is the top of the page, so it is the scene a reader
+		// leaves first and comes back to last. Parking its loop on the way
+		// out is most of the idle cost of the audience pages.
+		function startLoop() {
+			if (raf) return;
+			raf = requestAnimationFrame(loop);
+		}
+		function stopLoop() {
+			if (!raf) return;
+			cancelAnimationFrame(raf);
+			raf = 0;
+		}
+
+		const stopGate = createViewportGate(canvasEl, {
+			onNear: (near) => (near ? allocate() : release()),
+			onLive: (live) => (live ? startLoop() : stopLoop())
+		});
 
 		let cleanupGsap = () => {};
 		let cancelled = false;
@@ -197,11 +240,14 @@
 		return () => {
 			cancelled = true;
 			cancelAnimationFrame(raf);
+			raf = 0;
+			stopGate();
 			window.removeEventListener('pointermove', onPointerMove);
 			root.removeEventListener('pointerleave', onPointerLeave);
 			ro.disconnect();
 			stopThemeWatch();
 			cleanupGsap();
+			releaseCanvas(canvasEl);
 		};
 	});
 </script>

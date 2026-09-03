@@ -10,6 +10,7 @@ node_modules
 
 # Local verification screenshots / harness (not part of the site)
 .shots
+perf-results
 
 # OS
 .DS_Store

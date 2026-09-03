@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import { fly, fade } from 'svelte/transition';
     import { locale, t } from '$lib/i18n/index.js';
+    import { createViewportGate, releaseCanvas } from '$lib/motion.js';
 
     // --- ROTATING HERO FACTS ---
     // Short facts about Celaut that cycle in place of the old static
@@ -29,6 +30,11 @@
      * Las coordenadas se normalizan (-0.5 a 0.5) para un cálculo más sencillo.
      */
     function handleMousemove(event) {
+        // The parallax only moves the hero's own content wrapper, so once
+        // the hero has scrolled off there is nothing to update — and this
+        // is a reactive assignment, which would otherwise re-render the
+        // hero subtree on every single mouse move for the whole visit.
+        if (!heroLive) return;
         const { clientX, clientY } = event;
         const { innerWidth, innerHeight } = window;
         parallaxX = (clientX / innerWidth) - 0.5;
@@ -143,8 +149,14 @@
         target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     }
 
+    // True only while the hero backdrop is on screen; the parallax handler
+    // and the automata loop both read it. The hero is one viewport tall at
+    // the very top of a very long page, so for most of a visit this is
+    // false and all of this work can simply not happen.
+    let heroLive = false;
+
     onMount(() => {
-        const ctx = canvas.getContext('2d');
+        let ctx = canvas.getContext('2d');
         let cols, rows, grid;
         const resolution = 25; // Tamaño en píxeles de cada celda
         // Cell colour comes from the theme's decorative --viz-grid channel
@@ -154,12 +166,40 @@
                 .getPropertyValue('--viz-grid')
                 .trim() || 'rgba(255,255,255,0.08)';
 
+        // Whether the canvas currently owns a pixel buffer. The hero is a
+        // full-window canvas (~8MB at 1920x1080, and four times that on a
+        // retina panel), so it is worth handing back once it has scrolled
+        // away — the reader is nine scenes deep and cannot see it.
+        let allocated = false;
+
         function setup() {
+            if (!allocated) return;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            cols = Math.ceil(canvas.width / resolution);
-            rows = Math.ceil(canvas.height / resolution);
-            grid = createGrid(cols, rows);
+            const nextCols = Math.ceil(canvas.width / resolution);
+            const nextRows = Math.ceil(canvas.height / resolution);
+            // Only re-seed when the grid's shape actually changed. Releasing
+            // the backing store must not restart the simulation: a reader
+            // who scrolls back to the top should find the automata where
+            // they left it, not a fresh random field.
+            if (!grid || nextCols !== cols || nextRows !== rows) {
+                cols = nextCols;
+                rows = nextRows;
+                grid = createGrid(cols, rows);
+            }
+        }
+
+        function allocate() {
+            if (allocated) return;
+            allocated = true;
+            setup();
+            draw(grid);
+        }
+
+        function release() {
+            if (!allocated) return;
+            allocated = false;
+            releaseCanvas(canvas);
         }
 
         // Crea una retícula 2D con un estado inicial aleatorio
@@ -174,13 +214,29 @@
         // so the automata background evolves at a calmer, more readable pace.
         const stepInterval = 200; // ms between generations
         let lastStep = 0;
+        let raf = 0;
         function gameLoop(now) {
             if (now - lastStep >= stepInterval) {
                 lastStep = now;
                 grid = computeNextGeneration(grid);
                 draw(grid);
             }
-            requestAnimationFrame(gameLoop);
+            raf = requestAnimationFrame(gameLoop);
+        }
+
+        // This loop used to run for the entire visit, recomputing a
+        // full-window cellular automaton five times a second behind nine
+        // scenes of content. Now it runs only while the hero is on screen
+        // and the tab is in the foreground.
+        function startLoop() {
+            if (raf) return;
+            lastStep = 0;
+            raf = requestAnimationFrame(gameLoop);
+        }
+        function stopLoop() {
+            if (!raf) return;
+            cancelAnimationFrame(raf);
+            raf = 0;
         }
 
         // Calcula el estado de la siguiente generación basándose en las reglas del Juego de la Vida
@@ -216,6 +272,7 @@
 
         // Dibuja la retícula en el canvas
         function draw(grid) {
+            if (!allocated || !grid) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let col = 0; col < grid.length; col++) {
                 for (let row = 0; row < grid[col].length; row++) {
@@ -227,12 +284,28 @@
             }
         }
         
-        // Inicialización
-        setup();
-        setTimeout(gameLoop, 200); // Iniciar bucle
+        // Inicialización — allocation and the loop are both driven by the
+        // viewport gate, which fires immediately with the current state.
+        const stopGate = createViewportGate(canvas, {
+            onNear: (near) => (near ? allocate() : release()),
+            onLive: (live) => {
+                heroLive = live;
+                live ? startLoop() : stopLoop();
+            }
+        });
 
-        // Manejar redimensionamiento de la ventana
-        window.addEventListener('resize', setup);
+        // Manejar redimensionamiento de la ventana. Debounced: a drag-resize
+        // fires this continuously, and each call reallocates a full-window
+        // backing store and re-seeds the grid.
+        let resizeTimer;
+        function onResize() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                setup();
+                draw(grid);
+            }, 150);
+        }
+        window.addEventListener('resize', onResize);
 
         // Rotate the hero facts every 10 seconds.
         factsTimer = setInterval(() => {
@@ -240,8 +313,12 @@
         }, 10000);
 
         return () => {
-            window.removeEventListener('resize', setup);
+            stopLoop();
+            stopGate();
+            clearTimeout(resizeTimer);
+            window.removeEventListener('resize', onResize);
             clearInterval(factsTimer);
+            releaseCanvas(canvas);
         };
     });
 </script>

@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { createViewportGate } from '$lib/motion.js';
 	import gameOfLifeImgWebP from '$lib/assets/game-of-life.webp';
 	import gameOfLifeImgPng from '$lib/assets/game-of-life.png';
 
@@ -147,7 +148,7 @@
 			}
 		}
 
-		let raf;
+		let raf = 0;
 		let acc = 0;
 		let prev = 0;
 		function loop(ts) {
@@ -162,14 +163,44 @@
 			raf = requestAnimationFrame(loop);
 		}
 
+		/*
+		 * One generation per second, but the RAF loop still woke the main
+		 * thread sixty times a second to find out it had nothing to do — and
+		 * it did that whether or not the board was anywhere near the screen.
+		 * Park it when off-screen or backgrounded.
+		 *
+		 * `prev` is cleared on pause so the accumulator does not bank the
+		 * entire time the sim was parked and then burst through a pile of
+		 * generations the moment it comes back.
+		 */
+		function startLoop() {
+			if (raf) return;
+			prev = 0;
+			raf = requestAnimationFrame(loop);
+		}
+		function stopLoop() {
+			if (!raf) return;
+			cancelAnimationFrame(raf);
+			raf = 0;
+		}
+
 		const ro = new ResizeObserver(() => resize());
 		ro.observe(wrap);
 		resize();
 		draw();
-		raf = requestAnimationFrame(loop);
+
+		const stopGate = createViewportGate(wrap, {
+			// The board is a small, in-flow illustration rather than a
+			// full-bleed backdrop, and `resize()` re-seeds the simulation, so
+			// this one keeps its (cheap) backing store and only gates the loop.
+			onNear: () => {},
+			onLive: (live) => (live ? startLoop() : stopLoop())
+		});
 
 		return () => {
 			cancelAnimationFrame(raf);
+			raf = 0;
+			stopGate();
 			ro.disconnect();
 		};
 	});

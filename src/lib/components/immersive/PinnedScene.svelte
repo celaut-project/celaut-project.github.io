@@ -41,6 +41,8 @@
 		prefersReducedMotion,
 		isCompactViewport,
 		fitCanvas,
+		releaseCanvas,
+		createViewportGate,
 		onThemeChange,
 		cssVar
 	} from '$lib/motion.js';
@@ -124,8 +126,18 @@
 			};
 		}
 
+		/*
+		 * Allocation state for this scene's canvas.
+		 *
+		 * `allocated` tracks whether the backing store currently exists.
+		 * Everything that would paint checks it first, because a released
+		 * canvas is 0x0 and drawing into it is a silent no-op that would
+		 * leave the scene blank when it came back.
+		 */
+		let allocated = false;
+
 		function resize() {
-			if (!canvasEl) return;
+			if (!canvasEl || !allocated) return;
 			const fitted = fitCanvas(canvasEl);
 			ctx = fitted.ctx;
 			width = fitted.width;
@@ -134,7 +146,7 @@
 		}
 
 		function render() {
-			if (!ctx) return;
+			if (!ctx || !allocated) return;
 			ctx.clearRect(0, 0, width, height);
 			draw(ctx, {
 				width,
@@ -159,7 +171,6 @@
 		}
 
 		requestRender = render;
-		resize();
 		start = performance.now();
 
 		const stopThemeWatch = onThemeChange(() => {
@@ -178,15 +189,46 @@
 		});
 		// Observe the canvas itself (not the section): fitCanvas is
 		// layout-neutral, so this can't feed back into the section height.
+		// Skipped while released, so the 0x0 resize can't churn the loop.
 		const ro = new ResizeObserver(() => resize());
 		ro.observe(canvasEl);
 
+		/*
+		 * Give the canvas its pixels back (and repaint), or hand them to the
+		 * browser. `allocate` always paints synchronously, so the scene is
+		 * complete the instant it owns a backing store again — the outer
+		 * NEAR ring means that happens a full viewport before it is visible.
+		 */
+		function allocate() {
+			if (allocated || !canvasEl) return;
+			allocated = true;
+			resize();
+		}
+		function release() {
+			if (!allocated || !canvasEl) return;
+			allocated = false;
+			ctx = null;
+			releaseCanvas(canvasEl);
+		}
+
+		// A canvas that has never been sized still carries the spec's default
+		// 300x150 backing store. Harmless alone, but this page mounts nine of
+		// them, so start every scene at zero and let the gate be the only
+		// thing that ever hands out pixels.
+		releaseCanvas(canvasEl);
+
 		// --- Reduced motion: single static paint, then we're done. ---
+		// Still gated, so an off-screen static scene costs no pixel buffer;
+		// re-entry repaints the same final frame (progress = 1).
 		if (reduced) {
 			progress = 1;
-			render();
+			const stopGate = createViewportGate(canvasEl, {
+				onNear: (near) => (near ? allocate() : release()),
+				onLive: () => {}
+			});
 			return () => {
 				requestRender = () => {};
+				stopGate();
 				ro.disconnect();
 				stopThemeWatch();
 				stopLocaleWatch();
@@ -194,6 +236,11 @@
 		}
 
 		function onPointerMove(event) {
+			// Every scene listens on `window` (the pointer has to be tracked
+			// even when it is outside the canvas), so without this guard one
+			// mouse move would force a layout read in all nine scenes at once.
+			// Only the scene actually being looked at needs the coordinate.
+			if (!raf) return;
 			const rect = canvasEl.getBoundingClientRect();
 			mouse.tx = (event.clientX - rect.left) / Math.max(1, rect.width);
 			mouse.ty = (event.clientY - rect.top) / Math.max(1, rect.height);
@@ -214,7 +261,37 @@
 			render();
 			raf = requestAnimationFrame(loop);
 		}
-		raf = requestAnimationFrame(loop);
+
+		/*
+		 * The scene only animates while it is in (or just outside) the
+		 * viewport. Nine scenes used to run nine permanent 60fps loops; now
+		 * at most the one being read does, which is the difference between
+		 * a page that idles hot and one that idles cold.
+		 *
+		 * The clock is preserved across pauses rather than reset, so a scene
+		 * scrolled away from and back to continues its time-based motion
+		 * from where it was instead of snapping back to t=0.
+		 */
+		let pausedAt = 0;
+		function startLoop() {
+			if (raf) return;
+			if (pausedAt) {
+				start += performance.now() - pausedAt;
+				pausedAt = 0;
+			}
+			raf = requestAnimationFrame(loop);
+		}
+		function stopLoop() {
+			if (!raf) return;
+			cancelAnimationFrame(raf);
+			raf = 0;
+			pausedAt = performance.now();
+		}
+
+		const stopGate = createViewportGate(canvasEl, {
+			onNear: (near) => (near ? allocate() : release()),
+			onLive: (live) => (live ? startLoop() : stopLoop())
+		});
 
 		let cleanupGsap = () => {};
 		let cancelled = false;
@@ -246,12 +323,15 @@
 			cancelled = true;
 			requestRender = () => {};
 			cancelAnimationFrame(raf);
+			raf = 0;
+			stopGate();
 			window.removeEventListener('pointermove', onPointerMove);
 			root.removeEventListener('pointerleave', onPointerLeave);
 			ro.disconnect();
 			stopThemeWatch();
 			stopLocaleWatch();
 			cleanupGsap();
+			releaseCanvas(canvasEl);
 		};
 	});
 </script>
