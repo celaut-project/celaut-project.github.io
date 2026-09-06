@@ -54,6 +54,203 @@ export default {
 	},
 
 	/* ============================================================== *
+	 * Glossary — the inline "explain the jargon" layer
+	 * ==============================================================
+	 *
+	 * The problem this solves: the site is written for someone who
+	 * already knows what peer-to-peer, a container and a kernel are.
+	 * That reader exists and is worth writing for. But a reader who
+	 * doesn't know those words has no way in — and the fix is NOT to
+	 * rewrite the prose for them, because that produces the vague,
+	 * everything-is-magic marketing page every serious reader bounces
+	 * off. So the prose stays exactly as it is, and the definitions
+	 * become a layer on top of it that can be switched off.
+	 *
+	 * HOW TO WRITE ONE OF THESE
+	 * -------------------------
+	 * `match`  the words that should be marked IN THIS LANGUAGE. Pick
+	 *          the forms that actually appear in this locale's prose;
+	 *          do not translate the English list literally. Plurals are
+	 *          handled automatically for space-separated scripts.
+	 * `title`  the term, as a reader would say it.
+	 * `body`   ONE OR TWO SENTENCES. Rules, in order:
+	 *            1. Define the word, not Celaut. "Peer-to-peer" means
+	 *               the same thing here as it does anywhere else, and a
+	 *               definition that only makes sense on this site is a
+	 *               definition that has failed.
+	 *            2. Use a concrete comparison the reader already owns —
+	 *               a phone call, a post office, a photocopy, a recipe.
+	 *            3. No new jargon inside a definition. If a definition
+	 *               needs a second term explained, that term needs its
+	 *               own entry, not a nested aside.
+	 *            4. Never condescend. No "simply", no "just", no "don't
+	 *               worry about". The reader is an intelligent adult in
+	 *               someone else's field, which is a situation every
+	 *               expert here has also been in.
+	 * `more`   OPTIONAL second paragraph, set smaller: what the word
+	 *          means specifically in Celaut, once the general meaning
+	 *          has landed. Only where the two genuinely differ.
+	 *
+	 * Ids and ordering live in src/lib/glossary/terms.js, paired with
+	 * this array by index. Adding one means adding it to every locale
+	 * in the same position — `node scripts/check-i18n-keys.mjs` fails
+	 * loudly if a locale is left short.
+	 */
+	glossary: {
+		/* Chrome */
+		toggleOn: 'Explain technical terms',
+		toggleOff: 'Hide term explanations',
+		toggleLabel: 'Explanations',
+		close: 'Close',
+		// {term} is replaced with the marked word.
+		explain: 'What does "{term}" mean?',
+		// Shown once, on a reader's first visit, near the first mark.
+		hintTitle: 'Some words are underlined.',
+		hintBody:
+			'Tap any underlined word for a plain-language explanation. Turn them off any time with the button in the corner.',
+		hintDismiss: 'Got it',
+
+		terms: [
+			{
+				match: ['peer-to-peer', 'peer to peer', 'P2P', 'peer', 'peers'],
+				title: 'Peer-to-peer',
+				body: 'Two computers dealing with each other directly, the way two people have a phone call — instead of both sending everything through a company in the middle, the way email or a marketplace works. Each computer is a "peer": equal, no one in charge.',
+				more: 'It matters here because the company in the middle is usually the one that sets the price, takes a cut, and can remove you. Remove it and there is nobody to ask permission from.'
+			},
+			{
+				match: ['node', 'nodes'],
+				title: 'Node',
+				body: 'One computer taking part in a network. Your laptop, a spare desktop, a server in a rack — once it runs the software and starts talking to other machines, it is a node.',
+				more: 'In Celaut a node is one of only two moving parts. It provides the hardware and decides what runs where.'
+			},
+			{
+				match: ['service', 'services'],
+				title: 'Service',
+				body: 'A self-contained piece of software that does one job and can be handed to any machine to run — closer to a single appliance than to a whole program you install.',
+				more: 'Celaut services are sealed: the machine running one does not look inside it, and the service does not know which machine it landed on.'
+			},
+			{
+				match: ['compute', 'computation', 'computational resources', 'computing power'],
+				title: 'Compute',
+				body: 'The work a computer actually does — processor time, memory, storage — treated as something measurable that can be bought and sold, like electricity or storage space.',
+				more: 'Someone needs a calculation done and has no machine free; you have a machine doing nothing. "Compute" is what changes hands.'
+			},
+			{
+				match: ['DePIN', 'decentralized physical infrastructure network'],
+				title: 'DePIN',
+				body: 'Short for "decentralized physical infrastructure network". Ordinary people contribute real hardware they already own — computers, drives, antennas — and are paid for it, instead of one company building a data centre and renting it out.',
+				more: 'Think of a taxi fleet versus a city where anyone with a car can drive. Same service, no fleet owner.'
+			},
+			{
+				match: ['microVM', 'microVMs', 'micro-VM'],
+				title: 'microVM',
+				body: 'A tiny, fast, complete computer simulated inside your real one. Whatever runs in it behaves as though it has its own machine, and cannot see your files, your network or anything else on the actual hardware.',
+				more: 'It is what the large cloud providers use to run strangers\u2019 code on shared hardware safely. When the job finishes the whole simulated machine is destroyed.'
+			},
+			{
+				match: ['container', 'containers', 'containerised', 'containerized'],
+				title: 'Container',
+				body: 'Software packaged together with everything it needs to run — its files, its settings, its dependencies — so it behaves identically on any machine that opens the package. Like a shipping container: the port does not care what is inside, only that it is a standard box.'
+			},
+			{
+				match: ['kernel', 'kernels'],
+				title: 'Kernel',
+				body: 'The core of an operating system — the part that hands out memory, talks to the hardware and decides which program gets the processor next. Everything else on the machine goes through it.',
+				more: 'Why it comes up: if two workloads share one kernel, a flaw in it reaches both. Giving each its own kernel removes that shared path.'
+			},
+			{
+				match: ['isolation', 'isolated', 'sealed', 'sandboxed'],
+				title: 'Isolation',
+				body: 'Keeping a running program inside a boundary it cannot reach past — it sees only what it was given, and nothing of the machine around it or of anything else running there.'
+			},
+			{
+				match: ['deterministic', 'determinism', 'reproducible', 'reproducibility'],
+				title: 'Deterministic',
+				body: 'Same input, same output, every time — like a recipe that produces an identical cake in any kitchen, rather than one that depends on the cook. Nothing about the machine, the day or the location changes the result.',
+				more: 'This is what makes a result checkable by someone else, and what makes a review written a year ago still worth reading.'
+			},
+			{
+				match: ['decentralized', 'decentralised', 'decentralization', 'decentralisation'],
+				title: 'Decentralized',
+				body: 'No headquarters. There is no single company, server or person the system depends on, so there is nothing that can be switched off, bought, or ordered to shut it down.',
+				more: 'The practical test: if any one participant disappeared overnight, would the rest still work? If yes, it is decentralized.'
+			},
+			{
+				match: ['protocol', 'protocols'],
+				title: 'Protocol',
+				body: 'The agreed rules two computers follow so they can understand each other — a shared language, plus the etiquette of who speaks when. Both sides have to use the same one or nothing gets through.',
+				more: 'Most networks force everyone onto one protocol, which means everyone must upgrade together. Celaut\u2019s claim is that they need not: each pair agrees on whatever they happen to share.'
+			},
+			{
+				match: ['interface', 'interfaces', 'API', 'APIs'],
+				title: 'Interface',
+				body: 'The published list of what you can ask a piece of software for, and what it will send back — like a menu. It tells you what is available without telling you anything about the kitchen.'
+			},
+			{
+				match: ['specification', 'specifications', 'spec', 'specified', 'fully specified'],
+				title: 'Specification',
+				body: 'A complete written description of something, precise enough that anyone can build or run it from the description alone — architect\u2019s plans rather than a photograph of the finished house.',
+				more: 'A Celaut service is defined entirely by its specification: its files, its settings, how it starts. Nothing is left for the host machine to fill in.'
+			},
+			{
+				match: ['filesystem', 'file system', 'file structure'],
+				title: 'Filesystem',
+				body: 'The complete set of files and folders a program can see, and how they are arranged. Specifying it means listing every one of them, rather than saying "whatever happens to be on that computer".'
+			},
+			{
+				match: ['content-addressed', 'content addressed', 'hash', 'hashes', 'its hash is its name'],
+				title: 'Content-addressed',
+				body: 'Naming something after a fingerprint calculated from its contents, instead of giving it a label. Change one byte and the fingerprint changes completely, so a swapped or tampered file cannot keep the same name.',
+				more: 'It means you can ask for exact software by name and verify you got exactly that, without trusting whoever handed it to you.'
+			},
+			{
+				match: ['reputation', 'reputation proof', 'reputation-based'],
+				title: 'Reputation',
+				body: 'A public record of how a participant has behaved before — did it deliver what it was paid for, or not. Like seller ratings, except no company owns the ratings and nobody can quietly edit them.',
+				more: 'It is what stands in for trust between strangers: not a promise, but a record that costs something to damage.'
+			},
+			{
+				match: ['blockchain', 'blockchains', 'ledger', 'ledgers', 'on-chain'],
+				title: 'Blockchain',
+				body: 'A shared record book that thousands of computers keep copies of at once. Adding an entry requires the others to agree it is valid, and past entries cannot be rewritten — so no single participant controls the history.',
+				more: 'Used here for two narrow jobs: recording reputation, and settling payment between people who have never met. Nothing more.'
+			},
+			{
+				match: ['Ergo', 'ERG'],
+				title: 'Ergo',
+				body: 'The particular blockchain Celaut currently uses to record reputation and move payments. ERG is its unit of currency.',
+				more: 'It is a choice, not a foundation: Celaut has no coin of its own and the payment layer is deliberately replaceable.'
+			},
+			{
+				match: ['dependency', 'dependencies'],
+				title: 'Dependency',
+				body: 'Another piece of software that this one needs in order to work — the way a recipe depends on ingredients you have to source separately. Resolving them means finding and providing each one before anything can run.'
+			},
+			{
+				match: ['serverless'],
+				title: 'Serverless',
+				body: 'There is no particular server behind it. Nothing is hosted at an address someone pays for and could stop paying for — the thing exists across the network itself, so there is no plug to pull.'
+			},
+			{
+				match: ['hard fork', 'hard-fork', 'fork'],
+				title: 'Hard fork',
+				body: 'When a network changes its rules and every participant must upgrade on the same day. Those who do not are left on an incompatible version — in practice, the network splits in two and the community argues about which half is real.',
+				more: 'Cited here as the thing that cannot happen when there is no shared rulebook to change in the first place.'
+			},
+			{
+				match: ['Docker'],
+				title: 'Docker',
+				body: 'The most widely used tool for packaging software into containers. It is mentioned as a familiar point of comparison and as one interchangeable choice — not as something Celaut requires.'
+			},
+			{
+				match: ['gRPC'],
+				title: 'gRPC',
+				body: 'A common, efficient way for two programs to call each other across a network. Like Docker, it appears here as one implementation choice that could be swapped for another.'
+			}
+		]
+	},
+
+	/* ============================================================== *
 	 * Landing page
 	 * ============================================================== */
 	home: {

@@ -7,6 +7,7 @@
 	import { hardResetScroll, killAllScrollTriggers } from '$lib/motion.js';
 	import AmbientBackground from '$lib/components/AmbientBackground.svelte';
 	import FloatingControls from '$lib/components/FloatingControls.svelte';
+	import GlossaryLayer from '$lib/components/glossary/GlossaryLayer.svelte';
 
 	/** @type {import('./$types').LayoutData} */
 	export let data;
@@ -65,3 +66,11 @@
 <FloatingControls />
 
 <slot />
+
+<!--
+	The glossary layer annotates whatever the slot above rendered, so it
+	mounts after it. It renders nothing of its own except the definition
+	popover — everything else it does is to the existing DOM, which is
+	what keeps the prose (and all seventeen dictionaries) untouched.
+-->
+<GlossaryLayer />

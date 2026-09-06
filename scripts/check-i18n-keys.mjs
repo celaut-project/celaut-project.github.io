@@ -16,6 +16,28 @@
  * an array-length mismatch. `identical-to-en` is reported but never
  * fails the run: a handful of strings (product names, network
  * identifiers, "API") are legitimately the same in every language.
+ *
+ * PENDING NAMESPACES (the one deliberate hole)
+ * --------------------------------------------
+ * A namespace listed in `PENDING` is one that ships in English first
+ * and lights up per-language as translations land. It is still
+ * reported, so it can never be forgotten, but it does not fail the
+ * run.
+ *
+ * This exists for exactly one reason and should not be extended
+ * casually. The glossary is not ordinary copy: its entries include the
+ * WORDS that get matched against the prose, so English fallback there
+ * is not a degraded experience but a wrong one — the few terms spelled
+ * the same in every language (DePIN, microVM, Ergo, gRPC) would get
+ * underlined on a Spanish page and open English definitions, which is
+ * worse for that reader than having no glossary at all. The runtime
+ * therefore gates the whole feature on `$translated('glossary.terms')`
+ * and shows nothing until a locale is complete. That makes a partial
+ * translation genuinely safe, which is what earns the exception.
+ *
+ * To retire it: translate `glossary` into a locale, and it moves from
+ * PENDING to ok on its own. Once every locale has it, delete the
+ * entry from PENDING and the gate is strict again.
  */
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -41,6 +63,15 @@ function flatten(node, prefix = '', out = new Map()) {
 
 const enFlat = flatten(en);
 
+/**
+ * Namespaces that are allowed to be missing from a locale, because the
+ * runtime hides the feature entirely rather than falling back to
+ * English. See the header for why this is safe here and nowhere else.
+ */
+const PENDING = ['glossary'];
+
+const isPending = (key) => PENDING.some((ns) => key === ns || key.startsWith(`${ns}.`));
+
 const argv = process.argv.slice(2);
 const verbose = argv.includes('--verbose');
 const requested = argv.filter((a) => !a.startsWith('--'));
@@ -58,7 +89,11 @@ for (const code of codes) {
 	const mod = await import(resolvePath(dir, `${code}.js`));
 	const flat = flatten(mod.default);
 
-	const missing = [...enFlat.keys()].filter((k) => !flat.has(k));
+	const allMissing = [...enFlat.keys()].filter((k) => !flat.has(k));
+	// Split rather than filter, so a pending namespace stays visible in
+	// the output instead of quietly disappearing from the report.
+	const missing = allMissing.filter((k) => !isPending(k));
+	const pending = allMissing.filter(isPending);
 	const extra = [...flat.keys()].filter((k) => !enFlat.has(k));
 	const lenMismatch = [...enFlat.keys()]
 		.filter((k) => k.endsWith('[]') && flat.has(k) && flat.get(k) !== enFlat.get(k))
@@ -77,7 +112,9 @@ for (const code of codes) {
 	if (problems) bad++;
 
 	console.log(
-		`${problems ? 'FAIL' : 'ok  '} ${code}: ${flat.size} keys · missing ${missing.length} · extra ${extra.length} · arraylen ${lenMismatch.length} · identical-to-en ${identical.length}`
+		`${problems ? 'FAIL' : 'ok  '} ${code}: ${flat.size} keys · missing ${missing.length} · extra ${extra.length} · arraylen ${lenMismatch.length} · identical-to-en ${identical.length}${
+			pending.length ? ` · pending ${pending.length}` : ''
+		}`
 	);
 	const show = (label, list) => {
 		if (!list.length) return;
@@ -86,6 +123,11 @@ for (const code of codes) {
 		);
 	};
 	show('MISSING', missing);
+	if (pending.length) {
+		console.log(
+			`      pending: ${PENDING.join(', ')} not yet translated (feature hidden in this locale — not a failure)`
+		);
+	}
 	show('EXTRA', extra);
 	show('ARRAYLEN', lenMismatch);
 	if (identical.length) show('identical', identical);

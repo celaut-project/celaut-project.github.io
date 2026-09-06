@@ -344,6 +344,35 @@ export const exists = derived(locale, (/** @type {string} */ code) => {
 });
 
 /**
+ * `$translated('some.key')` — is this key present in the ACTIVE
+ * locale's own dictionary, with no English fallback?
+ *
+ * Almost everything on this site should fall back to English rather
+ * than render nothing, which is what `$t` and `$exists` do. The
+ * glossary is the one exception, and it is worth explaining why.
+ *
+ * Its dictionary entries are not only text, they are also the trigger
+ * WORDS that get matched against the prose. Falling back to English
+ * there produces a genuinely bad result rather than a degraded one: on
+ * a Spanish page the English triggers still match the handful of terms
+ * that are spelled the same in both languages (DePIN, microVM, Ergo,
+ * peer-to-peer), so the reader gets a few Spanish words underlined
+ * which then open English definitions. A Spanish speaker who does not
+ * read English is left worse off than if the feature had not been
+ * there at all — and that reader is the entire point of the feature.
+ *
+ * So the glossary gates on this instead: fully translated, or silently
+ * absent. No half-English state.
+ */
+export const translated = derived(locale, (/** @type {string} */ code) => {
+	const primary = cache[code];
+	return (/** @type {string} */ key) => {
+		if (!primary) return false;
+		return resolve(primary, String(key).split('.')) !== undefined;
+	};
+});
+
+/**
  * Prefix a root-relative path with a locale, for a shareable link in
  * that language — `withLocale('/depin', 'es')` → `/es/depin`. A no-op
  * for anything that isn't a root-relative path (external URLs, in-page
