@@ -335,7 +335,7 @@ export default {
 				},
 				{
 					title: 'Ce n’est pas une pile de protocoles complète',
-					body: 'Elle fournit des <strong>principes fondamentaux</strong> pour construire des piles de distribution de calcul, pas une pile complète et figée. Les implémentations actuelles s’appuient sur des composants comme gRPC ou Docker, et ce sont des choix interchangeables.'
+					body: 'Elle fournit des <strong>principes fondamentaux</strong> pour construire des piles de distribution de calcul, pas une pile complète et figée. Les implémentations actuelles s’appuient sur des composants comme gRPC et Ergo, et ce sont des choix interchangeables.'
 				},
 				{
 					title: 'Ce n’est pas un projet blockchain',

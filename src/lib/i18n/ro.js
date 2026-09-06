@@ -337,7 +337,7 @@ export default {
 				},
 				{
 					title: 'Nu este o stivă completă de protocoale',
-					body: 'Oferă <strong>principii fundamentale</strong> pentru construirea unor stive de distribuire a calculului, nu o stivă completă cu opinii despre tot. Implementările actuale se sprijină pe componente precum gRPC sau Docker, iar acelea sunt alegeri interschimbabile.'
+					body: 'Oferă <strong>principii fundamentale</strong> pentru construirea unor stive de distribuire a calculului, nu o stivă completă cu opinii despre tot. Implementările actuale se sprijină pe componente precum gRPC și Ergo, iar acelea sunt alegeri interschimbabile.'
 				},
 				{
 					title: 'Nu este un proiect blockchain',
