@@ -7,6 +7,7 @@
 	import { hardResetScroll, killAllScrollTriggers } from '$lib/motion.js';
 	import AmbientBackground from '$lib/components/AmbientBackground.svelte';
 	import FloatingControls from '$lib/components/FloatingControls.svelte';
+	import Glossary from '$lib/components/Glossary.svelte';
 
 	/** @type {import('./$types').LayoutData} */
 	export let data;
@@ -63,5 +64,6 @@
 
 <AmbientBackground />
 <FloatingControls />
+<Glossary />
 
 <slot />

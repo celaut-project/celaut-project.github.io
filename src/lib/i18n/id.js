@@ -1121,6 +1121,118 @@ export default {
 		executionHeading: 'Eksekusi sebuah service',
 		balancerHeading: 'Penyeimbangan beban service'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Ada kata yang belum kamu kenal? Yang bergaris bawah titik-titik menjelaskan dirinya sendiri — arahkan kursor, atau ketuk.',
+		hintDismiss: 'Mengerti',
+		close: 'Tutup',
+		terms: {
+			p2p: {
+				term: 'Peer-to-peer (antar rekan)',
+				body: 'Dua komputer berurusan langsung satu sama lain, tanpa server perusahaan mana pun di tengah yang meneruskan, menyetujui, atau mengambil potongan dari apa yang lewat.',
+				analogy: 'Seperti membayar tunai alih-alih transfer bank: tak ada pihak di tengah yang perlu menyetujui, dan tak ada yang bisa menolak.',
+				match: ['peer-to-peer', 'antar rekan', 'P2P']
+			},
+			compute: {
+				term: 'Komputasi',
+				body: 'Kerja mentah yang dilakukan komputer: waktu prosesor, memori, penyimpanan. Itulah yang sebenarnya kamu beli saat menyewa server, dan itu pula yang akan kamu jual di sini.',
+				analogy: 'Listrik bagi program: diukur selagi dipakai, dibayar per satuan.',
+				match: ['sumber daya komputasi', 'daya komputasi', 'komputasi']
+			},
+			node: {
+				term: 'Node (simpul)',
+				body: 'Satu komputer yang ikut serta dalam jaringan: laptop, desktop, atau mesin cadangan yang menganggur di lemari. Ia menjalankan perangkat lunak Celaut dan berbicara dengan yang lain yang menjalankannya juga.',
+				analogy: 'Seperti satu pesawat telepon dalam jaringan telepon: berguna karena yang lain ada, dan tak satu pun memerintah sisanya.',
+				match: ['node', 'simpul']
+			},
+			service: {
+				term: 'Service (layanan)',
+				body: 'Program yang dikemas sedemikian rupa sehingga mesin mana pun bisa menjalankannya dan mendapat hasil yang persis sama. Kamu memintanya berdasarkan pekerjaan yang ia lakukan, bukan berdasarkan perusahaan atau server yang kebetulan menjalankannya.',
+				analogy: 'Seperti memesan sepiring makanan, bukan menyewa satu dapur tertentu.',
+				match: ['service', 'layanan']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Komputer kecil sekali pakai yang dibuat di dalam komputer sungguhan, dengan sistem operasinya sendiri. Apa pun yang berjalan di dalamnya tak bisa melihat mesin yang menampungnya, dan ia dimusnahkan begitu pekerjaan selesai.',
+				analogy: 'Bilik tersegel yang dibangun di rumahmu untuk satu tamu saja: ia bisa bekerja di dalamnya dan tak pernah melihat ruangan lain.',
+				match: ['microVM']
+			},
+			container: {
+				term: 'Kontainer',
+				body: 'Cara mengemas program bersama segala yang ia butuhkan agar berjalan sama di mana pun. Lebih ringan daripada microVM, tetapi ia meminjam sistem inti mesin induk alih-alih punya sendiri.',
+				analogy: 'Makanan siap saji yang datang dengan nampannya sendiri — tapi tetap dipanaskan di ovenmu.',
+				match: ['kontainer', 'container']
+			},
+			kernel: {
+				term: 'Kernel (inti)',
+				body: 'Bagian paling dalam sebuah sistem operasi: kode yang membagikan prosesor, memori, dan diska kepada segala yang lain. Program yang berbagi satu kernel juga berbagi satu titik kegagalan.',
+				analogy: 'Penjaga yang memegang semua kunci gedung. Dua gedung, dua penjaga — tak satu pun bisa membuka pintu yang lain.',
+				match: ['kernel']
+			},
+			contentAddressed: {
+				term: 'Dialamatkan berdasarkan isi',
+				body: 'Perangkat lunak dikenali lewat sidik jari yang dihitung dari persis apa yang ada di dalamnya, bukan lewat nama yang bisa diam-diam diarahkan orang ke tempat lain. Ubah satu karakter, sidik jarinya ikut berubah.',
+				analogy: 'Meminta buku lewat sidik jari seluruh katanya, bukan lewat judulnya: salinan yang ditukar tak bisa menyamar jadi aslinya.',
+				match: ['dialamatkan berdasarkan isi*', 'pengalamatan berdasarkan isi*', 'dialamatkan berdasarkan konten']
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Jaringan Infrastruktur Fisik Terdesentralisasi: perangkat keras sehari-hari milik orang biasa, dikumpulkan untuk melakukan pekerjaan pusat data sebuah perusahaan.',
+				analogy: 'Seperti kamar-kamar kosong sebuah kota, yang bila dijumlahkan punya lebih banyak tempat tidur daripada jaringan hotel mana pun.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Reputasi',
+				body: 'Catatan publik dan permanen tentang apakah sebuah mesin menepati janjinya. Karena tak ada perusahaan yang menjamin kesepakatan, inilah yang membuat membeli dari mesin orang asing tetap aman.',
+				analogy: 'Seperti nama baik sebuah lapak pasar di mata pelanggan tetapnya — hanya saja catatan ini tak bisa diubah, dihapus, atau dibeli.',
+				match: ['reputasi']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'Blockchain tempat Celaut menyelesaikan pembayaran, dan ERG mata uang penyelesaiannya. Kedua pihak membaca buku besar bersama yang sama, jadi tak ada yang perlu memercayai yang lain.',
+				analogy: 'Mesin kasir yang bisa dibaca pembeli maupun penjual, dan bukan milik salah satu dari mereka.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Deterministik',
+				body: 'Masukan yang sama menghasilkan keluaran yang sama, setiap kali, di mesin mana pun. Itulah yang memungkinkan orang lain mengulang pekerjaannya dan memeriksa bahwa jawaban yang diterimanya benar.',
+				analogy: 'Resep yang begitu tepat sehingga dua juru masak di dua dapur tak mungkin menghasilkan kue yang berbeda.',
+				match: ['deterministik', 'determinisme', 'secara deterministik']
+			},
+			workload: {
+				term: 'Beban kerja',
+				body: 'Satu potong pekerjaan yang diserahkan ke mesin: sebuah program yang berjalan selama diperlukan, dan tidak lebih. Setelah selesai, ia tak meninggalkan apa pun.',
+				analogy: 'Satu pekerjaan di atas meja kerja, dibereskan begitu rampung.',
+				match: ['beban kerja']
+			},
+			api: {
+				term: 'API (antarmuka)',
+				body: 'Daftar yang disepakati tentang permintaan apa saja yang akan dijawab sebuah program, dan apa yang ia kembalikan. Begitulah dua program bekerja sama tanpa perlu tahu bagaimana yang lain dibangun di dalamnya.',
+				analogy: 'Sebuah menu: kamu memesan dari daftar, dan tidak masuk ke dapur.',
+				match: ['API', 'antarmuka']
+			},
+			orchestration: {
+				term: 'Orkestrasi',
+				body: 'Memutuskan mesin mana yang menjalankan potongan pekerjaan yang mana, dan kapan, serta memastikan potongan-potongan itu saling menemukan. Di kebanyakan cloud, satu sistem pusat yang melakukannya; di sini tiap mesin mengurus dirinya sendiri.',
+				analogy: 'Dirigen yang menjaga orkestra tetap padu — hanya saja di sini tiap pemain menjaga temponya sendiri.',
+				match: ['orkestrasi', 'mengorkestrasi', 'orkestrator']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Perjanjian Tingkat Layanan: janji tertulis penyedia tentang seberapa sering layanan hidup dan seberapa cepat, dengan uang kembali bila dilanggar. Janji yang harus kamu percayai — dan harus kamu tagih.',
+				analogy: 'Kartu garansi: nilainya persis sebesar nilai perusahaan yang menandatanganinya.',
+				match: ['SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'generasi {n}',

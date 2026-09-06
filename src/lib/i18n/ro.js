@@ -1121,6 +1121,129 @@ export default {
 		executionHeading: 'Execuția unui serviciu',
 		balancerHeading: 'Echilibrarea încărcării serviciilor'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Vreun cuvânt pe care nu-l știi? Cele subliniate punctat se explică singure: treci cu mouse-ul peste ele sau atinge-le.',
+		hintDismiss: 'Am înțeles',
+		close: 'Închide',
+		terms: {
+			p2p: {
+				term: 'Peer-to-peer (între semeni)',
+				body: 'Două calculatoare care se înțeleg direct între ele, fără serverele vreunei companii la mijloc care să dirijeze, să aprobe sau să ia o parte din ce trece între ele.',
+				analogy: 'Ca și cum ai plăti cash în loc de transfer bancar: nimeni de la mijloc nu trebuie să aprobe, și nimeni nu poate refuza.',
+				match: ['peer-to-peer', 'între semeni', 'P2P']
+			},
+			compute: {
+				term: 'Calcul',
+				body: 'Munca brută pe care o face un calculator: timp de procesor, memorie, disc. Asta cumperi de fapt când închiriezi un server, și asta ai vinde aici.',
+				analogy: 'Electricitate pentru programe: se măsoară cât se folosește și se plătește la unitate.',
+				match: ['resurse de calcul', 'putere de calcul', 'calcul']
+			},
+			node: {
+				term: 'Nod',
+				body: 'Un calculator care participă la rețea: un laptop, un desktop, o mașină de rezervă uitată în dulap. Rulează software-ul Celaut și vorbește cu celelalte care îl rulează.',
+				analogy: 'Ca un telefon într-o rețea telefonică: e util fiindcă există și celelalte, și niciunul nu comandă peste restul.',
+				match: ['noduri', 'nodul', 'nodurile', 'nod']
+			},
+			service: {
+				term: 'Serviciu',
+				body: 'Un program împachetat astfel încât orice mașină îl poate rula și obține exact același rezultat. Îl ceri după treaba pe care o face, nu după compania sau serverul care se întâmplă să-l ruleze.',
+				analogy: 'Ca și cum ai comanda un fel de mâncare în loc să rezervi o anumită bucătărie.',
+				match: ['serviciile', 'serviciul', 'servicii', 'serviciu']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Un calculator mic și de unică folosință, creat în interiorul unuia real, cu propriul sistem de operare. Ce rulează înăuntru nu poate vedea mașina care îl găzduiește, iar la finalul lucrării este distrus.',
+				analogy: 'O cabină sigilată, montată în casa ta pentru un singur vizitator: poate lucra în ea și nu vede nicio altă cameră.',
+				match: ['microVM-uri', 'microVM']
+			},
+			container: {
+				term: 'Container',
+				body: 'Un mod de a împacheta un program cu tot ce îi trebuie, ca să ruleze la fel oriunde. Mai ușor decât un microVM, dar împrumută sistemul de bază al mașinii gazdă în loc să aibă unul propriu.',
+				analogy: 'O mâncare gata preparată care vine cu tava ei, dar tot în cuptorul tău se încălzește.',
+				match: ['containere', 'containerul', 'container']
+			},
+			kernel: {
+				term: 'Nucleu (kernel)',
+				body: 'Partea cea mai dinăuntru a unui sistem de operare: codul care împarte procesorul, memoria și discul între toate celelalte. Programele care împart un nucleu împart un singur punct de cădere.',
+				analogy: 'Administratorul care ține toate cheile clădirii. Două clădiri, doi administratori: niciunul nu deschide ușile celuilalt.',
+				match: ['nucleul', 'nucleu', 'kernel']
+			},
+			contentAddressed: {
+				term: 'Adresat prin conținut',
+				body: 'Software identificat printr-o amprentă calculată din exact ce conține, nu printr-un nume pe care cineva îl poate redirecționa pe tăcute. Schimbi un singur caracter și amprenta se schimbă.',
+				analogy: 'Să ceri o carte după amprenta tuturor cuvintelor ei, nu după titlu: o copie schimbată nu poate trece drept originalul.',
+				match: [
+					'adresat prin conținut',
+					'adresate prin conținut',
+					'adresare prin conținut'
+				]
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Rețea de Infrastructură Fizică Descentralizată: hardware obișnuit, al unor oameni obișnuiți, pus laolaltă ca să facă treaba centrelor de date ale unei companii.',
+				analogy: 'Ca și camerele libere ale unui oraș, care adunate dau mai multe paturi decât are orice lanț hotelier.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Reputație',
+				body: 'O evidență publică și permanentă a faptului că o mașină a făcut ce a promis. Fără nicio companie în spatele înțelegerii, asta face sigură cumpărarea de la mașina unui necunoscut.',
+				analogy: 'Ca renumele unei tarabe din piață printre clienții ei fideli, doar că evidența asta nu poate fi editată, ștearsă sau cumpărată.',
+				match: ['reputați*']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'Blockchain-ul pe care Celaut decontează plățile, iar ERG moneda în care se decontează. Ambele părți citesc același registru comun, așa că niciuna nu trebuie să aibă încredere în cealaltă.',
+				analogy: 'O casă de marcat pe care o pot citi și cumpărătorul, și vânzătorul, și care nu aparține niciunuia dintre ei.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Determinist',
+				body: 'Aceeași intrare dă același rezultat, de fiecare dată, pe orice mașină. Asta permite altcuiva să reia lucrarea și să verifice că răspunsul primit e cel corect.',
+				analogy: 'O rețetă atât de exactă încât doi bucătari în două bucătării nu pot scoate prăjituri diferite.',
+				match: ['determinis*']
+			},
+			workload: {
+				term: 'Sarcină de lucru',
+				body: 'O bucată de muncă dată unei mașini: un program care rulează cât e nevoie, și nimic altceva. Când se termină, nu lasă nimic în urmă.',
+				analogy: 'O singură lucrare pe bancul de lucru, strânsă imediat ce e gata.',
+				match: [
+					'sarcini de lucru',
+					'sarcină de lucru',
+					'sarcinile',
+					'sarcina',
+					'sarcini',
+					'sarcină'
+				]
+			},
+			api: {
+				term: 'API',
+				body: 'Lista convenită de cereri la care un program răspunde și de ce anume trimite înapoi. Așa lucrează două programe împreună fără ca vreunul să știe cum e construit celălalt pe dinăuntru.',
+				analogy: 'Un meniu: comanzi de pe listă și nu intri în bucătărie.',
+				match: ['API-uri', 'API']
+			},
+			orchestration: {
+				term: 'Orchestrare',
+				body: 'A decide care mașină rulează care bucată de muncă și când, și a te asigura că bucățile se găsesc între ele. În mai toate cloud-urile o face un sistem central; aici fiecare mașină se orchestrează singură.',
+				analogy: 'Un dirijor care ține orchestra laolaltă, doar că aici fiecare muzician își ține singur tempoul.',
+				match: ['orchestr*']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Acord de Nivel al Serviciului: promisiunea scrisă a unui furnizor despre cât va fi serviciul disponibil și cât de rapid, cu bani înapoi dacă o încalcă. O promisiune în care trebuie să ai încredere — și pe care trebuie s-o reclami.',
+				analogy: 'Un certificat de garanție: valorează exact cât valorează firma care l-a semnat.',
+				match: ['SLA-ul', 'SLA-uri', 'SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'generația {n}',

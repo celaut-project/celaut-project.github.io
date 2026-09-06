@@ -1161,6 +1161,132 @@ export default {
 	 * Kept short on purpose — they are labels, not sentences, and the
 	 * layout positions them by hand.
 	 * ============================================================== */
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * A deliberately short list: the words a non-technical reader stops
+	 * at, not every technical term on the site. Each entry is
+	 *
+	 *   term    — the heading of the explanation
+	 *   body    — what it is, in words that assume nothing
+	 *   analogy — the everyday comparison that makes it land
+	 *   match   — the forms to look for in THIS language's copy, so a
+	 *             translation marks its own words rather than English
+	 *             ones. Matching is case-insensitive and whole-word;
+	 *             list plurals and inflections explicitly.
+	 *
+	 * Keep `body` to two sentences. This is a footnote, not a lesson.
+	 */
+	glossary: {
+		hint: "See a word you don't know? Anything with a dotted underline explains itself — hover it, or tap.",
+		hintDismiss: 'Got it',
+		close: 'Close',
+		terms: {
+			p2p: {
+				term: 'Peer-to-peer',
+				body: "Two computers dealing with each other directly, with no company's servers in the middle to route, approve or take a cut of what passes between them.",
+				analogy: 'Like paying someone in cash instead of by bank transfer — nobody in between has to approve it, and nobody can refuse.',
+				match: ['peer-to-peer', 'peer to peer', 'P2P']
+			},
+			compute: {
+				term: 'Compute',
+				body: "The raw work a computer does — processor time, memory, storage. It's what you are really buying when you rent a server, and what you'd be selling here.",
+				analogy: "Electricity for programs: measured while it's used, and paid for by the unit.",
+				match: [
+					'computational resources',
+					'computational power',
+					'computing power',
+					'computation',
+					'compute'
+				]
+			},
+			node: {
+				term: 'Node',
+				body: 'One computer taking part in the network — a laptop, a desktop, a spare machine in a cupboard. It runs the Celaut software and talks to the others running it.',
+				analogy: 'Like one phone on a phone network: useful because the others exist, and none of them is in charge of the rest.',
+				match: ['nodes', 'node']
+			},
+			service: {
+				term: 'Service',
+				body: 'A program packaged so that any machine can run it and get exactly the same result. You ask for it by the job it does, not by the company or the server that happens to run it.',
+				analogy: 'Like ordering a dish rather than booking one particular kitchen.',
+				match: ['services', 'service']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'A small, disposable computer created inside a real one, with its own operating system. What runs inside it cannot see the machine hosting it, and it is destroyed when the job ends.',
+				analogy: 'A sealed booth built inside your house for one visitor: they can work in it, and never see another room.',
+				match: ['microVMs', 'microVM']
+			},
+			container: {
+				term: 'Container',
+				body: "A way of packing a program together with everything it needs, so it runs the same anywhere. Lighter than a microVM, but it borrows the host machine's core system instead of having its own.",
+				analogy: 'A ready meal that travels with its own tray — but still cooks in your oven.',
+				match: ['containers', 'container']
+			},
+			kernel: {
+				term: 'Kernel',
+				body: 'The innermost part of an operating system: the code that hands out the processor, the memory and the disk to everything else. Programs sharing one kernel share a single point of failure.',
+				analogy: "The caretaker holding every key in the building. Two buildings, two caretakers — neither can open the other's doors.",
+				match: ['kernels', 'kernel']
+			},
+			contentAddressed: {
+				term: 'Content-addressed',
+				body: 'Software identified by a fingerprint calculated from exactly what is inside it, rather than by a name someone can quietly point somewhere else. Change one character and the fingerprint changes.',
+				analogy: "Asking for a book by a fingerprint of every word in it instead of by its title — a swapped copy can't pass as the original.",
+				match: ['content-addressed', 'content addressing', 'content address']
+			},
+			depin: {
+				term: 'DePIN',
+				body: "Decentralised Physical Infrastructure Network: everyday hardware owned by ordinary people, pooled together to do the job of a company's datacenters.",
+				analogy: "Like a city's spare rooms adding up to more beds than any hotel chain owns.",
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Reputation',
+				body: 'A public, permanent record of whether a machine did what it promised. With no company standing behind the deal, this is what makes a stranger’s machine safe to buy from.',
+				analogy: "Like a market stall's standing among its regulars — except this record can't be edited, deleted or bought.",
+				match: ['reputation']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'The blockchain Celaut settles payments on, and ERG the currency it settles in. Both sides read the same shared ledger, so neither has to trust the other.',
+				analogy: 'A cash register that the buyer and the seller can both read, and that neither of them owns.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Deterministic',
+				body: 'Same input, same result, every time, on any machine. It is what lets somebody else re-run a job and check that the answer they were handed is the right one.',
+				analogy: "A recipe so exact that two cooks in two kitchens can't produce different cakes.",
+				match: ['deterministically', 'deterministic', 'determinism']
+			},
+			workload: {
+				term: 'Workload',
+				body: 'One piece of work handed to a machine: a program to run for as long as it takes, and nothing else. When it finishes, it leaves nothing behind.',
+				analogy: "A single job on a workbench, cleared away the moment it's done.",
+				match: ['workloads', 'workload']
+			},
+			api: {
+				term: 'API',
+				body: 'The agreed list of requests a program will answer, and what it sends back. It is how two programs work together without either needing to know how the other is built inside.',
+				analogy: "A menu: you order from the list, and you don't walk into the kitchen.",
+				match: ['APIs', 'API']
+			},
+			orchestration: {
+				term: 'Orchestration',
+				body: 'Deciding which machine runs which piece of work, and when, and making sure the pieces can find each other. Most clouds have one central system doing it; here every machine does its own.',
+				analogy: 'A conductor keeping an orchestra together — except here each musician keeps time by themselves.',
+				match: ['orchestrates', 'orchestrating', 'orchestration', 'orchestrate']
+			},
+			sla: {
+				term: 'SLA',
+				body: "Service Level Agreement: a provider's written promise about how often a service will be up and how fast, with money back if it is broken. A promise you have to trust — and chase.",
+				analogy: 'A warranty card: worth exactly as much as the company that signed it.',
+				match: ['SLAs', 'SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'generation {n}',

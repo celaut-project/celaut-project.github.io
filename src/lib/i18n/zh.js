@@ -1116,6 +1116,118 @@ export default {
 		executionHeading: '服务的执行',
 		balancerHeading: '服务负载均衡'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: '遇到看不懂的词？带虚线下划线的词都会自己解释——把鼠标移上去，或者点一下。',
+		hintDismiss: '知道了',
+		close: '关闭',
+		terms: {
+			p2p: {
+				term: '点对点（peer-to-peer）',
+				body: '两台电脑直接打交道，中间没有任何公司的服务器来转发、批准，或者从中抽成。',
+				analogy: '就像用现金付款而不是转账：中间没人需要批准，也没人能拒绝。',
+				match: ['对等节点', '点对点', '对等', 'P2P']
+			},
+			compute: {
+				term: '算力',
+				body: '电脑干的实活：处理器时间、内存、磁盘。你租服务器时真正买的就是它，你在这里要卖的也是它。',
+				analogy: '程序用的电：用多少量多少，按度计费。',
+				match: ['计算资源', '算力', '计算能力']
+			},
+			node: {
+				term: '节点',
+				body: '参与网络的一台电脑：一台笔记本、一台台式机、柜子里闲置的一台机器。它运行 Celaut 软件，并和其他同样运行它的机器对话。',
+				analogy: '就像电话网里的一部电话：因为还有别的电话才有用，而且谁也管不着谁。',
+				match: ['节点']
+			},
+			service: {
+				term: '服务',
+				body: '一个被打包好的程序，任何机器运行它都会得到完全相同的结果。你按它做的事情去请求它，而不是按运行它的公司或服务器。',
+				analogy: '像点一道菜，而不是预订某一间厨房。',
+				match: ['服务']
+			},
+			microvm: {
+				term: 'microVM',
+				body: '在一台真实电脑内部创建的小型一次性电脑，有自己的操作系统。里面运行的东西看不到承载它的机器，任务一结束就被销毁。',
+				analogy: '在你家里为一位访客搭起的密封隔间：他能在里面干活，却永远看不到别的房间。',
+				match: ['microVM']
+			},
+			container: {
+				term: '容器',
+				body: '把程序和它需要的一切打包在一起、让它在哪里都一样运行的办法。比 microVM 轻，但它借用宿主机器的核心系统，而不是自带一套。',
+				analogy: '自带餐盘的速食：可还是得用你家的烤箱加热。',
+				match: ['容器']
+			},
+			kernel: {
+				term: '内核',
+				body: '操作系统最里面的一层：把处理器、内存和磁盘分配给其他一切的代码。共用一个内核的程序，也共用同一个失效点。',
+				analogy: '手里握着整栋楼所有钥匙的管理员。两栋楼、两个管理员，谁也打不开对方的门。',
+				match: ['内核']
+			},
+			contentAddressed: {
+				term: '按内容寻址',
+				body: '软件的身份来自对它内部内容算出的指纹，而不是某个人可以悄悄改指向的名字。改动一个字符，指纹就变了。',
+				analogy: '按一本书里所有字的指纹去要书，而不是按书名：被掉包的版本冒充不了原件。',
+				match: ['按内容寻址', '内容寻址']
+			},
+			depin: {
+				term: 'DePIN',
+				body: '去中心化物理基础设施网络：普通人手里的普通硬件汇集起来，干一家公司的数据中心在干的活。',
+				analogy: '就像一座城市空着的房间，加起来比任何连锁酒店的床位都多。',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: '信誉',
+				body: '一台机器有没有兑现承诺的公开且永久的记录。这笔交易背后没有公司兜底，正是这份记录让你敢从陌生人的机器上购买。',
+				analogy: '就像菜市场摊位在老主顾心里的口碑，只是这份记录改不了、删不掉，也买不到。',
+				match: ['信誉', '声誉']
+			},
+			ergo: {
+				term: 'Ergo（ERG）',
+				body: 'Celaut 用来结算付款的区块链，ERG 则是结算用的货币。双方读的是同一本共享账本，因此谁也不必信任谁。',
+				analogy: '一台买家和卖家都看得到、又不属于其中任何一方的收银机。',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: '确定性',
+				body: '同样的输入，永远得到同样的结果，在哪台机器上都一样。正因如此，别人才能重跑一遍，核对拿到的答案对不对。',
+				analogy: '一份精确到两个厨师在两间厨房也做不出两种蛋糕的菜谱。',
+				match: ['确定性']
+			},
+			workload: {
+				term: '工作负载',
+				body: '交给一台机器的一份活：一个程序，该跑多久跑多久，仅此而已。跑完之后，什么也不留下。',
+				analogy: '工作台上的一件活儿，做完立刻收走。',
+				match: ['工作负载', '负载']
+			},
+			api: {
+				term: 'API（接口）',
+				body: '一个程序愿意回应哪些请求、又会返回什么，双方约定好的清单。两个程序就是这样协作的，谁也不用知道对方内部怎么造的。',
+				analogy: '一份菜单：你照单点菜，不用走进厨房。',
+				match: ['API', '接口']
+			},
+			orchestration: {
+				term: '编排',
+				body: '决定哪台机器在什么时候跑哪一块活，并保证这些部分能彼此找到。多数云平台由一个中枢系统来做；在这里，每台机器自己编排自己。',
+				analogy: '把乐团聚在一起的指挥——只不过这里每个乐手自己数拍子。',
+				match: ['编排']
+			},
+			sla: {
+				term: 'SLA',
+				body: '服务等级协议：服务商就可用时长和速度作出的书面承诺，违约就退钱。一个你只能选择相信、还得自己去追讨的承诺。',
+				analogy: '一张保修卡：签它的公司值多少，它就值多少。',
+				match: ['SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: '第 {n} 代',

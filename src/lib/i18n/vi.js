@@ -1119,6 +1119,122 @@ export default {
 		executionHeading: 'Thực thi một service',
 		balancerHeading: 'Cân bằng tải service'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Gặp từ nào chưa rõ? Những từ gạch chân chấm sẽ tự giải thích — rê chuột hoặc chạm vào.',
+		hintDismiss: 'Đã hiểu',
+		close: 'Đóng',
+		terms: {
+			p2p: {
+				term: 'Ngang hàng (peer-to-peer)',
+				body: 'Hai máy tính làm việc thẳng với nhau, không có máy chủ của công ty nào ở giữa để định tuyến, phê duyệt hay ăn phần trăm.',
+				analogy: 'Giống như trả tiền mặt thay vì chuyển khoản: không ai ở giữa phải duyệt, và cũng không ai từ chối được.',
+				match: ['peer-to-peer', 'ngang hàng', 'P2P']
+			},
+			compute: {
+				term: 'Năng lực tính toán',
+				body: 'Phần việc thô mà một máy tính làm: thời gian bộ xử lý, bộ nhớ, ổ đĩa. Đó mới là thứ bạn thật sự mua khi thuê máy chủ, và là thứ bạn sẽ bán ở đây.',
+				analogy: 'Điện cho các chương trình: đo khi dùng và trả theo từng đơn vị.',
+				match: ['năng lực tính toán', 'tài nguyên tính toán', 'tính toán']
+			},
+			node: {
+				term: 'Node (nút mạng)',
+				body: 'Một máy tính tham gia mạng lưới: một laptop, một máy bàn, một máy cũ nằm trong tủ. Nó chạy phần mềm Celaut và nói chuyện với những máy khác cũng đang chạy phần mềm đó.',
+				analogy: 'Như một chiếc điện thoại trong mạng điện thoại: hữu ích vì có những chiếc khác, và không chiếc nào chỉ huy phần còn lại.',
+				match: ['node', 'nút mạng']
+			},
+			service: {
+				term: 'Service (dịch vụ)',
+				body: 'Một chương trình được đóng gói sao cho bất kỳ máy nào chạy cũng ra đúng một kết quả. Bạn gọi nó theo công việc nó làm, chứ không theo công ty hay máy chủ tình cờ đang chạy nó.',
+				analogy: 'Như gọi một món ăn thay vì đặt trước một căn bếp cụ thể.',
+				match: ['service', 'dịch vụ']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Một máy tính nhỏ dùng một lần, được tạo bên trong một máy thật, với hệ điều hành riêng. Thứ chạy bên trong không thấy được máy chủ nhà, và bị huỷ ngay khi công việc kết thúc.',
+				analogy: 'Một buồng kín dựng trong nhà bạn cho đúng một người khách: họ làm việc trong đó và không bao giờ thấy phòng nào khác.',
+				match: ['microVM']
+			},
+			container: {
+				term: 'Container',
+				body: 'Cách đóng gói một chương trình cùng mọi thứ nó cần để chạy giống nhau ở mọi nơi. Nhẹ hơn microVM, nhưng mượn hệ thống lõi của máy chủ nhà thay vì có riêng.',
+				analogy: 'Suất ăn sẵn đi kèm khay riêng — nhưng vẫn phải hâm trong lò của bạn.',
+				match: ['container']
+			},
+			kernel: {
+				term: 'Nhân hệ điều hành (kernel)',
+				body: 'Phần trong cùng của một hệ điều hành: đoạn mã chia bộ xử lý, bộ nhớ và ổ đĩa cho mọi thứ còn lại. Các chương trình dùng chung một nhân thì cũng chung một điểm gãy.',
+				analogy: 'Người quản lý giữ toàn bộ chìa khoá của toà nhà. Hai toà nhà, hai người quản lý — không ai mở được cửa của bên kia.',
+				match: ['kernel', 'nhân riêng', 'chung nhân', 'nhân hệ điều hành']
+			},
+			contentAddressed: {
+				term: 'Định danh bằng nội dung',
+				body: 'Phần mềm được nhận diện bằng dấu vân tay tính từ đúng những gì bên trong nó, chứ không bằng một cái tên ai đó có thể lặng lẽ trỏ đi nơi khác. Đổi một ký tự là dấu vân tay đổi theo.',
+				analogy: 'Hỏi mượn sách bằng dấu vân tay của mọi chữ trong đó thay vì bằng tựa sách: bản bị tráo không thể giả làm bản gốc.',
+				match: [
+					'định danh bằng nội dung',
+					'đánh địa chỉ bằng nội dung',
+					'địa chỉ theo nội dung'
+				]
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Mạng Hạ tầng Vật lý Phi tập trung: phần cứng đời thường của những người bình thường, gom lại để làm công việc của các trung tâm dữ liệu thuộc một công ty.',
+				analogy: 'Như những căn phòng trống của cả một thành phố, cộng lại còn nhiều giường hơn bất kỳ chuỗi khách sạn nào.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Danh tiếng',
+				body: 'Một hồ sơ công khai và vĩnh viễn về việc một máy có làm đúng điều đã hứa hay không. Vì không có công ty nào đứng sau thoả thuận, đây mới là thứ khiến việc mua từ máy của người lạ trở nên an toàn.',
+				analogy: 'Như tiếng tăm của một sạp chợ với khách quen — chỉ khác là hồ sơ này không sửa, không xoá, không mua được.',
+				match: ['danh tiếng', 'uy tín']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'Blockchain mà Celaut dùng để tất toán các khoản thanh toán, và ERG là đồng tiền dùng để trả. Cả hai bên đọc cùng một sổ cái chung, nên không bên nào phải tin bên nào.',
+				analogy: 'Một máy tính tiền mà cả người mua lẫn người bán đều đọc được, và không thuộc về ai trong hai người.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Tất định',
+				body: 'Cùng đầu vào thì cùng kết quả, mọi lúc, trên mọi máy. Đó là thứ cho phép người khác chạy lại công việc và kiểm chứng rằng câu trả lời họ nhận được là đúng.',
+				analogy: 'Một công thức chính xác đến mức hai đầu bếp ở hai căn bếp không thể làm ra hai chiếc bánh khác nhau.',
+				match: ['tất định', 'tính tất định']
+			},
+			workload: {
+				term: 'Tải công việc',
+				body: 'Một phần việc giao cho máy: một chương trình chạy đúng thời gian cần thiết, không hơn. Xong việc, nó không để lại gì.',
+				analogy: 'Một món đồ duy nhất trên bàn thợ, dọn đi ngay khi làm xong.',
+				match: ['tải công việc']
+			},
+			api: {
+				term: 'API (giao diện)',
+				body: 'Danh sách đã thống nhất về những yêu cầu mà một chương trình sẽ đáp lại, và những gì nó trả về. Nhờ đó hai chương trình phối hợp được mà không cần biết bên kia được xây thế nào bên trong.',
+				analogy: 'Một tờ thực đơn: bạn gọi món trong danh sách, chứ không đi vào bếp.',
+				match: ['API']
+			},
+			orchestration: {
+				term: 'Điều phối',
+				body: 'Quyết định máy nào chạy phần việc nào, vào lúc nào, và bảo đảm các phần tìm được nhau. Ở hầu hết đám mây, một hệ thống trung tâm làm việc đó; ở đây mỗi máy tự điều phối lấy.',
+				analogy: 'Một nhạc trưởng giữ cho dàn nhạc đi cùng nhau — chỉ khác là ở đây mỗi nhạc công tự giữ nhịp.',
+				match: ['điều phối']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Thoả thuận Mức Dịch vụ: lời hứa bằng văn bản của nhà cung cấp về việc dịch vụ chạy được bao nhiêu và nhanh đến đâu, kèm hoàn tiền nếu sai hẹn. Một lời hứa bạn buộc phải tin — và phải đi đòi.',
+				analogy: 'Một tấm phiếu bảo hành: đáng giá đúng bằng công ty đã ký nó.',
+				match: ['SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'thế hệ {n}',

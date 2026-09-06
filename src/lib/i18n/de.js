@@ -1120,6 +1120,118 @@ export default {
 		executionHeading: 'Ausführung eines Service',
 		balancerHeading: 'Lastverteilung von Services'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Ein Wort, das du nicht kennst? Alles mit gepunkteter Unterstreichung erklärt sich selbst — draufzeigen oder antippen.',
+		hintDismiss: 'Verstanden',
+		close: 'Schließen',
+		terms: {
+			p2p: {
+				term: 'Peer-to-Peer',
+				body: 'Zwei Rechner, die direkt miteinander handeln — ohne die Server einer Firma dazwischen, die weiterleiten, genehmigen oder mitverdienen.',
+				analogy: 'Wie bar bezahlen statt überweisen: niemand dazwischen muss zustimmen, und niemand kann ablehnen.',
+				match: ['Peer-to-Peer', 'P2P']
+			},
+			compute: {
+				term: 'Rechenleistung',
+				body: 'Die reine Arbeit, die ein Rechner leistet: Prozessorzeit, Speicher, Platte. Genau das kaufst du, wenn du einen Server mietest — und genau das würdest du hier verkaufen.',
+				analogy: 'Strom für Programme: wird beim Verbrauch gemessen und pro Einheit bezahlt.',
+				match: ['Rechenressourcen', 'Rechenleistung', 'Rechenzeit']
+			},
+			node: {
+				term: 'Node (Knoten)',
+				body: 'Ein Rechner, der am Netzwerk teilnimmt: ein Laptop, ein Desktop, eine ungenutzte Kiste im Schrank. Er lässt die Celaut-Software laufen und spricht mit den anderen, die das auch tun.',
+				analogy: 'Wie ein Telefon in einem Telefonnetz: nützlich, weil es die anderen gibt — und keines bestimmt über die anderen.',
+				match: ['Nodes', 'Node', 'Knoten']
+			},
+			service: {
+				term: 'Service (Dienst)',
+				body: 'Ein Programm, so verpackt, dass jede Maschine es ausführen und exakt dasselbe Ergebnis bekommen kann. Du fragst es nach der Aufgabe an, die es erledigt, nicht nach der Firma oder dem Server, der es gerade ausführt.',
+				analogy: 'Wie ein Gericht bestellen, statt eine bestimmte Küche zu buchen.',
+				match: ['Services', 'Service', 'Dienste', 'Dienst']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Ein kleiner Wegwerf-Rechner, erzeugt innerhalb eines echten, mit eigenem Betriebssystem. Was darin läuft, sieht die Wirtsmaschine nicht, und es wird zerstört, sobald der Auftrag endet.',
+				analogy: 'Eine versiegelte Kabine, in deinem Haus für einen einzigen Besucher aufgebaut: Er kann darin arbeiten und sieht nie einen anderen Raum.',
+				match: ['microVMs', 'microVM']
+			},
+			container: {
+				term: 'Container',
+				body: 'Eine Art, ein Programm mit allem zu verpacken, was es braucht, damit es überall gleich läuft. Leichter als eine microVM, aber es leiht sich das Grundsystem der Wirtsmaschine, statt ein eigenes zu haben.',
+				analogy: 'Ein Fertiggericht, das seine eigene Schale mitbringt — aber trotzdem in deinem Ofen gart.',
+				match: ['Container']
+			},
+			kernel: {
+				term: 'Kernel',
+				body: 'Der innerste Teil eines Betriebssystems: der Code, der Prozessor, Speicher und Platte an alles Übrige verteilt. Programme, die sich einen Kernel teilen, teilen sich einen einzigen Schwachpunkt.',
+				analogy: 'Der Hausmeister mit sämtlichen Schlüsseln. Zwei Häuser, zwei Hausmeister — keiner öffnet die Türen des anderen.',
+				match: ['Kernel']
+			},
+			contentAddressed: {
+				term: 'Inhaltsadressiert',
+				body: 'Software, die über einen Fingerabdruck genau ihres Inhalts identifiziert wird statt über einen Namen, den jemand still woandershin zeigen lassen kann. Ändere ein Zeichen, und der Fingerabdruck ändert sich.',
+				analogy: 'Ein Buch über den Fingerabdruck all seiner Wörter verlangen statt über den Titel — eine ausgetauschte Ausgabe kommt so nicht durch.',
+				match: ['inhaltsadressiert*']
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Dezentrales Netz physischer Infrastruktur: alltägliche Hardware, die gewöhnlichen Leuten gehört und zusammengelegt die Arbeit der Rechenzentren eines Konzerns erledigt.',
+				analogy: 'Wie die freien Zimmer einer Stadt, die zusammen mehr Betten ergeben als jede Hotelkette besitzt.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Reputation',
+				body: 'Ein öffentlicher, dauerhafter Nachweis darüber, ob eine Maschine gehalten hat, was sie versprach. Da keine Firma hinter dem Geschäft steht, macht erst das den Kauf bei der Maschine eines Fremden sicher.',
+				analogy: 'Wie der Ruf eines Marktstands bei seiner Stammkundschaft — nur lässt sich dieser Nachweis weder ändern noch löschen noch kaufen.',
+				match: ['Reputation']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'Die Blockchain, über die Celaut Zahlungen abwickelt, und ERG die Währung, in der abgerechnet wird. Beide Seiten lesen dasselbe geteilte Kassenbuch, also muss keine der anderen trauen.',
+				analogy: 'Eine Registrierkasse, die Käufer und Verkäufer beide lesen können und die keinem von beiden gehört.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Deterministisch',
+				body: 'Gleiche Eingabe, gleiches Ergebnis, jedes Mal, auf jeder Maschine. Genau das erlaubt es jemand anderem, den Auftrag nachzurechnen und zu prüfen, ob die gelieferte Antwort stimmt.',
+				analogy: 'Ein Rezept, so exakt, dass zwei Köche in zwei Küchen keine unterschiedlichen Kuchen hinbekommen.',
+				match: ['deterministisch*', 'Determinismus']
+			},
+			workload: {
+				term: 'Last (Workload)',
+				body: 'Ein einzelner Auftrag an eine Maschine: ein Programm, das läuft, solange es dauert, und sonst nichts. Wenn es fertig ist, bleibt nichts zurück.',
+				analogy: 'Ein einzelnes Werkstück auf der Werkbank, weggeräumt, sobald es fertig ist.',
+				match: ['Workloads', 'Workload', 'Lasten', 'Last']
+			},
+			api: {
+				term: 'API (Schnittstelle)',
+				body: 'Die vereinbarte Liste der Anfragen, die ein Programm beantwortet, und dessen, was es zurückgibt. So arbeiten zwei Programme zusammen, ohne dass eines wissen müsste, wie das andere innen gebaut ist.',
+				analogy: 'Eine Speisekarte: Du bestellst von der Liste und gehst nicht in die Küche.',
+				match: ['APIs', 'API', 'Schnittstelle*']
+			},
+			orchestration: {
+				term: 'Orchestrierung',
+				body: 'Entscheiden, welche Maschine welches Stück Arbeit wann ausführt, und dafür sorgen, dass die Teile einander finden. In den meisten Clouds macht das ein zentrales System; hier orchestriert sich jede Maschine selbst.',
+				analogy: 'Ein Dirigent, der das Orchester zusammenhält — nur hält hier jeder Musiker den Takt selbst.',
+				match: ['Orchestrierung', 'orchestrier*']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Service Level Agreement: das schriftliche Versprechen eines Anbieters, wie oft ein Dienst läuft und wie schnell, mit Geld zurück, wenn er es bricht. Ein Versprechen, dem man glauben — und das man einfordern muss.',
+				analogy: 'Eine Garantiekarte: exakt so viel wert wie die Firma, die sie unterschrieben hat.',
+				match: ['SLAs', 'SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'Generation {n}',

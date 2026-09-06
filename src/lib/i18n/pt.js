@@ -1119,6 +1119,122 @@ export default {
 		executionHeading: 'Execução de um serviço',
 		balancerHeading: 'Balanceamento de carga de serviços'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Alguma palavra que você não conhece? As que têm sublinhado pontilhado se explicam sozinhas: passe o mouse ou toque.',
+		hintDismiss: 'Entendi',
+		close: 'Fechar',
+		terms: {
+			p2p: {
+				term: 'Peer-to-peer (entre pares)',
+				body: 'Dois computadores tratando diretamente um com o outro, sem os servidores de nenhuma empresa no meio para encaminhar, aprovar ou ficar com uma parte do que passa entre eles.',
+				analogy: 'Como pagar em dinheiro vivo em vez de fazer uma transferência: ninguém no meio precisa aprovar, e ninguém pode recusar.',
+				match: ['peer-to-peer', 'ponto a ponto', 'P2P']
+			},
+			compute: {
+				term: 'Computação',
+				body: 'O trabalho bruto que um computador faz: tempo de processador, memória e disco. É o que você realmente compra ao alugar um servidor, e o que venderia aqui.',
+				analogy: 'Eletricidade para programas: medida enquanto é usada e paga por unidade.',
+				match: ['recursos computacionais', 'poder computacional', 'computação']
+			},
+			node: {
+				term: 'Nó',
+				body: 'Um computador que participa da rede: um notebook, um desktop, uma máquina parada num armário. Ele roda o software do Celaut e conversa com os outros que também o rodam.',
+				analogy: 'Como um telefone numa rede telefônica: serve porque os outros existem, e nenhum manda nos demais.',
+				match: ['nós', 'nó']
+			},
+			service: {
+				term: 'Serviço',
+				body: 'Um programa empacotado para que qualquer máquina o execute e obtenha exatamente o mesmo resultado. Você o pede pelo trabalho que faz, não pela empresa ou pelo servidor que o executa.',
+				analogy: 'Como pedir um prato em vez de reservar uma cozinha específica.',
+				match: ['serviços', 'serviço']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Um computador pequeno e descartável criado dentro de um real, com seu próprio sistema operacional. O que roda lá dentro não enxerga a máquina que o hospeda, e é destruído quando o trabalho termina.',
+				analogy: 'Uma cabine lacrada montada na sua casa para uma única visita: dá para trabalhar dentro dela e nunca ver outro cômodo.',
+				match: ['microVMs', 'microVM']
+			},
+			container: {
+				term: 'Contêiner',
+				body: 'Um jeito de empacotar um programa junto com tudo de que ele precisa, para rodar igual em qualquer lugar. Mais leve que uma microVM, mas toma emprestado o sistema base da máquina anfitriã em vez de ter o seu.',
+				analogy: 'Um prato congelado que viaja com a própria bandeja, mas ainda assim assa no seu forno.',
+				match: ['contêineres', 'contêiner', 'containers', 'container']
+			},
+			kernel: {
+				term: 'Kernel (núcleo)',
+				body: 'A parte mais interna de um sistema operacional: o código que reparte o processador, a memória e o disco entre todo o resto. Programas que compartilham um kernel compartilham um único ponto de falha.',
+				analogy: 'O zelador que guarda todas as chaves do prédio. Dois prédios, dois zeladores: nenhum abre as portas do outro.',
+				match: ['kernels', 'kernel', 'núcleo']
+			},
+			contentAddressed: {
+				term: 'Endereçado por conteúdo',
+				body: 'Software identificado por uma impressão digital calculada a partir de exatamente o que há dentro dele, e não por um nome que alguém possa reapontar em silêncio. Mude um caractere e a impressão muda.',
+				analogy: 'Pedir um livro pela impressão digital de todas as suas palavras, e não pelo título: uma cópia trocada não passa por original.',
+				match: [
+					'endereçado por conteúdo',
+					'endereçados por conteúdo',
+					'endereçamento por conteúdo'
+				]
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Rede de Infraestrutura Física Descentralizada: hardware comum, de gente comum, reunido para fazer o trabalho dos datacenters de uma empresa.',
+				analogy: 'Como os quartos vagos de uma cidade, que somados dão mais camas do que qualquer rede de hotéis.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Reputação',
+				body: 'Um registro público e permanente de se uma máquina cumpriu o que prometeu. Sem nenhuma empresa por trás do acordo, é o que torna seguro comprar da máquina de um desconhecido.',
+				analogy: 'Como o prestígio de uma banca de feira entre seus fregueses, só que este registro não pode ser editado, apagado nem comprado.',
+				match: ['reputação']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'A blockchain na qual o Celaut liquida os pagamentos, e ERG a moeda em que eles são liquidados. Os dois lados leem o mesmo livro-caixa compartilhado, então nenhum precisa confiar no outro.',
+				analogy: 'Uma caixa registradora que comprador e vendedor conseguem ler e que não pertence a nenhum dos dois.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Determinístico',
+				body: 'A mesma entrada dá o mesmo resultado, sempre e em qualquer máquina. É o que permite que outra pessoa repita o trabalho e confira que a resposta entregue é a certa.',
+				analogy: 'Uma receita tão exata que dois cozinheiros em duas cozinhas não conseguem produzir bolos diferentes.',
+				match: ['determinístic*', 'determinis*']
+			},
+			workload: {
+				term: 'Carga de trabalho',
+				body: 'Uma tarefa entregue a uma máquina: um programa que roda pelo tempo que for preciso, e nada mais. Quando termina, não deixa nada para trás.',
+				analogy: 'Um único trabalho sobre a bancada, recolhido assim que fica pronto.',
+				match: ['cargas de trabalho', 'carga de trabalho']
+			},
+			api: {
+				term: 'API',
+				body: 'A lista combinada de pedidos que um programa atende e do que ele devolve. É como dois programas trabalham juntos sem que nenhum saiba como o outro é construído por dentro.',
+				analogy: 'Um cardápio: você pede o que está na lista e não entra na cozinha.',
+				match: ['APIs', 'API']
+			},
+			orchestration: {
+				term: 'Orquestração',
+				body: 'Decidir qual máquina roda cada pedaço de trabalho e quando, e garantir que as peças se encontrem. Na maioria das nuvens um sistema central faz isso; aqui cada máquina se orquestra sozinha.',
+				analogy: 'Um maestro mantendo a orquestra unida, só que aqui cada músico marca o tempo por conta própria.',
+				match: ['orquestração', 'orquestrar', 'orquestram', 'orquestra']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Acordo de Nível de Serviço: a promessa escrita de um provedor sobre quanto tempo o serviço ficará no ar e com que velocidade, com dinheiro de volta se falhar. Uma promessa em que é preciso confiar — e que é preciso cobrar.',
+				analogy: 'Um certificado de garantia: vale exatamente o que valer a empresa que o assinou.',
+				match: ['SLAs', 'SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'geração {n}',

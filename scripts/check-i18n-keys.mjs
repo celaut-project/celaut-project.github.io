@@ -16,6 +16,13 @@
  * an array-length mismatch. `identical-to-en` is reported but never
  * fails the run: a handful of strings (product names, network
  * identifiers, "API") are legitimately the same in every language.
+ *
+ * The one structure exempt from parity is `glossary.terms.*.match` —
+ * the words each locale looks for in its own copy. Those lists are
+ * per-language by design (Russian needs two stems where English needs
+ * four spellings) and nothing indexes into them, so
+ * scripts/glossary-check.mjs checks that they actually match something
+ * instead.
  */
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -41,6 +48,9 @@ function flatten(node, prefix = '', out = new Map()) {
 
 const enFlat = flatten(en);
 
+/** @param {string} key */
+const exempt = (key) => /^glossary\.terms\.[^.]+\.match(\[\]|\.)/.test(key);
+
 const argv = process.argv.slice(2);
 const verbose = argv.includes('--verbose');
 const requested = argv.filter((a) => !a.startsWith('--'));
@@ -58,10 +68,10 @@ for (const code of codes) {
 	const mod = await import(resolvePath(dir, `${code}.js`));
 	const flat = flatten(mod.default);
 
-	const missing = [...enFlat.keys()].filter((k) => !flat.has(k));
-	const extra = [...flat.keys()].filter((k) => !enFlat.has(k));
+	const missing = [...enFlat.keys()].filter((k) => !flat.has(k) && !exempt(k));
+	const extra = [...flat.keys()].filter((k) => !enFlat.has(k) && !exempt(k));
 	const lenMismatch = [...enFlat.keys()]
-		.filter((k) => k.endsWith('[]') && flat.has(k) && flat.get(k) !== enFlat.get(k))
+		.filter((k) => k.endsWith('[]') && !exempt(k) && flat.has(k) && flat.get(k) !== enFlat.get(k))
 		.map((k) => `${k} en=${enFlat.get(k)} ${code}=${flat.get(k)}`);
 	// A long English string reproduced verbatim is usually an
 	// untranslated block. Short ones ("API", "Ergo") are not.

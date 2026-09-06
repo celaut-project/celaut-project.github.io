@@ -257,7 +257,8 @@
 
 	<div class="hero-inner">
 		<div bind:this={layerTitle}>
-			{#if eyebrow}<p class="eyebrow">{eyebrow}</p>{/if}
+			<!-- data-no-glossary: a letter-spaced label, not a sentence. -->
+			{#if eyebrow}<p class="eyebrow" data-no-glossary>{eyebrow}</p>{/if}
 			<h1>{title}</h1>
 			{#if tagline}<p class="tagline">{tagline}</p>{/if}
 		</div>
@@ -297,8 +298,10 @@
 			{/if}
 		</div>
 
+		<!-- data-no-glossary: these are display type, not prose. A dotted
+		     underline under a 3rem "microVM" reads as damage, not help. -->
 		{#if stats.length}
-			<ul class="stats" bind:this={layerStats}>
+			<ul class="stats" data-no-glossary bind:this={layerStats}>
 				{#each stats as s}
 					<li>
 						<span class="stat-value">{s.value}</span>

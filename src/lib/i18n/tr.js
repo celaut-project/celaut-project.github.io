@@ -1120,6 +1120,118 @@ export default {
 		executionHeading: 'Bir servisin yürütülmesi',
 		balancerHeading: 'Servis yük dengeleme'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Bilmediğin bir kelime mi var? Noktalı altı çizili olanlar kendini açıklar — üzerine gel ya da dokun.',
+		hintDismiss: 'Anladım',
+		close: 'Kapat',
+		terms: {
+			p2p: {
+				term: 'Eşler arası (peer-to-peer)',
+				body: 'İki bilgisayarın, aralarından geçeni yönlendiren, onaylayan ya da payını alan bir şirketin sunucuları olmadan doğrudan birbiriyle iş yapması.',
+				analogy: 'Havale yerine nakit ödemek gibi: aradaki kimsenin onaylaması gerekmez, kimse de reddedemez.',
+				match: ['peer-to-peer', 'eşler arası', 'P2P']
+			},
+			compute: {
+				term: 'Hesaplama gücü',
+				body: 'Bir bilgisayarın yaptığı ham iş: işlemci zamanı, bellek, disk. Bir sunucu kiralarken aslında satın aldığın şey bu; burada da satacağın şey bu.',
+				analogy: 'Programlar için elektrik: kullanıldıkça ölçülür, birim başına ödenir.',
+				match: ['hesaplama gücü', 'hesaplama kayn*', 'hesaplama']
+			},
+			node: {
+				term: 'Node (düğüm)',
+				body: 'Ağa katılan bir bilgisayar: bir dizüstü, bir masaüstü, dolapta duran yedek bir makine. Celaut yazılımını çalıştırır ve onu çalıştıran diğerleriyle konuşur.',
+				analogy: 'Telefon ağındaki bir telefon gibi: diğerleri var diye işe yarar ve hiçbiri ötekilere hükmetmez.',
+				match: ['düğüm*', 'node']
+			},
+			service: {
+				term: 'Servis (hizmet)',
+				body: 'Herhangi bir makinenin çalıştırıp tam olarak aynı sonucu alabilmesi için paketlenmiş bir program. Onu yaptığı işe göre istersin; onu çalıştıran şirkete ya da sunucuya göre değil.',
+				analogy: 'Belli bir mutfağı kiralamak yerine bir yemek ısmarlamak gibi.',
+				match: ['servis*']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Gerçek bir bilgisayarın içinde yaratılan, kendi işletim sistemi olan küçük ve tek kullanımlık bir bilgisayar. İçinde çalışan şey onu barındıran makineyi göremez ve iş bitince yok edilir.',
+				analogy: 'Evinde tek bir ziyaretçi için kurulmuş mühürlü bir kabin: içinde çalışabilir, başka hiçbir odayı görmez.',
+				match: ['microVM']
+			},
+			container: {
+				term: 'Konteyner',
+				body: "Bir programı ihtiyaç duyduğu her şeyle birlikte paketleyip her yerde aynı çalışmasını sağlama yöntemi. microVM'den hafiftir, ama kendi çekirdeği yerine makinenin temel sistemini ödünç alır.",
+				analogy: 'Kendi kabıyla gelen hazır yemek — ama yine de senin fırınında pişer.',
+				match: ['konteyner*']
+			},
+			kernel: {
+				term: 'Çekirdek (kernel)',
+				body: 'Bir işletim sisteminin en iç parçası: işlemciyi, belleği ve diski geri kalan her şeye dağıtan kod. Aynı çekirdeği paylaşan programlar tek bir kırılma noktasını da paylaşır.',
+				analogy: 'Binanın bütün anahtarlarını taşıyan kapıcı. İki bina, iki kapıcı — hiçbiri ötekinin kapısını açamaz.',
+				match: ['çekirdek', 'çekirdeğ*', 'kernel']
+			},
+			contentAddressed: {
+				term: 'İçerikle adreslenmiş',
+				body: 'Yazılımın, birinin sessizce başka yere yönlendirebileceği bir adla değil, tam olarak içeriğinden hesaplanan bir parmak iziyle tanınması. Tek bir karakter değişsin, parmak izi de değişir.',
+				analogy: 'Bir kitabı başlığıyla değil, bütün kelimelerinin parmak iziyle istemek: değiştirilmiş bir nüsha orijinal diye geçemez.',
+				match: ['içerikle adresle*', 'içerik adres*']
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Merkeziyetsiz Fiziksel Altyapı Ağı: sıradan insanların sıradan donanımının, bir şirketin veri merkezlerinin işini görecek şekilde bir araya getirilmesi.',
+				analogy: 'Bir şehrin boş odaları gibi: toplamı, herhangi bir otel zincirinin sahip olduğundan fazla yatak eder.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'İtibar',
+				body: 'Bir makinenin söz verdiğini yapıp yapmadığının herkese açık, kalıcı kaydı. Anlaşmanın arkasında bir şirket olmadığına göre, bir yabancının makinesinden almayı güvenli kılan şey budur.',
+				analogy: 'Bir pazar tezgâhının müdavimleri arasındaki adı gibi — ama bu kayıt düzenlenemez, silinemez, satın alınamaz.',
+				match: ['itibar*']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: "Celaut'un ödemeleri sonuçlandırdığı blok zinciri ve ERG de ödendiği para birimi. İki taraf da aynı ortak defteri okur, dolayısıyla hiçbirinin ötekine güvenmesi gerekmez.",
+				analogy: 'Alıcının da satıcının da okuyabildiği, ikisinden de hiçbirine ait olmayan bir yazarkasa.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Belirlenimci (deterministik)',
+				body: 'Aynı girdi, her seferinde ve her makinede aynı sonucu verir. Bir başkasının işi yeniden çalıştırıp kendisine verilen cevabın doğru olduğunu denetlemesini sağlayan şey budur.',
+				analogy: 'İki aşçının iki mutfakta farklı kek çıkaramayacağı kadar kesin bir tarif.',
+				match: ['determinist*', 'belirlenimci*']
+			},
+			workload: {
+				term: 'İş yükü',
+				body: 'Bir makineye verilen tek bir iş: ne kadar sürerse o kadar çalışan bir program, başka bir şey değil. Bittiğinde geriye hiçbir şey bırakmaz.',
+				analogy: 'Tezgâhtaki tek bir iş, biter bitmez kaldırılır.',
+				match: ['iş yük*']
+			},
+			api: {
+				term: 'API (arayüz)',
+				body: 'Bir programın yanıtlayacağı isteklerin ve geri döndüreceği şeylerin üzerinde anlaşılmış listesi. İki program, birbirinin içeride nasıl kurulduğunu bilmeden böyle çalışır.',
+				analogy: 'Bir menü: listeden ısmarlarsın, mutfağa girmezsin.',
+				match: ['API']
+			},
+			orchestration: {
+				term: 'Orkestrasyon',
+				body: 'Hangi makinenin işin hangi parçasını ne zaman çalıştıracağına karar vermek ve parçaların birbirini bulmasını sağlamak. Çoğu bulutta bunu merkezî bir sistem yapar; burada her makine kendini yönetir.',
+				analogy: 'Orkestrayı bir arada tutan şef — ama burada tempoyu her müzisyen kendi tutar.',
+				match: ['orkestra*']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Hizmet Seviyesi Anlaşması: bir sağlayıcının hizmetin ne kadar ayakta ve ne kadar hızlı olacağına dair yazılı sözü, bozarsa para iadesiyle. İnanmak — ve peşine düşmek — zorunda olduğun bir söz.',
+				analogy: 'Bir garanti belgesi: imzalayan şirket ne kadar ediyorsa o kadar eder.',
+				match: ['SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: '{n}. kuşak',

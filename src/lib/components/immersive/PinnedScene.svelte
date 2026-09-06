@@ -348,7 +348,8 @@
 
 	<div class="scene-copy">
 		{#if label}
-			<p class="scene-label">{label}</p>
+			<!-- data-no-glossary: a letter-spaced label, not a sentence. -->
+			<p class="scene-label" data-no-glossary>{label}</p>
 		{/if}
 		<slot {progress} static={!motion} reduced={!motion} />
 	</div>

@@ -1120,6 +1120,122 @@ export default {
 		executionHeading: 'Utekelezaji wa huduma',
 		balancerHeading: 'Ulinganishaji wa mzigo wa huduma'
 	},
+	/*
+	 * The plain-language layer (see components/Glossary.svelte).
+	 *
+	 * `match` lists the forms of each term as THIS language's copy
+	 * writes them, so every locale marks its own words rather than the
+	 * English ones. Matching is case-insensitive and whole-word; a form
+	 * ending in `*` matches that stem plus any ending.
+	 */
+	glossary: {
+		hint: 'Kuna neno usilolijua? Yale yenye mstari wa vitone chini yanajieleza yenyewe — weka kishale juu yake, au gusa.',
+		hintDismiss: 'Nimeelewa',
+		close: 'Funga',
+		terms: {
+			p2p: {
+				term: 'Rika kwa rika (peer-to-peer)',
+				body: 'Kompyuta mbili zinazoshughulikiana moja kwa moja, bila seva za kampuni yoyote katikati zinazoelekeza, kuidhinisha au kuchukua sehemu ya kinachopita.',
+				analogy: 'Kama kulipa pesa taslimu badala ya kutuma kwa benki: hakuna wa katikati anayepaswa kuidhinisha, wala anayeweza kukataa.',
+				match: ['peer-to-peer', 'rika kwa rika', 'mwenzake', 'wenzake', 'rika', 'P2P']
+			},
+			compute: {
+				term: 'Uchakataji',
+				body: 'Kazi halisi anayofanya kompyuta: muda wa kichakataji, kumbukumbu, diski. Ndicho unachonunua hasa unapokodi seva, na ndicho ambacho ungekiuza hapa.',
+				analogy: 'Umeme kwa ajili ya programu: hupimwa unapotumika, na hulipiwa kwa kipimo.',
+				match: ['rasilimali za uchakataji', 'uchakataji', 'nguvu ya kukokotoa']
+			},
+			node: {
+				term: 'Nodi',
+				body: 'Kompyuta moja inayoshiriki kwenye mtandao: kompyuta ndogo, ya mezani, au mashine ya akiba iliyolala kabatini. Inaendesha programu ya Celaut na kuzungumza na nyingine zinazoiendesha.',
+				analogy: 'Kama simu moja kwenye mtandao wa simu: ina maana kwa sababu nyingine zipo, na hakuna inayotawala nyingine.',
+				match: ['nodi']
+			},
+			service: {
+				term: 'Huduma (service)',
+				body: 'Programu iliyofungashwa kiasi kwamba mashine yoyote inaweza kuiendesha na kupata matokeo yaleyale kabisa. Unaiomba kwa kazi inayofanya, si kwa kampuni au seva inayotokea kuiendesha.',
+				analogy: 'Kama kuagiza chakula badala ya kukodi jiko fulani mahususi.',
+				match: ['huduma']
+			},
+			microvm: {
+				term: 'microVM',
+				body: 'Kompyuta ndogo ya kutupwa iliyoundwa ndani ya kompyuta halisi, yenye mfumo wake wa uendeshaji. Kinachoendeshwa ndani yake hakiwezi kuiona mashine inayoihifadhi, na huharibiwa kazi inapoisha.',
+				analogy: 'Chumba kilichofungwa kilichojengwa nyumbani kwako kwa mgeni mmoja tu: anaweza kufanya kazi humo bila kamwe kuona chumba kingine.',
+				match: ['microVM']
+			},
+			container: {
+				term: 'Chombo (container)',
+				body: 'Njia ya kufungasha programu pamoja na kila kitu inachohitaji, ili iendeshwe vivyo hivyo popote. Chepesi kuliko microVM, lakini hukopa mfumo wa msingi wa mashine mwenyeji badala ya kuwa na wake.',
+				analogy: 'Chakula kilichoandaliwa tayari kinachokuja na sahani yake — lakini bado hupashwa moto kwenye oveni yako.',
+				match: ['chombo', 'vyombo', 'kontena']
+			},
+			kernel: {
+				term: 'Kernel (kiini)',
+				body: 'Sehemu ya ndani kabisa ya mfumo wa uendeshaji: msimbo unaogawa kichakataji, kumbukumbu na diski kwa kila kitu kingine. Programu zinazoshiriki kernel moja hushiriki pia sehemu moja ya kuharibikia.',
+				analogy: 'Mlinzi anayeshika funguo zote za jengo. Majengo mawili, walinzi wawili — hakuna anayeweza kufungua milango ya mwenzake.',
+				match: ['kernel']
+			},
+			contentAddressed: {
+				term: 'Kutambulishwa kwa maudhui',
+				body: 'Programu hutambuliwa kwa alama ya kidole iliyokokotolewa kutoka kwa kile hasa kilichomo ndani yake, si kwa jina ambalo mtu anaweza kimyakimya kulielekeza kwingine. Badilisha herufi moja, na alama hubadilika.',
+				analogy: 'Kuomba kitabu kwa alama ya vidole ya kila neno lililomo, si kwa kichwa chake: nakala iliyobadilishwa haiwezi kujifanya asili.',
+				match: [
+					'inayotambulishwa kwa maudhui',
+					'kutambulishwa kwa maudhui',
+					'iliyotambulishwa kwa maudhui'
+				]
+			},
+			depin: {
+				term: 'DePIN',
+				body: 'Mtandao Uliogatuliwa wa Miundombinu Halisi: vifaa vya kawaida vya watu wa kawaida, vikiunganishwa pamoja kufanya kazi ya vituo vya data vya kampuni.',
+				analogy: 'Kama vyumba visivyotumika vya jiji zima, ambavyo vikijumlishwa vina vitanda vingi kuliko mnyororo wowote wa hoteli.',
+				match: ['DePIN']
+			},
+			reputation: {
+				term: 'Sifa (reputation)',
+				body: 'Kumbukumbu ya wazi na ya kudumu kuhusu kama mashine ilitimiza iliyoahidi. Kwa kuwa hakuna kampuni inayosimama nyuma ya mkataba, ndicho kinachofanya kununua kutoka mashine ya mgeni kuwa salama.',
+				analogy: 'Kama jina jema la kibanda cha sokoni miongoni mwa wateja wake wa kawaida — ila kumbukumbu hii haiwezi kuhaririwa, kufutwa wala kununuliwa.',
+				match: ['sifa', 'hadhi']
+			},
+			ergo: {
+				term: 'Ergo (ERG)',
+				body: 'Blockchain ambayo Celaut hukamilishia malipo, na ERG ndiyo sarafu yanayolipwa. Pande zote mbili husoma daftari moja la pamoja, hivyo hakuna anayelazimika kumwamini mwenzake.',
+				analogy: 'Mashine ya kuhesabu pesa ambayo mnunuzi na muuzaji wote wanaweza kuisoma, na isiyokuwa mali ya yeyote kati yao.',
+				match: ['Ergo', 'ERG']
+			},
+			deterministic: {
+				term: 'Yenye matokeo yasiyobadilika',
+				body: 'Ingizo lilelile hutoa matokeo yaleyale, kila wakati, kwenye mashine yoyote. Ndicho kinachomwezesha mtu mwingine kurudia kazi na kuthibitisha kuwa jibu alilopewa ni sahihi.',
+				analogy: 'Kichocheo sahihi kiasi kwamba wapishi wawili katika jiko mbili hawawezi kutoa keki tofauti.',
+				match: ['yasiyobadilika', 'isiyobadilika', 'uhakika']
+			},
+			workload: {
+				term: 'Mzigo wa kazi',
+				body: 'Kipande kimoja cha kazi kilichokabidhiwa mashine: programu inayoendeshwa kwa muda unaohitajika, na si zaidi. Inapomaliza, haiachi chochote nyuma.',
+				analogy: 'Kazi moja tu juu ya meza ya ufundi, inayoondolewa mara tu inapokamilika.',
+				match: ['mzigo wa kazi', 'mizigo ya kazi']
+			},
+			api: {
+				term: 'API (kiunganishi)',
+				body: 'Orodha iliyokubaliwa ya maombi ambayo programu itayajibu, na kile itakachorudisha. Ndivyo programu mbili hufanya kazi pamoja bila yoyote kujua nyingine imejengwaje ndani.',
+				analogy: 'Menyu: unaagiza kutoka kwenye orodha, huingii jikoni.',
+				match: ['API', 'kiunganishi']
+			},
+			orchestration: {
+				term: 'Upangaji (orchestration)',
+				body: 'Kuamua mashine ipi inaendesha kipande kipi cha kazi na lini, na kuhakikisha vipande vinapatana. Katika mawingu mengi mfumo mkuu mmoja hufanya hivyo; hapa kila mashine hujipanga yenyewe.',
+				analogy: 'Kiongozi anayeshikilia okestra pamoja — ila hapa kila mpiga ala hushika mdundo mwenyewe.',
+				match: ['kuratibu*', 'okestra*', 'kupanga na kuendesha']
+			},
+			sla: {
+				term: 'SLA',
+				body: 'Mkataba wa Kiwango cha Huduma: ahadi ya maandishi ya mtoa huduma kuhusu muda ambao huduma itakuwa hewani na kasi yake, na marejesho ikivunjwa. Ahadi inayobidi uiamini — na uidai.',
+				analogy: 'Kadi ya dhamana: ina thamani sawa kabisa na kampuni iliyoisaini.',
+				match: ['SLA']
+			}
+		}
+	},
+
 	viz: {
 		home: {
 			generation: 'kizazi {n}',
