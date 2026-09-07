@@ -301,21 +301,7 @@
 			if (!bits || cancelled || !main) return;
 			const { gsap, ScrollTrigger } = bits;
 			const scope = gsap.context(() => {
-				// Hero drifts up and dims as the first pinned scene arrives.
-				const hero = main.querySelector('section');
-				if (hero) {
-					gsap.to(hero.querySelector('.content-wrapper'), {
-						y: -110,
-						opacity: 0.25,
-						ease: 'none',
-						scrollTrigger: {
-							trigger: hero,
-							start: 'top top',
-							end: 'bottom top',
-							scrub: 0.5
-						}
-					});
-				}
+				// Hero copy and facts remain in normal flow; do not fade them on scroll.
 
 				// One-shot reveal per grounded section. `once` + clearProps
 				// means the element ends with no inline styles at all, so

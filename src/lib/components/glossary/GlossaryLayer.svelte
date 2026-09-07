@@ -59,7 +59,7 @@
 	 * card the reader may not be able to read. Worse than nothing, and
 	 * precisely for the reader the feature exists to serve.
 	 *
-	 * English ships today; the other sixteen dictionaries light up the
+	 * English and Spanish ship today; the other dictionaries light up the
 	 * moment `glossary` is added to them, with no code change here.
 	 */
 	$: available = $translated('glossary.terms');

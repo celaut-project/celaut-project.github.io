@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import GlossaryGuide from './glossary/GlossaryGuide.svelte';
     import { fly, fade } from 'svelte/transition';
     import { locale, t } from '$lib/i18n/index.js';
     import { createViewportGate, releaseCanvas } from '$lib/motion.js';
@@ -364,6 +365,7 @@
                 >{$t('home.hero.secondary')}</a
             >
         </div>
+        <GlossaryGuide />
     </div>
 </section>
 

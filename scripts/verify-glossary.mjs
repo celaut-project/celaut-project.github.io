@@ -30,7 +30,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 
 const BASE = process.env.BASE || 'http://localhost:4179';
 const CDP = process.env.CDP || 'http://127.0.0.1:9231';
-const ROUTES = ['/', '/depin', '/developers', '/users', '/install'];
+const ROUTES = ['/', '/depin', '/developers', '/users', '/install', '/es', '/es/depin', '/es/developers', '/es/users', '/es/install'];
 
 let failures = 0;
 const fail = (m) => {
@@ -130,8 +130,8 @@ async function run() {
 
 		await send('Page.navigate', { url: `${BASE}${route}` });
 		await sleep(2200);
-		// Every route is checked in English; the locale pass at the end
-		// covers the translated path on purpose and in isolation.
+		// Explicit Spanish URLs cover translated definitions too. Clear the
+		// saved choice so unprefixed URLs remain English on the next run.
 		await evaluate(`(() => { try { localStorage.removeItem('celaut-lang'); } catch (e) {} return true; })()`);
 
 		// Baseline text with the layer OFF, captured by clearing first.
@@ -267,17 +267,17 @@ async function run() {
 	 * for. English ships first, and several trigger words are spelled
 	 * identically in every language — DePIN, microVM, Ergo, gRPC,
 	 * peer-to-peer. So the naive implementation underlines those few
-	 * words on a Spanish page and opens ENGLISH definitions from them:
-	 * a Spanish speaker who does not read English gets a worse page
+	 * words on a French page and opens ENGLISH definitions from them:
+	 * a French speaker who does not read English gets a worse page
 	 * than if the feature had never shipped.
 	 *
 	 * The contract is therefore all-or-nothing per language: zero
 	 * marks, no toggle, no hint, until that locale's dictionary carries
 	 * the terms. When it does, this assertion is the one to invert.
 	 */
-	console.log('\n/es/depin (untranslated locale — layer must be absent)');
+	console.log('\n/fr/depin (untranslated locale — layer must be absent)');
 	logs.length = 0;
-	await send('Page.navigate', { url: `${BASE}/es/depin` });
+	await send('Page.navigate', { url: `${BASE}/fr/depin` });
 	await sleep(2400);
 	const es = await evaluate(`(() => ({
 		total: document.querySelectorAll('button.gloss[data-gloss]').length,
@@ -288,16 +288,16 @@ async function run() {
 		textLen: (document.querySelector('main') || document.body).textContent.length
 	}))()`);
 
-	if (es.lang !== 'es') fail(`html lang is "${es.lang}", expected es`);
-	else ok('html lang=es');
+	if (es.lang !== 'fr') fail(`html lang is "${es.lang}", expected fr`);
+	else ok('html lang=fr');
 	if (es.total !== 0) fail(`${es.total} marks on an untranslated locale — English definitions would leak`);
-	else ok('no marks (correct: glossary not translated to es)');
+	else ok('no marks (correct: glossary not translated to fr)');
 	if (es.toggle) fail('glossary toggle shown on a locale that has no glossary');
 	else ok('toggle correctly hidden');
 	if (es.hint) fail('first-run hint shown on a locale that has no glossary');
 	else ok('hint correctly suppressed');
-	if (!es.textLen) fail('Spanish page rendered empty');
-	else ok(`page renders normally (${es.textLen} chars of es prose, untouched)`);
+	if (!es.textLen) fail('French page rendered empty');
+	else ok(`page renders normally (${es.textLen} chars of fr prose, untouched)`);
 
 	const esErrors = logs.filter((l) => !/favicon|404/i.test(l));
 	if (esErrors.length) fail(`console errors: ${esErrors.slice(0, 2).join(' | ')}`);

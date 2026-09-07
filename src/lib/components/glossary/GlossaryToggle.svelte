@@ -22,7 +22,7 @@
 	 *
 	 * A control that is visible but does nothing is worse than an absent
 	 * one — it invites a click, produces no change, and teaches the
-	 * reader that the site's controls are unreliable. English has the
+	 * reader that the site's controls are unreliable. English and Spanish have the
 	 * glossary today; every other language gets the button the moment its
 	 * dictionary carries the terms.
 	 */
