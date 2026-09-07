@@ -50,7 +50,14 @@ const en = (await import(resolvePath(dir, 'en.js'))).default;
 
 /** Flatten to `a.b.0.c` -> value, recording array lengths as `a.b[]`. */
 function flatten(node, prefix = '', out = new Map()) {
-	if (Array.isArray(node)) {
+	// Match aliases are locale-specific vocabulary, not positional copy.
+	// Spanish may need more or fewer spellings than English.
+	if (/^glossary\.terms\.\d+\.match$/.test(prefix)) {
+		if (!Array.isArray(node) || !node.length || node.some((s) => typeof s !== 'string' || !s.trim())) {
+			throw new Error(`Invalid glossary aliases at ${prefix}`);
+		}
+		out.set(prefix, node);
+	} else if (Array.isArray(node)) {
 		out.set(`${prefix}[]`, node.length);
 		node.forEach((v, i) => flatten(v, `${prefix}.${i}`, out));
 	} else if (node && typeof node === 'object') {

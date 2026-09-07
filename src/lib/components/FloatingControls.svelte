@@ -25,6 +25,12 @@
 </div>
 
 <style>
+	/* The translated glossary adds a third control; reserve its space
+	   in the topbar instead of covering the last navigation links. */
+	:global(:root:has(.gloss-toggle)) {
+		--floating-controls-w: 148px;
+	}
+
 	.floating-controls {
 		position: fixed;
 		top: 18px;
@@ -36,6 +42,10 @@
 	}
 
 	@media (max-width: 560px) {
+		:global(:root:has(.gloss-toggle)) {
+			--floating-controls-w: 144px;
+		}
+
 		.floating-controls {
 			top: 12px;
 			inset-inline-end: 12px;

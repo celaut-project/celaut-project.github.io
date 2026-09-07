@@ -9,7 +9,7 @@
 	 *      Always running when motion is allowed; it is the first signal
 	 *      that this page responds to you.
 	 *   2. A GSAP scroll timeline that parallaxes the headline, sub-copy
-	 *      and stat row at different rates as you leave the hero, so the
+	 *      at different rates as you leave the hero, so the
 	 *      handoff into the first pinned scene feels continuous.
 	 *
 	 * Under prefers-reduced-motion neither layer runs: the canvas is
@@ -18,6 +18,7 @@
 	 */
 
 	import { onMount } from 'svelte';
+	import GlossaryGuide from '../glossary/GlossaryGuide.svelte';
 	import { t, href } from '$lib/i18n/index.js';
 	import { drawHeroField } from './scene-kit.js';
 	import {
@@ -50,7 +51,6 @@
 	let canvasEl;
 	let layerTitle;
 	let layerSub;
-	let layerStats;
 	let layerScroll;
 
 	function jumpToFirstScene(event) {
@@ -186,9 +186,9 @@
 			if (!bits || cancelled || !root) return;
 			const { gsap } = bits;
 			const scope = gsap.context(() => {
-				// Entrance. `stats` is optional, so filter out missing layers
-				// rather than handing GSAP an undefined target.
-				gsap.from([layerTitle, layerSub, layerStats].filter(Boolean), {
+				// Animate the introduction only. Facts stay in document flow,
+				// fully opaque even when the reader scrolls during entrance.
+				gsap.from([layerTitle, layerSub], {
 					y: 34,
 					opacity: 0,
 					duration: 0.9,
@@ -209,20 +209,6 @@
 					.to(layerTitle, { y: -140, opacity: 0.15, ease: 'none' }, 0)
 					.to(layerSub, { y: -90, opacity: 0.1, ease: 'none' }, 0)
 					.to(canvasEl, { y: 90, opacity: 0.35, ease: 'none' }, 0);
-
-				if (layerStats) {
-					gsap.to(layerStats, {
-						y: -50,
-						opacity: 0,
-						ease: 'none',
-						scrollTrigger: {
-							trigger: root,
-							start: 'top top',
-							end: 'bottom top',
-							scrub: 0.6
-						}
-					});
-				}
 
 				if (layerScroll) {
 					gsap.to(layerScroll, {
@@ -298,7 +284,7 @@
 		</div>
 
 		{#if stats.length}
-			<ul class="stats" bind:this={layerStats}>
+			<ul class="stats">
 				{#each stats as s}
 					<li>
 						<span class="stat-value">{s.value}</span>
@@ -307,6 +293,7 @@
 				{/each}
 			</ul>
 		{/if}
+		<GlossaryGuide />
 	</div>
 
 	<div class="scroll-hint" bind:this={layerScroll} aria-hidden="true">
