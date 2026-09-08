@@ -94,9 +94,7 @@
       "match": [
         "aislamiento",
         "aislado",
-        "aislada",
-        "sellado",
-        "sellada"
+        "aislada"
       ],
       "title": "Aislamiento",
       "body": "Separar un programa de otros programas y del ordenador anfitrión, limitando los archivos, redes y recursos a los que puede acceder."
@@ -131,16 +129,6 @@
       "body": "Un conjunto de reglas para que dos programas se entiendan: qué mensajes pueden enviarse, qué significan y cómo responder.",
       "more": "Celaut permite que distintos pares utilicen protocolos compatibles entre ellos sin imponer uno único a toda la red."
     },
-    "interface": {
-      "match": [
-        "interfaz",
-        "interfaces",
-        "API",
-        "APIs"
-      ],
-      "title": "Interfaz (API)",
-      "body": "La forma definida de pedirle algo a un programa y recibir una respuesta. Es como un menú: indica qué puedes solicitar sin tener que conocer cómo se prepara por dentro."
-    },
     "specification": {
       "match": [
         "especificación",
@@ -162,9 +150,7 @@
     "content-addressed": {
       "match": [
         "direccionamiento por contenido",
-        "direccionado por contenido",
-        "hash",
-        "hashes"
+        "direccionado por contenido"
       ],
       "title": "Identificación por contenido (hash)",
       "body": "Identificar un archivo o programa mediante una huella calculada a partir de sus datos. Si los datos cambian, cambia también esa huella.",
@@ -207,37 +193,32 @@
       "title": "Dependencia",
       "body": "Otro programa o biblioteca que un programa necesita para funcionar. Resolver las dependencias significa reunir esas piezas antes de ejecutarlo."
     },
-    "serverless": {
+    "sealed": {
       "match": [
-        "serverless",
-        "sin servidor"
+        "sellado",
+        "sellada",
+        "sellados",
+        "selladas"
       ],
-      "title": "Serverless",
-      "body": "Una forma de utilizar software sin tener que administrar un servidor propio para cada tarea. Sigue habiendo ordenadores que ejecutan el trabajo, pero su gestión queda separada de quien lo solicita."
+      "title": "Sellado",
+      "body": "Cerrado en ambos sentidos: el programa no ve la máquina en la que está, y la máquina no puede mirar dentro del programa.",
+      "more": "En Celaut es el contrato entre un nodo y un servicio: cada uno es opaco para el otro."
     },
-    "hard-fork": {
+    "box": {
       "match": [
-        "hard fork",
-        "hard-fork",
-        "bifurcación"
+        "BOX"
       ],
-      "title": "Hard fork (bifurcación incompatible)",
-      "body": "Un cambio en las reglas de una red que no es compatible con las anteriores. Si algunos participantes mantienen las reglas antiguas, pueden formarse dos redes distintas.",
-      "more": "Celaut busca evitar que todos tengan que adoptar a la vez un mismo cambio de protocolo."
+      "title": "BOX",
+      "body": "La descripción escrita completa del entorno que un programa necesita para ejecutarse: tipo de procesador, cada archivo, la configuración, por dónde arranca. No un puntero a un paquete guardado en otro sitio: el entorno mismo, enumerado.",
+      "more": "Una de las tres partes de un servicio Celaut, junto con API y NET. Como los archivos están listados y no se descargan, no hay un registro de imágenes que pueda desaparecer debajo."
     },
-    "docker": {
+    "net": {
       "match": [
-        "Docker"
+        "NET"
       ],
-      "title": "Docker",
-      "body": "Una herramienta muy utilizada para empaquetar y ejecutar programas en contenedores. No es el nombre de un servicio de Celaut ni un requisito del paradigma."
-    },
-    "grpc": {
-      "match": [
-        "gRPC"
-      ],
-      "title": "gRPC",
-      "body": "Una tecnología para que un programa solicite funciones a otro a través de una red. Es una opción de comunicación que una implementación puede sustituir por otra."
+      "title": "NET",
+      "body": "El límite declarado de con qué puede hablar un programa en ejecución a través de la red: qué servicios de fuera, si alguno, y nada más.",
+      "more": "La tercera parte de un servicio Celaut. Un servicio que no nombra redes no puede alcanzar el mundo exterior, que es también lo que hace comprobable su resultado."
     }
   }
 }

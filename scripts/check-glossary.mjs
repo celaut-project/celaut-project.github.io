@@ -55,13 +55,27 @@ const { GLOSSARY_IDS } = await import(resolvePath(here, '../src/lib/glossary/ter
 const SPACELESS = /[\u3000-\u30ff\u4e00-\u9fff\uac00-\ud7af]/;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-/** The same alternation annotate.js compiles, longest alias first. */
-function buildRegex(aliases) {
+/** Same split as annotate.js: all-caps letter aliases are case-exact. */
+const isAcronym = (a) => /^[A-Z]{2,}$/.test(a);
+function matchAll(aliases, corpus) {
 	const sorted = [...aliases].sort((a, b) => b.length - a.length);
-	const parts = sorted.map((a) =>
-		SPACELESS.test(a) ? esc(a) : `(?<![\\p{L}\\p{N}])${esc(a)}s?(?![\\p{L}\\p{N}])`
-	);
-	return new RegExp(parts.join('|'), 'giu');
+	const part = (a) =>
+		SPACELESS.test(a) ? esc(a) : `(?<![\\p{L}\\p{N}_-])${esc(a)}(?:s|es|'s|’s)?(?![\\p{L}\\p{N}_-])`;
+	const exact = sorted.filter(isAcronym).map(part);
+	const folded = sorted.filter((a) => !isAcronym(a)).map(part);
+	const found = [];
+	for (const [alts, flags] of [
+		[exact, 'gu'],
+		[folded, 'giu']
+	]) {
+		if (!alts.length) continue;
+		const re = new RegExp(alts.join('|'), flags);
+		for (const s of corpus) {
+			const hits = s.match(re);
+			if (hits) found.push(...hits);
+		}
+	}
+	return found;
 }
 
 /** Every string in the dictionary except the glossary itself. */
@@ -128,16 +142,9 @@ for (const code of codes) {
 			}
 		}
 
-		const re = buildRegex(term.match);
-		let hits = 0;
-		const examples = [];
-		for (const s of corpus) {
-			const found = s.match(re);
-			if (found) {
-				hits += found.length;
-				if (examples.length < 2) examples.push(found[0]);
-			}
-		}
+		const found = matchAll(term.match, corpus);
+		const hits = found.length;
+		const examples = found.slice(0, 2);
 		if (hits === 0) empty.push(id);
 		else if (verbose) console.log(`      ${id}: ${hits}× (${examples.join(', ')})`);
 	});

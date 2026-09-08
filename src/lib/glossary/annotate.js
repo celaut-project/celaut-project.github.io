@@ -140,7 +140,7 @@ function esc(s) {
  * short one and leave the reader with the wrong definition.
  *
  * @param {Array<{ match?: string[] }>} terms  Dictionary entries, paired with GLOSSARY_IDS.
- * @returns {{ re: RegExp, owner: Map<string, string> } | null}
+ * @returns {{ reExact: RegExp|null, reFold: RegExp|null, owner: Map<string, string> } | null}
  */
 function buildMatcher(terms) {
 	/** alias (lowercased) -> term id */
@@ -166,20 +166,29 @@ function buildMatcher(terms) {
 
 	aliases.sort((a, b) => b.length - a.length);
 
-	const parts = aliases.map((a) => {
+	/** An alias written entirely in uppercase (BOX, NET, API, ERG) is
+	 *  a project token, not an English word. Matching it
+	 *  case-insensitively would mark "black box", "a spare box", or
+	 *  Turkish "net olmakta" with the wrong definition. Those stay
+	 *  exact; everything else still folds case. */
+	// Letters only, so P2P (has a digit) still folds case.
+	const isAcronym = (a) => /^[A-Z]{2,}$/.test(a);
+
+	const part = (a) => {
 		const body = esc(a);
-		// A trailing plural/possessive is part of the match for
-		// space-separated scripts, so "nodes" and "services" are marked
-		// too, and the popover still resolves to the singular term.
 		return SPACELESS.test(a) ? body : `${body}(?:s|es|'s|’s)?`;
-	});
+	};
+	const wrap = (alts) =>
+		`(?<![\\p{L}\\p{N}_-])(?:${alts.join('|')})(?![\\p{L}\\p{N}_-])`;
 
-	// Lookaround rather than \b: \b treats an accented letter as a
-	// boundary, which would let "nodo" match inside "nodos" in the
-	// wrong place for several of the locales here.
-	const re = new RegExp(`(?<![\\p{L}\\p{N}_-])(?:${parts.join('|')})(?![\\p{L}\\p{N}_-])`, 'giu');
+	const exact = aliases.filter(isAcronym).map(part);
+	const folded = aliases.filter((a) => !isAcronym(a)).map(part);
 
-	return { re, owner };
+	return {
+		reExact: exact.length ? new RegExp(wrap(exact), 'gu') : null,
+		reFold: folded.length ? new RegExp(wrap(folded), 'giu') : null,
+		owner
+	};
 }
 
 /** Resolve a matched string back to its term id. */
@@ -218,7 +227,7 @@ export function annotate(root, terms) {
 
 	const matcher = buildMatcher(terms);
 	if (!matcher) return 0;
-	const { re, owner } = matcher;
+	const { reExact, reFold, owner } = matcher;
 
 	// Anything the framework orphaned since the last pass goes first, so
 	// the budget below counts only marks that are really on the page.
@@ -280,22 +289,33 @@ export function annotate(root, terms) {
 
 		for (const textNode of textNodes) {
 			const text = textNode.nodeValue;
-			re.lastIndex = 0;
 
 			/** @type {Array<{ start: number, end: number, id: string, word: string }>} */
-			const hits = [];
-			let m;
-			while ((m = re.exec(text))) {
-				const id = resolve(owner, m[0]);
-				if (!id) continue;
-				if (seen.has(id)) continue;
-				if ((pageCount.get(id) || 0) >= MAX_PER_PAGE) continue;
+			const raw = [];
+			for (const re of [reExact, reFold]) {
+				if (!re) continue;
+				re.lastIndex = 0;
+				let m;
+				while ((m = re.exec(text))) {
+					const id = resolve(owner, m[0]);
+					if (!id) continue;
+					raw.push({ start: m.index, end: m.index + m[0].length, id, word: m[0] });
+				}
+			}
+			raw.sort((a, b) => a.start - b.start || b.end - b.start - (a.end - a.start));
 
-				hits.push({ start: m.index, end: m.index + m[0].length, id, word: m[0] });
+			const hits = [];
+			let occupied = -1;
+			for (const hit of raw) {
+				if (hit.start < occupied) continue;
+				if (seen.has(hit.id)) continue;
+				if ((pageCount.get(hit.id) || 0) >= MAX_PER_PAGE) continue;
+				hits.push(hit);
+				occupied = hit.end;
 				// Claim the budget immediately, so a term appearing twice
 				// in the same paragraph is only marked once.
-				seen.add(id);
-				pageCount.set(id, (pageCount.get(id) || 0) + 1);
+				seen.add(hit.id);
+				pageCount.set(hit.id, (pageCount.get(hit.id) || 0) + 1);
 			}
 
 			if (!hits.length) continue;

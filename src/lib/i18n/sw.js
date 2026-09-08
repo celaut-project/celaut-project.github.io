@@ -81,9 +81,16 @@ export default {
 			},
 			{
 				// isolation
-				match: ['Utengaji', 'imefungwa', 'zimetengwa', 'yaliyotengwa'],
+				match: ['Utengaji', 'zimetengwa', 'yaliyotengwa'],
 				title: 'Isolation (kutengwa)',
 				body: 'Kuweka programu inayoendeshwa ndani ya mpaka ambao haiwezi kuvuka — inaona tu kilichopewa, si mashine inayoizunguka wala cho chote kingine kinachoendeshwa hapo.'
+			},
+			{
+				// sealed
+				match: ['Imefungwa'],
+				title: 'Imefungwa',
+				body: 'Imefungwa pande zote mbili: programu haioni mashine inayokaa, na mashine haiwezi kuangalia ndani ya programu.',
+				more: 'Katika Celaut huo ndio mkataba kati ya node na huduma: kila moja ni fiche kwa nyingine.'
 			},
 			{
 				// deterministic
@@ -107,12 +114,6 @@ export default {
 				more: 'Mitandao mingi hulazimisha kila mtu kwenye protocol moja, kwa hiyo wote wanapaswa kuboresha pamoja. Madai ya Celaut ni kwamba si lazima: kila jozi inakubaliana juu ya kile wanachoshiriki.'
 			},
 			{
-				// interface
-				match: ['interface', 'interfaces', 'API', 'APIs'],
-				title: 'Interface',
-				body: 'Orodha iliyochapishwa ya kile unachoweza kuomba kutoka kwa programu, na kile itakachotuma kurudi — kama menyu. Inakuambia kilichopo bila kukuambia cho chote kuhusu jikoni.'
-			},
-			{
 				// specification
 				match: ['vipimo'],
 				title: 'Specification',
@@ -127,7 +128,7 @@ export default {
 			},
 			{
 				// content-addressed
-				match: ['hashi'],
+				match: ['hashi yake ndiyo jina lake', 'maudhui yake'],
 				title: 'Content-addressed',
 				body: 'Kuitaja kitu kwa alama ya vidole inayokokotolewa kutoka kwa yaliyomo, badala ya kupa lebo. Badilisha baiti moja na alama inabadilika kabisa, kwa hiyo faili iliyobadilishwa au kuchezewa haiwezi kuhifadhi jina lile lile.',
 				more: 'Unaweza kuomba programu kamili kwa jina na kuthibitisha umepata hasa hiyo, bila kumwamini aliyekuletea.'
@@ -160,29 +161,18 @@ export default {
 				body: 'Kipande kingine cha programu ambacho hiki kinahitaji ili kufanya kazi — kama kichocheo kinavyotegemea viungo unavyopaswa kuvipata kando. Kuzitatua kunamaanisha kupata na kutoa kila moja kabla cho chote kiweze kuendeshwa.'
 			},
 			{
-				// serverless
-				match: ['serverless', 'bila seva'],
-				title: 'Serverless',
-				body: 'Hakuna seva mahususi nyuma yake. Hakuna kilichowekwa kwenye anwani ambayo mtu hulipa na angeweza kuacha kulipa — kitu kipo katika mtandao wenyewe, kwa hiyo hakuna plagi ya kuvuta.'
+				// box
+				match: ['BOX'],
+				title: 'BOX',
+				body: 'Maelezo kamili yaliyoandikwa ya mazingira programu inayohitaji ili kuendeshwa — aina ya processor, kila faili, mipangilio, mahali paanza. Si pointer ya kifurushi kilichohifadhiwa pengine: mazingira yenyewe, yaliyoorodheshwa.',
+				more: 'Moja ya sehemu tatu za huduma ya Celaut, pamoja na API na NET. Faili zimeorodheshwa si kupakuliwa, kwa hiyo hakuna rejesta ya picha inayoweza kutoweka chini yake.'
 			},
 			{
-				// hard-fork
-				match: ['hard fork', 'hard-fork', 'fork'],
-				title: 'Hard fork',
-				body: 'Wakati mtandao unabadilisha sheria zake na kila mshiriki lazima aboreshe siku ile ile. Wasiofanya hivyo wanabaki kwenye toleo lisilooana — kwa vitendo mtandao unagawanyika vipande viwili, na jamii inabishana nusu ipi ni ya kweli.',
-				more: 'Inatajwa hapa kama kitu kisichoweza kutokea wakati hakuna kitabu cha sheria cha pamoja cha kubadilisha.'
-			},
-			{
-				// docker
-				match: ['Docker'],
-				title: 'Docker',
-				body: 'Zana inayotumika zaidi kufungasha programu katika containers. Inatajwa kama kulinganisha kinachofahamika na kama chaguo moja kinachoweza kubadilishwa — si kama kitu Celaut inachohitaji.'
-			},
-			{
-				// grpc
-				match: ['gRPC'],
-				title: 'gRPC',
-				body: 'Njia ya kawaida na yenye ufanisi kwa programu mbili kuitana kupitia mtandao. Kama Docker, inaonekana hapa kama chaguo la utekelezaji linaloweza kubadilishwa na jingine.'
+				// net
+				match: ['NET'],
+				title: 'NET',
+				body: 'Kikomo kilichotangazwa cha kile programu inayoendeshwa inaruhusiwa kuzungumza nacho kwenye mtandao — huduma zipi za nje, kama zipo, na si zaidi.',
+				more: 'Sehemu ya tatu ya huduma ya Celaut. Huduma isiyotaja mitandao haiwezi kufikia ulimwengu wa nje, jambo ambalo pia hufanya tokeo liweze kukaguliwa.'
 			}
 		]
 	},

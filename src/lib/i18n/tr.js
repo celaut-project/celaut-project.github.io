@@ -81,9 +81,16 @@ export default {
 			},
 			{
 				// isolation
-				match: ['yalıtılmıştır', 'yalıtılmış', 'yalıtımı', 'yalıtım', 'yalıtır', 'mühürlenmiş', 'mühürlüdür', 'mühürlü'],
+				match: ['yalıtılmıştır', 'yalıtılmış', 'yalıtımı', 'yalıtım', 'yalıtır'],
 				title: 'Yalıtım',
 				body: 'Çalışan bir programı aşamayacağı bir sınırın içinde tutmak: yalnızca kendisine verileni görür, çevresindeki makineden ya da orada çalışan başka hiçbir şeyden haber almaz.'
+			},
+			{
+				// sealed
+				match: ['mühürlü', 'mühürlüdür', 'mühürlenmiş'],
+				title: 'Mühürlü',
+				body: 'İki yönde de kapalı: program oturduğu makineyi görmez, makine de programın içine bakamaz.',
+				more: "Celaut'ta bu, bir node ile bir servis arasındaki sözleşmedir: her biri öteki için opaktır."
 			},
 			{
 				// deterministic
@@ -107,12 +114,6 @@ export default {
 				more: "Çoğu ağ herkesi tek bir protokole zorlar, herkesin birlikte güncellemesi gerekir. Celaut'un iddiası bunun şart olmadığı: her çift, paylaştıkları her neyse ona anlaşır."
 			},
 			{
-				// interface
-				match: ['arayüzleri', 'arayüzler', 'arayüzünü', 'arayüzün', 'arayüzü', 'arayüz', 'API'],
-				title: 'Arayüz (API)',
-				body: 'Bir yazılımdan neler isteyebileceğinin ve neyin geri geleceğini gösteren yayımlanmış liste — bir menü gibi. Mutfağı anlatmadan, nelerin mevcut olduğunu söyler.'
-			},
-			{
 				// specification
 				match: ['şartnamesinde', 'şartnamesinin', 'şartnameleri', 'şartnamedir', 'şartnamenin', 'şartnamede', 'şartnamesi', 'şartname'],
 				title: 'Şartname',
@@ -127,7 +128,7 @@ export default {
 			},
 			{
 				// content-addressed
-				match: ['içerikle adreslenmiş', 'içerikle adreslenir', 'hash'],
+				match: ['içerikle adreslenmiş', 'içerikle adreslenir'],
 				title: 'İçerikle adresleme (hash)',
 				body: 'Bir şeye etiket vermek yerine, içeriğinden hesaplanan bir parmak iziyle ad koymak. Bir bayt değişsin, parmak izi büsbütün değişir; değiştirilmiş bir dosya aynı adı taşıyamaz.',
 				more: 'Tam olarak o yazılımı adıyla isteyip, onu verenin sözüne güvenmeden eline geçenin o olduğunu doğrulayabilirsin.'
@@ -160,29 +161,18 @@ export default {
 				body: 'Bunun çalışması için gereken başka bir yazılım — ayrı ayrı tedarik etmen gereken malzemelere bağlı bir tarif gibi. Bağımlılıkları çözmek, hiçbir şey çalışmadan önce her birini bulup sağlamaktır.'
 			},
 			{
-				// serverless
-				match: ['sunucusuz'],
-				title: 'Sunucusuz',
-				body: 'Arkasında belirli bir sunucu yoktur. Birinin kira ödeyip ödemeyi kesebileceği bir adreste barınmaz — şey ağın kendisinde vardır, çekilecek bir fiş yoktur.'
+				// box
+				match: ['BOX'],
+				title: 'BOX',
+				body: 'Bir programın çalışmak için ihtiyaç duyduğu ortamın eksiksiz yazılı tarifi — işlemci türü, her dosya, ayarlar, nereden başladığı. Başka yerde duran bir pakete işaret değil: ortamın kendisi, listelenmiş.',
+				more: 'Bir Celaut servisinin üç parçasından biri, API ve NET ile. Dosyalar indirilmez, listelenir; altından bir imaj kaydı kaybolamaz.'
 			},
 			{
-				// hard-fork
-				match: ['hard fork', 'hard-fork', 'fork'],
-				title: 'Hard fork',
-				body: 'Bir ağ kurallarını değiştirir ve her katılımcının aynı gün güncellemesi gerekir. Güncellemeyenler uyumsuz bir sürümde kalır: pratikte ağ ikiye bölünür, topluluk hangi yarının gerçek olduğunu tartışır.',
-				more: 'Burada, baştan ortak bir kural kitabı olmayınca yaşanamayacak şey olarak anılır.'
-			},
-			{
-				// docker
-				match: ['Docker'],
-				title: 'Docker',
-				body: "Yazılımı konteynerlere paketlemek için en yaygın araç. Tanıdık bir karşılaştırma noktası ve birbirinin yerine geçebilir seçeneklerden biri olarak geçer — Celaut'un şartı olarak değil."
-			},
-			{
-				// grpc
-				match: ['gRPC'],
-				title: 'gRPC',
-				body: 'İki programın ağ üzerinden birbirini çağırmasının yaygın, verimli bir yolu. Docker gibi, burada da başka biriyle değiştirilebilecek bir uygulama tercihi olarak durur.'
+				// net
+				match: ['NET'],
+				title: 'NET',
+				body: 'Çalışan bir programın ağ üzerinden konuşmasına izin verilenlerin ilan edilmiş sınırı — hangi dış servisler, varsa, ve başka hiçbir şey.',
+				more: 'Bir Celaut servisinin üçüncü parçası. Ağ adı vermeyen bir servis dış dünyaya ulaşamaz; sonucu da bu yüzden denetlenebilir.'
 			}
 		]
 	},

@@ -81,9 +81,16 @@ export default {
 			},
 			{
 				// isolation
-				match: ['Isolation', 'Isolationsmodell', 'isoliert', 'versiegelt'],
+				match: ['Isolation', 'Isolationsmodell', 'isoliert'],
 				title: 'Isolation',
 				body: 'Ein laufendes Programm hinter einer Grenze halten, die es nicht überschreiten kann — es sieht nur, was man ihm gegeben hat, nichts von der Maschine darum herum und nichts von dem, was sonst noch darauf läuft.'
+			},
+			{
+				// sealed
+				match: ['versiegelt'],
+				title: 'Versiegelt',
+				body: 'In beide Richtungen geschlossen: das Programm sieht die Maschine nicht, auf der es sitzt, und die Maschine kann nicht ins Programm hineinschauen.',
+				more: 'In Celaut ist das der Vertrag zwischen Node und Service: jeder ist für den anderen undurchsichtig.'
 			},
 			{
 				// deterministic
@@ -107,12 +114,6 @@ export default {
 				more: 'Die meisten Netze zwingen alle auf ein Protokoll, also müssen alle gemeinsam upgraden. Celaut behauptet, das sei unnötig: jedes Paar einigt sich auf das, was es ohnehin teilt.'
 			},
 			{
-				// interface
-				match: ['Interface', 'Interfaces', 'API', 'APIs'],
-				title: 'Interface',
-				body: 'Die veröffentlichte Liste dessen, was du einer Software abverlangen kannst und was sie zurückschickt — wie eine Speisekarte. Sie sagt, was es gibt, ohne etwas über die Küche zu verraten.'
-			},
-			{
 				// specification
 				match: ['Spezifikation', 'Spezifikationen', 'Spezifikationsformat'],
 				title: 'Spezifikation',
@@ -127,7 +128,7 @@ export default {
 			},
 			{
 				// content-addressed
-				match: ['inhaltsadressiert', 'inhaltsadressierte', 'inhaltsadressierten', 'Hash', 'Hashes'],
+				match: ['inhaltsadressiert', 'inhaltsadressierte', 'inhaltsadressierten'],
 				title: 'Inhaltsadressiert',
 				body: 'Etwas nach einem Fingerabdruck benennen, der aus seinem Inhalt berechnet wird, statt ihm ein Etikett zu geben. Ein Byte ändert sich — der Fingerabdruck ändert sich vollständig. Eine vertauschte oder verfälschte Datei kann denselben Namen nicht behalten.',
 				more: 'Du kannst also genaue Software namentlich anfordern und prüfen, dass du genau die bekommen hast, ohne dem Überbringer zu vertrauen.'
@@ -160,29 +161,18 @@ export default {
 				body: 'Ein anderes Stück Software, das dieses hier braucht, um zu funktionieren — wie ein Rezept Zutaten braucht, die man extra besorgen muss. Sie aufzulösen heißt, jede zu finden und bereitzustellen, bevor irgendetwas laufen kann.'
 			},
 			{
-				// serverless
-				match: ['serverless', 'ohne Server'],
-				title: 'Serverless',
-				body: 'Es steckt kein bestimmter Server dahinter. Nichts liegt unter einer Adresse, für die jemand zahlt und die Zahlung einstellen könnte — die Sache existiert im Netz selbst, es gibt keinen Stecker zum Ziehen.'
+				// box
+				match: ['BOX'],
+				title: 'BOX',
+				body: 'Die vollständige schriftliche Beschreibung der Umgebung, die ein Programm zum Laufen braucht — Prozessortyp, jede Datei, die Einstellungen, wo es startet. Kein Zeiger auf ein Paket, das woanders liegt: die Umgebung selbst, aufgelistet.',
+				more: 'Einer von drei Teilen eines Celaut-Service, neben API und NET. Weil die Dateien gelistet statt geholt werden, kann kein Image-Register darunter wegbrechen.'
 			},
 			{
-				// hard-fork
-				match: ['Hard Fork', 'hard-fork', 'Fork'],
-				title: 'Hard Fork',
-				body: 'Wenn ein Netz seine Regeln ändert und jeder Teilnehmer am selben Tag upgraden muss. Wer nicht mitzieht, bleibt auf einer inkompatiblen Version — praktisch spaltet sich das Netz, und die Community streitet, welche Hälfte die echte ist.',
-				more: 'Hier als das genannt, was nicht passieren kann, wenn es gar kein gemeinsames Regelbuch gibt, das man ändern könnte.'
-			},
-			{
-				// docker
-				match: ['Docker'],
-				title: 'Docker',
-				body: 'Das am weitesten verbreitete Werkzeug, um Software in Container zu packen. Es wird als bekannter Vergleich und als eine austauschbare Wahl erwähnt — nicht als etwas, das Celaut verlangt.'
-			},
-			{
-				// grpc
-				match: ['gRPC'],
-				title: 'gRPC',
-				body: 'Ein gängiger, effizienter Weg, wie zwei Programme einander über ein Netz aufrufen. Wie Docker erscheint es hier als eine Implementierungswahl, die sich durch eine andere ersetzen ließe.'
+				// net
+				match: ['NET'],
+				title: 'NET',
+				body: 'Die erklärte Grenze, mit wem ein laufendes Programm über das Netz sprechen darf — welche äußeren Dienste, falls überhaupt, und sonst nichts.',
+				more: 'Der dritte Teil eines Celaut-Service. Ein Service, der keine Netze nennt, erreicht die Außenwelt nicht — das macht sein Ergebnis auch prüfbar.'
 			}
 		]
 	},

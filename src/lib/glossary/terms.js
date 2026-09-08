@@ -44,10 +44,10 @@ export const GLOSSARY_IDS = [
 	'container',
 	'kernel',
 	'isolation',
+	'sealed',
 	'deterministic',
 	'decentralized',
 	'protocol',
-	'interface',
 	'specification',
 	'filesystem',
 	'content-addressed',
@@ -55,10 +55,8 @@ export const GLOSSARY_IDS = [
 	'blockchain',
 	'ergo',
 	'dependency',
-	'serverless',
-	'hard-fork',
-	'docker',
-	'grpc'
+	'box',
+	'net'
 ];
 
 /**
