@@ -81,8 +81,7 @@
     },
     "isolation": {
       "match": [
-        "cách ly",
-        "niêm phong"
+        "cách ly"
       ],
       "title": "Cách ly",
       "body": "Giữ chương trình đang chạy trong một ranh giới nó không vượt qua — nó chỉ thấy những gì được giao, không thấy máy xung quanh hay bất cứ thứ gì khác đang chạy ở đó."
@@ -112,14 +111,6 @@
       "body": "Những quy tắc đã thống nhất để hai máy tính hiểu nhau — một ngôn ngữ chung, cộng phép lịch sự ai nói lúc nào. Hai bên không dùng cùng một thứ thì không gì lọt qua.",
       "more": "Hầu hết mạng buộc mọi người vào một giao thức, nghĩa là phải nâng cấp cùng lúc. Celaut cho rằng không cần: mỗi cặp thống nhất những gì họ tình cờ dùng chung."
     },
-    "interface": {
-      "match": [
-        "giao diện",
-        "API"
-      ],
-      "title": "Giao diện (API)",
-      "body": "Danh sách công bố những gì bạn có thể hỏi một phần mềm và nó sẽ trả lại — như thực đơn. Nó nói có gì, không nói gì về nhà bếp."
-    },
     "specification": {
       "match": [
         "đặc tả"
@@ -137,8 +128,7 @@
     },
     "content-addressed": {
       "match": [
-        "định danh bằng nội dung",
-        "hash"
+        "định danh bằng nội dung"
       ],
       "title": "Định danh bằng nội dung",
       "body": "Đặt tên một thứ theo dấu vân tay tính từ nội dung, thay vì dán nhãn. Đổi một byte là dấu vân tay đổi hoàn toàn, nên tệp bị tráo hoặc bị sửa không giữ được cùng tên.",
@@ -156,8 +146,7 @@
     "blockchain": {
       "match": [
         "blockchain",
-        "on-chain",
-        "ledger"
+        "on-chain"
       ],
       "title": "Blockchain",
       "body": "Quyển sổ dùng chung mà hàng nghìn máy tính giữ bản sao cùng lúc. Thêm một dòng cần những máy kia đồng ý là hợp lệ, và các dòng cũ không viết lại được — nên không một bên nào nắm lịch sử.",
@@ -179,35 +168,29 @@
       "title": "Phụ thuộc",
       "body": "Một phần mềm khác mà phần này cần để chạy — như công thức phụ thuộc nguyên liệu phải kiếm riêng. Giải phụ thuộc nghĩa là tìm và cung cấp từng thứ trước khi chạy được gì."
     },
-    "serverless": {
+    "sealed": {
       "match": [
-        "không máy chủ"
+        "niêm phong"
       ],
-      "title": "Không máy chủ",
-      "body": "Không có một máy chủ cụ thể đứng sau. Không gì được đặt tại một địa chỉ mà ai đó trả tiền rồi có thể ngừng trả — thứ đó tồn tại trên chính mạng lưới, nên không có phích để rút."
+      "title": "Niêm phong",
+      "body": "Đóng cả hai chiều: chương trình không thấy máy nó đang ngồi, và máy không thể nhìn vào trong chương trình.",
+      "more": "Trong Celaut đó là hợp đồng giữa node và service: mỗi bên mờ đục với bên kia."
     },
-    "hard-fork": {
+    "box": {
       "match": [
-        "hard fork",
-        "fork"
+        "BOX"
       ],
-      "title": "Hard fork",
-      "body": "Khi một mạng đổi quy tắc và mọi người tham gia phải nâng cấp cùng ngày. Ai không nâng cấp bị kẹt ở phiên bản không tương thích — thực tế mạng tách đôi và cộng đồng cãi nhau nửa nào là thật.",
-      "more": "Được nêu ở đây như thứ không thể xảy ra khi ngay từ đầu chẳng có cuốn luật dùng chung để mà đổi."
+      "title": "BOX",
+      "body": "Mô tả viết đủ môi trường một chương trình cần để chạy — loại bộ xử lý, từng tệp, cấu hình, chỗ nó bắt đầu. Không phải con trỏ tới gói để nơi khác: chính môi trường, được liệt kê.",
+      "more": "Một trong ba phần của service Celaut, cùng API và NET. Tệp được liệt kê chứ không tải về, nên không có kho ảnh nào biến mất bên dưới."
     },
-    "docker": {
+    "net": {
       "match": [
-        "Docker"
+        "NET"
       ],
-      "title": "Docker",
-      "body": "Công cụ phổ biến nhất để đóng phần mềm vào container. Được nhắc như điểm so sánh quen thuộc và như một lựa chọn có thể thay — không phải thứ Celaut bắt buộc."
-    },
-    "grpc": {
-      "match": [
-        "gRPC"
-      ],
-      "title": "gRPC",
-      "body": "Một cách phổ biến, hiệu quả để hai chương trình gọi nhau qua mạng. Như Docker, nó xuất hiện ở đây như một lựa chọn hiện thực có thể đổi sang cái khác."
+      "title": "NET",
+      "body": "Giới hạn đã tuyên bố về những gì chương trình đang chạy được phép nói chuyện qua mạng — dịch vụ bên ngoài nào, nếu có, và không gì khác.",
+      "more": "Phần thứ ba của service Celaut. Service không nêu mạng nào thì không với tới thế giới bên ngoài — cũng vì thế kết quả kiểm được."
     }
   }
 }

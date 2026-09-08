@@ -1,0 +1,218 @@
+{
+  "toggleOn": "Explain technical terms",
+  "toggleOff": "Hide term explanations",
+  "toggleLabel": "Explanations",
+  "close": "Close",
+  "explain": "What does \"{term}\" mean?",
+  "hintTitle": "Some words are underlined.",
+  "hintBody": "Tap any underlined word for a plain-language explanation. Turn them off any time with the button in the corner.",
+  "hintDismiss": "Got it",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "peer-to-peer",
+        "peer to peer",
+        "P2P",
+        "peer",
+        "peers"
+      ],
+      "title": "Peer-to-peer",
+      "body": "Two computers dealing with each other directly, the way two people have a phone call — instead of both sending everything through a company in the middle, the way email or a marketplace works. Each computer is a \"peer\": equal, no one in charge.",
+      "more": "It matters here because the company in the middle is usually the one that sets the price, takes a cut, and can remove you. Remove it and there is nobody to ask permission from."
+    },
+    "node": {
+      "match": [
+        "node",
+        "nodes"
+      ],
+      "title": "Node",
+      "body": "One computer taking part in a network. Your laptop, a spare desktop, a server in a rack — once it runs the software and starts talking to other machines, it is a node.",
+      "more": "In Celaut a node is one of only two moving parts. It provides the hardware and decides what runs where."
+    },
+    "service": {
+      "match": [
+        "service",
+        "services"
+      ],
+      "title": "Service",
+      "body": "A self-contained piece of software that does one job and can be handed to any machine to run — closer to a single appliance than to a whole program you install.",
+      "more": "Celaut services are sealed: the machine running one does not look inside it, and the service does not know which machine it landed on."
+    },
+    "compute": {
+      "match": [
+        "compute",
+        "computation",
+        "computational resources",
+        "computing power"
+      ],
+      "title": "Compute",
+      "body": "The work a computer actually does — processor time, memory, storage — treated as something measurable that can be bought and sold, like electricity or storage space.",
+      "more": "Someone needs a calculation done and has no machine free; you have a machine doing nothing. \"Compute\" is what changes hands."
+    },
+    "depin": {
+      "match": [
+        "DePIN",
+        "decentralized physical infrastructure network"
+      ],
+      "title": "DePIN",
+      "body": "Short for \"decentralized physical infrastructure network\". Ordinary people contribute real hardware they already own — computers, drives, antennas — and are paid for it, instead of one company building a data centre and renting it out.",
+      "more": "Think of a taxi fleet versus a city where anyone with a car can drive. Same service, no fleet owner."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM"
+      ],
+      "title": "microVM",
+      "body": "A tiny, fast, complete computer simulated inside your real one. Whatever runs in it behaves as though it has its own machine, and cannot see your files, your network or anything else on the actual hardware.",
+      "more": "It is what the large cloud providers use to run strangers’ code on shared hardware safely. When the job finishes the whole simulated machine is destroyed."
+    },
+    "container": {
+      "match": [
+        "container",
+        "containers",
+        "containerised",
+        "containerized"
+      ],
+      "title": "Container",
+      "body": "Software packaged together with everything it needs to run — its files, its settings, its dependencies — so it behaves identically on any machine that opens the package. Like a shipping container: the port does not care what is inside, only that it is a standard box."
+    },
+    "kernel": {
+      "match": [
+        "kernel",
+        "kernels"
+      ],
+      "title": "Kernel",
+      "body": "The core of an operating system — the part that hands out memory, talks to the hardware and decides which program gets the processor next. Everything else on the machine goes through it.",
+      "more": "Why it comes up: if two workloads share one kernel, a flaw in it reaches both. Giving each its own kernel removes that shared path."
+    },
+    "isolation": {
+      "match": [
+        "isolation",
+        "isolated"
+      ],
+      "title": "Isolation",
+      "body": "Keeping a running program inside a boundary it cannot reach past — it sees only what it was given, and nothing of the machine around it or of anything else running there."
+    },
+    "deterministic": {
+      "match": [
+        "deterministic",
+        "determinism",
+        "reproducible",
+        "reproducibility"
+      ],
+      "title": "Deterministic",
+      "body": "Same input, same output, every time — like a recipe that produces an identical cake in any kitchen, rather than one that depends on the cook. Nothing about the machine, the day or the location changes the result.",
+      "more": "This is what makes a result checkable by someone else, and what makes a review written a year ago still worth reading."
+    },
+    "decentralized": {
+      "match": [
+        "decentralized",
+        "decentralised",
+        "decentralization",
+        "decentralisation"
+      ],
+      "title": "Decentralized",
+      "body": "No headquarters. There is no single company, server or person the system depends on, so there is nothing that can be switched off, bought, or ordered to shut it down.",
+      "more": "The practical test: if any one participant disappeared overnight, would the rest still work? If yes, it is decentralized."
+    },
+    "protocol": {
+      "match": [
+        "protocol",
+        "protocols"
+      ],
+      "title": "Protocol",
+      "body": "The agreed rules two computers follow so they can understand each other — a shared language, plus the etiquette of who speaks when. Both sides have to use the same one or nothing gets through.",
+      "more": "Most networks force everyone onto one protocol, which means everyone must upgrade together. Celaut’s claim is that they need not: each pair agrees on whatever they happen to share."
+    },
+    "specification": {
+      "match": [
+        "specification",
+        "specifications"
+      ],
+      "title": "Specification",
+      "body": "A complete written description of something, precise enough that anyone can build or run it from the description alone — architect’s plans rather than a photograph of the finished house.",
+      "more": "A Celaut service is defined entirely by its specification: its files, its settings, how it starts. Nothing is left for the host machine to fill in."
+    },
+    "filesystem": {
+      "match": [
+        "filesystem",
+        "file system",
+        "file structure"
+      ],
+      "title": "Filesystem",
+      "body": "The complete set of files and folders a program can see, and how they are arranged. Specifying it means listing every one of them, rather than saying \"whatever happens to be on that computer\"."
+    },
+    "content-addressed": {
+      "match": [
+        "content-addressed",
+        "content addressed"
+      ],
+      "title": "Content-addressed",
+      "body": "Naming something after a fingerprint calculated from its contents, instead of giving it a label. Change one byte and the fingerprint changes completely, so a swapped or tampered file cannot keep the same name.",
+      "more": "It means you can ask for exact software by name and verify you got exactly that, without trusting whoever handed it to you."
+    },
+    "reputation": {
+      "match": [
+        "reputation",
+        "reputation proof",
+        "reputation-based"
+      ],
+      "title": "Reputation",
+      "body": "A public record of how a participant has behaved before — did it deliver what it was paid for, or not. Like seller ratings, except no company owns the ratings and nobody can quietly edit them.",
+      "more": "It is what stands in for trust between strangers: not a promise, but a record that costs something to damage."
+    },
+    "blockchain": {
+      "match": [
+        "blockchain",
+        "blockchains",
+        "on-chain"
+      ],
+      "title": "Blockchain",
+      "body": "A shared record book that thousands of computers keep copies of at once. Adding an entry requires the others to agree it is valid, and past entries cannot be rewritten — so no single participant controls the history.",
+      "more": "Used here for two narrow jobs: recording reputation, and settling payment between people who have never met. Nothing more."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "The particular blockchain Celaut currently uses to record reputation and move payments. ERG is its unit of currency.",
+      "more": "It is a choice, not a foundation: Celaut has no coin of its own and the payment layer is deliberately replaceable."
+    },
+    "dependency": {
+      "match": [
+        "dependency",
+        "dependencies"
+      ],
+      "title": "Dependency",
+      "body": "Another piece of software that this one needs in order to work — the way a recipe depends on ingredients you have to source separately. Resolving them means finding and providing each one before anything can run."
+    },
+    "sealed": {
+      "match": [
+        "sealed"
+      ],
+      "title": "Sealed",
+      "body": "Closed so that nothing crosses in either direction — the program cannot see the machine it is sitting on, and the machine cannot look inside the program.",
+      "more": "In Celaut that is the contract between a node and a service: each is opaque to the other."
+    },
+    "box": {
+      "match": [
+        "BOX"
+      ],
+      "title": "BOX",
+      "body": "A complete written description of the environment a program needs in order to run — processor kind, every file, the settings, where it starts. Not a pointer to a package stored somewhere else: the environment itself, listed out.",
+      "more": "One of three parts of a Celaut service, with API and NET. Because the files are listed rather than fetched, there is no image registry that can go missing underneath it."
+    },
+    "net": {
+      "match": [
+        "NET"
+      ],
+      "title": "NET",
+      "body": "The declared limit on what a running program is allowed to talk to over the network — which outside services, if any, and nothing else.",
+      "more": "The third part of a Celaut service. A service that names no networks cannot reach the outside world, which is also what makes its result checkable."
+    }
+  }
+}

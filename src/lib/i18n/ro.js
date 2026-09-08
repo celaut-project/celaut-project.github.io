@@ -82,9 +82,16 @@ export default {
 			},
 			{
 				// isolation
-				match: ['izolare', 'izolat', 'izolată', 'izolate', 'sigilat', 'sigilată'],
+				match: ['izolare', 'izolat', 'izolată', 'izolate'],
 				title: 'Izolare',
 				body: 'A ține un program în execuție în spatele unei limite pe care n-o poate trece — vede doar ce i s-a dat, nimic din mașina din jur și nimic din ce mai rulează acolo.'
+			},
+			{
+				// sealed
+				match: ['sigilat', 'sigilată', 'sigilate'],
+				title: 'Sigilat',
+				body: 'Închis în ambele direcții: programul nu vede mașina pe care stă, iar mașina nu poate privi înăuntrul programului.',
+				more: 'În Celaut e contractul dintre un nod și un serviciu: fiecare e opac pentru celălalt.'
 			},
 			{
 				// deterministic
@@ -108,12 +115,6 @@ export default {
 				more: 'Majoritatea rețelelor forțează pe toată lumea un singur protocol, deci toți trebuie să treacă la versiunea nouă împreună. Celaut spune că nu e nevoie: fiecare pereche se înțelege pe ce au deja în comun.'
 			},
 			{
-				// interface
-				match: ['interfață', 'interfețe', 'interface', 'API'],
-				title: 'Interfață',
-				body: 'Lista publicată a ceea ce poți cere unui program și a ceea ce îți trimite înapoi — ca un meniu. Îți spune ce există fără să-ți spună nimic despre bucătărie.'
-			},
-			{
 				// specification
 				match: ['specificație', 'specificații', 'specificat', 'specificate'],
 				title: 'Specificație',
@@ -128,7 +129,7 @@ export default {
 			},
 			{
 				// content-addressed
-				match: ['adresat după conținut', 'hash', 'hashes'],
+				match: ['adresat după conținut'],
 				title: 'Adresat după conținut',
 				body: 'A numi ceva după o amprentă calculată din conținutul lui, în loc să-i pui o etichetă. Schimbi un octet și amprenta se schimbă de tot, deci un fișier înlocuit sau modificat nu-și poate păstra același nume.',
 				more: 'Poți cere un software exact după nume și verifica că ai primit exact ăla, fără să te încrezi în cine ți l-a dat.'
@@ -161,29 +162,18 @@ export default {
 				body: 'Alt program de care ăsta are nevoie ca să meargă — cum o rețetă depinde de ingrediente pe care trebuie să le aduci separat. A le rezolva înseamnă a le găsi și a le pune la dispoziție înainte să poată rula ceva.'
 			},
 			{
-				// serverless
-				match: ['fără server', 'serverless'],
-				title: 'Fără server',
-				body: 'Nu există un server anume în spate. Nimic nu e găzduit la o adresă pe care cineva o plătește și ar putea să nu o mai plătească — lucrul există în rețeaua însăși, deci nu e nicio priză de scos.'
+				// box
+				match: ['BOX'],
+				title: 'BOX',
+				body: 'Descrierea scrisă completă a mediului de care un program are nevoie ca să ruleze — tipul de procesor, fiecare fișier, setările, de unde pornește. Nu un pointer către un pachet ținut altundeva: mediul însuși, enumerat.',
+				more: 'Una din cele trei părți ale unui serviciu Celaut, alături de API și NET. Fișierele sunt listate, nu descărcate, deci nu există un registru de imagini care să dispară pe sub el.'
 			},
 			{
-				// hard-fork
-				match: ['hard fork', 'hard-fork', 'fork'],
-				title: 'Hard fork',
-				body: 'Când o rețea își schimbă regulile și toți participanții trebuie să treacă la versiunea nouă în aceeași zi. Cine nu trece rămâne pe o versiune incompatibilă — practic rețeaua se rupe în două, iar comunitatea se ceartă care jumătate e cea adevărată.',
-				more: 'E pomenit aici ca lucrul care nu se poate întâmpla când nu există un regulament comun de modificat.'
-			},
-			{
-				// docker
-				match: ['Docker'],
-				title: 'Docker',
-				body: 'Cel mai folosit instrument ca să împachetezi software în containere. E menționat ca punct de comparație cunoscut și ca o alegere interschimbabilă — nu ca ceva ce Celaut ar cere.'
-			},
-			{
-				// grpc
-				match: ['gRPC'],
-				title: 'gRPC',
-				body: 'Un mod obișnuit și eficient ca două programe să se apeleze printr-o rețea. Ca Docker, apare aici ca o alegere de implementare care ar putea fi înlocuită cu alta.'
+				// net
+				match: ['NET'],
+				title: 'NET',
+				body: 'Limita declarată a ceea ce un program în execuție are voie să contacteze pe rețea — care servicii din afară, dacă e cazul, și nimic altceva.',
+				more: 'A treia parte a unui serviciu Celaut. Un serviciu care nu numește rețele nu ajunge în lumea de afară, ceea ce face și rezultatul verificabil.'
 			}
 		]
 	},

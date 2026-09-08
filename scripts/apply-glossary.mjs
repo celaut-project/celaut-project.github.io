@@ -147,6 +147,17 @@ function splice(source, block, code) {
 			else if (c === inStr) inStr = null;
 			continue;
 		}
+		// Comments must not count: en.js has `// {term}` inside the block.
+		if (c === '/' && source[i + 1] === '/') {
+			while (i < source.length && source[i] !== '\n') i++;
+			continue;
+		}
+		if (c === '/' && source[i + 1] === '*') {
+			const end = source.indexOf('*/', i + 2);
+			if (end === -1) throw new Error(`${code}: unterminated comment in glossary block`);
+			i = end + 1;
+			continue;
+		}
 		if (c === "'" || c === '"' || c === '`') inStr = c;
 		else if (c === '{') depth++;
 		else if (c === '}' && --depth === 0) break;

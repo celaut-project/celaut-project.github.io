@@ -86,8 +86,7 @@
       "match": [
         "isolasi",
         "terisolasi",
-        "tersandbox",
-        "sealed"
+        "tersandbox"
       ],
       "title": "Isolasi",
       "body": "Menahan program yang sedang berjalan di dalam batas yang tidak bisa dilampauinya — ia hanya melihat apa yang diberikan, bukan mesin di sekelilingnya atau apa pun lain yang berjalan di sana."
@@ -120,16 +119,6 @@
       "body": "Aturan yang disepakati dua komputer agar saling mengerti — bahasa bersama, plus etiket siapa bicara kapan. Kedua sisi harus memakai yang sama, kalau tidak tidak ada yang tembus.",
       "more": "Kebanyakan jaringan memaksa semua orang ke satu protokol, jadi semua harus naik versi bersama. Klaim Celaut: tidak perlu. Setiap pasangan bersepakat pada apa yang kebetulan mereka miliki bersama."
     },
-    "interface": {
-      "match": [
-        "antarmuka",
-        "interface",
-        "API",
-        "APIs"
-      ],
-      "title": "Antarmuka",
-      "body": "Daftar terbitan tentang apa yang bisa kamu minta dari sepotong perangkat lunak, dan apa yang akan dikirim kembali — seperti menu. Memberitahu apa yang tersedia tanpa memberitahu apa pun tentang dapurnya."
-    },
     "specification": {
       "match": [
         "Spesifikasi"
@@ -148,9 +137,7 @@
     },
     "content-addressed": {
       "match": [
-        "beralamat konten",
-        "hash",
-        "hashes"
+        "beralamat konten"
       ],
       "title": "Dialamatkan menurut isi",
       "body": "Menamai sesuatu menurut sidik jari yang dihitung dari isinya, bukan memberinya label. Ubah satu bita dan sidik jarinya berubah total, jadi berkas yang ditukar atau diutak-atik tidak bisa menyimpan nama yang sama.",
@@ -190,37 +177,29 @@
       "title": "Ketergantungan",
       "body": "Sepotong perangkat lunak lain yang dibutuhkan yang ini agar bisa bekerja — seperti resep bergantung pada bahan yang harus dicari terpisah. Menyelesaikannya berarti menemukan dan menyediakan masing-masing sebelum apa pun bisa berjalan."
     },
-    "serverless": {
+    "sealed": {
       "match": [
-        "tanpa server",
-        "serverless"
+        "tersegel"
       ],
-      "title": "Tanpa server",
-      "body": "Tidak ada server tertentu di baliknya. Tidak ada yang di-host di alamat yang dibayar seseorang dan bisa berhenti dibayar — hal itu ada di jaringan itu sendiri, jadi tidak ada colokan yang bisa dicabut."
+      "title": "Tersegel",
+      "body": "Tertutup dua arah: program tidak melihat mesin tempatnya berjalan, dan mesin tidak dapat melihat ke dalam program.",
+      "more": "Di Celaut itu kontrak antara node dan service: masing-masing buram bagi yang lain."
     },
-    "hard-fork": {
+    "box": {
       "match": [
-        "hard fork",
-        "hard-fork",
-        "fork"
+        "BOX"
       ],
-      "title": "Hard fork",
-      "body": "Ketika jaringan mengubah aturannya dan setiap peserta harus naik versi di hari yang sama. Yang tidak ikut tertinggal di versi yang tidak kompatibel — praktisnya jaringan terbelah dua, dan komunitas berdebat belahan mana yang asli.",
-      "more": "Disebut di sini sebagai hal yang tidak bisa terjadi ketika tidak ada buku aturan bersama yang bisa diubah."
+      "title": "BOX",
+      "body": "Deskripsi tertulis lengkap lingkungan yang dibutuhkan program agar bisa berjalan — jenis prosesor, setiap berkas, pengaturan, di mana ia mulai. Bukan penunjuk ke paket yang disimpan di tempat lain: lingkungannya sendiri, didaftar.",
+      "more": "Salah satu dari tiga bagian service Celaut, bersama API dan NET. Karena berkas didaftar bukan diunduh, tidak ada registri image yang bisa hilang di bawahnya."
     },
-    "docker": {
+    "net": {
       "match": [
-        "Docker"
+        "NET"
       ],
-      "title": "Docker",
-      "body": "Alat yang paling luas dipakai untuk mengemas perangkat lunak ke dalam kontainer. Disebut sebagai titik banding yang familiar dan sebagai satu pilihan yang bisa ditukar — bukan sebagai sesuatu yang diwajibkan Celaut."
-    },
-    "grpc": {
-      "match": [
-        "gRPC"
-      ],
-      "title": "gRPC",
-      "body": "Cara umum dan efisien bagi dua program untuk saling memanggil lewat jaringan. Seperti Docker, muncul di sini sebagai satu pilihan implementasi yang bisa diganti dengan yang lain."
+      "title": "NET",
+      "body": "Batas yang dinyatakan tentang apa yang boleh dihubungi program yang sedang berjalan lewat jaringan — layanan luar yang mana, jika ada, dan tidak lebih.",
+      "more": "Bagian ketiga dari service Celaut. Service yang tidak menyebut jaringan tidak bisa menjangkau dunia luar, yang juga membuat hasilnya bisa diperiksa."
     }
   }
 }

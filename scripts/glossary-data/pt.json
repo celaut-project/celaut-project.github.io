@@ -95,9 +95,7 @@
         "isolado",
         "isolada",
         "isolados",
-        "isoladas",
-        "selado",
-        "selada"
+        "isoladas"
       ],
       "title": "Isolamento",
       "body": "Manter um programa em execução dentro de um limite que ele não consegue atravessar — vê só o que lhe foi dado, e nada da máquina à volta nem de qualquer outra coisa a correr lá."
@@ -135,23 +133,11 @@
       "body": "As regras combinadas que dois computadores seguem para se entenderem — uma língua partilhada, mais a etiqueta de quem fala quando. Os dois lados têm de usar o mesmo, senão nada passa.",
       "more": "A maior parte das redes obriga toda a gente a um único protocolo, o que significa atualizar todos ao mesmo tempo. A tese do Celaut é que não precisa: cada par acorda no que já partilha."
     },
-    "interface": {
-      "match": [
-        "interface",
-        "interfaces",
-        "API",
-        "APIs"
-      ],
-      "title": "Interface",
-      "body": "A lista publicada do que podes pedir a um software e do que ele devolve — como um menu. Diz o que há sem contar nada da cozinha."
-    },
     "specification": {
       "match": [
         "especificação",
         "especificações",
-        "especificado",
-        "especificada",
-        "spec"
+        "especificado"
       ],
       "title": "Especificação",
       "body": "Uma descrição escrita completa, precisa o suficiente para qualquer pessoa construir ou executar a coisa só a partir dela — plantas de arquiteto, não uma fotografia da casa pronta.",
@@ -169,9 +155,7 @@
     "content-addressed": {
       "match": [
         "endereçado por conteúdo",
-        "endereçada por conteúdo",
-        "hash",
-        "hashes"
+        "endereçada por conteúdo"
       ],
       "title": "Endereçado por conteúdo",
       "body": "Dar a uma coisa um nome calculado a partir do seu conteúdo, em vez de um rótulo. Muda um byte e a impressão muda por completo, portanto um ficheiro trocado ou adulterado não pode ficar com o mesmo nome.",
@@ -211,38 +195,32 @@
       "title": "Dependência",
       "body": "Outro pedaço de software de que este precisa para funcionar — como uma receita depende de ingredientes que tens de ir buscar à parte. Resolvê-las é encontrar e fornecer cada uma antes de qualquer coisa poder correr."
     },
-    "serverless": {
+    "sealed": {
       "match": [
-        "sem servidor",
-        "sem servidores",
-        "serverless"
+        "selado",
+        "selada",
+        "selados",
+        "seladas"
       ],
-      "title": "Sem servidor",
-      "body": "Não há um servidor concreto por trás. Nada está alojado num endereço que alguém pague e possa deixar de pagar — a coisa existe na própria rede, portanto não há ficha para puxar."
+      "title": "Selado",
+      "body": "Fechado nos dois sentidos: o programa não vê a máquina em que está, e a máquina não pode olhar para dentro do programa.",
+      "more": "No Celaut é o contrato entre um nó e um serviço: cada um é opaco para o outro."
     },
-    "hard-fork": {
+    "box": {
       "match": [
-        "hard fork",
-        "hard-fork",
-        "fork"
+        "BOX"
       ],
-      "title": "Hard fork",
-      "body": "Quando uma rede muda as regras e todos os participantes têm de atualizar no mesmo dia. Quem não atualiza fica numa versão incompatível — na prática a rede parte-se em duas e a comunidade discute qual metade é a verdadeira.",
-      "more": "Citado aqui como o que não pode acontecer quando não existe um livro de regras comum para alterar."
+      "title": "BOX",
+      "body": "A descrição escrita completa do ambiente de que um programa precisa para correr — tipo de processador, cada ficheiro, as definições, onde começa. Não um ponteiro para um pacote noutro sítio: o ambiente em si, listado.",
+      "more": "Uma das três partes de um serviço Celaut, com API e NET. Como os ficheiros estão listados em vez de descarregados, não há um registo de imagens que possa desaparecer por baixo."
     },
-    "docker": {
+    "net": {
       "match": [
-        "Docker"
+        "NET"
       ],
-      "title": "Docker",
-      "body": "A ferramenta mais usada para empacotar software em contentores. Aparece como ponto de comparação familiar e como uma escolha intercambiável — não como algo que o Celaut exija."
-    },
-    "grpc": {
-      "match": [
-        "gRPC"
-      ],
-      "title": "gRPC",
-      "body": "Uma forma comum e eficiente de dois programas se chamarem através de uma rede. Como o Docker, aparece aqui como uma escolha de implementação que se poderia trocar por outra."
+      "title": "NET",
+      "body": "O limite declarado do que um programa em execução pode contactar na rede — que serviços de fora, se algum, e mais nada.",
+      "more": "A terceira parte de um serviço Celaut. Um serviço que não nomeia redes não alcança o mundo exterior, o que também torna o resultado verificável."
     }
   }
 }
