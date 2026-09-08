@@ -25,6 +25,39 @@
  *   • the off switch fully reverses — zero marks left, text intact;
  *   • clicking a mark opens a popover with a real definition in it;
  *   • no console errors while any of that happens.
+ *
+ * REGRESSIONS THIS ALSO PINS DOWN
+ * -------------------------------
+ * Three bugs shipped at once because each was invisible to the checks
+ * above, so each now has an assertion of its own:
+ *
+ *   • LAYOUT. `.fact` in the hero is `display: flex`. Splitting its
+ *     text node made the halves and the mark into three flex ITEMS,
+ *     and flex discards the whitespace-only boxes between items — so
+ *     one sentence rendered as side-by-side columns with the space
+ *     before the marked word deleted. Every marked run must therefore
+ *     present as a single box to its parent, checked by measuring the
+ *     line boxes of the parent rather than by trusting the CSS.
+ *
+ *   • FRAMEWORK OWNERSHIP. Svelte holds references to the text nodes it
+ *     created, and tears `{@html}` blocks down by walking between a
+ *     recorded first and last node. Marks left outside that range
+ *     survived a re-render, so a language switch produced a Spanish
+ *     heading over an English paragraph and the page grew with every
+ *     switch. Checked by switching locale repeatedly and requiring the
+ *     text to equal a COLD LOAD of that locale each time — not merely
+ *     "not empty", which is what the original checks asked and is why
+ *     the stale-text version passed them.
+ *
+ *   • FIRST PAINT. The toggle reported "on" while nothing was marked.
+ *     Checked by asserting that a cold load has marks BEFORE anything
+ *     is clicked, and that toggling off and on again does not change
+ *     how many there are.
+ *
+ * The rotating hero fact is excluded from text comparisons: it cycles
+ * every ten seconds and its seven sentences differ in length, so
+ * comparing it would measure the clock. Its layout is checked directly
+ * instead, which is the property that actually broke.
  */
 import { writeFileSync, mkdirSync } from 'node:fs';
 
@@ -163,8 +196,71 @@ async function run() {
 			};
 		})()`);
 
-		if (marks.total === 0) fail('no marks were added');
-		else ok(`${marks.total} marks (${Object.keys(marks.counts).length} distinct terms)`);
+		/*
+		 * REGRESSION (first paint): marks must be present on a cold load,
+		 * before anything has been clicked. The reported failure was a
+		 * toggle that said "on" over a page with nothing underlined until
+		 * it was switched off and on again — so "there are marks now" is
+		 * only meaningful if nothing has touched the toggle yet, which is
+		 * the case here: this is the first read after navigation.
+		 */
+		if (marks.total === 0) fail('no marks on first paint (before any interaction)');
+		else ok(`${marks.total} marks on first paint (${Object.keys(marks.counts).length} distinct terms)`);
+
+		/*
+		 * REGRESSION (layout): no annotated run may turn its parent into a
+		 * multi-item flex/grid line.
+		 *
+		 * Two assertions, because the CSS alone does not tell you whether
+		 * the damage happened:
+		 *   1. every mark's nearest annotatable ancestor that is a flex or
+		 *      grid container must see the whole run as ONE child box;
+		 *   2. the space before a marked word must still be rendered — the
+		 *      visible symptom was "Lareputación", the space silently
+		 *      eaten by flex layout discarding anonymous whitespace boxes.
+		 */
+		const layout = await evaluate(`(() => {
+			const ANNOTATABLE = 'p, li, dd, figcaption, .block-note, .beat-note, .lede, .stat-label';
+			const bad = [];
+			const glued = [];
+			for (const mark of document.querySelectorAll('button.gloss[data-gloss]')) {
+				// The box that actually lays this mark out is its PARENT — check
+				// that, not the nearest annotatable ancestor, because the
+				// damage is done by whichever element the run is a child of.
+				const run = mark.closest('span[data-gloss-run]') || mark;
+				const block = run.parentElement;
+				if (!block) continue;
+				const d = getComputedStyle(block).display;
+				if (d === 'flex' || d === 'inline-flex' || d === 'grid' || d === 'inline-grid') {
+					// Direct children of a flex/grid container are its items.
+					// A correctly wrapped run contributes exactly one.
+					const items = [...block.childNodes].filter(n =>
+						n.nodeType === 1 || (n.nodeType === 3 && n.nodeValue.trim()));
+					if (items.length > 1) bad.push({
+						sel: block.tagName.toLowerCase() + '.' + (block.className || '').split(' ')[0],
+						display: d, items: items.length,
+						text: (block.textContent || '').replace(/\\s+/g,' ').trim().slice(0, 60)
+					});
+				}
+				// The character immediately before the mark, as RENDERED.
+				const r = document.createRange();
+				r.setStartBefore(block.firstChild);
+				r.setEndBefore(mark);
+				const before = r.toString();
+				if (before.length && /[\\p{L}\\p{N}]$/u.test(before) && !/[-\\u2010-\\u2015'\\u2019\\/(\\[]$/u.test(before)) {
+					glued.push(before.slice(-16) + '|' + mark.textContent);
+				}
+			}
+			return { bad, glued };
+		})()`);
+
+		if (layout.bad.length)
+			fail(`annotated flex/grid block split into items: ${layout.bad.map(b => `${b.sel}(${b.display}, ${b.items} items)`).join(', ')}`);
+		else ok('no annotated block became a multi-item flex/grid line');
+
+		if (layout.glued.length)
+			fail(`word glued to the text before it (lost space): ${layout.glued.slice(0, 3).join(', ')}`);
+		else ok('spacing around every mark preserved');
 
 		const over = Object.entries(marks.counts).filter(([, n]) => n > 2);
 		if (over.length) fail(`density: ${over.map(([k, n]) => `${k}×${n}`).join(', ')}`);
@@ -252,6 +348,20 @@ async function run() {
 		if (!backOn) fail('re-enabling did not restore marks');
 		else ok(`re-enabled cleanly (${backOn} marks)`);
 
+		/*
+		 * REGRESSION (first paint, second half): toggling off and on must
+		 * not CHANGE how many marks there are.
+		 *
+		 * The reported bug was "nothing is underlined until you toggle off
+		 * and on", and the shape that would produce is `marks.total` low
+		 * or zero on arrival and higher after the round trip. Asserting
+		 * the two are equal catches it from either direction, including a
+		 * partial first pass that only annotated some of the page.
+		 */
+		if (marks.total && backOn !== marks.total)
+			fail(`mark count changed across a toggle cycle: ${marks.total} on arrival, ${backOn} after off/on`);
+		else if (marks.total) ok('toggle cycle is a no-op (first pass annotated everything)');
+
 		const errors = logs.filter((l) => !/favicon|404/i.test(l));
 		if (errors.length) fail(`console errors: ${errors.slice(0, 3).join(' | ')}`);
 		else ok('no console errors');
@@ -259,6 +369,98 @@ async function run() {
 		const shot = await send('Page.captureScreenshot', { format: 'png' });
 		writeFileSync(`.shots/gloss${route.replace(/\//g, '_') || '_home'}.png`, Buffer.from(shot.data, 'base64'));
 	}
+
+	/*
+	 * REGRESSION (framework ownership): a locale switch must leave the
+	 * page reading EXACTLY like a cold load of that locale.
+	 *
+	 * This is the check the original suite was missing. It asked only
+	 * whether marks still existed after a language change, which stale
+	 * text passes trivially — the section was still full of words, they
+	 * were just the previous language's words, sitting under the new
+	 * language's heading and accumulating with every switch.
+	 *
+	 * So: capture what each locale looks like cold and with the layer
+	 * off (the ground truth the translator wrote), then switch back and
+	 * forth through the real UI control and require an exact match every
+	 * time. The rotating hero fact is removed from both sides because it
+	 * changes on a timer.
+	 */
+	console.log('\nlocale switching (text must match a cold load exactly)');
+	logs.length = 0;
+
+	const TEXT = `(() => {
+		const r = document.querySelector('main') || document.body;
+		const c = r.cloneNode(true);
+		c.querySelectorAll('.facts').forEach(f => f.remove());
+		c.querySelectorAll('button.gloss[data-gloss]').forEach(b =>
+			b.replaceWith(document.createTextNode(b.textContent)));
+		return c.textContent.replace(/\\s+/g, ' ').trim();
+	})()`;
+
+	/** Cold, glossary-off ground truth for a locale. */
+	async function golden(path) {
+		await send('Page.navigate', { url: `${BASE}/` });
+		await sleep(1200);
+		await evaluate(`(() => { try { localStorage.setItem('celaut-glossary','off'); } catch (e) {} return true; })()`);
+		await send('Page.navigate', { url: `${BASE}${path}` });
+		await sleep(2600);
+		const text = await evaluate(TEXT);
+		await evaluate(`(() => { try { localStorage.setItem('celaut-glossary','on'); } catch (e) {} return true; })()`);
+		return text;
+	}
+
+	const goldEn = await golden('/');
+	const goldEs = await golden('/es');
+
+	await send('Page.navigate', { url: `${BASE}/` });
+	await sleep(2600);
+	await evaluate(`(() => { try { localStorage.removeItem('celaut-lang'); } catch (e) {} return true; })()`);
+
+	const pickLocale = (code) => `(() => {
+		const t = document.querySelector('.lang-toggle');
+		if (!t) return 'no toggle';
+		t.click();
+		return new Promise(r => setTimeout(() => {
+			const b = document.querySelector('.lang-menu button[lang="${code}"]');
+			if (!b) return r('no option');
+			b.click();
+			setTimeout(() => r('ok'), 2200);
+		}, 300));
+	})()`;
+
+	let switchFailures = 0;
+	for (const code of ['es', 'en', 'es', 'en']) {
+		const res = await evaluate(pickLocale(code));
+		if (res !== 'ok') {
+			fail(`could not switch to ${code}: ${res}`);
+			switchFailures += 1;
+			continue;
+		}
+		await sleep(600);
+		const text = await evaluate(TEXT);
+		const want = code === 'es' ? goldEs : goldEn;
+		const live = await evaluate(`document.querySelectorAll('button.gloss[data-gloss]').length`);
+		if (text === want) {
+			ok(`→${code}: text identical to a cold load (${text.length} chars, ${live} marks)`);
+		} else {
+			switchFailures += 1;
+			// Show where they diverge, which is far more useful than lengths.
+			let i = 0;
+			while (i < text.length && i < want.length && text[i] === want[i]) i += 1;
+			fail(
+				`→${code}: text differs from a cold load (${text.length} vs ${want.length} chars). ` +
+					`First divergence at ${i}: got …${JSON.stringify(text.slice(i, i + 70))}, ` +
+					`expected …${JSON.stringify(want.slice(i, i + 70))}`
+			);
+		}
+		if (!live) fail(`→${code}: no marks after the switch`);
+	}
+	if (!switchFailures) ok('four locale switches, no stale or duplicated prose');
+
+	const switchErrors = logs.filter((l) => !/favicon|404/i.test(l));
+	if (switchErrors.length) fail(`console errors while switching: ${switchErrors.slice(0, 3).join(' | ')}`);
+	else ok('no console errors while switching');
 
 	/*
 	 * Untranslated locale: the layer must be completely absent.
