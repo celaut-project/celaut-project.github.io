@@ -1,0 +1,244 @@
+{
+  "toggleOn": "Fachbegriffe erklären",
+  "toggleOff": "Begriffserklärungen ausblenden",
+  "toggleLabel": "Erklärungen",
+  "close": "Schließen",
+  "explain": "Was bedeutet „{term}“?",
+  "hintTitle": "Manche Wörter sind unterstrichen.",
+  "hintBody": "Tippe auf ein unterstrichenes Wort für eine Erklärung in Alltagssprache. Ausschalten geht jederzeit über den Knopf in der Ecke.",
+  "hintDismiss": "Verstanden",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "Peer-to-Peer",
+        "peer to peer",
+        "P2P"
+      ],
+      "title": "Peer-to-Peer",
+      "body": "Zwei Computer, die direkt miteinander verkehren — wie zwei Menschen am Telefon — statt alles über eine Firma in der Mitte zu schicken, so wie E-Mail oder ein Marktplatz. Jeder Rechner ist ein „Peer“: gleichberechtigt, niemand hat das Sagen.",
+      "more": "Das zählt hier, weil die Firma in der Mitte gewöhnlich den Preis festlegt, mitverdient und dich rauswerfen kann. Fällt sie weg, gibt es niemanden, den man um Erlaubnis fragen müsste."
+    },
+    "node": {
+      "match": [
+        "Node",
+        "Nodes",
+        "nodo"
+      ],
+      "title": "Node",
+      "body": "Ein Computer, der an einem Netz teilnimmt. Dein Laptop, ein ungenutzter Desktop, ein Server im Rack — sobald die Software läuft und er mit anderen Maschinen spricht, ist er ein Node.",
+      "more": "In Celaut ist der Node eines von nur zwei beweglichen Teilen. Er stellt die Hardware und entscheidet, was wo läuft."
+    },
+    "service": {
+      "match": [
+        "Service",
+        "Services"
+      ],
+      "title": "Service",
+      "body": "Ein in sich geschlossenes Stück Software, das eine Aufgabe erledigt und an jede Maschine zum Ausführen übergeben werden kann — eher ein einzelnes Gerät als ein ganzes Programm, das man installiert.",
+      "more": "Celaut-Services sind versiegelt: die Maschine, die einen ausführt, schaut nicht hinein, und der Service weiß nicht, auf welcher Maschine er gelandet ist."
+    },
+    "compute": {
+      "match": [
+        "Rechenleistung",
+        "Rechenressourcen",
+        "Recheneinheit",
+        "Rechenzentrum"
+      ],
+      "title": "Rechenleistung",
+      "body": "Die Arbeit, die ein Computer tatsächlich leistet — Prozessorzeit, Speicher, Festplatte — als messbare Größe behandelt, die man kaufen und verkaufen kann, wie Strom oder Speicherplatz.",
+      "more": "Jemand braucht eine Berechnung und hat keine freie Maschine; du hast eine Maschine, die nichts tut. Rechenleistung ist das, was den Besitzer wechselt."
+    },
+    "depin": {
+      "match": [
+        "DePIN"
+      ],
+      "title": "DePIN",
+      "body": "Kurz für „decentralized physical infrastructure network“. Gewöhnliche Leute stellen echte Hardware, die sie schon besitzen — Rechner, Festplatten, Antennen — und werden dafür bezahlt, statt dass eine Firma ein Rechenzentrum baut und vermietet.",
+      "more": "Taxi-Flotte gegen eine Stadt, in der jeder mit Auto fahren kann. Derselbe Dienst, kein Flottenbesitzer."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM"
+      ],
+      "title": "microVM",
+      "body": "Ein winziger, schneller, vollständiger Computer, der in deinem echten simuliert wird. Was darin läuft, verhält sich, als hätte es eine eigene Maschine, und sieht weder deine Dateien noch dein Netz noch sonst etwas auf der echten Hardware.",
+      "more": "Genau das nutzen große Cloud-Anbieter, um fremden Code sicher auf geteilter Hardware laufen zu lassen. Ist der Job fertig, wird die simulierte Maschine komplett zerstört."
+    },
+    "container": {
+      "match": [
+        "Container"
+      ],
+      "title": "Container",
+      "body": "Software, zusammengepackt mit allem, was sie zum Laufen braucht — Dateien, Einstellungen, Abhängigkeiten — sodass sie auf jeder Maschine, die das Paket öffnet, gleich arbeitet. Wie ein Schiffscontainer: dem Hafen ist egal, was drin ist, nur dass die Kiste dem Standard entspricht."
+    },
+    "kernel": {
+      "match": [
+        "Kernel"
+      ],
+      "title": "Kernel",
+      "body": "Der Kern eines Betriebssystems — der Teil, der Speicher vergibt, mit der Hardware spricht und entscheidet, welches Programm als Nächstes den Prozessor bekommt. Alles andere auf der Maschine geht durch ihn.",
+      "more": "Warum das hier vorkommt: teilen sich zwei Lasten einen Kernel, erreicht ein Fehler darin beide. Bekommt jede ihren eigenen, fällt dieser gemeinsame Weg weg."
+    },
+    "isolation": {
+      "match": [
+        "Isolation",
+        "Isolationsmodell",
+        "isoliert",
+        "versiegelt"
+      ],
+      "title": "Isolation",
+      "body": "Ein laufendes Programm hinter einer Grenze halten, die es nicht überschreiten kann — es sieht nur, was man ihm gegeben hat, nichts von der Maschine darum herum und nichts von dem, was sonst noch darauf läuft."
+    },
+    "deterministic": {
+      "match": [
+        "deterministisch",
+        "Determinismus",
+        "deterministischer",
+        "deterministische",
+        "deterministischen"
+      ],
+      "title": "Deterministisch",
+      "body": "Gleiche Eingabe, gleiche Ausgabe, jedes Mal — wie ein Rezept, das in jeder Küche denselben Kuchen ergibt, nicht eines, das vom Koch abhängt. Weder Maschine noch Tag noch Ort ändern das Ergebnis.",
+      "more": "Das macht ein Ergebnis für jemand anderen überprüfbar, und einen Bericht von vor einem Jahr noch lesenswert."
+    },
+    "decentralized": {
+      "match": [
+        "Dezentralisierung",
+        "dezentral",
+        "dezentrale",
+        "dezentralen",
+        "dezentralisiert"
+      ],
+      "title": "Dezentral",
+      "body": "Keine Zentrale. Es gibt keine einzelne Firma, keinen Server und keine Person, von der das System abhängt — also nichts, das man abschalten, kaufen oder zum Abschalten zwingen könnte.",
+      "more": "Der praktische Test: würde der Rest noch funktionieren, wenn ein beliebiger Teilnehmer über Nacht verschwände? Wenn ja, ist es dezentral."
+    },
+    "protocol": {
+      "match": [
+        "Protokoll",
+        "Protokolle",
+        "Protokollen",
+        "Protokol"
+      ],
+      "title": "Protokoll",
+      "body": "Die vereinbarten Regeln, denen zwei Computer folgen, um einander zu verstehen — eine gemeinsame Sprache plus die Etikette, wer wann spricht. Beide Seiten müssen dieselbe nutzen, sonst kommt nichts durch.",
+      "more": "Die meisten Netze zwingen alle auf ein Protokoll, also müssen alle gemeinsam upgraden. Celaut behauptet, das sei unnötig: jedes Paar einigt sich auf das, was es ohnehin teilt."
+    },
+    "interface": {
+      "match": [
+        "Interface",
+        "Interfaces",
+        "API",
+        "APIs"
+      ],
+      "title": "Interface",
+      "body": "Die veröffentlichte Liste dessen, was du einer Software abverlangen kannst und was sie zurückschickt — wie eine Speisekarte. Sie sagt, was es gibt, ohne etwas über die Küche zu verraten."
+    },
+    "specification": {
+      "match": [
+        "Spezifikation",
+        "Spezifikationen",
+        "Spezifikationsformat"
+      ],
+      "title": "Spezifikation",
+      "body": "Eine vollständige schriftliche Beschreibung, genau genug, dass jeder sie daraus allein bauen oder ausführen kann — Architektenpläne, kein Foto des fertigen Hauses.",
+      "more": "Ein Celaut-Service ist vollständig durch seine Spezifikation definiert: Dateien, Einstellungen, Start. Der Host füllt nichts aus."
+    },
+    "filesystem": {
+      "match": [
+        "Dateisystem",
+        "Dateisystems",
+        "filesystem"
+      ],
+      "title": "Dateisystem",
+      "body": "Die vollständige Menge der Dateien und Ordner, die ein Programm sehen kann, und wie sie angeordnet sind. Sie zu spezifizieren heißt, jede einzelne aufzuzählen — nicht „was gerade auf dem Rechner liegt“."
+    },
+    "content-addressed": {
+      "match": [
+        "inhaltsadressiert",
+        "inhaltsadressierte",
+        "inhaltsadressierten",
+        "Hash",
+        "Hashes"
+      ],
+      "title": "Inhaltsadressiert",
+      "body": "Etwas nach einem Fingerabdruck benennen, der aus seinem Inhalt berechnet wird, statt ihm ein Etikett zu geben. Ein Byte ändert sich — der Fingerabdruck ändert sich vollständig. Eine vertauschte oder verfälschte Datei kann denselben Namen nicht behalten.",
+      "more": "Du kannst also genaue Software namentlich anfordern und prüfen, dass du genau die bekommen hast, ohne dem Überbringer zu vertrauen."
+    },
+    "reputation": {
+      "match": [
+        "Reputation",
+        "Reputationsnachweis",
+        "Reputationsschicht",
+        "Reputationssystem",
+        "Reputationseintrag",
+        "Reputationsregister",
+        "reputationsbasiertem",
+        "reputationsbasiertes"
+      ],
+      "title": "Reputation",
+      "body": "Ein öffentliches Protokoll, wie ein Teilnehmer sich bisher verhalten hat — hat er geliefert, wofür er bezahlt wurde, oder nicht. Wie Verkäuferbewertungen, nur dass keine Firma sie besitzt und niemand sie stillschweigend ändert.",
+      "more": "Das tritt an die Stelle von Vertrauen unter Fremden: kein Versprechen, sondern eine Akte, die zu beschädigen etwas kostet."
+    },
+    "blockchain": {
+      "match": [
+        "Blockchain",
+        "Blockchains"
+      ],
+      "title": "Blockchain",
+      "body": "Ein gemeinsames Register, von dem Tausende Computer gleichzeitig Kopien halten. Ein Eintrag kommt nur dazu, wenn die anderen ihn als gültig anerkennen, und alte Einträge lassen sich nicht umschreiben — niemand allein kontrolliert die Geschichte.",
+      "more": "Hier für zwei enge Aufgaben: Reputation festhalten und Zahlung zwischen Menschen abwickeln, die sich nie begegnet sind. Sonst nichts."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "Die Blockchain, die Celaut derzeit nutzt, um Reputation festzuhalten und Zahlungen zu bewegen. ERG ist ihre Währungseinheit.",
+      "more": "Eine Wahl, kein Fundament: Celaut hat keine eigene Münze, und die Zahlungsschicht ist absichtlich austauschbar."
+    },
+    "dependency": {
+      "match": [
+        "Abhängigkeit",
+        "Abhängigkeiten"
+      ],
+      "title": "Abhängigkeit",
+      "body": "Ein anderes Stück Software, das dieses hier braucht, um zu funktionieren — wie ein Rezept Zutaten braucht, die man extra besorgen muss. Sie aufzulösen heißt, jede zu finden und bereitzustellen, bevor irgendetwas laufen kann."
+    },
+    "serverless": {
+      "match": [
+        "serverless",
+        "ohne Server"
+      ],
+      "title": "Serverless",
+      "body": "Es steckt kein bestimmter Server dahinter. Nichts liegt unter einer Adresse, für die jemand zahlt und die Zahlung einstellen könnte — die Sache existiert im Netz selbst, es gibt keinen Stecker zum Ziehen."
+    },
+    "hard-fork": {
+      "match": [
+        "Hard Fork",
+        "hard-fork",
+        "Fork"
+      ],
+      "title": "Hard Fork",
+      "body": "Wenn ein Netz seine Regeln ändert und jeder Teilnehmer am selben Tag upgraden muss. Wer nicht mitzieht, bleibt auf einer inkompatiblen Version — praktisch spaltet sich das Netz, und die Community streitet, welche Hälfte die echte ist.",
+      "more": "Hier als das genannt, was nicht passieren kann, wenn es gar kein gemeinsames Regelbuch gibt, das man ändern könnte."
+    },
+    "docker": {
+      "match": [
+        "Docker"
+      ],
+      "title": "Docker",
+      "body": "Das am weitesten verbreitete Werkzeug, um Software in Container zu packen. Es wird als bekannter Vergleich und als eine austauschbare Wahl erwähnt — nicht als etwas, das Celaut verlangt."
+    },
+    "grpc": {
+      "match": [
+        "gRPC"
+      ],
+      "title": "gRPC",
+      "body": "Ein gängiger, effizienter Weg, wie zwei Programme einander über ein Netz aufrufen. Wie Docker erscheint es hier als eine Implementierungswahl, die sich durch eine andere ersetzen ließe."
+    }
+  }
+}

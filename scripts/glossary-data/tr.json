@@ -1,0 +1,250 @@
+{
+  "toggleOn": "Teknik terimleri açıkla",
+  "toggleOff": "Terim açıklamalarını gizle",
+  "toggleLabel": "Açıklamalar",
+  "close": "Kapat",
+  "explain": "\"{term}\" ne demek?",
+  "hintTitle": "Bazı sözcüklerin altı çizili.",
+  "hintBody": "Sade bir açıklama için altı çizili herhangi bir sözcüğe dokun. İstediğin zaman köşedeki düğmeyle kapatabilirsin.",
+  "hintDismiss": "Anladım",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "eşler arasıdır",
+        "eşler arası",
+        "eşleriyle",
+        "eşlerini",
+        "eşlerin",
+        "eşlerle",
+        "eşlere",
+        "eşleri",
+        "eşler",
+        "P2P"
+      ],
+      "title": "Eşler arası (peer-to-peer)",
+      "body": "İki bilgisayarın, iki insanın telefonlaşması gibi doğrudan anlaşması — her şeyi ortadaki bir şirkete yollamak yerine, e-posta ya da bir pazar yerinde olduğu gibi. Her bilgisayar bir «eş»: eşit, kimse kimseyi yönetmiyor.",
+      "more": "Ortadaki şirket genelde fiyatı koyar, payını alır ve seni çıkarabilir. Onu kaldırınca izin isteyecek kimse kalmaz."
+    },
+    "node": {
+      "match": ["düğümler", "düğümü", "düğüme", "düğüm", "node"],
+      "title": "Node (düğüm)",
+      "body": "Ağa katılan bir bilgisayar. Dizüstü, kenarda duran kule, raftaki sunucu — yazılımı çalıştırıp diğer makinelerle konuşmaya başladığı anda bir node'dur.",
+      "more": "Celaut'ta node, hareket eden iki parçadan biridir. Donanımı sağlar ve neyin nerede çalışacağına karar verir."
+    },
+    "service": {
+      "match": [
+        "servislerinden",
+        "servislerinin",
+        "servislerin",
+        "servislerle",
+        "servisinin",
+        "servislere",
+        "servisleri",
+        "servisine",
+        "servisini",
+        "servisler",
+        "servistir",
+        "servisin",
+        "servisle",
+        "serviste",
+        "servise",
+        "servisi",
+        "servis"
+      ],
+      "title": "Servis",
+      "body": "Tek bir işi yapan, herhangi bir makineye teslim edilebilen bağımsız bir yazılım parçası — kurduğun koca bir programdan çok, tek bir alete yakındır.",
+      "more": "Celaut servisleri mühürlüdür: çalıştıran makine içine bakmaz, servis de hangi makineye düştüğünü bilmez."
+    },
+    "compute": {
+      "match": ["hesaplama"],
+      "title": "Hesaplama",
+      "body": "Bilgisayarın gerçekten yaptığı iş — işlemci zamanı, bellek, depolama — elektrik gibi ölçülüp alınıp satılabilen bir nicelik.",
+      "more": "Birinin hesaplatacak işi vardır, boş makinesi yoktur; senin makinen boş duruyordur. El değiştiren şey hesaplamadır."
+    },
+    "depin": {
+      "match": ["merkeziyetsiz fiziksel altyapı ağının", "DePIN"],
+      "title": "DePIN",
+      "body": "İngilizce «decentralized physical infrastructure network»in kısaltması: merkeziyetsiz fiziksel altyapı ağı. Sıradan insanlar zaten sahip oldukları donanımı — bilgisayar, disk, anten — ortaya koyar ve karşılığını alır; bir şirketin veri merkezi kurup kiralaması yerine.",
+      "more": "Taksi filosuna karşı, arabası olan herkesin sürebildiği bir şehir. Aynı hizmet, filonun sahibi yok."
+    },
+    "microvm": {
+      "match": ["microVM"],
+      "title": "microVM",
+      "body": "Gerçek bilgisayarının içinde canlandırılan minik, çabuk, eksiksiz bir bilgisayar. İçinde çalışan şey kendi makinesi varmış gibi davranır; senin dosyalarını, ağını ya da asıl donanımdaki başka hiçbir şeyi görmez.",
+      "more": "Büyük bulut sağlayıcılarının, paylaşılan donanımda yabancı kodu güvenle çalıştırmak için kullandığı teknik budur. İş bitince canlandırılan makine bütünüyle yok edilir."
+    },
+    "container": {
+      "match": [
+        "konteynerleridir",
+        "konteynerdir",
+        "konteynerin",
+        "konteyneri",
+        "konteyner"
+      ],
+      "title": "Konteyner",
+      "body": "Bir programın, çalışması için gereken her şeyle — dosyaları, ayarları, bağımlılıkları — birlikte paketlenmesi; hangi makine açarsa açsın aynı davranır. Deniz konteyneri gibi: liman içinde ne olduğuna bakmaz, kutunun standart olması yeter."
+    },
+    "kernel": {
+      "match": ["çekirdeğine", "çekirdeği"],
+      "title": "Çekirdek (kernel)",
+      "body": "İşletim sisteminin kalbi: belleği dağıtır, donanımla konuşur ve işlemciyi sıradaki hangi programa vereceğine karar verir. Makinadaki her şey onun üzerinden geçer.",
+      "more": "İki iş yükü aynı çekirdeği paylaşırsa, ondaki bir açık ikisine birden ulaşır. Her birine kendi çekirdeğini vermek o ortak yolu kaldırır."
+    },
+    "isolation": {
+      "match": [
+        "yalıtılmıştır",
+        "yalıtılmış",
+        "yalıtımı",
+        "yalıtım",
+        "yalıtır",
+        "mühürlenmiş",
+        "mühürlüdür",
+        "mühürlü"
+      ],
+      "title": "Yalıtım",
+      "body": "Çalışan bir programı aşamayacağı bir sınırın içinde tutmak: yalnızca kendisine verileni görür, çevresindeki makineden ya da orada çalışan başka hiçbir şeyden haber almaz."
+    },
+    "deterministic": {
+      "match": [
+        "Belirlenimcilik",
+        "deterministiktir",
+        "determinizmdir",
+        "deterministik",
+        "determinizmi",
+        "determinizm"
+      ],
+      "title": "Determinizm",
+      "body": "Aynı girdi, her seferinde aynı çıktı — herhangi bir mutfakta aynı pastayı veren bir tarif gibi, aşçıya bağlı olan değil. Makine, gün ya da yer sonucu değiştirmez.",
+      "more": "Bir sonucun başkası tarafından denetlenebilmesini, bir yıl önceki değerlendirmenin hâlâ bir şey söylemesini sağlayan da budur."
+    },
+    "decentralized": {
+      "match": ["merkeziyetsizlik", "merkeziyetsiz"],
+      "title": "Merkeziyetsizlik",
+      "body": "Merkez yok. Sistemin bel bağladığı tek bir şirket, sunucu ya da kişi yoktur; dolayısıyla kapatılacak, satın alınacak ya da durdurması emredilecek bir şey de yoktur.",
+      "more": "Pratik sınav: herhangi bir katılımcı bir gecede yok olsa gerisi çalışmayı sürdürür mü? Sürdürüyorsa merkeziyetsizdir."
+    },
+    "protocol": {
+      "match": [
+        "protokollerin",
+        "protokolünde",
+        "protokoller",
+        "protokolün",
+        "protokolü",
+        "protokol"
+      ],
+      "title": "Protokol",
+      "body": "İki bilgisayarın birbirini anlaması için uyduğu kurallar — ortak bir dil, artı kimin ne zaman konuşacağına dair görgü. İkisi de aynıını kullanmazsa hiçbir şey geçmez.",
+      "more": "Çoğu ağ herkesi tek bir protokole zorlar, herkesin birlikte güncellemesi gerekir. Celaut'un iddiası bunun şart olmadığı: her çift, paylaştıkları her neyse ona anlaşır."
+    },
+    "interface": {
+      "match": [
+        "arayüzleri",
+        "arayüzler",
+        "arayüzünü",
+        "arayüzün",
+        "arayüzü",
+        "arayüz",
+        "API"
+      ],
+      "title": "Arayüz (API)",
+      "body": "Bir yazılımdan neler isteyebileceğinin ve neyin geri geleceğini gösteren yayımlanmış liste — bir menü gibi. Mutfağı anlatmadan, nelerin mevcut olduğunu söyler."
+    },
+    "specification": {
+      "match": [
+        "şartnamesinde",
+        "şartnamesinin",
+        "şartnameleri",
+        "şartnamedir",
+        "şartnamenin",
+        "şartnamede",
+        "şartnamesi",
+        "şartname"
+      ],
+      "title": "Şartname",
+      "body": "Bir şeyin, yalnızca tarife bakarak kurulup çalıştırılabilecek kadar kesin yazılı betimi — bitmiş evin fotoğrafı değil, mimarın planları.",
+      "more": "Bir Celaut servisi bütünüyle şartnamesiyle tanımlanır: dosyaları, ayarları, nasıl başladığı. Ev sahibi makinenin dolduracağı bir boşluk bırakılmaz."
+    },
+    "filesystem": {
+      "match": ["dosya sisteminin", "dosya sistemi"],
+      "title": "Dosya sistemi",
+      "body": "Bir programın görebileceği dosya ve klasörlerin tam kümesi ve bunların nasıl dizildiği. Bunu belirtmek, «o bilgisayarda ne varsa» demek yerine her birini tek tek yazmaktır."
+    },
+    "content-addressed": {
+      "match": ["içerikle adreslenmiş", "içerikle adreslenir", "hash"],
+      "title": "İçerikle adresleme (hash)",
+      "body": "Bir şeye etiket vermek yerine, içeriğinden hesaplanan bir parmak iziyle ad koymak. Bir bayt değişsin, parmak izi büsbütün değişir; değiştirilmiş bir dosya aynı adı taşıyamaz.",
+      "more": "Tam olarak o yazılımı adıyla isteyip, onu verenin sözüne güvenmeden eline geçenin o olduğunu doğrulayabilirsin."
+    },
+    "reputation": {
+      "match": [
+        "itibarlarını",
+        "itibarıdır",
+        "itibardır",
+        "itibarını",
+        "itibarla",
+        "itibarın",
+        "itibara",
+        "itibarı",
+        "itibar"
+      ],
+      "title": "İtibar",
+      "body": "Bir katılımcının daha önce nasıl davrandığının açık kaydı — ödenen işi teslim etti mi, etmedi mi. Satıcı puanları gibi, ama puanların sahibi bir şirket değildir ve kimse onları sessizce düzeltemez.",
+      "more": "Yabancılar arasındaki güvenin yerini tutan şey budur: bir vaat değil, zedelenmesi bir şeye mal olan bir kayıt."
+    },
+    "blockchain": {
+      "match": [
+        "blok zincirini",
+        "blok zinciri",
+        "zincir üzerinde",
+        "zincir üstünde",
+        "zincir dışında",
+        "zincirinde",
+        "zincirini",
+        "zinciri",
+        "zincir"
+      ],
+      "title": "Blok zinciri",
+      "body": "Binlerce bilgisayarın aynı anda kopyasını tuttuğu ortak bir defter. Yeni bir kayıt için diğerlerinin geçerli olduğunda anlaşması gerekir, geçmiş kayıtlar yeniden yazılamaz — tarihi tek bir katılımcı kontrol etmez.",
+      "more": "Burada iki dar işi vardır: itibarı kaydetmek ve hiç tanışmamış insanlar arasında ödemeyi görmek. Başka bir şey değil."
+    },
+    "ergo": {
+      "match": ["Ergo", "ERG"],
+      "title": "Ergo",
+      "body": "Celaut'un şu an itibarı kaydetmek ve ödemeleri taşımak için kullandığı blok zinciri. ERG onun para birimidir.",
+      "more": "Bu bir tercih, temel değil: Celaut'un kendi sikkesi yoktur ve ödeme katmanı kasten değiştirilebilir bırakılmıştır."
+    },
+    "dependency": {
+      "match": [
+        "bağımlılıklarının",
+        "bağımlılıklarını",
+        "bağımlılığından",
+        "bağımlılıkları",
+        "bağımlılığı",
+        "bağımlılık"
+      ],
+      "title": "Bağımlılık",
+      "body": "Bunun çalışması için gereken başka bir yazılım — ayrı ayrı tedarik etmen gereken malzemelere bağlı bir tarif gibi. Bağımlılıkları çözmek, hiçbir şey çalışmadan önce her birini bulup sağlamaktır."
+    },
+    "serverless": {
+      "match": ["sunucusuz"],
+      "title": "Sunucusuz",
+      "body": "Arkasında belirli bir sunucu yoktur. Birinin kira ödeyip ödemeyi kesebileceği bir adreste barınmaz — şey ağın kendisinde vardır, çekilecek bir fiş yoktur."
+    },
+    "hard-fork": {
+      "match": ["hard fork", "hard-fork", "fork"],
+      "title": "Hard fork",
+      "body": "Bir ağ kurallarını değiştirir ve her katılımcının aynı gün güncellemesi gerekir. Güncellemeyenler uyumsuz bir sürümde kalır: pratikte ağ ikiye bölünür, topluluk hangi yarının gerçek olduğunu tartışır.",
+      "more": "Burada, baştan ortak bir kural kitabı olmayınca yaşanamayacak şey olarak anılır."
+    },
+    "docker": {
+      "match": ["Docker"],
+      "title": "Docker",
+      "body": "Yazılımı konteynerlere paketlemek için en yaygın araç. Tanıdık bir karşılaştırma noktası ve birbirinin yerine geçebilir seçeneklerden biri olarak geçer — Celaut'un şartı olarak değil."
+    },
+    "grpc": {
+      "match": ["gRPC"],
+      "title": "gRPC",
+      "body": "İki programın ağ üzerinden birbirini çağırmasının yaygın, verimli bir yolu. Docker gibi, burada da başka biriyle değiştirilebilecek bir uygulama tercihi olarak durur."
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "toggleOn": "Explică termenii tehnici",
+  "toggleOff": "Ascunde explicațiile termenilor",
+  "toggleLabel": "Explicații",
+  "close": "Închide",
+  "explain": "Ce înseamnă „{term}”?",
+  "hintTitle": "Unele cuvinte sunt subliniate.",
+  "hintBody": "Atinge orice cuvânt subliniat pentru o explicație pe înțeles. Le poți opri oricând cu butonul din colț.",
+  "hintDismiss": "Am înțeles",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "peer-to-peer",
+        "peer to peer",
+        "P2P"
+      ],
+      "title": "Peer-to-peer",
+      "body": "Două calculatoare care vorbesc direct unul cu altul, ca doi oameni la telefon — în loc să trimită totul printr-o firmă la mijloc, cum fac e-mailul sau o piață. Fiecare mașină e un „peer”: egali, nimeni nu comandă.",
+      "more": "Contează aici pentru că firma din mijloc e de obicei cea care stabilește prețul, ia un comision și te poate da afară. Fără ea, nu mai e nimeni de la care să ceri voie."
+    },
+    "node": {
+      "match": [
+        "nod",
+        "noduri",
+        "nodul",
+        "nodo",
+        "node",
+        "nodes"
+      ],
+      "title": "Nod",
+      "body": "Un calculator care participă la o rețea. Laptopul tău, un desktop nefolosit, un server într-un rack — odată ce rulează software-ul și vorbește cu alte mașini, e un nod.",
+      "more": "În Celaut nodul e una din doar două piese mobile. Furnizează hardware-ul și decide ce rulează unde."
+    },
+    "service": {
+      "match": [
+        "serviciu",
+        "serviciul",
+        "serviciului",
+        "servicii",
+        "serviciile",
+        "serviciilor",
+        "service",
+        "services"
+      ],
+      "title": "Serviciu",
+      "body": "Un program de sine stătător care face o treabă și poate fi dat oricărei mașini să-l ruleze — mai degrabă un aparat decât un program întreg de instalat.",
+      "more": "Serviciile Celaut sunt sigilate: mașina care rulează unul nu se uită înăuntru, iar serviciul nu știe pe ce mașină a aterizat."
+    },
+    "compute": {
+      "match": [
+        "calcul",
+        "calculul",
+        "resurse de calcul",
+        "putere de calcul"
+      ],
+      "title": "Calcul",
+      "body": "Munca pe care un calculator o face cu adevărat — timp de procesor, memorie, stocare — tratată ca ceva măsurabil care se cumpără și se vinde, ca electricitatea.",
+      "more": "Cineva are nevoie de un calcul și n-are mașină liberă; tu ai o mașină care stă. „Calculul” e ce trece din mână în mână."
+    },
+    "depin": {
+      "match": [
+        "DePIN"
+      ],
+      "title": "DePIN",
+      "body": "Prescurtare din engleză pentru „rețea de infrastructură fizică descentralizată”. Oameni obișnuiți pun la dispoziție hardware pe care îl au deja — calculatoare, discuri, antene — și sunt plătiți pentru asta, în loc ca o firmă să construiască un centru de date și să-l închirieze.",
+      "more": "O flotă de taxiuri versus un oraș în care oricine are mașină poate conduce. Același serviciu, fără stăpân de flotă."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM"
+      ],
+      "title": "microVM",
+      "body": "Un calculator minuscul, rapid și complet, simulat înăuntrul celui real. Ce rulează acolo se comportă ca și cum ar avea propria mașină și nu vede fișierele tale, rețeaua ta, nimic altceva de pe hardware-ul adevărat.",
+      "more": "E tehnica pe care o folosesc furnizorii mari de cloud ca să ruleze în siguranță codul unor necunoscuți pe hardware partajat. Când treaba se termină, mașina simulată e distrusă cu totul."
+    },
+    "container": {
+      "match": [
+        "container",
+        "containere",
+        "containerul"
+      ],
+      "title": "Container",
+      "body": "Software împachetat cu tot ce-i trebuie ca să ruleze — fișiere, setări, dependențe — ca să se comporte la fel pe orice mașină care deschide pachetul. Ca un container maritim: portului nu-i pasă ce e înăuntru, doar că e o cutie standard."
+    },
+    "kernel": {
+      "match": [
+        "kernel",
+        "nucleu",
+        "nucleul"
+      ],
+      "title": "Kernel (nucleu)",
+      "body": "Inima unui sistem de operare — partea care împarte memoria, vorbește cu hardware-ul și decide ce program primește procesorul. Tot restul de pe mașină trece prin el.",
+      "more": "De ce apare: dacă două sarcini împart un kernel, o fisură în el le atinge pe amândouă. Fiecare cu kernelul ei taie drumul ăsta comun."
+    },
+    "isolation": {
+      "match": [
+        "izolare",
+        "izolat",
+        "izolată",
+        "izolate",
+        "sigilat",
+        "sigilată"
+      ],
+      "title": "Izolare",
+      "body": "A ține un program în execuție în spatele unei limite pe care n-o poate trece — vede doar ce i s-a dat, nimic din mașina din jur și nimic din ce mai rulează acolo."
+    },
+    "deterministic": {
+      "match": [
+        "determinist",
+        "determinism",
+        "determinismul",
+        "deterministe",
+        "reproductibil",
+        "reproductibilă",
+        "reproductibile",
+        "Reproductibilitatea"
+      ],
+      "title": "Determinist",
+      "body": "Aceeași intrare, aceeași ieșire, de fiecare dată — ca o rețetă care dă același tort în orice bucătărie, nu una care depinde de bucătar. Nici mașina, nici ziua, nici locul nu schimbă rezultatul.",
+      "more": "Asta face un rezultat verificabil de altcineva, și un aviz scris acum un an încă merită citit."
+    },
+    "decentralized": {
+      "match": [
+        "descentralizare",
+        "descentralizat",
+        "descentralizată",
+        "descentralizate"
+      ],
+      "title": "Descentralizat",
+      "body": "Fără sediu. Sistemul nu depinde de o singură firmă, un singur server sau o singură persoană, deci nu există nimic de stins, de cumpărat sau de obligat să se închidă.",
+      "more": "Testul practic: dacă oricare participant ar dispărea peste noapte, restul ar mai funcționa? Dacă da, e descentralizat."
+    },
+    "protocol": {
+      "match": [
+        "protocol",
+        "protocolul",
+        "protocoale",
+        "protocoalelor"
+      ],
+      "title": "Protocol",
+      "body": "Regulile pe care două calculatoare le urmează ca să se înțeleagă — o limbă comună, plus eticheta cine vorbește când. Ambele părți trebuie să folosească același, altfel nu trece nimic.",
+      "more": "Majoritatea rețelelor forțează pe toată lumea un singur protocol, deci toți trebuie să treacă la versiunea nouă împreună. Celaut spune că nu e nevoie: fiecare pereche se înțelege pe ce au deja în comun."
+    },
+    "interface": {
+      "match": [
+        "interfață",
+        "interfețe",
+        "interface",
+        "API"
+      ],
+      "title": "Interfață",
+      "body": "Lista publicată a ceea ce poți cere unui program și a ceea ce îți trimite înapoi — ca un meniu. Îți spune ce există fără să-ți spună nimic despre bucătărie."
+    },
+    "specification": {
+      "match": [
+        "specificație",
+        "specificații",
+        "specificat",
+        "specificate"
+      ],
+      "title": "Specificație",
+      "body": "O descriere scrisă completă, destul de precisă încât oricine să poată construi sau rula lucrul doar din ea — planurile arhitectului, nu o fotografie a casei gata.",
+      "more": "Un serviciu Celaut e definit în întregime de specificația lui: fișiere, setări, cum pornește. Nimic nu e lăsat pe seama mașinii gazdă."
+    },
+    "filesystem": {
+      "match": [
+        "sistem de fișiere",
+        "filesystem"
+      ],
+      "title": "Sistem de fișiere",
+      "body": "Mulțimea completă de fișiere și dosare pe care un program le poate vedea, și cum sunt aranjate. A le specifica înseamnă a le enumera pe toate, nu „ce se întâmplă să fie pe calculatorul ăla”."
+    },
+    "content-addressed": {
+      "match": [
+        "adresat după conținut",
+        "hash",
+        "hashes"
+      ],
+      "title": "Adresat după conținut",
+      "body": "A numi ceva după o amprentă calculată din conținutul lui, în loc să-i pui o etichetă. Schimbi un octet și amprenta se schimbă de tot, deci un fișier înlocuit sau modificat nu-și poate păstra același nume.",
+      "more": "Poți cere un software exact după nume și verifica că ai primit exact ăla, fără să te încrezi în cine ți l-a dat."
+    },
+    "reputation": {
+      "match": [
+        "reputație",
+        "reputația"
+      ],
+      "title": "Reputație",
+      "body": "Un registru public al comportamentului trecut al unui participant — a livrat pentru ce a fost plătit, sau nu. Ca notele vânzătorilor, doar că nicio firmă nu le deține și nimeni nu le poate edita pe tăcute.",
+      "more": "E ce ține loc de încredere între necunoscuți: nu o promisiune, ci un istoric pe care costă să-l strici."
+    },
+    "blockchain": {
+      "match": [
+        "blockchain",
+        "blockchains"
+      ],
+      "title": "Blockchain",
+      "body": "Un registru comun pe care mii de calculatoare îl țin copiat deodată. O înregistrare nouă cere ca ceilalți s-o recunoască validă, iar cele vechi nu se rescriu — nimeni singur nu controlează istoria.",
+      "more": "Aici pentru două trebi înguste: a consemna reputația și a deconta plăți între oameni care nu s-au întâlnit niciodată. Nimic mai mult."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "Blockchain-ul pe care Celaut îl folosește acum ca să consemneze reputația și să mute plățile. ERG e unitatea lui monetară.",
+      "more": "E o alegere, nu o fundație: Celaut n-are monedă proprie, iar stratul de plată e deliberat înlocuibil."
+    },
+    "dependency": {
+      "match": [
+        "dependență",
+        "dependențe",
+        "dependența"
+      ],
+      "title": "Dependență",
+      "body": "Alt program de care ăsta are nevoie ca să meargă — cum o rețetă depinde de ingrediente pe care trebuie să le aduci separat. A le rezolva înseamnă a le găsi și a le pune la dispoziție înainte să poată rula ceva."
+    },
+    "serverless": {
+      "match": [
+        "fără server",
+        "serverless"
+      ],
+      "title": "Fără server",
+      "body": "Nu există un server anume în spate. Nimic nu e găzduit la o adresă pe care cineva o plătește și ar putea să nu o mai plătească — lucrul există în rețeaua însăși, deci nu e nicio priză de scos."
+    },
+    "hard-fork": {
+      "match": [
+        "hard fork",
+        "hard-fork",
+        "fork"
+      ],
+      "title": "Hard fork",
+      "body": "Când o rețea își schimbă regulile și toți participanții trebuie să treacă la versiunea nouă în aceeași zi. Cine nu trece rămâne pe o versiune incompatibilă — practic rețeaua se rupe în două, iar comunitatea se ceartă care jumătate e cea adevărată.",
+      "more": "E pomenit aici ca lucrul care nu se poate întâmpla când nu există un regulament comun de modificat."
+    },
+    "docker": {
+      "match": [
+        "Docker"
+      ],
+      "title": "Docker",
+      "body": "Cel mai folosit instrument ca să împachetezi software în containere. E menționat ca punct de comparație cunoscut și ca o alegere interschimbabilă — nu ca ceva ce Celaut ar cere."
+    },
+    "grpc": {
+      "match": [
+        "gRPC"
+      ],
+      "title": "gRPC",
+      "body": "Un mod obișnuit și eficient ca două programe să se apeleze printr-o rețea. Ca Docker, apare aici ca o alegere de implementare care ar putea fi înlocuită cu alta."
+    }
+  }
+}

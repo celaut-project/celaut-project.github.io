@@ -1,0 +1,227 @@
+{
+  "toggleOn": "Eleza maneno ya kiufundi",
+  "toggleOff": "Ficha maelezo ya maneno",
+  "toggleLabel": "Maelezo",
+  "close": "Funga",
+  "explain": "“{term}” inamaanisha nini?",
+  "hintTitle": "Baadhi ya maneno yamepigwa mstari.",
+  "hintBody": "Gusa neno lolote lililopigwa mstari ili uone maelezo kwa lugha rahisi. Unaweza kuvizima wakati wowote kwa kitufe kwenye kona.",
+  "hintDismiss": "Nimeelewa",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "peer-to-peer",
+        "peer to peer",
+        "P2P"
+      ],
+      "title": "Peer-to-peer",
+      "body": "Kompyuta mbili zinazoshughulikiana moja kwa moja, kama watu wawili walio kwenye simu — badala ya zote mbili kutuma kila kitu kupitia kampuni katikati, kama barua pepe au soko. Kila kompyuta ni “peer”: sawa, hakuna anayeamuru.",
+      "more": "Inahusu hapa kwa sababu kampuni katikati ndiyo kawaida inayoweka bei, kuchukua sehemu, na inaweza kukutoa. Ikitoweka, hakuna wa kuomba ruhusa."
+    },
+    "node": {
+      "match": [
+        "node",
+        "nodes",
+        "nodo",
+        "nodi"
+      ],
+      "title": "Node",
+      "body": "Kompyuta moja inayoshiriki katika mtandao. Laptop yako, desktop ya ziada, seva kwenye rack — ikitekeleza programu na kuanza kuzungumza na mashine nyingine, ni node.",
+      "more": "Katika Celaut node ni mojawapo ya sehemu mbili tu zinazosogea. Inatoa maunzi na kuamua nini kinaendeshwa wapi."
+    },
+    "service": {
+      "match": [
+        "Huduma",
+        "service",
+        "services"
+      ],
+      "title": "Huduma (service)",
+      "body": "Kipande cha programu kinachojitosheleza, kinachofanya kazi moja, na kinachoweza kukabidhiwa mashine yoyote kiendeshe — karibu zaidi na kifaa kimoja kuliko programu nzima unayosakinisha.",
+      "more": "Huduma za Celaut zimefungwa: mashine inayoendesha moja haiangalii ndani, na huduma hajui mashine ipi ilipotua."
+    },
+    "compute": {
+      "match": [
+        "uchakataji",
+        "rasilimali za uchakataji"
+      ],
+      "title": "Compute",
+      "body": "Kazi ambayo kompyuta hufanya kweli — muda wa processor, kumbukumbu, hifadhi — ikichukuliwa kama kitu kinachopimika kinachoweza kununuliwa na kuuzwa, kama umeme.",
+      "more": "Mtu anahitaji hesabu ifanyike na hana mashine huru; wewe una mashine isiyofanya kazi. “Compute” ndicho kinachobadilisha mikono."
+    },
+    "depin": {
+      "match": [
+        "DePIN"
+      ],
+      "title": "DePIN",
+      "body": "Kifupi cha “decentralized physical infrastructure network”. Watu wa kawaida hutoa maunzi wanayomiliki tayari — kompyuta, diski, antena — na wanalipwa kwa hiyo, badala ya kampuni moja kujenga kituo cha data na kukikodisha.",
+      "more": "Kundi la teksi dhidi ya mji ambapo yeyote mwenye gari anaweza kuendesha. Huduma ileile, bila mmiliki wa kundi."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM"
+      ],
+      "title": "microVM",
+      "body": "Kompyuta ndogo, ya haraka, kamili, inayofananishwa ndani ya yako halisi. Cho chote kinachoendeshwa humo kinatenda kama kina mashine yake, na hakiwezi kuona faili zako, mtandao wako, wala kitu kingine cho chote kwenye maunzi halisi.",
+      "more": "Ndiyo inayotumiwa na watoa huduma wakubwa wa wingu kuendesha msimbo wa wageni kwenye maunzi yaliyogawanywa kwa usalama. Kazi ikimalizika, mashine yote iliyofananishwa inaharibiwa."
+    },
+    "container": {
+      "match": [
+        "Container",
+        "containers"
+      ],
+      "title": "Container",
+      "body": "Programu iliyofungwa pamoja na kila kitu inachohitaji ili kuendeshwa — faili zake, mipangilio, tegemezi — ili itende sawa kwenye mashine yoyote inayofungua kifurushi. Kama kontena la meli: bandari haijali kilicho ndani, tu kwamba sanduku ni la kawaida."
+    },
+    "kernel": {
+      "match": [
+        "kernel"
+      ],
+      "title": "Kernel",
+      "body": "Moyo wa mfumo wa uendeshaji — sehemu inayogawa kumbukumbu, kuzungumza na maunzi, na kuamua programu ipi inapata processor baadaye. Kila kitu kingine kwenye mashine hupitia hapo.",
+      "more": "Kwa nini inatajwa: kazi mbili zikishiriki kernel moja, kasoro humo inazifikia zote. Kumpa kila moja kernel yake kunaondoa njia hiyo ya pamoja."
+    },
+    "isolation": {
+      "match": [
+        "Utengaji",
+        "imefungwa",
+        "zimetengwa",
+        "yaliyotengwa"
+      ],
+      "title": "Isolation (kutengwa)",
+      "body": "Kuweka programu inayoendeshwa ndani ya mpaka ambao haiwezi kuvuka — inaona tu kilichopewa, si mashine inayoizunguka wala cho chote kingine kinachoendeshwa hapo."
+    },
+    "deterministic": {
+      "match": [
+        "Uhakika",
+        "kurudiwa"
+      ],
+      "title": "Deterministic",
+      "body": "Ingizo lile lile, tokeo lile lile, kila mara — kama kichocheo kinachotoa keki sawa katika jiko lolote, si kile kinachotegemea mpishi. Mashine, siku, wala mahali havibadilishi tokeo.",
+      "more": "Ndivyo kinachofanya tokeo liweze kukaguliwa na mtu mwingine, na kinachofanya maoni yaliyoandikwa mwaka mmoja uliopita bado yastahili kusomwa."
+    },
+    "decentralized": {
+      "match": [
+        "decentralized",
+        "decentralised",
+        " decentralisation",
+        "bila kituo"
+      ],
+      "title": "Decentralized",
+      "body": "Hakuna makao makuu. Hakuna kampuni, seva, au mtu mmoja ambaye mfumo unategemea, kwa hiyo hakuna kinachoweza kuzimwa, kununuliwa, au kuamriwa kufungwa.",
+      "more": "Jaribio la vitendo: mshiriki yeyote akitoweka usiku mmoja, je iliyobaki bado ingefanya kazi? Ikiwa ndiyo, ni decentralized."
+    },
+    "protocol": {
+      "match": [
+        "protocol",
+        "protocols",
+        "itifaki"
+      ],
+      "title": "Protocol",
+      "body": "Kanuni zilizokubaliwa ambazo kompyuta mbili hufuata ili kuelewana — lugha ya pamoja, pamoja na adabu ya nani anazungumza lini. Pande zote mbili lazima zitumie ile ile, la sivyo hakuna kinachopita.",
+      "more": "Mitandao mingi hulazimisha kila mtu kwenye protocol moja, kwa hiyo wote wanapaswa kuboresha pamoja. Madai ya Celaut ni kwamba si lazima: kila jozi inakubaliana juu ya kile wanachoshiriki."
+    },
+    "interface": {
+      "match": [
+        "interface",
+        "interfaces",
+        "API",
+        "APIs"
+      ],
+      "title": "Interface",
+      "body": "Orodha iliyochapishwa ya kile unachoweza kuomba kutoka kwa programu, na kile itakachotuma kurudi — kama menyu. Inakuambia kilichopo bila kukuambia cho chote kuhusu jikoni."
+    },
+    "specification": {
+      "match": [
+        "vipimo"
+      ],
+      "title": "Specification",
+      "body": "Maelezo kamili yaliyoandikwa, sahihi vya kutosha kwamba yeyote anaweza kujenga au kuendesha kitu kutoka kwa maelezo pekee — michoro ya mbunifu, si picha ya nyumba iliyokamilika.",
+      "more": "Huduma ya Celaut inafafanuliwa kabisa na specification yake: faili, mipangilio, jinsi inavyoanza. Hakuna kilichoachwa mashine mwenyeji ijaze."
+    },
+    "filesystem": {
+      "match": [
+        "filesystem",
+        "file system",
+        "mfumo wa faili"
+      ],
+      "title": "Filesystem",
+      "body": "Seti kamili ya faili na folda ambazo programu inaweza kuona, na jinsi zilivyopangwa. Kuzifafanua kunamaanisha kuziorodhesha zote, si “cho chote kilichoko kwenye kompyuta hiyo”."
+    },
+    "content-addressed": {
+      "match": [
+        "hashi"
+      ],
+      "title": "Content-addressed",
+      "body": "Kuitaja kitu kwa alama ya vidole inayokokotolewa kutoka kwa yaliyomo, badala ya kupa lebo. Badilisha baiti moja na alama inabadilika kabisa, kwa hiyo faili iliyobadilishwa au kuchezewa haiwezi kuhifadhi jina lile lile.",
+      "more": "Unaweza kuomba programu kamili kwa jina na kuthibitisha umepata hasa hiyo, bila kumwamini aliyekuletea."
+    },
+    "reputation": {
+      "match": [
+        "Sifa",
+        "reputation"
+      ],
+      "title": "Sifa (reputation)",
+      "body": "Kumbukumbu ya umma ya jinsi mshiriki alivyotenda awali — je alitoa alicholipiwa, au la. Kama alama za wauzaji, isipokuwa hakuna kampuni inayomiliki alama na hakuna anayeweza kuzihariri kimya kimya.",
+      "more": "Ndivyo kinachosimama mahali pa uaminifu kati ya wageni: si ahadi, bali rekodi inayogharimu kuiharibu."
+    },
+    "blockchain": {
+      "match": [
+        "blockchain",
+        "blockchains"
+      ],
+      "title": "Blockchain",
+      "body": "Kitabu cha kumbukumbu kilichoshirikiwa ambacho kompyuta maelfu zinahifadhi nakala zake kwa pamoja. Kuongeza ingizo kunahitaji wengine wakubali ni halali, na ingizo za zamani haziwezi kuandikwa upya — kwa hiyo hakuna mshiriki mmoja anayedhibiti historia.",
+      "more": "Hapa kwa kazi mbili nyembamba: kurekodi sifa, na kutatua malipo kati ya watu ambao hawajawahi kukutana. Si zaidi."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "Blockchain mahususi ambayo Celaut inatumia sasa kurekodi sifa na kuhamisha malipo. ERG ni kitengo chake cha fedha.",
+      "more": "Ni chaguo, si msingi: Celaut haina sarafu yake na safu ya malipo inabadilishwa kimakusudi."
+    },
+    "dependency": {
+      "match": [
+        "utegemezi"
+      ],
+      "title": "Dependency",
+      "body": "Kipande kingine cha programu ambacho hiki kinahitaji ili kufanya kazi — kama kichocheo kinavyotegemea viungo unavyopaswa kuvipata kando. Kuzitatua kunamaanisha kupata na kutoa kila moja kabla cho chote kiweze kuendeshwa."
+    },
+    "serverless": {
+      "match": [
+        "serverless",
+        "bila seva"
+      ],
+      "title": "Serverless",
+      "body": "Hakuna seva mahususi nyuma yake. Hakuna kilichowekwa kwenye anwani ambayo mtu hulipa na angeweza kuacha kulipa — kitu kipo katika mtandao wenyewe, kwa hiyo hakuna plagi ya kuvuta."
+    },
+    "hard-fork": {
+      "match": [
+        "hard fork",
+        "hard-fork",
+        "fork"
+      ],
+      "title": "Hard fork",
+      "body": "Wakati mtandao unabadilisha sheria zake na kila mshiriki lazima aboreshe siku ile ile. Wasiofanya hivyo wanabaki kwenye toleo lisilooana — kwa vitendo mtandao unagawanyika vipande viwili, na jamii inabishana nusu ipi ni ya kweli.",
+      "more": "Inatajwa hapa kama kitu kisichoweza kutokea wakati hakuna kitabu cha sheria cha pamoja cha kubadilisha."
+    },
+    "docker": {
+      "match": [
+        "Docker"
+      ],
+      "title": "Docker",
+      "body": "Zana inayotumika zaidi kufungasha programu katika containers. Inatajwa kama kulinganisha kinachofahamika na kama chaguo moja kinachoweza kubadilishwa — si kama kitu Celaut inachohitaji."
+    },
+    "grpc": {
+      "match": [
+        "gRPC"
+      ],
+      "title": "gRPC",
+      "body": "Njia ya kawaida na yenye ufanisi kwa programu mbili kuitana kupitia mtandao. Kama Docker, inaonekana hapa kama chaguo la utekelezaji linaloweza kubadilishwa na jingine."
+    }
+  }
+}
