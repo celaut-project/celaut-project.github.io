@@ -13,6 +13,178 @@
  */
 
 export default {
+	glossary: {
+		toggleOn: 'Giải thích thuật ngữ kỹ thuật',
+		toggleOff: 'Ẩn phần giải thích thuật ngữ',
+		toggleLabel: 'Giải thích',
+		close: 'Đóng',
+		explain: '“{term}” nghĩa là gì?',
+		hintTitle: 'Một số từ được gạch chân.',
+		hintBody: 'Chạm vào từ được gạch chân để xem giải thích bằng lời thường. Tắt bất cứ lúc nào bằng nút ở góc.',
+		hintDismiss: 'Đã hiểu',
+		terms: [
+			{
+				// peer-to-peer
+				match: ['ngang hàng', 'peer'],
+				title: 'Ngang hàng (peer-to-peer)',
+				body: 'Hai máy tính giao dịch trực tiếp với nhau, như hai người nói chuyện điện thoại — thay vì cả hai đều gửi mọi thứ qua một công ty đứng giữa, kiểu email hay chợ trung gian. Mỗi máy là một peer: ngang hàng, không ai chỉ huy.',
+				more: 'Điều này quan trọng vì công ty đứng giữa thường là bên đặt giá, ăn phần trăm, và có thể loại bạn. Bỏ nó đi thì không còn ai để xin phép.'
+			},
+			{
+				// node
+				match: ['node'],
+				title: 'Node',
+				body: 'Một máy tính tham gia mạng. Laptop của bạn, một thùng máy để không, một máy chủ trong tủ rack — khi nó chạy phần mềm và bắt đầu nói chuyện với máy khác, nó là một node.',
+				more: 'Trong Celaut, node là một trong đúng hai bộ phận chuyển động. Nó cung cấp phần cứng và quyết định thứ gì chạy ở đâu.'
+			},
+			{
+				// service
+				match: ['service', 'dịch vụ'],
+				title: 'Service',
+				body: 'Một khối phần mềm tự đủ, làm đúng một việc và có thể giao cho bất kỳ máy nào chạy — gần với một thiết bị hơn là cả một chương trình phải cài.',
+				more: 'Service trong Celaut được niêm phong: máy chạy nó không nhìn vào bên trong, và service không biết mình đáp xuống máy nào.'
+			},
+			{
+				// compute
+				match: ['năng lực tính toán', 'tài nguyên tính toán', 'tính toán'],
+				title: 'Năng lực tính toán',
+				body: 'Công việc máy tính thực sự làm — thời gian xử lý, bộ nhớ, lưu trữ — được coi là thứ đo được, mua bán được, như điện hay chỗ chứa dữ liệu.',
+				more: 'Ai đó cần một phép tính mà không có máy trống; bạn có máy đang nằm không. Năng lực tính toán là thứ đổi chủ.'
+			},
+			{
+				// depin
+				match: ['DePIN', 'hạ tầng vật lý phi tập trung'],
+				title: 'DePIN',
+				body: 'Viết tắt tiếng Anh của «mạng hạ tầng vật lý phi tập trung». Người thường góp phần cứng thật họ đã có — máy tính, ổ đĩa, ăng-ten — và được trả tiền, thay vì một công ty xây trung tâm dữ liệu rồi cho thuê.',
+				more: 'Hãy nghĩ đội taxi đối với một thành phố nơi ai có xe cũng có thể chở khách. Cùng một dịch vụ, không chủ đội xe.'
+			},
+			{
+				// microvm
+				match: ['microVM', 'microVMs', 'micro-VM'],
+				title: 'microVM',
+				body: 'Một máy tính nhỏ, nhanh, đầy đủ được mô phỏng bên trong máy thật của bạn. Thứ chạy trong đó cư xử như thể có máy riêng, và không thấy tệp của bạn, mạng của bạn, hay bất cứ gì khác trên phần cứng thật.',
+				more: 'Đây là thứ các nhà cung cấp đám mây lớn dùng để chạy mã của người lạ trên phần cứng dùng chung cho an toàn. Việc xong, toàn bộ máy mô phỏng bị hủy.'
+			},
+			{
+				// container
+				match: ['container'],
+				title: 'Container',
+				body: 'Phần mềm được đóng cùng mọi thứ nó cần để chạy — tệp, cấu hình, phụ thuộc — để hành vi giống hệt trên mọi máy mở gói. Như container hàng hải: cảng không cần biết bên trong là gì, chỉ cần đó là thùng chuẩn.'
+			},
+			{
+				// kernel
+				match: ['nhân riêng', 'dùng chung nhân'],
+				title: 'Nhân (kernel)',
+				body: 'Lõi của hệ điều hành — phần cấp bộ nhớ, nói với phần cứng, và quyết định chương trình nào được xử lý tiếp. Mọi thứ khác trên máy đều đi qua nó.',
+				more: 'Lý do nó xuất hiện: nếu hai tải công việc dùng chung một nhân, một lỗ hổng trong đó chạm cả hai. Cho mỗi bên nhân riêng thì cắt đường dùng chung đó.'
+			},
+			{
+				// isolation
+				match: ['cách ly', 'niêm phong'],
+				title: 'Cách ly',
+				body: 'Giữ chương trình đang chạy trong một ranh giới nó không vượt qua — nó chỉ thấy những gì được giao, không thấy máy xung quanh hay bất cứ thứ gì khác đang chạy ở đó.'
+			},
+			{
+				// deterministic
+				match: ['tái lập được', 'tất định'],
+				title: 'Tất định',
+				body: 'Cùng đầu vào, cùng đầu ra, mọi lần — như công thức cho ra đúng một chiếc bánh ở bất kỳ bếp nào, chứ không phụ thuộc người nấu. Máy, ngày hay nơi chốn không đổi kết quả.',
+				more: 'Đây là thứ khiến người khác kiểm được kết quả, và khiến một đánh giá viết từ năm trước vẫn đáng đọc.'
+			},
+			{
+				// decentralized
+				match: ['phi tập trung'],
+				title: 'Phi tập trung',
+				body: 'Không trụ sở. Không một công ty, máy chủ hay người nào mà hệ thống phụ thuộc, nên không có thứ gì để tắt, mua, hay ra lệnh đóng.',
+				more: 'Phép thử thực tế: nếu một người tham gia biến mất qua đêm, phần còn lại vẫn chạy chứ? Nếu có, đó là phi tập trung.'
+			},
+			{
+				// protocol
+				match: ['giao thức'],
+				title: 'Giao thức',
+				body: 'Những quy tắc đã thống nhất để hai máy tính hiểu nhau — một ngôn ngữ chung, cộng phép lịch sự ai nói lúc nào. Hai bên không dùng cùng một thứ thì không gì lọt qua.',
+				more: 'Hầu hết mạng buộc mọi người vào một giao thức, nghĩa là phải nâng cấp cùng lúc. Celaut cho rằng không cần: mỗi cặp thống nhất những gì họ tình cờ dùng chung.'
+			},
+			{
+				// interface
+				match: ['giao diện', 'API'],
+				title: 'Giao diện (API)',
+				body: 'Danh sách công bố những gì bạn có thể hỏi một phần mềm và nó sẽ trả lại — như thực đơn. Nó nói có gì, không nói gì về nhà bếp.'
+			},
+			{
+				// specification
+				match: ['đặc tả'],
+				title: 'Đặc tả',
+				body: 'Bản mô tả viết đủ đầy về một thứ, chính xác đến mức ai cũng dựng hoặc chạy được chỉ từ mô tả — bản vẽ kiến trúc chứ không phải ảnh ngôi nhà đã xong.',
+				more: 'Một service Celaut được định nghĩa trọn bằng đặc tả của nó: tệp, cấu hình, cách nó khởi động. Không gì để máy chủ điền thêm.'
+			},
+			{
+				// filesystem
+				match: ['hệ thống tệp'],
+				title: 'Hệ thống tệp',
+				body: 'Toàn bộ tệp và thư mục một chương trình thấy được, và cách chúng được sắp. Đặc tả nó nghĩa là liệt kê từng cái, chứ không phải «thứ tình cờ có trên máy đó».'
+			},
+			{
+				// content-addressed
+				match: ['định danh bằng nội dung', 'hash'],
+				title: 'Định danh bằng nội dung',
+				body: 'Đặt tên một thứ theo dấu vân tay tính từ nội dung, thay vì dán nhãn. Đổi một byte là dấu vân tay đổi hoàn toàn, nên tệp bị tráo hoặc bị sửa không giữ được cùng tên.',
+				more: 'Nghĩa là bạn xin đúng phần mềm theo tên và kiểm được là đúng thứ đó, không cần tin người đưa.'
+			},
+			{
+				// reputation
+				match: ['danh tiếng', 'uy tín'],
+				title: 'Danh tiếng',
+				body: 'Hồ sơ công khai về việc một bên đã cư xử thế nào trước đây — có giao đúng thứ đã được trả tiền hay không. Như điểm người bán, trừ việc không công ty nào sở hữu điểm và không ai sửa lặng lẽ được.',
+				more: 'Đây là thứ đứng chỗ niềm tin giữa người lạ: không phải lời hứa, mà một hồ sơ mà làm hỏng thì phải trả giá.'
+			},
+			{
+				// blockchain
+				match: ['blockchain', 'on-chain', 'ledger'],
+				title: 'Blockchain',
+				body: 'Quyển sổ dùng chung mà hàng nghìn máy tính giữ bản sao cùng lúc. Thêm một dòng cần những máy kia đồng ý là hợp lệ, và các dòng cũ không viết lại được — nên không một bên nào nắm lịch sử.',
+				more: 'Ở đây dùng cho hai việc hẹp: ghi danh tiếng, và tất toán thanh toán giữa những người chưa gặp nhau. Không hơn.'
+			},
+			{
+				// ergo
+				match: ['Ergo', 'ERG'],
+				title: 'Ergo',
+				body: 'Blockchain cụ thể mà Celaut hiện dùng để ghi danh tiếng và chuyển tiền. ERG là đơn vị tiền của nó.',
+				more: 'Đây là một lựa chọn, không phải nền móng: Celaut không có coin riêng và lớp thanh toán cố ý thay được.'
+			},
+			{
+				// dependency
+				match: ['phụ thuộc'],
+				title: 'Phụ thuộc',
+				body: 'Một phần mềm khác mà phần này cần để chạy — như công thức phụ thuộc nguyên liệu phải kiếm riêng. Giải phụ thuộc nghĩa là tìm và cung cấp từng thứ trước khi chạy được gì.'
+			},
+			{
+				// serverless
+				match: ['không máy chủ'],
+				title: 'Không máy chủ',
+				body: 'Không có một máy chủ cụ thể đứng sau. Không gì được đặt tại một địa chỉ mà ai đó trả tiền rồi có thể ngừng trả — thứ đó tồn tại trên chính mạng lưới, nên không có phích để rút.'
+			},
+			{
+				// hard-fork
+				match: ['hard fork', 'fork'],
+				title: 'Hard fork',
+				body: 'Khi một mạng đổi quy tắc và mọi người tham gia phải nâng cấp cùng ngày. Ai không nâng cấp bị kẹt ở phiên bản không tương thích — thực tế mạng tách đôi và cộng đồng cãi nhau nửa nào là thật.',
+				more: 'Được nêu ở đây như thứ không thể xảy ra khi ngay từ đầu chẳng có cuốn luật dùng chung để mà đổi.'
+			},
+			{
+				// docker
+				match: ['Docker'],
+				title: 'Docker',
+				body: 'Công cụ phổ biến nhất để đóng phần mềm vào container. Được nhắc như điểm so sánh quen thuộc và như một lựa chọn có thể thay — không phải thứ Celaut bắt buộc.'
+			},
+			{
+				// grpc
+				match: ['gRPC'],
+				title: 'gRPC',
+				body: 'Một cách phổ biến, hiệu quả để hai chương trình gọi nhau qua mạng. Như Docker, nó xuất hiện ở đây như một lựa chọn hiện thực có thể đổi sang cái khác.'
+			}
+		]
+	},
 	common: {
 		scroll: 'Cuộn',
 		toTop: '↑ Lên đầu',

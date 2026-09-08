@@ -13,6 +13,178 @@
  */
 
 export default {
+	glossary: {
+		toggleOn: 'Explicar termos técnicos',
+		toggleOff: 'Ocultar explicações de termos',
+		toggleLabel: 'Explicações',
+		close: 'Fechar',
+		explain: 'O que significa “{term}”?',
+		hintTitle: 'Algumas palavras estão sublinhadas.',
+		hintBody: 'Toque numa palavra sublinhada para uma explicação em linguagem simples. Pode desativá-las a qualquer momento com o botão no canto.',
+		hintDismiss: 'Entendi',
+		terms: [
+			{
+				// peer-to-peer
+				match: ['ponto a ponto', 'peer-to-peer', 'peer to peer', 'P2P'],
+				title: 'Peer-to-peer (ponto a ponto)',
+				body: 'Dois computadores a tratar um com o outro diretamente, como duas pessoas ao telefone — em vez de enviarem tudo por uma empresa no meio, como o correio eletrónico ou um mercado. Cada máquina é um “par”: iguais, ninguém manda.',
+				more: 'Importa aqui porque a empresa do meio costuma ser quem define o preço, fica com uma fatia e pode expulsar-te. Sem ela, não há ninguém a quem pedir permissão.'
+			},
+			{
+				// node
+				match: ['nó', 'nodo', 'node', 'nodes'],
+				title: 'Nó',
+				body: 'Um computador que participa numa rede. O teu portátil, um desktop parado, um servidor num rack — assim que corre o software e começa a falar com outras máquinas, é um nó.',
+				more: 'No Celaut o nó é uma de apenas duas peças móveis. Fornece o hardware e decide o que corre onde.'
+			},
+			{
+				// service
+				match: ['serviço', 'serviços', 'service', 'services'],
+				title: 'Serviço',
+				body: 'Um pedaço de software autónomo que faz um trabalho e pode ser entregue a qualquer máquina para correr — mais um aparelho do que um programa inteiro que se instala.',
+				more: 'Os serviços Celaut são selados: a máquina que corre um não olha para dentro, e o serviço não sabe em que máquina aterrou.'
+			},
+			{
+				// compute
+				match: ['computação', 'computacionais', 'capacidade de computação'],
+				title: 'Computação',
+				body: 'O trabalho que um computador realmente faz — tempo de processador, memória, armazenamento — tratado como algo mensurável que se compra e se vende, como eletricidade.',
+				more: 'Alguém precisa de um cálculo e não tem máquina livre; tu tens uma máquina parada. “Computação” é o que muda de mãos.'
+			},
+			{
+				// depin
+				match: ['DePIN'],
+				title: 'DePIN',
+				body: 'Sigla de “decentralized physical infrastructure network”. Pessoas comuns oferecem hardware que já possuem — computadores, discos, antenas — e são pagas por isso, em vez de uma empresa construir um centro de dados e o alugar.',
+				more: 'Uma frota de táxis versus uma cidade em que quem tem carro pode conduzir. O mesmo serviço, sem dono da frota.'
+			},
+			{
+				// microvm
+				match: ['microVM', 'microVMs', 'micro-VM'],
+				title: 'microVM',
+				body: 'Um computador minúsculo, rápido e completo, simulado dentro do teu. O que corre nele comporta-se como se tivesse a própria máquina, e não vê os teus ficheiros, a tua rede nem mais nada no hardware real.',
+				more: 'É o que os grandes fornecedores de nuvem usam para correr código de desconhecidos em hardware partilhado com segurança. Quando o trabalho acaba, a máquina simulada é destruída por completo.'
+			},
+			{
+				// container
+				match: ['container', 'containers', 'contentor', 'contentores'],
+				title: 'Contentor',
+				body: 'Software empacotado com tudo o que precisa para correr — ficheiros, definições, dependências — para se comportar igual em qualquer máquina que abra o pacote. Como um contentor de navio: o porto não se importa com o que vai dentro, só que a caixa seja padrão.'
+			},
+			{
+				// kernel
+				match: ['kernel', 'núcleo', 'núcleos'],
+				title: 'Kernel (núcleo)',
+				body: 'O núcleo de um sistema operativo — a parte que reparte memória, fala com o hardware e decide que programa fica com o processador a seguir. Tudo o resto na máquina passa por ele.',
+				more: 'Porque aparece: se duas cargas partilham um kernel, uma falha nele atinge as duas. Dar a cada uma o seu elimina esse caminho comum.'
+			},
+			{
+				// isolation
+				match: ['isolamento', 'isolado', 'isolada', 'isolados', 'isoladas', 'selado', 'selada'],
+				title: 'Isolamento',
+				body: 'Manter um programa em execução dentro de um limite que ele não consegue atravessar — vê só o que lhe foi dado, e nada da máquina à volta nem de qualquer outra coisa a correr lá.'
+			},
+			{
+				// deterministic
+				match: ['determinístico', 'determinismo', 'determinísticos', 'determinísticas', 'determinística'],
+				title: 'Determinístico',
+				body: 'Mesma entrada, mesma saída, sempre — como uma receita que produz o mesmo bolo em qualquer cozinha, e não uma que depende do cozinheiro. Nem a máquina, nem o dia, nem o sítio mudam o resultado.',
+				more: 'É o que torna um resultado verificável por outra pessoa, e o que faz um parecer escrito há um ano continuar a valer a pena.'
+			},
+			{
+				// decentralized
+				match: ['descentralização', 'descentralizado', 'descentralizada', 'descentralizados', 'descentralizadas'],
+				title: 'Descentralizado',
+				body: 'Sem sede. Não há uma única empresa, servidor ou pessoa de que o sistema dependa, portanto não há nada que se possa desligar, comprar ou mandar encerrar.',
+				more: 'O teste prático: se qualquer participante desaparecesse esta noite, o resto continuaria a funcionar? Se sim, é descentralizado.'
+			},
+			{
+				// protocol
+				match: ['protocolo', 'protocolos'],
+				title: 'Protocolo',
+				body: 'As regras combinadas que dois computadores seguem para se entenderem — uma língua partilhada, mais a etiqueta de quem fala quando. Os dois lados têm de usar o mesmo, senão nada passa.',
+				more: 'A maior parte das redes obriga toda a gente a um único protocolo, o que significa atualizar todos ao mesmo tempo. A tese do Celaut é que não precisa: cada par acorda no que já partilha.'
+			},
+			{
+				// interface
+				match: ['interface', 'interfaces', 'API', 'APIs'],
+				title: 'Interface',
+				body: 'A lista publicada do que podes pedir a um software e do que ele devolve — como um menu. Diz o que há sem contar nada da cozinha.'
+			},
+			{
+				// specification
+				match: ['especificação', 'especificações', 'especificado', 'especificada', 'spec'],
+				title: 'Especificação',
+				body: 'Uma descrição escrita completa, precisa o suficiente para qualquer pessoa construir ou executar a coisa só a partir dela — plantas de arquiteto, não uma fotografia da casa pronta.',
+				more: 'Um serviço Celaut é definido por completo pela sua especificação: ficheiros, definições, como arranca. Nada fica para a máquina anfitriã preencher.'
+			},
+			{
+				// filesystem
+				match: ['sistema de arquivos', 'sistema de ficheiros', 'filesystem'],
+				title: 'Sistema de ficheiros',
+				body: 'O conjunto completo de ficheiros e pastas que um programa consegue ver, e como estão organizados. Especificá-lo é listar cada um, em vez de dizer “o que acontecer de estar nesse computador”.'
+			},
+			{
+				// content-addressed
+				match: ['endereçado por conteúdo', 'endereçada por conteúdo', 'hash', 'hashes'],
+				title: 'Endereçado por conteúdo',
+				body: 'Dar a uma coisa um nome calculado a partir do seu conteúdo, em vez de um rótulo. Muda um byte e a impressão muda por completo, portanto um ficheiro trocado ou adulterado não pode ficar com o mesmo nome.',
+				more: 'Podes pedir software exato pelo nome e verificar que recebeste exatamente esse, sem confiar em quem to entregou.'
+			},
+			{
+				// reputation
+				match: ['reputação'],
+				title: 'Reputação',
+				body: 'Um registo público de como um participante se comportou antes — entregou o que lhe pagaram, ou não. Como as avaliações de vendedores, só que nenhuma empresa é dona das notas e ninguém as edita em silêncio.',
+				more: 'É o que substitui a confiança entre desconhecidos: não uma promessa, mas um historial que custa estragar.'
+			},
+			{
+				// blockchain
+				match: ['blockchain', 'blockchains'],
+				title: 'Blockchain',
+				body: 'Um livro de registo partilhado do qual milhares de computadores guardam cópias ao mesmo tempo. Acrescentar uma entrada exige que os outros a reconheçam válida, e entradas antigas não se reescrevem — ninguém sozinho controla a história.',
+				more: 'Aqui para dois trabalhos estreitos: registar reputação e liquidar pagamentos entre pessoas que nunca se encontraram. Mais nada.'
+			},
+			{
+				// ergo
+				match: ['Ergo', 'ERG'],
+				title: 'Ergo',
+				body: 'A blockchain que o Celaut usa hoje para registar reputação e mover pagamentos. ERG é a sua unidade monetária.',
+				more: 'É uma escolha, não um alicerce: o Celaut não tem moeda própria e a camada de pagamento é deliberadamente substituível.'
+			},
+			{
+				// dependency
+				match: ['dependência', 'dependências'],
+				title: 'Dependência',
+				body: 'Outro pedaço de software de que este precisa para funcionar — como uma receita depende de ingredientes que tens de ir buscar à parte. Resolvê-las é encontrar e fornecer cada uma antes de qualquer coisa poder correr.'
+			},
+			{
+				// serverless
+				match: ['sem servidor', 'sem servidores', 'serverless'],
+				title: 'Sem servidor',
+				body: 'Não há um servidor concreto por trás. Nada está alojado num endereço que alguém pague e possa deixar de pagar — a coisa existe na própria rede, portanto não há ficha para puxar.'
+			},
+			{
+				// hard-fork
+				match: ['hard fork', 'hard-fork', 'fork'],
+				title: 'Hard fork',
+				body: 'Quando uma rede muda as regras e todos os participantes têm de atualizar no mesmo dia. Quem não atualiza fica numa versão incompatível — na prática a rede parte-se em duas e a comunidade discute qual metade é a verdadeira.',
+				more: 'Citado aqui como o que não pode acontecer quando não existe um livro de regras comum para alterar.'
+			},
+			{
+				// docker
+				match: ['Docker'],
+				title: 'Docker',
+				body: 'A ferramenta mais usada para empacotar software em contentores. Aparece como ponto de comparação familiar e como uma escolha intercambiável — não como algo que o Celaut exija.'
+			},
+			{
+				// grpc
+				match: ['gRPC'],
+				title: 'gRPC',
+				body: 'Uma forma comum e eficiente de dois programas se chamarem através de uma rede. Como o Docker, aparece aqui como uma escolha de implementação que se poderia trocar por outra.'
+			}
+		]
+	},
 	common: {
 		scroll: 'Role para baixo',
 		toTop: '↑ Topo',

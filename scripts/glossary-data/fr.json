@@ -1,0 +1,268 @@
+{
+  "toggleOn": "Expliquer les termes techniques",
+  "toggleOff": "Masquer les explications des termes",
+  "toggleLabel": "Explications",
+  "close": "Fermer",
+  "explain": "Que signifie « {term} » ?",
+  "hintTitle": "Certains mots sont soulignés.",
+  "hintBody": "Touchez un mot souligné pour en obtenir une explication en langage courant. Vous pouvez les désactiver à tout moment avec le bouton dans le coin.",
+  "hintDismiss": "Compris",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "pair-à-pair",
+        "pair à pair",
+        "peer-to-peer",
+        "peer to peer",
+        "P2P",
+        "pair",
+        "pairs"
+      ],
+      "title": "Pair-à-pair (peer-to-peer)",
+      "body": "Deux ordinateurs qui traitent directement l’un avec l’autre, comme deux personnes au téléphone, au lieu de faire transiter chaque échange par une entreprise placée au milieu. Chacun est un pair : ils sont sur un pied d’égalité, aucun ne commande.",
+      "more": "Ce qui compte ici, c’est que l’entreprise du milieu est d’ordinaire celle qui fixe le prix, prélève sa part et peut vous exclure. Sans elle, il n’y a plus personne à qui demander la permission."
+    },
+    "node": {
+      "match": [
+        "nœud",
+        "nœuds",
+        "noeud",
+        "noeuds"
+      ],
+      "title": "Nœud",
+      "body": "Un ordinateur qui participe à un réseau. Votre portable, une tour qui prend la poussière, un serveur en baie : dès qu’il exécute le logiciel et se met à parler aux autres machines, c’est un nœud.",
+      "more": "Dans Celaut, le nœud est l’une des deux seules pièces mobiles. Il fournit le matériel et décide de ce qui s’exécute où."
+    },
+    "service": {
+      "match": [
+        "service",
+        "services"
+      ],
+      "title": "Service",
+      "body": "Un logiciel autonome qui fait une seule chose et que l’on peut confier à n’importe quelle machine : plus proche d’un appareil que d’un programme complet à installer.",
+      "more": "Les services Celaut sont scellés : la machine qui en exécute un ne regarde pas à l’intérieur, et le service ignore sur quelle machine il a atterri."
+    },
+    "compute": {
+      "match": [
+        "calcul",
+        "calculs",
+        "ressources de calcul",
+        "puissance de calcul",
+        "capacité de calcul"
+      ],
+      "title": "Calcul",
+      "body": "Le travail qu’un ordinateur effectue réellement — temps de processeur, mémoire, stockage — considéré comme une quantité mesurable qui s’achète et se vend, au même titre que l’électricité.",
+      "more": "Quelqu’un a un calcul à faire faire et aucune machine de libre ; vous avez une machine qui ne fait rien. Le calcul, c’est ce qui change de mains."
+    },
+    "depin": {
+      "match": [
+        "DePIN",
+        "infrastructure physique décentralisée"
+      ],
+      "title": "DePIN",
+      "body": "Abréviation anglaise de « réseau d’infrastructure physique décentralisée ». Des particuliers mettent à disposition du matériel qu’ils possèdent déjà — ordinateurs, disques, antennes — et sont payés pour cela, au lieu qu’une seule entreprise construise un centre de données et le loue.",
+      "more": "L’image : d’un côté une compagnie de taxis, de l’autre une ville où quiconque a une voiture peut conduire. Même service rendu, sans propriétaire de flotte."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM",
+        "micro-environnement"
+      ],
+      "title": "microVM",
+      "body": "Un ordinateur complet, minuscule et quasi instantané à démarrer, simulé à l’intérieur du vôtre. Ce qui s’y exécute se comporte comme s’il avait sa propre machine, et ne voit ni vos fichiers, ni votre réseau, ni rien d’autre du matériel réel.",
+      "more": "C’est la technique qu’emploient les grands hébergeurs pour faire tourner sans risque le code d’inconnus sur du matériel partagé. La tâche finie, la machine simulée est détruite en entier."
+    },
+    "container": {
+      "match": [
+        "conteneur",
+        "conteneurs",
+        "container",
+        "conteneurisé",
+        "conteneurisée"
+      ],
+      "title": "Conteneur",
+      "body": "Un logiciel empaqueté avec tout ce qu’il lui faut pour fonctionner — ses fichiers, ses réglages, ses dépendances — de sorte qu’il se comporte de la même façon sur toute machine qui ouvre le paquet. Comme un conteneur maritime : le port ne se demande pas ce qu’il y a dedans, seulement que la boîte soit au format standard."
+    },
+    "kernel": {
+      "match": [
+        "noyau",
+        "noyaux",
+        "kernel"
+      ],
+      "title": "Noyau (kernel)",
+      "body": "Le cœur d’un système d’exploitation : la partie qui distribue la mémoire, dialogue avec le matériel et décide quel programme obtient le processeur ensuite. Tout le reste de la machine passe par lui.",
+      "more": "D’où son importance ici : si deux charges de travail partagent un noyau, une faille dans celui-ci les atteint toutes les deux. Donner à chacune le sien supprime ce chemin commun."
+    },
+    "isolation": {
+      "match": [
+        "isolation",
+        "isolé",
+        "isolée",
+        "isolés",
+        "isolées",
+        "scellé",
+        "scellée",
+        "scellés",
+        "scellées",
+        "sceau"
+      ],
+      "title": "Isolation",
+      "body": "Maintenir un programme en cours d’exécution à l’intérieur d’une frontière qu’il ne peut pas franchir : il ne voit que ce qu’on lui a donné, et rien de la machine autour de lui ni de ce qui s’y exécute par ailleurs."
+    },
+    "deterministic": {
+      "match": [
+        "déterministe",
+        "déterministes",
+        "déterminisme",
+        "reproductible",
+        "reproductibles",
+        "reproductibilité"
+      ],
+      "title": "Déterministe",
+      "body": "Mêmes entrées, mêmes sorties, à chaque fois — comme une recette qui donne un gâteau identique dans n’importe quelle cuisine, plutôt qu’une qui dépend du cuisinier. Ni la machine, ni le jour, ni le lieu ne changent le résultat.",
+      "more": "C’est ce qui rend un résultat vérifiable par quelqu’un d’autre, et ce qui fait qu’un avis écrit il y a un an mérite encore d’être lu."
+    },
+    "decentralized": {
+      "match": [
+        "décentralisé",
+        "décentralisée",
+        "décentralisés",
+        "décentralisées",
+        "décentralisation"
+      ],
+      "title": "Décentralisé",
+      "body": "Pas de siège social. Le système ne dépend d’aucune entreprise, d’aucun serveur ni d’aucune personne en particulier, si bien qu’il n’y a rien à éteindre, à racheter, ni à sommer de fermer.",
+      "more": "Le test pratique : si n’importe quel participant disparaissait cette nuit, le reste fonctionnerait-il encore ? Si oui, c’est décentralisé."
+    },
+    "protocol": {
+      "match": [
+        "protocole",
+        "protocoles"
+      ],
+      "title": "Protocole",
+      "body": "Les règles que deux ordinateurs acceptent de suivre pour se comprendre : une langue commune, plus l’étiquette qui dit qui parle et quand. Les deux côtés doivent employer la même, sinon rien ne passe.",
+      "more": "La plupart des réseaux imposent un protocole unique, ce qui oblige tout le monde à évoluer le même jour. Celaut affirme que ce n’est pas nécessaire : chaque paire de machines s’entend sur ce qu’elles ont en commun."
+    },
+    "interface": {
+      "match": [
+        "interface",
+        "interfaces",
+        "API"
+      ],
+      "title": "Interface (API)",
+      "body": "La liste publiée de ce que vous pouvez demander à un logiciel et de ce qu’il renverra : une carte de restaurant. Elle dit ce qui est disponible sans rien dire de la cuisine."
+    },
+    "specification": {
+      "match": [
+        "spécification",
+        "spécifications",
+        "spécifié",
+        "spécifiés",
+        "spécifiée",
+        "spécifiées"
+      ],
+      "title": "Spécification",
+      "body": "Une description écrite complète, assez précise pour que n’importe qui puisse construire ou exécuter la chose à partir d’elle seule : les plans de l’architecte plutôt qu’une photo de la maison finie.",
+      "more": "Un service Celaut est défini entièrement par sa spécification — ses fichiers, ses réglages, la façon dont il démarre. Rien n’est laissé à la machine hôte."
+    },
+    "filesystem": {
+      "match": [
+        "système de fichiers",
+        "systèmes de fichiers",
+        "structure de fichiers",
+        "filesystem"
+      ],
+      "title": "Système de fichiers",
+      "body": "L’ensemble des fichiers et des dossiers qu’un programme peut voir, et la manière dont ils sont rangés. Le spécifier, c’est les énumérer tous, au lieu de s’en remettre à ce qui se trouve sur la machine."
+    },
+    "content-addressed": {
+      "match": [
+        "adressé par contenu",
+        "adressés par contenu",
+        "adressée par contenu",
+        "adressé par son contenu",
+        "adressage par contenu",
+        "hachage",
+        "hash"
+      ],
+      "title": "Adressage par contenu",
+      "body": "Nommer une chose d’après une empreinte calculée à partir de son contenu, au lieu de lui coller une étiquette. Changez un seul octet et l’empreinte change du tout au tout : un fichier remplacé ou retouché ne peut pas garder le même nom.",
+      "more": "Vous pouvez donc demander un logiciel précis par son nom et vérifier que vous avez reçu exactement celui-là, sans avoir à croire sur parole celui qui vous l’a transmis."
+    },
+    "reputation": {
+      "match": [
+        "réputation",
+        "preuve de réputation"
+      ],
+      "title": "Réputation",
+      "body": "L’historique public du comportement passé d’un participant : a-t-il livré ce pour quoi il a été payé, ou non. Comme les notes des vendeurs, sauf qu’aucune entreprise ne les détient et que personne ne peut les retoucher discrètement.",
+      "more": "C’est ce qui tient lieu de confiance entre inconnus : non pas une promesse, mais un historique qu’il coûte cher d’abîmer."
+    },
+    "blockchain": {
+      "match": [
+        "blockchain",
+        "blockchains",
+        "chaîne de blocs",
+        "on-chain",
+        "sur la chaîne",
+        "hors chaîne"
+      ],
+      "title": "Blockchain (chaîne de blocs)",
+      "body": "Un registre partagé dont des milliers d’ordinateurs conservent chacun une copie. Ajouter une ligne suppose que les autres la reconnaissent valide, et les lignes passées ne se réécrivent pas : personne ne contrôle seul l’historique.",
+      "more": "Elle sert ici à deux tâches précises : consigner la réputation et régler les paiements entre gens qui ne se connaissent pas. Rien d’autre."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "La blockchain que Celaut utilise aujourd’hui pour consigner la réputation et faire circuler les paiements. ERG en est l’unité monétaire.",
+      "more": "C’est un choix, pas une fondation : Celaut n’a pas de monnaie propre et la couche de paiement est délibérément remplaçable."
+    },
+    "dependency": {
+      "match": [
+        "dépendance",
+        "dépendances"
+      ],
+      "title": "Dépendance",
+      "body": "Un autre logiciel dont celui-ci a besoin pour fonctionner, comme une recette dépend d’ingrédients qu’il faut se procurer ailleurs. Les résoudre, c’est trouver et fournir chacun d’eux avant que quoi que ce soit puisse démarrer."
+    },
+    "serverless": {
+      "match": [
+        "sans serveur",
+        "sans serveurs",
+        "serverless"
+      ],
+      "title": "Sans serveur",
+      "body": "Il n’y a pas de serveur attitré derrière. Rien n’est hébergé à une adresse que quelqu’un paie et pourrait cesser de payer : la chose existe à travers le réseau lui-même, il n’y a donc pas de prise à débrancher."
+    },
+    "hard-fork": {
+      "match": [
+        "hard fork",
+        "hard-fork",
+        "fork",
+        "bifurcation"
+      ],
+      "title": "Hard fork (scission)",
+      "body": "Le moment où un réseau change ses règles et où chaque participant doit se mettre à jour le même jour. Ceux qui ne le font pas se retrouvent sur une version incompatible : en pratique le réseau se scinde en deux, et la communauté se dispute pour savoir quelle moitié est la vraie.",
+      "more": "C’est cité ici comme ce qui ne peut pas arriver quand il n’existe aucun règlement commun à modifier."
+    },
+    "docker": {
+      "match": [
+        "Docker"
+      ],
+      "title": "Docker",
+      "body": "L’outil le plus répandu pour empaqueter un logiciel dans un conteneur. Il est mentionné comme point de comparaison familier et comme un choix parmi d’autres, pas comme quelque chose que Celaut exigerait."
+    },
+    "grpc": {
+      "match": [
+        "gRPC"
+      ],
+      "title": "gRPC",
+      "body": "Une manière courante et efficace pour deux programmes de s’appeler à travers un réseau. Comme Docker, il apparaît ici comme un choix d’implémentation parmi d’autres, remplaçable."
+    }
+  }
+}

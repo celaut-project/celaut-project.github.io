@@ -1,0 +1,243 @@
+{
+  "toggleOn": "Explicar términos técnicos",
+  "toggleOff": "Ocultar explicaciones de términos",
+  "toggleLabel": "Explicaciones",
+  "close": "Cerrar",
+  "explain": "¿Qué significa «{term}»?",
+  "hintTitle": "Hay palabras subrayadas.",
+  "hintBody": "Toca una palabra subrayada para ver una explicación sencilla. Puedes desactivarlas con el botón de la esquina.",
+  "hintDismiss": "Entendido",
+  "terms": {
+    "peer-to-peer": {
+      "match": [
+        "peer-to-peer",
+        "peer to peer",
+        "P2P",
+        "entre pares",
+        "par",
+        "pares"
+      ],
+      "title": "Peer-to-peer (entre pares)",
+      "body": "Una forma de conectar ordenadores para que intercambien información o recursos directamente, sin que una empresa central tenga que gestionar cada intercambio.",
+      "more": "En Celaut, quienes ofrecen y necesitan recursos negocian entre sí. No hay una empresa intermediaria que fije todas las condiciones."
+    },
+    "node": {
+      "match": [
+        "nodo",
+        "nodos"
+      ],
+      "title": "Nodo",
+      "body": "Un ordenador que participa en una red. Puede ser tu portátil, un PC de sobremesa o un servidor: se convierte en nodo cuando ejecuta el software y se comunica con otros.",
+      "more": "En Celaut, los nodos aportan el hardware y gestionan dónde se ejecutan los servicios."
+    },
+    "service": {
+      "match": [
+        "servicio",
+        "servicios"
+      ],
+      "title": "Servicio",
+      "body": "Un programa preparado para realizar una tarea, como convertir un archivo o procesar una imagen. Otro programa o una persona puede pedirle que la haga.",
+      "more": "En Celaut, se distribuye con una descripción de lo que necesita para ejecutarse en un nodo compatible."
+    },
+    "compute": {
+      "match": [
+        "computación",
+        "cómputo",
+        "potencia de cálculo",
+        "potencia de cómputo",
+        "recursos computacionales",
+        "recursos de cómputo",
+        "capacidad de cálculo"
+      ],
+      "title": "Computación",
+      "body": "El trabajo que hace un ordenador al ejecutar programas: calcular, procesar datos o transformar archivos. Necesita recursos como tiempo de procesador y memoria.",
+      "more": "Al alquilar capacidad de computación, pagas por usar esos recursos en otro ordenador, en lugar de comprar una máquina propia."
+    },
+    "depin": {
+      "match": [
+        "DePIN",
+        "red de infraestructura física descentralizada"
+      ],
+      "title": "DePIN",
+      "body": "Siglas en inglés de «red de infraestructura física descentralizada». Distintas personas aportan equipos reales, como ordenadores o discos, y pueden cobrar por su uso.",
+      "more": "Aquí se refiere a ofrecer los recursos de tu ordenador cuando no los necesitas, en lugar de depender de un único centro de datos."
+    },
+    "microvm": {
+      "match": [
+        "microVM",
+        "microVMs",
+        "micro-VM"
+      ],
+      "title": "microVM",
+      "body": "Una máquina virtual pequeña y ligera: un entorno separado dentro de un ordenador, con su propio núcleo de sistema operativo, donde puede ejecutarse un programa.",
+      "more": "Permite separar las cargas de trabajo del equipo que las aloja. Los recursos y accesos disponibles dependen de cómo se configure ese entorno."
+    },
+    "container": {
+      "match": [
+        "contenedor",
+        "contenedores",
+        "container"
+      ],
+      "title": "Contenedor",
+      "body": "Un paquete con un programa y los archivos y dependencias que necesita para ejecutarse. Facilita llevarlo de un equipo a otro sin instalar cada pieza manualmente."
+    },
+    "kernel": {
+      "match": [
+        "kernel",
+        "núcleo"
+      ],
+      "title": "Kernel (núcleo)",
+      "body": "La parte central de un sistema operativo. Gestiona la memoria, el procesador y la comunicación de los programas con el hardware.",
+      "more": "Separar los núcleos de distintas cargas de trabajo reduce las vías de acceso compartidas entre ellas."
+    },
+    "isolation": {
+      "match": [
+        "aislamiento",
+        "aislado",
+        "aislada",
+        "sellado",
+        "sellada"
+      ],
+      "title": "Aislamiento",
+      "body": "Separar un programa de otros programas y del ordenador anfitrión, limitando los archivos, redes y recursos a los que puede acceder."
+    },
+    "deterministic": {
+      "match": [
+        "determinista",
+        "determinismo",
+        "reproducible",
+        "reproducibilidad"
+      ],
+      "title": "Determinismo",
+      "body": "Una misma entrada produce siempre el mismo resultado, bajo las mismas condiciones definidas. Así, otra persona puede repetir el cálculo y comprobarlo.",
+      "more": "En Celaut, esta propiedad permite contrastar resultados y ayuda a que la reputación de un servicio siga siendo útil."
+    },
+    "decentralized": {
+      "match": [
+        "descentralizado",
+        "descentralizada",
+        "descentralización"
+      ],
+      "title": "Descentralización",
+      "body": "Repartir el funcionamiento y las decisiones entre varios participantes, en lugar de concentrarlos en una única empresa o máquina.",
+      "more": "La idea es que la salida de un participante no impida que los demás sigan colaborando."
+    },
+    "protocol": {
+      "match": [
+        "protocolo",
+        "protocolos"
+      ],
+      "title": "Protocolo",
+      "body": "Un conjunto de reglas para que dos programas se entiendan: qué mensajes pueden enviarse, qué significan y cómo responder.",
+      "more": "Celaut permite que distintos pares utilicen protocolos compatibles entre ellos sin imponer uno único a toda la red."
+    },
+    "interface": {
+      "match": [
+        "interfaz",
+        "interfaces",
+        "API",
+        "APIs"
+      ],
+      "title": "Interfaz (API)",
+      "body": "La forma definida de pedirle algo a un programa y recibir una respuesta. Es como un menú: indica qué puedes solicitar sin tener que conocer cómo se prepara por dentro."
+    },
+    "specification": {
+      "match": [
+        "especificación",
+        "especificaciones"
+      ],
+      "title": "Especificación",
+      "body": "Una descripción precisa de cómo es algo y qué necesita para funcionar. En software puede detallar sus archivos, configuración, entradas y salidas.",
+      "more": "En Celaut, la especificación describe el servicio para que un nodo compatible pueda ejecutarlo."
+    },
+    "filesystem": {
+      "match": [
+        "sistema de archivos",
+        "sistemas de archivos",
+        "filesystem"
+      ],
+      "title": "Sistema de archivos",
+      "body": "La organización de archivos y carpetas que un programa puede utilizar. Describirlo permite indicar qué archivos necesita el servicio, sin depender de los que haya en otro ordenador."
+    },
+    "content-addressed": {
+      "match": [
+        "direccionamiento por contenido",
+        "direccionado por contenido",
+        "hash",
+        "hashes"
+      ],
+      "title": "Identificación por contenido (hash)",
+      "body": "Identificar un archivo o programa mediante una huella calculada a partir de sus datos. Si los datos cambian, cambia también esa huella.",
+      "more": "Sirve para comprobar que has recibido el contenido que pediste, aunque te lo envíe alguien que no conoces."
+    },
+    "reputation": {
+      "match": [
+        "reputación",
+        "prueba de reputación"
+      ],
+      "title": "Reputación",
+      "body": "Información sobre cómo se ha comportado antes un participante o servicio. Ayuda a decidir con quién trabajar basándose en experiencias previas, no solo en promesas.",
+      "more": "En Celaut puedes valorar las fuentes de reputación que consideres fiables; un historial no garantiza por sí solo un resultado futuro."
+    },
+    "blockchain": {
+      "match": [
+        "blockchain",
+        "cadena de bloques",
+        "registro distribuido",
+        "on-chain"
+      ],
+      "title": "Blockchain (cadena de bloques)",
+      "body": "Un registro compartido entre muchos ordenadores. Sus reglas permiten comprobar las nuevas entradas y hacen difícil modificar el historial sin que los demás lo detecten.",
+      "more": "Aquí puede utilizarse para registrar reputación y liquidar pagos entre participantes que no se conocen."
+    },
+    "ergo": {
+      "match": [
+        "Ergo",
+        "ERG"
+      ],
+      "title": "Ergo",
+      "body": "Una blockchain pública utilizada en la implementación actual de Celaut para pagos y registros de reputación. ERG es su moneda.",
+      "more": "Celaut no tiene una moneda propia ni exige que todas las redes usen Ergo: la capa de pagos puede sustituirse."
+    },
+    "dependency": {
+      "match": [
+        "dependencia",
+        "dependencias"
+      ],
+      "title": "Dependencia",
+      "body": "Otro programa o biblioteca que un programa necesita para funcionar. Resolver las dependencias significa reunir esas piezas antes de ejecutarlo."
+    },
+    "serverless": {
+      "match": [
+        "serverless",
+        "sin servidor"
+      ],
+      "title": "Serverless",
+      "body": "Una forma de utilizar software sin tener que administrar un servidor propio para cada tarea. Sigue habiendo ordenadores que ejecutan el trabajo, pero su gestión queda separada de quien lo solicita."
+    },
+    "hard-fork": {
+      "match": [
+        "hard fork",
+        "hard-fork",
+        "bifurcación"
+      ],
+      "title": "Hard fork (bifurcación incompatible)",
+      "body": "Un cambio en las reglas de una red que no es compatible con las anteriores. Si algunos participantes mantienen las reglas antiguas, pueden formarse dos redes distintas.",
+      "more": "Celaut busca evitar que todos tengan que adoptar a la vez un mismo cambio de protocolo."
+    },
+    "docker": {
+      "match": [
+        "Docker"
+      ],
+      "title": "Docker",
+      "body": "Una herramienta muy utilizada para empaquetar y ejecutar programas en contenedores. No es el nombre de un servicio de Celaut ni un requisito del paradigma."
+    },
+    "grpc": {
+      "match": [
+        "gRPC"
+      ],
+      "title": "gRPC",
+      "body": "Una tecnología para que un programa solicite funciones a otro a través de una red. Es una opción de comunicación que una implementación puede sustituir por otra."
+    }
+  }
+}

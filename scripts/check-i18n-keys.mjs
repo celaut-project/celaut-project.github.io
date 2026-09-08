@@ -17,27 +17,14 @@
  * fails the run: a handful of strings (product names, network
  * identifiers, "API") are legitimately the same in every language.
  *
- * PENDING NAMESPACES (the one deliberate hole)
- * --------------------------------------------
- * A namespace listed in `PENDING` is one that ships in English first
- * and lights up per-language as translations land. It is still
- * reported, so it can never be forgotten, but it does not fail the
- * run.
- *
- * This exists for exactly one reason and should not be extended
- * casually. The glossary is not ordinary copy: its entries include the
- * WORDS that get matched against the prose, so English fallback there
- * is not a degraded experience but a wrong one — the few terms spelled
- * the same in every language (DePIN, microVM, Ergo, gRPC) would get
- * underlined on a Spanish page and open English definitions, which is
- * worse for that reader than having no glossary at all. The runtime
- * therefore gates the whole feature on `$translated('glossary.terms')`
- * and shows nothing until a locale is complete. That makes a partial
- * translation genuinely safe, which is what earns the exception.
- *
- * To retire it: translate `glossary` into a locale, and it moves from
- * PENDING to ok on its own. Once every locale has it, delete the
- * entry from PENDING and the gate is strict again.
+ * PENDING NAMESPACES
+ * ------------------
+ * A namespace listed in `PENDING` is allowed to be missing: the
+ * runtime hides that feature rather than falling back to English, so
+ * a hole is safe rather than wrong. Keep this empty. It earned its
+ * keep once, for `glossary`, whose match-words would otherwise fire
+ * English definitions on a non-English page; that namespace is now
+ * in every locale, so the exception has nothing left to excuse.
  */
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -75,7 +62,7 @@ const enFlat = flatten(en);
  * runtime hides the feature entirely rather than falling back to
  * English. See the header for why this is safe here and nowhere else.
  */
-const PENDING = ['glossary'];
+const PENDING = [];
 
 const isPending = (key) => PENDING.some((ns) => key === ns || key.startsWith(`${ns}.`));
 

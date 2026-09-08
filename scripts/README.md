@@ -27,6 +27,37 @@ reference rather than prose, and the `viz.home.nets*` entries are
 network identifiers (`bitcoin-mainnet`, `api.weather.gov`). Those never
 fail the run.
 
+## `apply-glossary.mjs` — the glossary, ordered by id
+
+```
+node scripts/apply-glossary.mjs de          # scripts/glossary-data/de.json
+node scripts/apply-glossary.mjs --all       # every json in glossary-data/
+```
+
+Splices a translated `glossary` namespace into a locale dictionary.
+The JSON is keyed by glossary id (`peer-to-peer`, `node`, …), never by
+array position: this script looks each id up and emits `glossary.terms`
+in `GLOSSARY_IDS` order. A missing, unknown or duplicate id is a hard
+error, which is the point — a term in the wrong slot would render the
+wrong definition, in the reader's own language, and no reviewer of a
+language they don't speak would catch it.
+
+`scripts/glossary-data/` is the record of what each locale actually said.
+
+## `check-glossary.mjs` — do the aliases fire on this locale's prose?
+
+```
+node scripts/check-glossary.mjs             # every locale
+node scripts/check-glossary.mjs de ja       # just these
+node scripts/check-glossary.mjs --verbose   # show every alias hit
+```
+
+Replays `annotate.js`'s matcher against each dictionary's own copy.
+`check-i18n-keys.mjs` proves the glossary is shaped right; this proves
+it is useful. A term whose aliases match nothing in that locale's prose
+is a warning (the concept may genuinely be absent). An alias claimed by
+two terms is a failure: the reader would get the wrong definition.
+
 ## `migrate-locales.mjs` — restructuring `en.js`
 
 ```

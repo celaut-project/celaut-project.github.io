@@ -15,6 +15,178 @@
  */
 
 export default {
+	glossary: {
+		toggleOn: 'Jelaskan istilah teknis',
+		toggleOff: 'Sembunyikan penjelasan istilah',
+		toggleLabel: 'Penjelasan',
+		close: 'Tutup',
+		explain: 'Apa arti “{term}”?',
+		hintTitle: 'Beberapa kata digarisbawahi.',
+		hintBody: 'Ketuk kata yang digarisbawahi untuk penjelasan dalam bahasa sehari-hari. Matikan kapan saja lewat tombol di sudut.',
+		hintDismiss: 'Mengerti',
+		terms: [
+			{
+				// peer-to-peer
+				match: ['Peer-to-Peer', 'peer to peer', 'P2P'],
+				title: 'Peer-to-peer',
+				body: 'Dua komputer yang berurusan langsung satu sama lain, seperti dua orang teleponan — bukan keduanya mengirim segala sesuatu lewat perusahaan di tengah, seperti email atau pasar. Setiap komputer adalah “peer”: setara, tidak ada yang berkuasa.',
+				more: 'Ini penting di sini karena perusahaan di tengah biasanya yang menentukan harga, mengambil komisi, dan bisa menyingkirkanmu. Tanpa itu, tidak ada siapa pun yang harus dimintai izin.'
+			},
+			{
+				// node
+				match: ['node', 'nodes', 'nodo'],
+				title: 'Node',
+				body: 'Satu komputer yang ikut dalam jaringan. Laptopmu, desktop cadangan, server di rak — begitu menjalankan perangkat lunak dan mulai bicara dengan mesin lain, itu node.',
+				more: 'Di Celaut, node adalah salah satu dari hanya dua bagian yang bergerak. Ia menyediakan perangkat keras dan memutuskan apa yang berjalan di mana.'
+			},
+			{
+				// service
+				match: ['layanan', 'service', 'services'],
+				title: 'Service (layanan)',
+				body: 'Sepotong perangkat lunak mandiri yang mengerjakan satu tugas dan bisa diserahkan ke mesin mana pun untuk dijalankan — lebih dekat ke sebuah alat daripada program utuh yang kamu instal.',
+				more: 'Layanan Celaut disegel: mesin yang menjalankannya tidak melihat ke dalam, dan layanan tidak tahu di mesin mana ia mendarat.'
+			},
+			{
+				// compute
+				match: ['komputasi', 'daya komputasi', 'sumber daya komputasi'],
+				title: 'Komputasi',
+				body: 'Pekerjaan yang benar-benar dilakukan komputer — waktu prosesor, memori, penyimpanan — diperlakukan sebagai sesuatu yang terukur, yang bisa dibeli dan dijual, seperti listrik.',
+				more: 'Seseorang butuh perhitungan dan tidak punya mesin kosong; kamu punya mesin yang menganggur. “Komputasi” itulah yang berpindah tangan.'
+			},
+			{
+				// depin
+				match: ['DePIN'],
+				title: 'DePIN',
+				body: 'Singkatan “decentralized physical infrastructure network”. Orang biasa menyumbangkan perangkat keras yang sudah mereka miliki — komputer, hard disk, antena — dan dibayar untuk itu, alih-alih satu perusahaan membangun pusat data lalu menyewakannya.',
+				more: 'Armada taksi versus kota di mana siapa pun yang punya mobil bisa menyopir. Layanan yang sama, tanpa pemilik armada.'
+			},
+			{
+				// microvm
+				match: ['microVM', 'microVMs', 'micro-VM'],
+				title: 'microVM',
+				body: 'Komputer kecil, cepat, dan lengkap yang disimulasikan di dalam komputer aslimu. Apa pun yang berjalan di dalamnya bersikap seolah punya mesin sendiri, dan tidak melihat berkasmu, jaringanmu, atau apa pun di perangkat keras sungguhan.',
+				more: 'Inilah yang dipakai penyedia awan besar untuk menjalankan kode orang asing di perangkat keras bersama secara aman. Saat pekerjaan selesai, seluruh mesin simulasi dihancurkan.'
+			},
+			{
+				// container
+				match: ['Kontainer', 'Container'],
+				title: 'Kontainer',
+				body: 'Perangkat lunak yang dikemas bersama semua yang dibutuhkannya untuk berjalan — berkas, pengaturan, ketergantungan — sehingga berperilaku sama di mesin mana pun yang membuka paket itu. Seperti kontainer kapal: pelabuhan tidak peduli isinya, hanya bahwa kotaknya standar.'
+			},
+			{
+				// kernel
+				match: ['kernel'],
+				title: 'Kernel',
+				body: 'Inti sistem operasi — bagian yang membagi memori, berbicara dengan perangkat keras, dan memutuskan program mana yang mendapat prosesor berikutnya. Segala yang lain di mesin lewat sini.',
+				more: 'Mengapa muncul: jika dua beban berbagi satu kernel, cacat di dalamnya mengenai keduanya. Memberi masing-masing kernel sendiri menghapus jalur bersama itu.'
+			},
+			{
+				// isolation
+				match: ['isolasi', 'terisolasi', 'tersandbox', 'sealed'],
+				title: 'Isolasi',
+				body: 'Menahan program yang sedang berjalan di dalam batas yang tidak bisa dilampauinya — ia hanya melihat apa yang diberikan, bukan mesin di sekelilingnya atau apa pun lain yang berjalan di sana.'
+			},
+			{
+				// deterministic
+				match: ['Deterministik', 'determinisme', 'determinism'],
+				title: 'Deterministik',
+				body: 'Masukan sama, keluaran sama, setiap kali — seperti resep yang menghasilkan kue identik di dapur mana pun, bukan yang bergantung pada kokinya. Mesin, hari, maupun lokasi tidak mengubah hasilnya.',
+				more: 'Inilah yang membuat hasil bisa diperiksa orang lain, dan yang membuat tinjauan yang ditulis setahun lalu masih layak dibaca.'
+			},
+			{
+				// decentralized
+				match: ['desentralisasi', 'terdesentralisasi'],
+				title: 'Terdesentralisasi',
+				body: 'Tidak ada kantor pusat. Tidak ada satu perusahaan, server, atau orang yang sistem andalkan, jadi tidak ada yang bisa dimatikan, dibeli, atau diperintahkan tutup.',
+				more: 'Uji praktisnya: kalau salah satu peserta hilang semalam, apakah sisanya masih jalan? Jika ya, itu terdesentralisasi.'
+			},
+			{
+				// protocol
+				match: ['protokol', 'protokolnya'],
+				title: 'Protokol',
+				body: 'Aturan yang disepakati dua komputer agar saling mengerti — bahasa bersama, plus etiket siapa bicara kapan. Kedua sisi harus memakai yang sama, kalau tidak tidak ada yang tembus.',
+				more: 'Kebanyakan jaringan memaksa semua orang ke satu protokol, jadi semua harus naik versi bersama. Klaim Celaut: tidak perlu. Setiap pasangan bersepakat pada apa yang kebetulan mereka miliki bersama.'
+			},
+			{
+				// interface
+				match: ['antarmuka', 'interface', 'API', 'APIs'],
+				title: 'Antarmuka',
+				body: 'Daftar terbitan tentang apa yang bisa kamu minta dari sepotong perangkat lunak, dan apa yang akan dikirim kembali — seperti menu. Memberitahu apa yang tersedia tanpa memberitahu apa pun tentang dapurnya.'
+			},
+			{
+				// specification
+				match: ['Spesifikasi'],
+				title: 'Spesifikasi',
+				body: 'Deskripsi tertulis lengkap, cukup tepat sehingga siapa pun bisa membangun atau menjalankannya dari deskripsi itu saja — denah arsitek, bukan foto rumah yang sudah jadi.',
+				more: 'Layanan Celaut didefinisikan sepenuhnya oleh spesifikasinya: berkas, pengaturan, cara mulai. Tidak ada yang dibiarkan diisi mesin tuan rumah.'
+			},
+			{
+				// filesystem
+				match: ['sistem berkas', 'filesystem'],
+				title: 'Sistem berkas',
+				body: 'Seluruh berkas dan folder yang bisa dilihat sebuah program, dan bagaimana mereka disusun. Menspesifikasikannya berarti mendaftar semuanya, bukan “apa pun yang kebetulan ada di komputer itu”.'
+			},
+			{
+				// content-addressed
+				match: ['beralamat konten', 'hash', 'hashes'],
+				title: 'Dialamatkan menurut isi',
+				body: 'Menamai sesuatu menurut sidik jari yang dihitung dari isinya, bukan memberinya label. Ubah satu bita dan sidik jarinya berubah total, jadi berkas yang ditukar atau diutak-atik tidak bisa menyimpan nama yang sama.',
+				more: 'Kamu bisa meminta perangkat lunak yang tepat menurut namanya dan memverifikasi bahwa yang kamu terima persis itu, tanpa percaya pada siapa yang menyerahkannya.'
+			},
+			{
+				// reputation
+				match: ['Reputasi'],
+				title: 'Reputasi',
+				body: 'Catatan publik tentang bagaimana seorang peserta berperilaku sebelumnya — apakah ia menyerahkan apa yang dibayar, atau tidak. Seperti penilaian penjual, kecuali tidak ada perusahaan yang memiliki nilainya dan tidak ada yang bisa mengeditnya diam-diam.',
+				more: 'Inilah yang menggantikan kepercayaan di antara orang asing: bukan janji, melainkan catatan yang mahal untuk dirusak.'
+			},
+			{
+				// blockchain
+				match: ['blockchain', 'blockchains'],
+				title: 'Blockchain',
+				body: 'Buku catatan bersama yang salinannya dipegang ribuan komputer sekaligus. Menambah entri mensyaratkan yang lain setuju itu sah, dan entri lama tidak bisa ditulis ulang — jadi tidak ada satu peserta yang mengendalikan sejarah.',
+				more: 'Di sini untuk dua pekerjaan sempit: mencatat reputasi, dan menyelesaikan pembayaran antara orang yang belum pernah bertemu. Tidak lebih.'
+			},
+			{
+				// ergo
+				match: ['Ergo', 'ERG'],
+				title: 'Ergo',
+				body: 'Blockchain tertentu yang saat ini dipakai Celaut untuk mencatat reputasi dan memindahkan pembayaran. ERG adalah satuan mata uangnya.',
+				more: 'Ini pilihan, bukan fondasi: Celaut tidak punya koin sendiri dan lapisan pembayaran sengaja bisa diganti.'
+			},
+			{
+				// dependency
+				match: ['ketergantungan', 'dependensi'],
+				title: 'Ketergantungan',
+				body: 'Sepotong perangkat lunak lain yang dibutuhkan yang ini agar bisa bekerja — seperti resep bergantung pada bahan yang harus dicari terpisah. Menyelesaikannya berarti menemukan dan menyediakan masing-masing sebelum apa pun bisa berjalan.'
+			},
+			{
+				// serverless
+				match: ['tanpa server', 'serverless'],
+				title: 'Tanpa server',
+				body: 'Tidak ada server tertentu di baliknya. Tidak ada yang di-host di alamat yang dibayar seseorang dan bisa berhenti dibayar — hal itu ada di jaringan itu sendiri, jadi tidak ada colokan yang bisa dicabut.'
+			},
+			{
+				// hard-fork
+				match: ['hard fork', 'hard-fork', 'fork'],
+				title: 'Hard fork',
+				body: 'Ketika jaringan mengubah aturannya dan setiap peserta harus naik versi di hari yang sama. Yang tidak ikut tertinggal di versi yang tidak kompatibel — praktisnya jaringan terbelah dua, dan komunitas berdebat belahan mana yang asli.',
+				more: 'Disebut di sini sebagai hal yang tidak bisa terjadi ketika tidak ada buku aturan bersama yang bisa diubah.'
+			},
+			{
+				// docker
+				match: ['Docker'],
+				title: 'Docker',
+				body: 'Alat yang paling luas dipakai untuk mengemas perangkat lunak ke dalam kontainer. Disebut sebagai titik banding yang familiar dan sebagai satu pilihan yang bisa ditukar — bukan sebagai sesuatu yang diwajibkan Celaut.'
+			},
+			{
+				// grpc
+				match: ['gRPC'],
+				title: 'gRPC',
+				body: 'Cara umum dan efisien bagi dua program untuk saling memanggil lewat jaringan. Seperti Docker, muncul di sini sebagai satu pilihan implementasi yang bisa diganti dengan yang lain.'
+			}
+		]
+	},
 	common: {
 		scroll: 'Gulir',
 		toTop: '↑ Atas',
