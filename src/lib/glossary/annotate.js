@@ -31,6 +31,22 @@
  * • Fully reversible. `clearGlossary(root)` unwraps every span and
  *   normalises the text nodes back, which is what the off switch does
  *   — no reload, no re-render.
+ * • Non-destructive to the framework. The ORIGINAL `Text` node is never
+ *   thrown away: it stays in the document holding the first slice of
+ *   its own sentence, and the marks and remaining slices are inserted
+ *   after it. Svelte keeps direct references to the text nodes it
+ *   created so it can later call `set_data()` on them; replacing one
+ *   with a fresh node (which is what this file used to do) left that
+ *   reference pointing at a detached node, and the next update wrote
+ *   into nothing. See `clearGlossary` for the exact reversal.
+ * • Layout-safe inside flex and grid. A text node split in place turns
+ *   its siblings into flex/grid ITEMS, and whitespace-only anonymous
+ *   boxes between items are discarded — so one sentence became several
+ *   side-by-side columns with the spaces eaten. Every run is therefore
+ *   wrapped in one inline span, so the parent still sees exactly one
+ *   child box. Unconditionally, not only when the parent happens to be
+ *   flex today, so a later stylesheet change cannot reintroduce the
+ *   bug silently.
  *
  * ACCESSIBILITY
  * -------------
@@ -63,6 +79,52 @@ import {
  * construction.
  */
 const SPACELESS = /[\u3000-\u30ff\u4e00-\u9fff\uac00-\ud7af]/;
+
+/**
+ * Bookkeeping for the reversal: the node we split, and what it said
+ * before we touched it.
+ *
+ * A WeakMap so a node that Svelte removes for its own reasons — a beat
+ * scrolling out, a `{#key}` block remounting — takes its entry with it
+ * and nothing here keeps detached DOM alive.
+ *
+ * @type {WeakMap<Node, { node: Text, text: string, run: HTMLElement }>}
+ */
+const ORIGINALS = new WeakMap();
+
+/**
+ * Delete generated runs that have lost their origin.
+ *
+ * A run and the text node it came from are siblings, created together.
+ * If the framework tears down the surrounding block, it may remove the
+ * original node and leave the run behind (see the `{@html}` note in
+ * `annotate`) — stale words from the previous language, sitting in the
+ * page next to the new ones, accumulating with every switch.
+ *
+ * The tell is unambiguous and cheap: the run's recorded origin is no
+ * longer in the document, or no longer its sibling. Either way the run
+ * is debris and the text it holds is a duplicate of something the
+ * framework has already re-rendered, so it is removed rather than
+ * unwrapped — unwrapping would preserve the duplicate.
+ *
+ * @param {HTMLElement} root
+ */
+function sweepOrphans(root) {
+	for (const run of root.querySelectorAll('span[data-gloss-run]')) {
+		const record = ORIGINALS.get(run);
+		if (!record) {
+			// No bookkeeping at all: this run cannot be reversed safely and
+			// its text is not ours to keep.
+			run.remove();
+			continue;
+		}
+		const origin = record.node;
+		if (!origin.isConnected || origin.parentNode !== run.parentNode) {
+			run.remove();
+			ORIGINALS.delete(run);
+		}
+	}
+}
 
 /** Escape a literal for use inside a RegExp. */
 function esc(s) {
@@ -158,6 +220,10 @@ export function annotate(root, terms) {
 	if (!matcher) return 0;
 	const { re, owner } = matcher;
 
+	// Anything the framework orphaned since the last pass goes first, so
+	// the budget below counts only marks that are really on the page.
+	sweepOrphans(root);
+
 	/*
 	 * Budgets are seeded from what is ALREADY marked, not started at
 	 * zero.
@@ -234,21 +300,76 @@ export function annotate(root, terms) {
 
 			if (!hits.length) continue;
 
-			const frag = document.createDocumentFragment();
-			let cursor = 0;
+			const parent = textNode.parentNode;
+			if (!parent) continue;
+
+			/*
+			 * THE SHAPE OF A SPLIT, AND WHY IT IS THIS SHAPE
+			 * ----------------------------------------------
+			 * A split leaves exactly two nodes where there was one:
+			 *
+			 *   [ original Text (leading slice) ][ <span data-gloss-run> ]
+			 *
+			 * Everything generated — the marks and the text between them —
+			 * goes inside that one span. Two separate framework problems
+			 * force this, and one layout problem is solved by it for free.
+			 *
+			 * 1. Svelte keeps a direct reference to each Text node it
+			 *    created and later calls `set_data()` on it. Replace that
+			 *    node (which this file used to do) and the reference points
+			 *    at detached DOM: the next update writes into nothing, and
+			 *    the words on screen silently stop changing. So the original
+			 *    node is never removed — only its `data` is shortened, and
+			 *    `clearGlossary` writes the whole sentence back into it.
+			 *
+			 * 2. `{@html ...}` records the parsed fragment's first and last
+			 *    child as the effect's `nodes_start`/`nodes_end`, and tears
+			 *    the block down by walking siblings from start to end.
+			 *    Anything outside that pair is never removed. Nodes appended
+			 *    after the last one therefore SURVIVE a re-render and the
+			 *    next render stacks new content on top of them — which is
+			 *    how a language switch left a Spanish heading followed by an
+			 *    English paragraph, and why the page grew a little more with
+			 *    every switch. It cannot be dodged by picking a side: the
+			 *    boundary nodes are not identifiable from out here (a
+			 *    "last" text node still has comment anchors after it). It is
+			 *    handled instead by (a) clearing synchronously before Svelte
+			 *    re-renders — see GlossaryLayer — and (b) `sweepOrphans`
+			 *    below, which recognises a run that has been separated from
+			 *    its origin and deletes it. Keeping every generated node in
+			 *    ONE element is what makes that recognition possible.
+			 *
+			 * 3. Free consequence: when the paragraph is a flex or grid
+			 *    container, its children are flex ITEMS and the whitespace
+			 *    boxes between them are discarded — a split sentence became
+			 *    side-by-side columns with the spaces eaten. One span means
+			 *    the container still sees a single child box.
+			 */
+			const wrap = document.createElement('span');
+			wrap.dataset.glossRun = '';
+
+			let cursor = hits[0].start;
 			for (const hit of hits) {
 				if (hit.start > cursor) {
-					frag.appendChild(document.createTextNode(text.slice(cursor, hit.start)));
+					wrap.appendChild(document.createTextNode(text.slice(cursor, hit.start)));
 				}
-				frag.appendChild(makeMark(hit.word, hit.id, terms));
+				wrap.appendChild(makeMark(hit.word, hit.id, terms));
 				cursor = hit.end;
 				added += 1;
 			}
 			if (cursor < text.length) {
-				frag.appendChild(document.createTextNode(text.slice(cursor)));
+				wrap.appendChild(document.createTextNode(text.slice(cursor)));
 			}
 
-			textNode.parentNode?.replaceChild(frag, textNode);
+			// The original node keeps the leading slice and its identity.
+			textNode.nodeValue = text.slice(0, hits[0].start);
+			parent.insertBefore(wrap, textNode.nextSibling);
+
+			// Recorded on BOTH nodes: the run needs to find its origin (to
+			// know whether it has been orphaned), and the reversal needs to
+			// find the run from the mark.
+			ORIGINALS.set(wrap, { node: textNode, text, run: wrap });
+			ORIGINALS.set(textNode, { node: textNode, text, run: wrap });
 		}
 	}
 
@@ -281,21 +402,74 @@ function makeMark(word, id, terms) {
  * Used by the off switch and before a locale change re-annotates with
  * a different language's trigger words.
  *
+ * The contract that matters here is not "the text looks right again" —
+ * it is "the DOM is byte-for-byte what Svelte thinks it is". So the
+ * ORIGINAL text node is restored to its original position with its
+ * original contents, rather than a fresh node being substituted for
+ * it. A fresh node is indistinguishable to the reader and fatal to the
+ * framework: Svelte's stored reference would still point at the node
+ * we discarded, and the next `set_data()` on it would update a node
+ * that is no longer in the document.
+ *
  * @param {HTMLElement} root
  */
 export function clearGlossary(root) {
 	if (!root) return;
-	const marks = root.querySelectorAll('button.gloss[data-gloss]');
-	/** @type {Set<Node>} */
+
+	/**
+	 * Parents that need `normalize()` afterwards.
+	 *
+	 * ONLY the fallback paths go in here. `normalize()` merges a run of
+	 * adjacent text nodes into the FIRST one and deletes the rest — so
+	 * calling it on a parent whose original node we just restored could
+	 * delete that very node and reintroduce the bug this function exists
+	 * to prevent. The restore path leaves no adjacent text nodes to merge
+	 * (the inserted ones are removed and the original holds the whole
+	 * sentence again), so it does not need normalising at all.
+	 * @type {Set<Node>}
+	 */
 	const parents = new Set();
-	for (const mark of marks) {
+
+	// Debris first: a run whose origin is gone must be deleted, not
+	// unwrapped, or its stale words would be merged back into the prose.
+	sweepOrphans(root);
+
+	/*
+	 * Every surviving run is reversed by putting the whole sentence back
+	 * into the ORIGINAL node and deleting the run. One assignment and one
+	 * removal per split — no node the framework knows about is created,
+	 * moved or destroyed.
+	 */
+	for (const run of root.querySelectorAll('span[data-gloss-run]')) {
+		const parent = run.parentNode;
+		if (!parent) continue;
+		const record = ORIGINALS.get(run);
+		if (record) {
+			record.node.nodeValue = record.text;
+			ORIGINALS.delete(record.node);
+			ORIGINALS.delete(run);
+			run.remove();
+		} else {
+			// Unreachable in practice (the WeakMap entry outlives the run),
+			// but never drop words on the floor.
+			parent.replaceChild(document.createTextNode(run.textContent || ''), run);
+			parents.add(parent);
+		}
+	}
+
+	// Any mark not inside a run predates this scheme, or was produced by
+	// the defensive path above. Unwrap it in place.
+	for (const mark of root.querySelectorAll('button.gloss[data-gloss]')) {
 		const parent = mark.parentNode;
 		if (!parent) continue;
 		parent.replaceChild(document.createTextNode(mark.textContent || ''), mark);
 		parents.add(parent);
 	}
-	// Merge the adjacent text nodes we just created back together, or a
-	// second annotate() pass would see "peer-to-" and "peer" as two
-	// nodes and fail to match across them.
-	for (const parent of parents) parent.normalize();
+
+	// Merge the adjacent text nodes back together, or a second annotate()
+	// pass would see "peer-to-" and "peer" as two nodes and fail to match
+	// across them.
+	for (const parent of parents) {
+		if (parent.isConnected) parent.normalize();
+	}
 }

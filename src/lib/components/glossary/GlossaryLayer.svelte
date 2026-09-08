@@ -133,18 +133,37 @@
 	 * A locale change means different trigger words entirely, so the
 	 * existing marks have to come down before the new pass runs.
 	 *
-	 * This deliberately does NOT take the `working` flag. It used to,
-	 * and that made it race the ordinary annotate pass: whichever
-	 * finished second won, and when the teardown won the page was left
-	 * bare. Clearing is synchronous and idempotent, so it can simply
-	 * happen and then queue a rebuild through the same single path as
-	 * everything else.
+	 * WHY THIS IS A RAW SUBSCRIPTION AND NOT A REACTIVE BLOCK
+	 * ------------------------------------------------------
+	 * It has to happen BEFORE Svelte re-renders the prose, not merely
+	 * "soon". A `$:` block is scheduled with every other reactive update,
+	 * so it could run after the components that own the text had already
+	 * been re-rendered around our marks. A store subscription runs
+	 * synchronously inside `locale.set()`, before any effect is flushed,
+	 * which is the only point where the DOM is guaranteed to still be
+	 * the one we annotated.
+	 *
+	 * That ordering is what the whole feature rests on. `{@html}` blocks
+	 * tear themselves down by walking from their first node to their
+	 * last; nodes we added that fall outside that pair are NOT removed,
+	 * so they survive into the next language as stale sentences and the
+	 * section reads half in Spanish and half in English (and grows a
+	 * little with every switch). Handing Svelte a DOM with no glossary
+	 * nodes in it at all means there is nothing to survive.
+	 *
+	 * `sweepOrphans` inside annotate/clear is the belt to this braces:
+	 * if anything is ever torn down without warning us, the debris is
+	 * recognised and deleted on the next pass rather than accumulating.
 	 */
-	$: if (mounted && $locale) {
-		const el = root();
-		if (el) clearGlossary(el);
-		schedule();
-	}
+	onMount(() => {
+		const stop = locale.subscribe(() => {
+			if (!mounted) return;
+			const el = root();
+			if (el) clearGlossary(el);
+			schedule();
+		});
+		return stop;
+	});
 
 	function onClick(event) {
 		const target = event.target;
@@ -251,6 +270,27 @@
 		outline: 2px solid var(--accent-text);
 		outline-offset: 2px;
 		border-radius: 3px;
+	}
+
+	/*
+	 * The wrapper annotate.js inserts when the paragraph it is splitting
+	 * is itself a flex or grid container.
+	 *
+	 * Without it, splitting the text node turns each piece into a flex
+	 * ITEM: the two halves of the sentence and the mark line up as
+	 * side-by-side columns, and the whitespace-only boxes between them
+	 * are discarded by the layout algorithm, so the space before the
+	 * marked word disappears entirely. This keeps the run as a single
+	 * box for the flex parent while remaining ordinary inline text
+	 * inside — it must inherit alignment and wrapping, and add nothing
+	 * of its own, because the reader has to see the sentence the
+	 * translator wrote and nothing else.
+	 */
+	:global(span[data-gloss-run]) {
+		display: inline;
+		font: inherit;
+		color: inherit;
+		text-align: inherit;
 	}
 
 	/* Inside a <strong> the mark must stay bold — `font: inherit` gets

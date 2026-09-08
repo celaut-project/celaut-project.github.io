@@ -352,7 +352,22 @@
                     in:fly={{ y: 14, duration: 500, delay: 180 }}
                     out:fade={{ duration: 260 }}
                 >
-                    {facts[safeFactIndex]}
+                    <!-- The sentence lives in its own inline span, and that is
+                         load-bearing rather than cosmetic. `.fact` is a flex
+                         container (it centres the text in the fixed-height
+                         card). The glossary annotator splits a paragraph's
+                         single text node into `[Text, <button>, Text]` in
+                         place — and direct children of a flex container each
+                         become a flex ITEM, while whitespace-only anonymous
+                         boxes between them are discarded outright. So the
+                         moment a term matched here, one sentence turned into
+                         two or three side-by-side columns with the spaces
+                         eaten: "Lareputación" in one column, the rest in the
+                         next. Wrapping the copy makes the flex container hold
+                         exactly ONE item, so the split happens inside an
+                         ordinary inline formatting context and reads as one
+                         flowing sentence. -->
+                    <span class="fact-text">{facts[safeFactIndex]}</span>
                 </p>
             {/key}
         </div>
@@ -468,6 +483,12 @@
         /* Full-strength on-surface colour + no text-shadow: crisp and high
            contrast against the card in both light and dark themes. */
         color: var(--on-surface);
+    }
+
+    /* The single flex item. Everything the glossary does happens inside
+       here, where inline layout applies normally. */
+    .fact-text {
+        display: block;
     }
 
     .buttons {
