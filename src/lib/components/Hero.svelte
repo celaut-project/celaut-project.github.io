@@ -5,27 +5,58 @@
     import { locale, t, href } from '$lib/i18n/index.js';
     import { createViewportGate, releaseCanvas } from '$lib/motion.js';
 
-    // Lead with practical entry points; preserve the original architecture facts.
+    // --- ROTATING HERO CARDS ---
+    // One card at a time, rotated every 4s with a subtle fade + vertical
+    // slide. The pool mixes three kinds: the short architecture facts, the
+    // three roles and the three applications. Roles and applications live
+    // at the bottom of a very long page, and most visitors never get there
+    // — so they get a turn up here too, each linking straight to its page.
+    // The wrapper below is sized with a fixed min-height so swapping cards
+    // never shifts the surrounding layout.
     $: facts = $t('home.hero.facts');
-    $: categories = [$t('home.index.sections.applications'), $t('home.roles.heading'), $t('home.index.sections.foundations')];
     const appLinks = ['/depin', 'https://celaut-project.github.io/skills', 'https://game-of-prompts.github.io'];
     const roleLinks = ['/depin', '/developers', '/users'];
-    $: apps = [...$t('home.applications.layer'), $t('home.applications.builtOn')];
-    let category = 0;
-    let factIndex = 0;
-    let factsTimer;
+    $: appCards = [...$t('home.applications.layer'), $t('home.applications.builtOn')].map((app, i) => ({
+        kind: 'app',
+        tag: i < 2 ? $t('home.applications.layerTag') : $t('home.applications.builtOnTag'),
+        title: app.name,
+        // The string already carries its own arrow; the template adds one.
+        cta: $t('common.readMore').replace(/\s*→\s*$/, ''),
+        href: appLinks[i]
+    }));
+    $: roleCards = $t('home.roles.items').map((role, i) => ({
+        kind: 'role',
+        tag: role.eyebrow,
+        title: role.title,
+        body: role.points[0],
+        cta: role.primary,
+        href: roleLinks[i]
+    }));
+    // Interleave so two link cards never sit back to back: a fact, then a
+    // role or an app, then a fact again. Facts outnumber the rest, so the
+    // tail of the cycle is plain facts.
+    $: cards = (() => {
+        const links = [];
+        const roles = [...roleCards];
+        const apps = [...appCards];
+        while (roles.length || apps.length) {
+            if (roles.length) links.push(roles.shift());
+            if (apps.length) links.push(apps.shift());
+        }
+        const out = [];
+        facts.forEach((text, i) => {
+            out.push({ kind: 'fact', body: text });
+            if (links[i]) out.push(links[i]);
+        });
+        return out.concat(links.slice(facts.length));
+    })();
+    let cardIndex = 0;
+    let cardsTimer;
     /** @type {HTMLDivElement} */
     let banner;
-    let manual = false;
-    let reducedMotion = false;
-    $: safeFactIndex = factIndex % facts.length;
-
-    /** @param {number} index */
-    function selectCategory(index) {
-        if (category === 2 && index === 2) factIndex += 1;
-        category = index;
-        manual = true;
-    }
+    // Clamp so a shorter translation can never leave the index out of range.
+    $: safeCardIndex = cardIndex % cards.length;
+    $: card = cards[safeCardIndex];
 
     // The tagline's reveal is choreographed to land after the wordmark on
     // first paint. A later replay (a language switch) should be immediate —
@@ -318,22 +349,28 @@
         }
         window.addEventListener('resize', onResize);
 
-        reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        // Pause while reading/interacting, offscreen, or in a background tab.
-        factsTimer = setInterval(() => {
-            if (manual || !heroLive || document.hidden ||
-                window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-                banner?.matches(':hover, :focus-within')) return;
-            if (category === 2) factIndex += 1;
-            category = (category + 1) % categories.length;
-        }, 10000);
+        // Rotate the hero cards every 4 seconds. Hold still while the
+        // visitor is hovering or has focus on the card (they may be about
+        // to click a link), while the hero is off screen, in a background
+        // tab, or when they asked for reduced motion.
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const bannerOnScreen = () => {
+            if (!banner) return false;
+            const r = banner.getBoundingClientRect();
+            return r.bottom > 0 && r.top < window.innerHeight;
+        };
+        cardsTimer = setInterval(() => {
+            if (document.hidden || reduceMotion.matches || !bannerOnScreen()) return;
+            if (banner?.matches(':hover, :focus-within')) return;
+            cardIndex = cardIndex + 1;
+        }, 4000);
 
         return () => {
             stopLoop();
             stopGate();
             clearTimeout(resizeTimer);
             window.removeEventListener('resize', onResize);
-            clearInterval(factsTimer);
+            clearInterval(cardsTimer);
             releaseCanvas(canvas);
         };
     });
@@ -360,42 +397,47 @@
             </h2>
         {/key}
         
-        <div class="facts" bind:this={banner}>
-            <div class="banner-nav">
-                {#each categories as label, index}
-                    <button type="button" class:active={category === index}
-                        aria-pressed={category === index} on:click={() => selectCategory(index)}>{label}</button>
-                {/each}
-            </div>
-            <div class="banner-body" aria-live={manual ? 'polite' : 'off'}>
-                {#key `${$locale}-${category}-${safeFactIndex}`}
-                    <div class="banner-panel" in:fade={{ duration: reducedMotion ? 0 : 250 }}>
-                        {#if category === 0}
-                            <div class="banner-links">
-                                {#each apps as app, index}
-                                    <a href={$href(appLinks[index])}>
-                                        <span class="banner-label">{index < 2 ? $t('home.applications.layerTag') : $t('home.applications.builtOnTag')}</span>
-                                        <strong>{app.name}</strong>
-                                        <span class="banner-cta">{$t('common.readMore')} <span aria-hidden="true">↗</span></span>
-                                    </a>
-                                {/each}
-                            </div>
-                        {:else if category === 1}
-                            <div class="banner-links">
-                                {#each $t('home.roles.items') as role, index}
-                                    <a href={$href(roleLinks[index])}>
-                                        <strong>{role.title}</strong>
-                                        <span class="banner-label">{role.points[0]}</span>
-                                        <span class="banner-cta">{role.primary} <span aria-hidden="true">→</span></span>
-                                    </a>
-                                {/each}
-                            </div>
-                        {:else}
-                            <p class="fact"><span class="fact-text">{facts[safeFactIndex]}</span></p>
-                        {/if}
-                    </div>
-                {/key}
-            </div>
+        <div class="facts" bind:this={banner} in:fly={{ y: 20, duration: 600, delay: 1600 }} aria-live="polite">
+            {#key `${$locale}-${safeCardIndex}`}
+                {#if card.kind === 'fact'}
+                    <p
+                        class="fact"
+                        in:fly={{ y: 14, duration: 500, delay: 180 }}
+                        out:fade={{ duration: 260 }}
+                    >
+                        <!-- The sentence lives in its own inline span, and that is
+                             load-bearing rather than cosmetic. `.fact` is a flex
+                             container (it centres the text in the fixed-height
+                             card). The glossary annotator splits a paragraph's
+                             single text node into `[Text, <button>, Text]` in
+                             place — and direct children of a flex container each
+                             become a flex ITEM, while whitespace-only anonymous
+                             boxes between them are discarded outright. So the
+                             moment a term matched here, one sentence turned into
+                             two or three side-by-side columns with the spaces
+                             eaten: "Lareputación" in one column, the rest in the
+                             next. Wrapping the copy makes the flex container hold
+                             exactly ONE item, so the split happens inside an
+                             ordinary inline formatting context and reads as one
+                             flowing sentence. -->
+                        <span class="fact-text">{card.body}</span>
+                    </p>
+                {:else}
+                    <!-- Role and application cards are one link each, so the
+                         whole card is the click target. -->
+                    <a
+                        class="fact link-card"
+                        href={$href(card.href)}
+                        in:fly={{ y: 14, duration: 500, delay: 180 }}
+                        out:fade={{ duration: 260 }}
+                    >
+                        <span class="card-tag">{card.tag}</span>
+                        <strong class="card-title">{card.title}</strong>
+                        {#if card.body}<span class="card-body">{card.body}</span>{/if}
+                        <span class="card-cta">{card.cta} <span aria-hidden="true">→</span></span>
+                    </a>
+                {/if}
+            {/key}
         </div>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
@@ -412,11 +454,11 @@
 
 <style>
     section {
-        min-height: 100svh;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 80px 20px;
+        padding: 20px;
         background-color: var(--surface-deep); /* Fondo sólido como fallback */
         overflow: hidden; /* Oculta lo que se salga de la sección */
         position: relative;
@@ -433,7 +475,6 @@
 
     .content-wrapper {
         position: relative;
-        width: 100%;
         z-index: 1;
         display: flex;
         flex-direction: column;
@@ -486,7 +527,7 @@
         position: relative;
         width: 100%;
         max-width: 720px;
-
+        min-height: 10em;
         margin: 28px auto 0;
         border-radius: 14px;
         background: rgba(var(--surface-rgb), 0.72);
@@ -497,6 +538,8 @@
     }
 
     .fact {
+        position: absolute;
+        inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -516,23 +559,52 @@
         display: block;
     }
 
-    .banner-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 12px; border-bottom: 1px solid var(--border); }
-    .banner-nav button { font: inherit; font-size: .82rem; border: 1px solid transparent; border-radius: 8px; padding: 10px 12px; background: transparent; color: var(--on-surface-muted); cursor: pointer; }
-    .banner-nav button.active { color: var(--accent-text); border-color: var(--border-strong); background: var(--surface-deep); }
-    .banner-nav button:focus-visible, .banner-links a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
-    .banner-body { min-height: 190px; display: grid; }
-    .banner-panel { display: grid; align-items: center; min-width: 0; }
-    .banner-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 14px; }
-    .banner-links a { display: flex; flex-direction: column; gap: 10px; padding: 14px 10px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--on-surface); background: var(--surface-deep); overflow-wrap: anywhere; }
-    .banner-links a:hover { border-color: var(--accent-text); }
-    .banner-label { font-size: .75rem; line-height: 1.5; color: var(--on-surface-muted); }
-    .banner-cta { font-size: .8rem; color: var(--accent-text); margin-top: auto; }
+    /* Role / application cards: a small tag, the name, one line of what it
+       is, and the page's own call to action. Same footprint as a fact. */
+    .link-card {
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        padding: 12px 28px;
+        text-decoration: none;
+        line-height: 1.4;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .link-card:hover,
+    .link-card:focus-visible {
+        background: rgba(var(--surface-rgb), 0.9);
+    }
+    .link-card:focus-visible {
+        outline: 2px solid var(--accent-text);
+        outline-offset: 3px;
+        border-radius: 14px;
+    }
+    .card-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--on-surface-muted);
+    }
+    .card-title {
+        font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+        color: var(--on-surface);
+    }
+    .card-body {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        color: var(--on-surface-muted);
+    }
+    .card-cta {
+        margin-top: 4px;
+        font-size: 0.9rem;
+        color: var(--accent-text);
+    }
     @media (max-width: 540px) {
-        .banner-body { min-height: 390px; }
-        .banner-links { grid-template-columns: 1fr; }
-        .banner-links a { gap: 5px; padding: 10px 12px; }
-        .banner-nav button { flex: 1; padding: 8px; }
-        .facts { margin-top: 16px; }
+        .facts {
+            min-height: 11.5em;
+        }
+        .link-card {
+            padding: 12px 18px;
+        }
     }
 
     .buttons {
