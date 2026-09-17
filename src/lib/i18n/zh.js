@@ -209,6 +209,15 @@ export default {
 			title: '本页内容',
 			open: '打开章节菜单',
 			close: '关闭章节菜单'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: '要点',
+			prev: '上一条',
+			next: '下一条',
+			goTo: '显示第 {n} 条'
 		}
 	},
 	theme: {

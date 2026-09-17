@@ -214,6 +214,15 @@ export default {
 			title: 'في هذه الصفحة',
 			open: 'فتح قائمة الأقسام',
 			close: 'إغلاق قائمة الأقسام'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'أبرز النقاط',
+			prev: 'النقطة السابقة',
+			next: 'النقطة التالية',
+			goTo: 'إظهار النقطة {n}'
 		}
 	},
 	theme: {

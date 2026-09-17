@@ -212,6 +212,15 @@ export default {
 			title: 'Trên trang này',
 			open: 'Mở menu các phần',
 			close: 'Đóng menu các phần'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Điểm nổi bật',
+			prev: 'Mục trước',
+			next: 'Mục tiếp theo',
+			goTo: 'Hiện mục {n}'
 		}
 	},
 	theme: {

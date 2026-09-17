@@ -55,8 +55,87 @@
     /** @type {HTMLDivElement} */
     let banner;
     // Clamp so a shorter translation can never leave the index out of range.
-    $: safeCardIndex = cardIndex % cards.length;
+    $: safeCardIndex = ((cardIndex % cards.length) + cards.length) % cards.length;
     $: card = cards[safeCardIndex];
+    // Direction of the last move, so the transition slides the way the
+    // reader just pushed. +1 forward (new card enters from below, as the
+    // automatic rotation has always done), -1 back.
+    let cardDir = 1;
+
+    /*
+     * MANUAL NAVIGATION
+     * -----------------
+     * The banner rotated on a timer and offered no way to go back, so a
+     * card that caught the reader's eye was gone before they could read
+     * it and there was no way to return to it. Arrows on either side,
+     * dots underneath, and the left/right keys once the group has focus.
+     *
+     * A manual move also HOLDS the rotation for a while rather than
+     * merely resetting the 4s interval: someone stepping through the
+     * cards is reading them, and having the next one arrive under their
+     * eyes mid-sentence is the same bug in a different costume. The
+     * hold is generous (12s) and self-expiring, so the banner resumes
+     * on its own without needing a "play" control nobody would press.
+     */
+    const HOLD_AFTER_INPUT = 12000;
+    let holdUntil = 0;
+
+    /** @param {number} delta */
+    function step(delta) {
+        cardDir = delta < 0 ? -1 : 1;
+        cardIndex = safeCardIndex + delta;
+        holdUntil = Date.now() + HOLD_AFTER_INPUT;
+    }
+
+    /** @param {number} i */
+    function goTo(i) {
+        if (i === safeCardIndex) return;
+        cardDir = i > safeCardIndex ? 1 : -1;
+        cardIndex = i;
+        holdUntil = Date.now() + HOLD_AFTER_INPUT;
+    }
+
+    /**
+     * Left/right anywhere inside the banner. Only those two keys are
+     * claimed, and only when no modifier is held, so nothing here can
+     * swallow a browser or screen-reader shortcut.
+     *
+     * @param {KeyboardEvent} event
+     */
+    function handleBannerKeydown(event) {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        // In an RTL document the left key still means "the card on the
+        // left", which is the NEXT one when the row is mirrored.
+        const rtl = document.documentElement.getAttribute('dir') === 'rtl';
+        if (event.key === 'ArrowLeft') step(rtl ? 1 : -1);
+        else if (event.key === 'ArrowRight') step(rtl ? -1 : 1);
+        else return;
+        event.preventDefault();
+    }
+
+    /**
+     * Attach the arrow-key handler imperatively.
+     *
+     * As an `on:keydown` attribute this trips `a11y_no_noninteractive_
+     * element_interactions`, and the lint rule is right about the shape
+     * of the thing even though it is wrong about this instance: the
+     * banner is a role="group" that is not itself focusable, and the
+     * keys are only ever delivered here because one of the real buttons
+     * INSIDE it has focus and the event bubbled. Nothing is keyboard-
+     * inaccessible — the arrows and dots are ordinary buttons — so the
+     * listener is attached here rather than silenced with an
+     * `svelte-ignore` that would also hide a genuine regression later.
+     *
+     * @param {HTMLElement} node
+     */
+    function arrowKeys(node) {
+        node.addEventListener('keydown', handleBannerKeydown);
+        return {
+            destroy() {
+                node.removeEventListener('keydown', handleBannerKeydown);
+            }
+        };
+    }
 
     // The tagline's reveal is choreographed to land after the wordmark on
     // first paint. A later replay (a language switch) should be immediate —
@@ -362,6 +441,9 @@
         cardsTimer = setInterval(() => {
             if (document.hidden || reduceMotion.matches || !bannerOnScreen()) return;
             if (banner?.matches(':hover, :focus-within')) return;
+            // Someone is stepping through the cards by hand; stay put.
+            if (Date.now() < holdUntil) return;
+            cardDir = 1;
             cardIndex = cardIndex + 1;
         }, 4000);
 
@@ -397,12 +479,47 @@
             </h2>
         {/key}
         
-        <div class="facts" bind:this={banner} in:fly={{ y: 20, duration: 600, delay: 1600 }} aria-live="polite">
+        <!-- role="group" + a name, so the arrows, the card and the dots are
+             announced as one thing rather than as three unrelated controls;
+             the keydown handler lives here so the arrow keys work wherever
+             focus is inside it. -->
+        <div
+            class="facts"
+            bind:this={banner}
+            in:fly={{ y: 20, duration: 600, delay: 1600 }}
+            aria-live="polite"
+            role="group"
+            aria-label={$t('common.carousel.nav')}
+            use:arrowKeys
+        >
+            <button
+                class="nav prev"
+                type="button"
+                on:click={() => step(-1)}
+                aria-label={$t('common.carousel.prev')}
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 5 8 12l7 7" />
+                </svg>
+            </button>
+            <button
+                class="nav next"
+                type="button"
+                on:click={() => step(1)}
+                aria-label={$t('common.carousel.next')}
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 5 7 7-7 7" />
+                </svg>
+            </button>
+
             {#key `${$locale}-${safeCardIndex}`}
                 {#if card.kind === 'fact'}
                     <p
                         class="fact"
-                        in:fly={{ y: 14, duration: 500, delay: 180 }}
+                        in:fly={{ y: 14 * cardDir, duration: 500, delay: 180 }}
                         out:fade={{ duration: 260 }}
                     >
                         <!-- The sentence lives in its own inline span, and that is
@@ -428,7 +545,7 @@
                     <a
                         class="fact link-card"
                         href={$href(card.href)}
-                        in:fly={{ y: 14, duration: 500, delay: 180 }}
+                        in:fly={{ y: 14 * cardDir, duration: 500, delay: 180 }}
                         out:fade={{ duration: 260 }}
                     >
                         <span class="card-tag">{card.tag}</span>
@@ -438,6 +555,22 @@
                     </a>
                 {/if}
             {/key}
+        </div>
+
+        <!-- Dots: position AND direct access. Outside `.facts` because that
+             box has a fixed height the cards fill absolutely; a row of dots
+             inside it would sit on top of the prose. -->
+        <div class="dots" in:fade={{ duration: 400, delay: 1800 }}>
+            {#each cards as _, i}
+                <button
+                    class="dot"
+                    class:on={i === safeCardIndex}
+                    type="button"
+                    on:click={() => goTo(i)}
+                    aria-label={$t('common.carousel.goTo').replace('{n}', String(i + 1))}
+                    aria-current={i === safeCardIndex ? 'true' : undefined}
+                ></button>
+            {/each}
         </div>
 
         <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
@@ -598,12 +731,126 @@
         font-size: 0.9rem;
         color: var(--accent-text);
     }
+    /* --- MANUAL NAVIGATION --------------------------------------- *
+       The arrows sit ON the card's edge rather than outside it: the
+       banner is already as wide as the hero allows, and putting them
+       outside would either narrow the prose or push them off a phone
+       screen. They are above the card (z-index) but the card's padding
+       keeps the text clear of them, so neither overlaps the other's
+       click target. */
+    .nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--on-surface-muted);
+        background: rgba(var(--surface-rgb), 0.78);
+        border: 1px solid var(--border);
+        transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .nav svg {
+        width: 18px;
+        height: 18px;
+    }
+    .nav:hover {
+        color: var(--accent-text);
+        border-color: var(--accent);
+        background: var(--surface);
+    }
+    .nav:focus-visible {
+        outline: 2px solid var(--accent-text);
+        outline-offset: 2px;
+    }
+    .prev {
+        left: -18px;
+    }
+    .next {
+        right: -18px;
+    }
+
+    .dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+    }
+    /* The hit area is the 22px button; the visible dot is the ::after.
+       Sized for a fingertip without drawing a row of large circles. */
+    .dot {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .dot::after {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(var(--surface-rgb), 0.9);
+        border: 1px solid var(--border-strong);
+        transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+    .dot:hover::after {
+        border-color: var(--accent);
+    }
+    .dot.on::after {
+        background: var(--accent);
+        border-color: var(--accent);
+        transform: scale(1.25);
+    }
+    .dot:focus-visible {
+        outline: 2px solid var(--accent-text);
+        outline-offset: 1px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .dot::after {
+            transition: none;
+        }
+        .nav {
+            transition: none;
+        }
+    }
+
     @media (max-width: 540px) {
         .facts {
             min-height: 11.5em;
         }
         .link-card {
             padding: 12px 18px;
+        }
+        /* No room to hang the arrows off the edge; tuck them inside and
+           let the card's own padding hold the text clear. */
+        .prev {
+            left: 2px;
+        }
+        .next {
+            right: 2px;
+        }
+        .fact {
+            padding-left: 44px;
+            padding-right: 44px;
+        }
+        .link-card {
+            padding-left: 44px;
+            padding-right: 44px;
         }
     }
 

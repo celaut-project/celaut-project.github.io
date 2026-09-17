@@ -212,6 +212,15 @@ export default {
 			title: 'На этой странице',
 			open: 'Открыть меню разделов',
 			close: 'Закрыть меню разделов'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Коротко о главном',
+			prev: 'Предыдущее',
+			next: 'Следующее',
+			goTo: 'Показать пункт {n}'
 		}
 	},
 	theme: {

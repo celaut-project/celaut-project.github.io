@@ -213,6 +213,15 @@ export default {
 			title: 'На цій сторінці',
 			open: 'Відкрити меню розділів',
 			close: 'Закрити меню розділів'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Коротко про головне',
+			prev: 'Попереднє',
+			next: 'Наступне',
+			goTo: 'Показати пункт {n}'
 		}
 	},
 	theme: {

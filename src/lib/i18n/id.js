@@ -214,6 +214,15 @@ export default {
 			title: 'Di halaman ini',
 			open: 'Buka menu bagian',
 			close: 'Tutup menu bagian'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Sorotan',
+			prev: 'Sorotan sebelumnya',
+			next: 'Sorotan berikutnya',
+			goTo: 'Tampilkan sorotan {n}'
 		}
 	},
 	theme: {

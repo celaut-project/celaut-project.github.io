@@ -211,6 +211,15 @@ export default {
 			title: '이 페이지의 목차',
 			open: '섹션 메뉴 열기',
 			close: '섹션 메뉴 닫기'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: '주요 내용',
+			prev: '이전',
+			next: '다음',
+			goTo: '{n}번째 항목 보기'
 		}
 	},
 	theme: {

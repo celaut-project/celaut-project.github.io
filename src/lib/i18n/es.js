@@ -214,6 +214,15 @@ export default {
 			title: 'En esta página',
 			open: 'Abrir el menú de secciones',
 			close: 'Cerrar el menú de secciones'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Destacados',
+			prev: 'Destacado anterior',
+			next: 'Destacado siguiente',
+			goTo: 'Mostrar el destacado {n}'
 		}
 	},
 	theme: {

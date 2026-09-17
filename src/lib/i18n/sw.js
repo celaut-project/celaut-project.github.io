@@ -213,6 +213,15 @@ export default {
 			title: 'Kwenye ukurasa huu',
 			open: 'Fungua menyu ya sehemu',
 			close: 'Funga menyu ya sehemu'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Vidokezo',
+			prev: 'Kidokezo kilichotangulia',
+			next: 'Kidokezo kinachofuata',
+			goTo: 'Onyesha kidokezo cha {n}'
 		}
 	},
 	theme: {

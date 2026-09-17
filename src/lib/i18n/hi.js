@@ -211,6 +211,15 @@ export default {
 			title: 'इस पेज पर',
 			open: 'सेक्शन मेनू खोलें',
 			close: 'सेक्शन मेनू बंद करें'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'ख़ास बातें',
+			prev: 'पिछली बात',
+			next: 'अगली बात',
+			goTo: 'बात {n} दिखाएँ'
 		}
 	},
 	theme: {

@@ -214,6 +214,15 @@ export default {
 			title: 'Pe această pagină',
 			open: 'Deschide meniul de secțiuni',
 			close: 'Închide meniul de secțiuni'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Pe scurt',
+			prev: 'Elementul anterior',
+			next: 'Elementul următor',
+			goTo: 'Arată elementul {n}'
 		}
 	},
 	theme: {

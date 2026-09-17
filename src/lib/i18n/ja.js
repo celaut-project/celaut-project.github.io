@@ -212,6 +212,15 @@ export default {
 			title: 'このページの内容',
 			open: 'セクションメニューを開く',
 			close: 'セクションメニューを閉じる'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'ハイライト',
+			prev: '前へ',
+			next: '次へ',
+			goTo: '{n}件目を表示'
 		}
 	},
 	theme: {
