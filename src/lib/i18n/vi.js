@@ -172,6 +172,27 @@ export default {
 				title: 'NET',
 				body: 'Giới hạn đã tuyên bố về những gì chương trình đang chạy được phép nói chuyện qua mạng — dịch vụ bên ngoài nào, nếu có, và không gì khác.',
 				more: 'Phần thứ ba của service Celaut. Service không nêu mạng nào thì không với tới thế giới bên ngoài — cũng vì thế kết quả kiểm được.'
+			},
+			{
+				// ledger
+				match: ['ledger'],
+				title: 'Ledger (sổ cái)',
+				body: 'Quyển sổ ghi các tài khoản: ai trả cho ai, ai nợ gì, hết mục này đến mục khác theo đúng thứ tự chúng xảy ra. Từ này có trước máy tính — sổ sách của một cửa hàng cũng là một ledger.',
+				more: 'Ở đây là loại dùng chung và công khai mà một blockchain giữ. Hồ sơ danh tiếng được ghi vào đó và các khoản thanh toán được tất toán ở đó; kiến trúc không chỉ định quyển nào, và Ergo là cái đang dùng hôm nay chứ không phải nền móng.'
+			},
+			{
+				// parent-service
+				match: ['service cha'],
+				title: 'Service cha',
+				body: 'Service đã yêu cầu một service khác. Một service đang chạy có thể xin node của nó chạy thêm service; bên đi xin là service cha: nó nêu rõ tài nguyên mà mỗi service con cần và giao cho chúng một ngân sách để tiêu.',
+				more: 'Service cha cũng là trần: một service con chỉ chạm tới được những mạng mà cha nó đã có — không thứ gì một service khởi động lại vươn xa hơn chính nó.'
+			},
+			{
+				// child-service
+				match: ['service con'],
+				title: 'Service con',
+				body: 'Service được một service khác yêu cầu. Node chạy nó, chứ không phải bên yêu cầu: nó nêu tài nguyên mình cần, còn rốt cuộc nó chạy ở đâu thì không phải quyết định của service cha, cũng chẳng phải việc của cha nó.',
+				more: 'Ở đây công việc lớn được dựng lên như thế — service yêu cầu service, thay vì một kế hoạch tập trung quyết định cái gì chạy ở đâu.'
 			}
 		]
 	},
@@ -191,6 +212,15 @@ export default {
 			title: 'Trên trang này',
 			open: 'Mở menu các phần',
 			close: 'Đóng menu các phần'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Điểm nổi bật',
+			prev: 'Mục trước',
+			next: 'Mục tiếp theo',
+			goTo: 'Hiện mục {n}'
 		}
 	},
 	theme: {
@@ -1229,11 +1259,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Cài Nodo — Celaut',
-			description: 'Cài một node Celaut (nodo) trên Linux, Windows hoặc macOS.'
+			description: 'Cài một node Celaut (Nodo) trên Linux, Windows hoặc macOS.'
 		},
-		topbarTitle: 'Cài nodo',
+		topbarTitle: 'Cài Nodo',
 		heading: 'Chạy một node Celaut',
-		subtitle: 'Cài <strong>nodo</strong> và gia nhập mạng lưới phi tập trung — tìm các node ngang hàng, thực thi và điều phối service, và biến cỗ máy của bạn thành năng lực tính toán chung, chống kiểm duyệt.',
+		subtitle: 'Cài <strong>Nodo</strong> và gia nhập mạng lưới phi tập trung — tìm các node ngang hàng, thực thi và điều phối service, và biến cỗ máy của bạn thành năng lực tính toán chung, chống kiểm duyệt.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1266,7 +1296,7 @@ export default {
 				'Hỗ trợ macOS đang được lên kế hoạch. Trong lúc chờ, bạn có thể chạy node trên một máy Linux hoặc một máy ảo Linux.',
 				'Theo dõi {link} để biết cập nhật.'
 			],
-			repoLink: 'kho mã nodo'
+			repoLink: 'kho mã Nodo'
 		}
 	},
 	paradigm: {

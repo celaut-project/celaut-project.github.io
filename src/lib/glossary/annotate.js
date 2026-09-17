@@ -62,7 +62,8 @@ import {
 	MAX_PER_SECTION,
 	MAX_PER_PAGE,
 	SECTION_SCOPE,
-	GLOSSARY_IDS
+	GLOSSARY_IDS,
+	PROPER_NAMES
 } from './terms.js';
 
 /**
@@ -297,6 +298,11 @@ export function annotate(root, terms) {
 				re.lastIndex = 0;
 				let m;
 				while ((m = re.exec(text))) {
+					// A product name is never a term, whichever alias caught it.
+					// Checked on the matched string rather than on the alias, so
+					// that a locale keeps `nodo` (its common noun) while `Nodo`
+					// (the software) goes unmarked — see PROPER_NAMES.
+					if (PROPER_NAMES.has(m[0])) continue;
 					const id = resolve(owner, m[0]);
 					if (!id) continue;
 					raw.push({ start: m.index, end: m.index + m[0].length, id, word: m[0] });

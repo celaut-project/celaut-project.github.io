@@ -172,6 +172,27 @@ export default {
 				title: 'NET',
 				body: 'La limite déclarée de ce à quoi un programme en cours d’exécution a le droit de parler sur le réseau — quels services extérieurs, le cas échéant, et rien d’autre.',
 				more: 'La troisième partie d’un service Celaut. Un service qui ne nomme aucun réseau ne peut pas atteindre le monde extérieur, ce qui rend aussi son résultat vérifiable.'
+			},
+			{
+				// ledger
+				match: ['sur des registres', 'dans le registre', 'registre particulier'],
+				title: 'Registre (ledger)',
+				body: 'Le livre où l’on tient des comptes : qui a payé qui, qui doit quoi, une écriture après l’autre dans l’ordre où elles sont arrivées. Le mot est plus ancien que l’informatique : la comptabilité d’un commerce est un registre.',
+				more: 'Ici il s’agit du registre partagé et public que tient une blockchain. On y écrit les enregistrements de réputation et on y règle les paiements ; rien dans l’architecture ne dit lequel, et Ergo est celui qui sert aujourd’hui, pas une fondation.'
+			},
+			{
+				// parent-service
+				match: ['service parent', 'parent'],
+				title: 'Service parent',
+				body: 'Le service qui en a demandé un autre. Un service en cours d’exécution peut demander d’autres services à son nœud ; celui qui demande est le parent : il indique les ressources dont chacun a besoin et leur remet un budget à dépenser.',
+				more: 'Le parent est aussi le plafond : un enfant ne peut atteindre que les réseaux que son parent avait déjà, si bien que rien de ce qu’un service lance ne va plus loin que lui.'
+			},
+			{
+				// child-service
+				match: ['services enfants', 'service enfant', 'enfant'],
+				title: 'Service enfant',
+				body: 'Un service qu’un autre service a demandé. C’est le nœud qui l’exécute, pas le demandeur : il indique les ressources dont il a besoin, et l’endroit où il finit par tourner n’est ni la décision ni l’affaire de son parent.',
+				more: 'C’est ainsi que se construit ici le travail plus vaste — des services qui demandent des services, plutôt qu’un plan central décidant de ce qui tourne où.'
 			}
 		]
 	},
@@ -191,6 +212,15 @@ export default {
 			title: 'Sur cette page',
 			open: 'Ouvrir le menu des sections',
 			close: 'Fermer le menu des sections'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'En bref',
+			prev: 'Élément précédent',
+			next: 'Élément suivant',
+			goTo: 'Afficher l’élément {n}'
 		}
 	},
 	theme: {
@@ -1229,11 +1259,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Installer Nodo — Celaut',
-			description: 'Installez un nœud Celaut (nodo) sur Linux, Windows ou macOS.'
+			description: 'Installez un nœud Celaut (Nodo) sur Linux, Windows ou macOS.'
 		},
-		topbarTitle: 'Installer nodo',
+		topbarTitle: 'Installer Nodo',
 		heading: 'Faites tourner un nœud Celaut',
-		subtitle: 'Installez <strong>nodo</strong> et rejoignez le réseau décentralisé — découvrez des pairs, exécutez et orchestrez des services, et transformez votre machine en puissance de calcul partagée et résistante à la censure.',
+		subtitle: 'Installez <strong>Nodo</strong> et rejoignez le réseau décentralisé — découvrez des pairs, exécutez et orchestrez des services, et transformez votre machine en puissance de calcul partagée et résistante à la censure.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1266,7 +1296,7 @@ export default {
 				'La prise en charge de macOS est prévue. En attendant, vous pouvez faire tourner un nœud sur une machine Linux ou une VM Linux.',
 				'Suivez le {link} pour les mises à jour.'
 			],
-			repoLink: 'dépôt de nodo'
+			repoLink: 'dépôt de Nodo'
 		}
 	},
 	paradigm: {

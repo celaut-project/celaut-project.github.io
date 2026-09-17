@@ -174,6 +174,27 @@ export default {
 				title: 'NET',
 				body: 'Batas yang dinyatakan tentang apa yang boleh dihubungi program yang sedang berjalan lewat jaringan — layanan luar yang mana, jika ada, dan tidak lebih.',
 				more: 'Bagian ketiga dari service Celaut. Service yang tidak menyebut jaringan tidak bisa menjangkau dunia luar, yang juga membuat hasilnya bisa diperiksa.'
+			},
+			{
+				// ledger
+				match: ['ledger'],
+				title: 'Ledger (buku besar)',
+				body: 'Buku tempat sekumpulan rekening dicatat: siapa membayar siapa, siapa berutang apa, satu entri demi satu entri sesuai urutan kejadiannya. Katanya lebih tua dari komputer — pembukuan sebuah toko juga sebuah ledger.',
+				more: 'Di sini yang dimaksud yang bersama dan terbuka, seperti yang dijaga sebuah blockchain. Catatan reputasi ditulis ke sana dan pembayaran diselesaikan di sana; arsitekturnya tak menyebut yang mana, dan Ergo adalah yang dipakai hari ini, bukan fondasi.'
+			},
+			{
+				// parent-service
+				match: ['service induk', 'induk'],
+				title: 'Service induk',
+				body: 'Service yang meminta service lain. Sebuah service yang sedang berjalan bisa meminta service tambahan lewat node-nya; yang meminta adalah induknya: ia menyatakan sumber daya yang dibutuhkan masing-masing dan menyerahkan anggaran untuk dibelanjakan.',
+				more: 'Induk sekaligus batas atasnya: seorang anak hanya bisa menjangkau jaringan yang sudah dimiliki induknya — tak ada yang dimulai sebuah service bisa menjangkau lebih jauh daripada service itu sendiri.'
+			},
+			{
+				// child-service
+				match: ['service anak', 'anak-anaknya', 'anak'],
+				title: 'Service anak',
+				body: 'Service yang diminta oleh service lain. Yang menjalankannya adalah node, bukan yang meminta: ia menyatakan sumber daya yang ia butuhkan, dan di mana ia akhirnya berjalan bukan keputusan induknya, juga bukan urusannya.',
+				more: 'Begitulah pekerjaan besar dibangun di sini — service meminta service, bukan rencana terpusat yang memutuskan apa berjalan di mana.'
 			}
 		]
 	},
@@ -193,6 +214,15 @@ export default {
 			title: 'Di halaman ini',
 			open: 'Buka menu bagian',
 			close: 'Tutup menu bagian'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Sorotan',
+			prev: 'Sorotan sebelumnya',
+			next: 'Sorotan berikutnya',
+			goTo: 'Tampilkan sorotan {n}'
 		}
 	},
 	theme: {
@@ -1231,11 +1261,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Pasang Nodo — Celaut',
-			description: 'Pasang node Celaut (nodo) di Linux, Windows, atau macOS.'
+			description: 'Pasang node Celaut (Nodo) di Linux, Windows, atau macOS.'
 		},
-		topbarTitle: 'Pasang nodo',
+		topbarTitle: 'Pasang Nodo',
 		heading: 'Jalankan node Celaut',
-		subtitle: 'Pasang <strong>nodo</strong> dan bergabunglah ke jaringan terdesentralisasi — temukan rekan, jalankan dan orkestrasikan service, dan ubah mesinmu jadi komputasi bersama yang tahan sensor.',
+		subtitle: 'Pasang <strong>Nodo</strong> dan bergabunglah ke jaringan terdesentralisasi — temukan rekan, jalankan dan orkestrasikan service, dan ubah mesinmu jadi komputasi bersama yang tahan sensor.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1268,7 +1298,7 @@ export default {
 				'Dukungan untuk macOS sedang direncanakan. Sementara itu, kamu bisa menjalankan node di mesin Linux atau VM Linux.',
 				'Ikuti {link} untuk pembaruan.'
 			],
-			repoLink: 'repositori nodo'
+			repoLink: 'repositori Nodo'
 		}
 	},
 	paradigm: {

@@ -81,8 +81,11 @@
 			{#if os === 'linux'}
 				<h2>{$t('install.linux.heading')}</h2>
 				<p>{$t('install.linux.intro')}</p>
+				<!-- The command scrolls inside its own box; the button sits
+				     outside that box and is therefore always on screen. See the
+				     note on .code-block in the stylesheet. -->
 				<div class="code-block">
-					<code>{LINUX_CMD}</code>
+					<div class="code-scroll"><code>{LINUX_CMD}</code></div>
 					<button class="copy" on:click={copyCmd}
 						>{copied ? $t('install.copied') : $t('install.copy')}</button
 					>
@@ -203,6 +206,28 @@
 		margin: 0 0 20px 0;
 	}
 
+	/*
+	 * The install command is one long unbreakable line, and the button
+	 * that copies it is the only thing on this page a visitor actually
+	 * has to press.
+	 *
+	 * Those two facts used to fight: the whole row scrolled, so on any
+	 * viewport narrower than the command (which is every phone, and most
+	 * laptops at this max-width) the button sat past the right edge of
+	 * the box and had to be scrolled to horizontally. A copy button you
+	 * have to find is a copy button that does not exist.
+	 *
+	 * So the overflow is moved one level in. `.code-scroll` is the only
+	 * thing that scrolls; the row itself never does, and the button is a
+	 * sibling of the scroller rather than its neighbour inside it. It
+	 * cannot leave the viewport, whatever the command's length or the
+	 * translation of "Copy".
+	 *
+	 * `min-width: 0` on the scroller is load-bearing: a flex item's
+	 * default `min-width: auto` is its CONTENT's width, so without it the
+	 * nowrap line would refuse to shrink and push the row wide again —
+	 * reinstating exactly the bug this replaced.
+	 */
 	.code-block {
 		display: flex;
 		align-items: center;
@@ -212,14 +237,21 @@
 		border-radius: 10px;
 		padding: 16px 18px;
 		margin-bottom: 20px;
+	}
+	.code-scroll {
+		flex: 1;
+		min-width: 0;
 		overflow-x: auto;
+		/* Keep the scrollbar off the text on platforms that show one. */
+		padding-bottom: 2px;
+		scrollbar-width: thin;
 	}
 	.code-block code {
 		font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 		font-size: 0.9rem;
 		color: var(--on-surface);
 		white-space: nowrap;
-		flex: 1;
+		display: block;
 	}
 	.copy {
 		flex-shrink: 0;
@@ -287,6 +319,20 @@
 		}
 		.panel {
 			padding: 28px 20px;
+		}
+		/* At phone widths the button would eat most of the row, leaving a
+		   peephole of command. Give it back some room without letting the
+		   button shrink out of reach. */
+		.code-block {
+			padding: 12px 12px;
+			gap: 8px;
+		}
+		.code-block code {
+			font-size: 0.8rem;
+		}
+		.copy {
+			padding: 8px 12px;
+			font-size: 0.9rem;
 		}
 	}
 </style>

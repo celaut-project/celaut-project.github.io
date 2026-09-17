@@ -169,6 +169,27 @@ export default {
 				title: 'NET',
 				body: '正在运行的程序被允许通过网络交谈的对象——哪些外部服务（如果有的话），除此之外没有别的。',
 				more: 'Celaut 服务的第三部分。一个不点名任何网络的服务无法触及外部世界，这也使它的结果可以核对。'
+			},
+			{
+				// ledger
+				match: ['账本'],
+				title: '账本',
+				body: '记账用的簿子：谁付给了谁、谁欠了什么，按事情发生的先后一条一条记下来。这个词比计算机更老——一家小店的账簿也是账本。',
+				more: '这里指的是区块链所维护的那种共享而公开的账本。信誉记录写在上面，付款也在上面结清；架构本身并不指定哪一个，Ergo 是今天在用的账本，而不是地基。'
+			},
+			{
+				// parent-service
+				match: ['父服务'],
+				title: '父服务',
+				body: '请求了另一个服务的那个服务。运行中的服务可以通过自己的节点再请求服务，发出请求的一方就是父服务：它声明每个子服务所需的资源，并划拨一份可支配的预算。',
+				more: '父服务同时也是上限：子服务只能触及父服务本就拥有的网络——一个服务启动的东西，伸不到比它自己更远的地方。'
+			},
+			{
+				// child-service
+				match: ['子服务'],
+				title: '子服务',
+				body: '由另一个服务请求而来的服务。运行它的是节点，而不是发出请求的一方：它只声明自己需要的资源，最终落在哪里既不由父服务决定，也不归父服务过问。',
+				more: '这里的大工程就是这样搭起来的——服务请求服务，而不是由一份中央计划决定什么跑在哪里。'
 			}
 		]
 	},
@@ -188,6 +209,15 @@ export default {
 			title: '本页内容',
 			open: '打开章节菜单',
 			close: '关闭章节菜单'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: '要点',
+			prev: '上一条',
+			next: '下一条',
+			goTo: '显示第 {n} 条'
 		}
 	},
 	theme: {
@@ -1226,11 +1256,11 @@ export default {
 	install: {
 		meta: {
 			title: '安装 Nodo — Celaut',
-			description: '在 Linux、Windows 或 macOS 上安装一个 Celaut 节点(nodo)。'
+			description: '在 Linux、Windows 或 macOS 上安装一个 Celaut 节点(Nodo)。'
 		},
-		topbarTitle: '安装 nodo',
+		topbarTitle: '安装 Nodo',
 		heading: '运行一个 Celaut 节点',
-		subtitle: '安装 <strong>nodo</strong>,加入这个去中心化网络——发现对等节点、执行并编排服务,把你的机器变成共享的、抗审查的算力。',
+		subtitle: '安装 <strong>Nodo</strong>,加入这个去中心化网络——发现对等节点、执行并编排服务,把你的机器变成共享的、抗审查的算力。',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1263,7 +1293,7 @@ export default {
 				'对 macOS 的支持已在计划之中。在此之前,你可以在一台 Linux 机器或 Linux 虚拟机上运行节点。',
 				'关注{link}以获取最新进展。'
 			],
-			repoLink: 'nodo 代码仓库'
+			repoLink: 'Nodo 代码仓库'
 		}
 	},
 	paradigm: {

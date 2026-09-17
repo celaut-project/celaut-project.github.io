@@ -34,6 +34,15 @@ export default {
 			title: 'On this page',
 			open: 'Open section menu',
 			close: 'Close section menu'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'Highlights',
+			prev: 'Previous highlight',
+			next: 'Next highlight',
+			goTo: 'Show highlight {n}'
 		}
 	},
 
@@ -95,6 +104,14 @@ export default {
 	 * this array by index. Adding one means adding it to every locale
 	 * in the same position — `node scripts/check-i18n-keys.mjs` fails
 	 * loudly if a locale is left short.
+	 *
+	 * PRODUCT NAMES ARE NOT TERMS. `PROPER_NAMES` in terms.js holds the
+	 * spellings that are never marked, whichever alias catches them.
+	 * "Nodo" is the node implementation's name and also, lower-cased,
+	 * the ordinary Spanish/Portuguese word for a node — so `nodo` stays
+	 * in the `node` aliases (it is the common noun in that prose) while
+	 * the capitalised name goes unmarked. Do not solve a case like that
+	 * by deleting the alias; that costs the locale a real definition.
 	 */
 	glossary: {
 		toggleOn: 'Explain technical terms',
@@ -255,6 +272,27 @@ export default {
 				title: 'NET',
 				body: 'The declared limit on what a running program is allowed to talk to over the network — which outside services, if any, and nothing else.',
 				more: 'The third part of a Celaut service. A service that names no networks cannot reach the outside world, which is also what makes its result checkable.'
+			},
+			{
+				// ledger
+				match: ['ledger'],
+				title: 'Ledger',
+				body: 'The book a set of accounts is kept in — who paid whom, who owes what, one entry after another in the order they happened. The word is older than computing: a shop’s accounts are a ledger.',
+				more: 'Here it is the shared, public kind, the sort a blockchain keeps. Reputation records are written to one and payments are settled on one; nothing in the architecture names which, and Ergo is the ledger in use today rather than a foundation.'
+			},
+			{
+				// parent-service
+				match: ['parent service', 'parent'],
+				title: 'Parent service',
+				body: 'The service that asked for another one. A running service can ask its node for more services, and the one doing the asking is the parent: it states what resources each of them needs and hands over a budget for them to spend.',
+				more: 'The parent is also the ceiling. A child may only reach networks its parent already had, so nothing a service starts can end up with more reach than the service that started it.'
+			},
+			{
+				// child-service
+				match: ['child service', 'children', 'child'],
+				title: 'Child service',
+				body: 'A service that another service asked for. The node runs it, not the one who asked: it states the resources it needs, and where it ends up running is neither its parent’s decision nor its parent’s business.',
+				more: 'This is how larger work is built here — services requesting services, instead of a central plan deciding what runs where.'
 			}
 		]
 	},
@@ -1307,12 +1345,12 @@ export default {
 	install: {
 		meta: {
 			title: 'Install Nodo — Celaut',
-			description: 'Install a Celaut node (nodo) on Linux, Windows, or macOS.'
+			description: 'Install a Celaut node (Nodo) on Linux, Windows, or macOS.'
 		},
-		topbarTitle: 'Install nodo',
+		topbarTitle: 'Install Nodo',
 		heading: 'Run a Celaut Node',
 		subtitle:
-			'Install <strong>nodo</strong> and join the decentralized network — discover peers, execute and orchestrate services, and turn your machine into shared, censorship-resistant compute.',
+			'Install <strong>Nodo</strong> and join the decentralized network — discover peers, execute and orchestrate services, and turn your machine into shared, censorship-resistant compute.',
 		tabs: { linux: 'Linux', windows: 'Windows', mac: 'macOS' },
 		copy: 'Copy',
 		copied: 'Copied ✓',
@@ -1341,7 +1379,7 @@ export default {
 				'Support for macOS is planned. In the meantime, you can run a node on a Linux machine or a Linux VM.',
 				'Follow {link} for updates.'
 			],
-			repoLink: 'the nodo repository'
+			repoLink: 'the Nodo repository'
 		}
 	},
 

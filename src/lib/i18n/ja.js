@@ -172,6 +172,27 @@ export default {
 				title: 'NET',
 				body: '実行中のプログラムがネットワーク越しに話してよい相手の、宣言された上限——外部のどのサービスか（あれば）、それ以外は何もない。',
 				more: 'Celautサービスの第三の部分。ネットワークを一つも指名しないサービスは外界に届かず、だから結果も検証できる。'
+			},
+			{
+				// ledger
+				match: ['台帳'],
+				title: '台帳',
+				body: '勘定を書き留めておく帳簿です。誰が誰に払ったか、誰が何を負っているかを、起きた順に一行ずつ記します。言葉自体はコンピュータより古く、店の帳簿も台帳です。',
+				more: 'ここで言うのは、ブロックチェーンが保つ共有の公開台帳です。評判の記録はそこに書かれ、支払いもそこで清算されます。どれを使うかは設計が定めておらず、Ergoは今日使われている台帳であって土台ではありません。'
+			},
+			{
+				// parent-service
+				match: ['親サービス'],
+				title: '親サービス',
+				body: '別のサービスを要求した側のサービスです。動いているサービスは自分のノードにさらにサービスを頼めます。頼んだ側が親で、それぞれに必要なリソースを示し、使うための予算を渡します。',
+				more: '親は上限でもあります。子が届くのは親がすでに持っていたネットワークだけで、サービスが起こしたものが自分より遠くへ届くことはありません。'
+			},
+			{
+				// child-service
+				match: ['子サービス'],
+				title: '子サービス',
+				body: '別のサービスが要求したサービスです。動かすのは頼んだ側ではなくノードで、子は必要なリソースを示すだけ。どこで動くことになるかは親の決めることでも、親の知るところでもありません。',
+				more: 'ここで大きな仕事はこうして組み上がります——サービスがサービスを頼むのであって、何をどこで動かすかを中央の計画が決めるのではありません。'
 			}
 		]
 	},
@@ -191,6 +212,15 @@ export default {
 			title: 'このページの内容',
 			open: 'セクションメニューを開く',
 			close: 'セクションメニューを閉じる'
+		},
+		// Labels for the hero carousel’s manual controls. Generic
+		// rather than hero-specific, so a second rotating group can
+		// reuse them without a second set of strings to translate.
+		carousel: {
+			nav: 'ハイライト',
+			prev: '前へ',
+			next: '次へ',
+			goTo: '{n}件目を表示'
 		}
 	},
 	theme: {
@@ -1229,11 +1259,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Nodoをインストールする — Celaut',
-			description: 'Linux、Windows、macOSにCelautのノード(nodo)をインストールする。'
+			description: 'Linux、Windows、macOSにCelautのノード(Nodo)をインストールする。'
 		},
-		topbarTitle: 'nodoをインストール',
+		topbarTitle: 'Nodoをインストール',
 		heading: 'Celautのノードを動かす',
-		subtitle: '<strong>nodo</strong>をインストールして分散型ネットワークに参加しよう——ピアを発見し、サービスを実行・オーケストレーションし、あなたのマシンを共有され検閲耐性のある計算資源に変える。',
+		subtitle: '<strong>Nodo</strong>をインストールして分散型ネットワークに参加しよう——ピアを発見し、サービスを実行・オーケストレーションし、あなたのマシンを共有され検閲耐性のある計算資源に変える。',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1266,7 +1296,7 @@ export default {
 				'macOSのサポートは予定されている。それまでは、Linuxマシンまたは Linuxの仮想マシン上でノードを動かすことができる。',
 				'最新情報については{link}をフォローしてください。'
 			],
-			repoLink: 'nodoのリポジトリ'
+			repoLink: 'Nodoのリポジトリ'
 		}
 	},
 	paradigm: {
