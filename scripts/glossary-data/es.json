@@ -219,6 +219,33 @@
       "title": "NET",
       "body": "El límite declarado de con qué puede hablar un programa en ejecución a través de la red: qué servicios de fuera, si alguno, y nada más.",
       "more": "La tercera parte de un servicio Celaut. Un servicio que no nombra redes no puede alcanzar el mundo exterior, que es también lo que hace comprobable su resultado."
+    },
+    "ledger": {
+      "match": [
+        "ledger"
+      ],
+      "title": "Ledger (libro de registro)",
+      "body": "El libro donde se llevan unas cuentas: quién pagó a quién, quién debe qué, un asiento tras otro en el orden en que ocurrieron. La palabra es anterior a la informática: la contabilidad de una tienda es un ledger.",
+      "more": "Aquí es del tipo compartido y público que mantiene una blockchain. En él se escriben los registros de reputación y se liquidan los pagos; nada en la arquitectura fija cuál, y Ergo es el que se usa hoy, no un cimiento."
+    },
+    "parent-service": {
+      "match": [
+        "servicio padre",
+        "padre"
+      ],
+      "title": "Servicio padre",
+      "body": "El servicio que pidió otro. Un servicio en ejecución puede pedirle más servicios a su nodo; el que los pide es el padre: declara los recursos que necesita cada uno y les entrega un presupuesto para gastar.",
+      "more": "El padre es además el techo: un hijo solo alcanza las redes que el padre ya tenía, así que nada de lo que un servicio arranca llega más lejos que él."
+    },
+    "child-service": {
+      "match": [
+        "servicios hijo",
+        "servicio hijo",
+        "hijo"
+      ],
+      "title": "Servicio hijo",
+      "body": "Un servicio que pidió otro servicio. Lo ejecuta el nodo, no quien lo pidió: declara los recursos que necesita, y dónde acaba ejecutándose ni lo decide su padre ni es asunto suyo.",
+      "more": "Así se construye aquí el trabajo grande: servicios que piden servicios, en lugar de un plan central que decida qué corre dónde."
     }
   }
 }

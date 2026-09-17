@@ -174,6 +174,27 @@ export default {
 				title: 'NET',
 				body: 'Limita declarată a ceea ce un program în execuție are voie să contacteze pe rețea — care servicii din afară, dacă e cazul, și nimic altceva.',
 				more: 'A treia parte a unui serviciu Celaut. Un serviciu care nu numește rețele nu ajunge în lumea de afară, ceea ce face și rezultatul verificabil.'
+			},
+			{
+				// ledger
+				match: ['în registre', 'în registru', 'registru anume'],
+				title: 'Registru (ledger)',
+				body: 'Cartea în care se țin niște conturi: cine cui i-a plătit, cine ce datorează, o însemnare după alta, în ordinea în care s-au petrecut. Cuvântul e mai vechi decât calculatoarele: contabilitatea unui magazin e un registru.',
+				more: 'Aici e vorba de cel comun și public, ținut de un blockchain. În el se scriu înregistrările de reputație și se decontează plățile; nimic din arhitectură nu spune care anume, iar Ergo e cel folosit azi, nu o temelie.'
+			},
+			{
+				// parent-service
+				match: ['serviciul părinte', 'părintele', 'părinte'],
+				title: 'Serviciu părinte',
+				body: 'Serviciul care a cerut un altul. Un serviciu în execuție poate cere nodului său încă servicii; cel care cere e părintele: precizează resursele de care are nevoie fiecare și le predă un buget de cheltuit.',
+				more: 'Părintele e și plafonul: un copil ajunge doar la rețelele pe care părintele le avea deja, așa că nimic din ce pornește un serviciu nu ajunge mai departe decât el.'
+			},
+			{
+				// child-service
+				match: ['servicii-copil', 'serviciile-copil', 'copiii', 'copil'],
+				title: 'Serviciu-copil',
+				body: 'Un serviciu cerut de alt serviciu. Îl rulează nodul, nu cel care l-a cerut: precizează resursele de care are nevoie, iar unde ajunge să ruleze nu e nici decizia părintelui, nici treaba lui.',
+				more: 'Așa se construiește aici lucrul mare — servicii care cer servicii, în locul unui plan central care hotărăște ce rulează unde.'
 			}
 		]
 	},
@@ -1231,11 +1252,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Instalează Nodo — Celaut',
-			description: 'Instalează un nod Celaut (nodo) pe Linux, Windows sau macOS.'
+			description: 'Instalează un nod Celaut (Nodo) pe Linux, Windows sau macOS.'
 		},
-		topbarTitle: 'Instalează nodo',
+		topbarTitle: 'Instalează Nodo',
 		heading: 'Rulează un nod Celaut',
-		subtitle: 'Instalează <strong>nodo</strong> și intră în rețeaua descentralizată — descoperă semeni, execută și orchestrează servicii și transformă-ți mașina în putere de calcul partajată și rezistentă la cenzură.',
+		subtitle: 'Instalează <strong>Nodo</strong> și intră în rețeaua descentralizată — descoperă semeni, execută și orchestrează servicii și transformă-ți mașina în putere de calcul partajată și rezistentă la cenzură.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1268,7 +1289,7 @@ export default {
 				'Suportul pentru macOS este planificat. Între timp, poți rula un nod pe o mașină Linux sau într-o mașină virtuală Linux.',
 				'Urmărește {link} pentru noutăți.'
 			],
-			repoLink: 'depozitul nodo'
+			repoLink: 'depozitul Nodo'
 		}
 	},
 	paradigm: {

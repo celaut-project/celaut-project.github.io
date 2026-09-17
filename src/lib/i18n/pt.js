@@ -172,6 +172,27 @@ export default {
 				title: 'NET',
 				body: 'O limite declarado do que um programa em execução pode contactar na rede — que serviços de fora, se algum, e mais nada.',
 				more: 'A terceira parte de um serviço Celaut. Um serviço que não nomeia redes não alcança o mundo exterior, o que também torna o resultado verificável.'
+			},
+			{
+				// ledger
+				match: ['ledger'],
+				title: 'Ledger (livro-razão)',
+				body: 'O livro onde se guardam contas: quem pagou a quem, quem deve o quê, um lançamento atrás do outro pela ordem em que aconteceram. A palavra é anterior à informática: a contabilidade de uma loja é um ledger.',
+				more: 'Aqui é do tipo partilhado e público que uma blockchain mantém. Nele se escrevem os registos de reputação e se liquidam os pagamentos; nada na arquitetura diz qual, e o Ergo é o que se usa hoje, não um alicerce.'
+			},
+			{
+				// parent-service
+				match: ['serviço pai', 'pai'],
+				title: 'Serviço pai',
+				body: 'O serviço que pediu outro. Um serviço em execução pode pedir mais serviços ao seu nó; quem pede é o pai: declara os recursos de que cada um precisa e entrega um orçamento para gastarem.',
+				more: 'O pai é também o teto: um filho só alcança as redes que o pai já tinha, por isso nada do que um serviço arranca chega mais longe do que ele.'
+			},
+			{
+				// child-service
+				match: ['serviços filhos', 'serviço filho', 'filho'],
+				title: 'Serviço filho',
+				body: 'Um serviço que outro serviço pediu. Quem o executa é o nó, não quem pediu: ele declara os recursos de que precisa, e onde acaba a correr não é decisão do pai nem assunto dele.',
+				more: 'É assim que se constrói aqui o trabalho maior — serviços a pedir serviços, em vez de um plano central a decidir o que corre onde.'
 			}
 		]
 	},
@@ -1229,11 +1250,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Instalar o Nodo — Celaut',
-			description: 'Instale um nó Celaut (nodo) no Linux, Windows ou macOS.'
+			description: 'Instale um nó Celaut (Nodo) no Linux, Windows ou macOS.'
 		},
-		topbarTitle: 'Instalar o nodo',
+		topbarTitle: 'Instalar o Nodo',
 		heading: 'Rode um nó Celaut',
-		subtitle: 'Instale o <strong>nodo</strong> e entre na rede descentralizada — descubra pares, execute e orquestre serviços, e transforme sua máquina em computação compartilhada e resistente à censura.',
+		subtitle: 'Instale o <strong>Nodo</strong> e entre na rede descentralizada — descubra pares, execute e orquestre serviços, e transforme sua máquina em computação compartilhada e resistente à censura.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1266,7 +1287,7 @@ export default {
 				'O suporte a macOS está planejado. Por enquanto, você pode rodar um nó em uma máquina Linux ou em uma VM Linux.',
 				'Siga o {link} para atualizações.'
 			],
-			repoLink: 'repositório do nodo'
+			repoLink: 'repositório do Nodo'
 		}
 	},
 	paradigm: {

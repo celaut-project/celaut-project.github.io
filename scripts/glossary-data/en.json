@@ -213,6 +213,33 @@
       "title": "NET",
       "body": "The declared limit on what a running program is allowed to talk to over the network — which outside services, if any, and nothing else.",
       "more": "The third part of a Celaut service. A service that names no networks cannot reach the outside world, which is also what makes its result checkable."
+    },
+    "ledger": {
+      "match": [
+        "ledger"
+      ],
+      "title": "Ledger",
+      "body": "The book a set of accounts is kept in — who paid whom, who owes what, one entry after another in the order they happened. The word is older than computing: a shop’s accounts are a ledger.",
+      "more": "Here it is the shared, public kind, the sort a blockchain keeps. Reputation records are written to one and payments are settled on one; nothing in the architecture names which, and Ergo is the ledger in use today rather than a foundation."
+    },
+    "parent-service": {
+      "match": [
+        "parent service",
+        "parent"
+      ],
+      "title": "Parent service",
+      "body": "The service that asked for another one. A running service can ask its node for more services, and the one doing the asking is the parent: it states what resources each of them needs and hands over a budget for them to spend.",
+      "more": "The parent is also the ceiling. A child may only reach networks its parent already had, so nothing a service starts can end up with more reach than the service that started it."
+    },
+    "child-service": {
+      "match": [
+        "child service",
+        "children",
+        "child"
+      ],
+      "title": "Child service",
+      "body": "A service that another service asked for. The node runs it, not the one who asked: it states the resources it needs, and where it ends up running is neither its parent’s decision nor its parent’s business.",
+      "more": "This is how larger work is built here — services requesting services, instead of a central plan deciding what runs where."
     }
   }
 }

@@ -173,6 +173,27 @@ export default {
 				title: 'NET',
 				body: 'El límite declarado de con qué puede hablar un programa en ejecución a través de la red: qué servicios de fuera, si alguno, y nada más.',
 				more: 'La tercera parte de un servicio Celaut. Un servicio que no nombra redes no puede alcanzar el mundo exterior, que es también lo que hace comprobable su resultado.'
+			},
+			{
+				// ledger
+				match: ['ledger'],
+				title: 'Ledger (libro de registro)',
+				body: 'El libro donde se llevan unas cuentas: quién pagó a quién, quién debe qué, un asiento tras otro en el orden en que ocurrieron. La palabra es anterior a la informática: la contabilidad de una tienda es un ledger.',
+				more: 'Aquí es del tipo compartido y público que mantiene una blockchain. En él se escriben los registros de reputación y se liquidan los pagos; nada en la arquitectura fija cuál, y Ergo es el que se usa hoy, no un cimiento.'
+			},
+			{
+				// parent-service
+				match: ['servicio padre', 'padre'],
+				title: 'Servicio padre',
+				body: 'El servicio que pidió otro. Un servicio en ejecución puede pedirle más servicios a su nodo; el que los pide es el padre: declara los recursos que necesita cada uno y les entrega un presupuesto para gastar.',
+				more: 'El padre es además el techo: un hijo solo alcanza las redes que el padre ya tenía, así que nada de lo que un servicio arranca llega más lejos que él.'
+			},
+			{
+				// child-service
+				match: ['servicios hijo', 'servicio hijo', 'hijo'],
+				title: 'Servicio hijo',
+				body: 'Un servicio que pidió otro servicio. Lo ejecuta el nodo, no quien lo pidió: declara los recursos que necesita, y dónde acaba ejecutándose ni lo decide su padre ni es asunto suyo.',
+				more: 'Así se construye aquí el trabajo grande: servicios que piden servicios, en lugar de un plan central que decida qué corre dónde.'
 			}
 		]
 	},
@@ -1231,11 +1252,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Instalar Nodo — Celaut',
-			description: 'Instala un nodo Celaut (nodo) en Linux, Windows o macOS.'
+			description: 'Instala un nodo Celaut (Nodo) en Linux, Windows o macOS.'
 		},
-		topbarTitle: 'Instalar nodo',
-		heading: 'Levanta un nodo Celaut',
-		subtitle: 'Instala <strong>nodo</strong> y únete a la red descentralizada: descubre pares, ejecuta y orquesta servicios y convierte tu máquina en computación compartida y resistente a la censura.',
+		topbarTitle: 'Instalar Nodo',
+		heading: 'Levanta un Nodo Celaut',
+		subtitle: 'Instala <strong>Nodo</strong> y únete a la red descentralizada: descubre pares, ejecuta y orquesta servicios y convierte tu máquina en computación compartida y resistente a la censura.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1268,7 +1289,7 @@ export default {
 				'El soporte para macOS está previsto. Mientras tanto, puedes ejecutar un nodo en una máquina Linux o en una VM Linux.',
 				'Sigue {link} para estar al tanto.'
 			],
-			repoLink: 'el repositorio de nodo'
+			repoLink: 'el repositorio de Nodo'
 		}
 	},
 	paradigm: {

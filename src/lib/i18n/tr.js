@@ -173,6 +173,27 @@ export default {
 				title: 'NET',
 				body: 'Çalışan bir programın ağ üzerinden konuşmasına izin verilenlerin ilan edilmiş sınırı — hangi dış servisler, varsa, ve başka hiçbir şey.',
 				more: 'Bir Celaut servisinin üçüncü parçası. Ağ adı vermeyen bir servis dış dünyaya ulaşamaz; sonucu da bu yüzden denetlenebilir.'
+			},
+			{
+				// ledger
+				match: ['defterlerdeki', 'defterin', 'deftere', 'defter'],
+				title: 'Defter (ledger)',
+				body: 'Hesapların tutulduğu kitap: kim kime ödedi, kim ne borçlu — olaylar hangi sırayla olduysa o sırayla, kayıt kayıt. Sözcük bilgisayarlardan eski: bir dükkânın muhasebesi de bir defterdir.',
+				more: 'Burada kastedilen, bir blok zincirinin tuttuğu ortak ve herkese açık olanı. İtibar kayıtları oraya yazılır, ödemeler orada kapanır; hangisi olduğunu mimari söylemez — Ergo bugün kullanılan defterdir, bir temel değil.'
+			},
+			{
+				// parent-service
+				match: ['ebeveyn servis', 'ebeveyn'],
+				title: 'Ebeveyn servis',
+				body: 'Bir başkasını isteyen servis. Çalışan bir servis, node’undan başka servisler isteyebilir; isteyen taraf ebeveyndir: her birinin ihtiyaç duyduğu kaynakları belirtir ve harcamaları için bir bütçe devreder.',
+				more: 'Ebeveyn aynı zamanda tavandır: bir çocuk yalnızca ebeveyninin zaten sahip olduğu ağlara ulaşabilir — bir servisin başlattığı hiçbir şey, onu başlatandan daha uzağa erişemez.'
+			},
+			{
+				// child-service
+				match: ['çocuk servis', 'çocuklarının', 'çocukları', 'çocuk'],
+				title: 'Çocuk servis',
+				body: 'Başka bir servisin istediği servis. Onu isteyen değil, node çalıştırır: ihtiyaç duyduğu kaynakları belirtir ve nerede çalıştığı ne ebeveyninin kararıdır ne de onun meselesi.',
+				more: 'Büyük iş burada böyle kurulur — servisler servis ister; neyin nerede çalışacağına karar veren merkezî bir plan yoktur.'
 			}
 		]
 	},
@@ -1230,11 +1251,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Nodo Kurulumu — Celaut',
-			description: "Linux, Windows ya da macOS üzerinde bir Celaut node'u (nodo) kur."
+			description: "Linux, Windows ya da macOS üzerinde bir Celaut node'u (Nodo) kur."
 		},
-		topbarTitle: 'nodo kur',
+		topbarTitle: 'Nodo kur',
 		heading: "Bir Celaut node'u çalıştır",
-		subtitle: "<strong>nodo</strong>'yu kur ve merkeziyetsiz ağa katıl — eşleri keşfet, servisleri çalıştır ve düzenle, makineni paylaşılan ve sansüre dirençli hesaplama gücüne dönüştür.",
+		subtitle: "<strong>Nodo</strong>'yu kur ve merkeziyetsiz ağa katıl — eşleri keşfet, servisleri çalıştır ve düzenle, makineni paylaşılan ve sansüre dirençli hesaplama gücüne dönüştür.",
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1267,7 +1288,7 @@ export default {
 				"macOS desteği planlanıyor. Bu arada bir node'u bir Linux makinesinde ya da Linux sanal makinesinde çalıştırabilirsin.",
 				'Güncellemeler için {link} takip et.'
 			],
-			repoLink: 'nodo deposunu'
+			repoLink: 'Nodo deposunu'
 		}
 	},
 	paradigm: {

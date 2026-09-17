@@ -173,6 +173,27 @@ export default {
 				title: 'NET',
 				body: 'Die erklärte Grenze, mit wem ein laufendes Programm über das Netz sprechen darf — welche äußeren Dienste, falls überhaupt, und sonst nichts.',
 				more: 'Der dritte Teil eines Celaut-Service. Ein Service, der keine Netze nennt, erreicht die Außenwelt nicht — das macht sein Ergebnis auch prüfbar.'
+			},
+			{
+				// ledger
+				match: ['Ledger'],
+				title: 'Ledger',
+				body: 'Das Buch, in dem Konten geführt werden — wer wem was gezahlt hat, wer was schuldet, ein Eintrag nach dem anderen in der Reihenfolge, in der sie passiert sind. Das Wort ist älter als der Computer: die Buchhaltung eines Ladens ist ein Ledger.',
+				more: 'Hier ist das geteilte, öffentliche gemeint, wie eine Blockchain es führt. Reputationseinträge werden hineingeschrieben und Zahlungen darauf abgerechnet; welches, legt die Architektur nicht fest — Ergo ist das heute genutzte, kein Fundament.'
+			},
+			{
+				// parent-service
+				match: ['Eltern-Service', 'Elternservice'],
+				title: 'Eltern-Service',
+				body: 'Der Service, der einen anderen angefordert hat. Ein laufender Service kann über seinen Node weitere Services anfordern; der Anfordernde ist der Eltern-Service: er nennt die Ressourcen, die jeder davon braucht, und gibt ein Budget mit.',
+				more: 'Der Eltern-Service ist zugleich die Obergrenze: ein Kind erreicht nur Netze, die sein Eltern-Service schon hatte — nichts, was ein Service startet, reicht weiter als er selbst.'
+			},
+			{
+				// child-service
+				match: ['Kind-Service', 'Kindern', 'Kinder', 'Kind'],
+				title: 'Kind-Service',
+				body: 'Ein Service, den ein anderer Service angefordert hat. Ausgeführt wird er vom Node, nicht vom Anfordernden: er nennt die Ressourcen, die er braucht, und wo er am Ende läuft, entscheidet sein Eltern-Service weder, noch geht es ihn etwas an.',
+				more: 'So entsteht hier größere Arbeit — Services fordern Services an, statt dass ein zentraler Plan festlegt, was wo läuft.'
 			}
 		]
 	},
@@ -1230,11 +1251,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Nodo installieren — Celaut',
-			description: 'Installiere einen Celaut-Node (nodo) unter Linux, Windows oder macOS.'
+			description: 'Installiere einen Celaut-Node (Nodo) unter Linux, Windows oder macOS.'
 		},
-		topbarTitle: 'nodo installieren',
+		topbarTitle: 'Nodo installieren',
 		heading: 'Betreibe einen Celaut-Node',
-		subtitle: 'Installiere <strong>nodo</strong> und tritt dem dezentralen Netzwerk bei — finde Peers, führe Services aus und orchestriere sie, und mach aus deiner Maschine geteilte, zensurresistente Rechenleistung.',
+		subtitle: 'Installiere <strong>Nodo</strong> und tritt dem dezentralen Netzwerk bei — finde Peers, führe Services aus und orchestriere sie, und mach aus deiner Maschine geteilte, zensurresistente Rechenleistung.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1267,7 +1288,7 @@ export default {
 				'Unterstützung für macOS ist geplant. In der Zwischenzeit kannst du einen Node auf einer Linux-Maschine oder in einer Linux-VM betreiben.',
 				'Folge {link} für Updates.'
 			],
-			repoLink: 'dem nodo-Repository'
+			repoLink: 'dem Nodo-Repository'
 		}
 	},
 	paradigm: {

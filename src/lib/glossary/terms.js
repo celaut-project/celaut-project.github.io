@@ -56,8 +56,37 @@ export const GLOSSARY_IDS = [
 	'ergo',
 	'dependency',
 	'box',
-	'net'
+	'net',
+	'ledger',
+	'parent-service',
+	'child-service'
 ];
+
+/**
+ * Words that are PRODUCT NAMES, and are therefore never marked, no
+ * matter which term claims them.
+ *
+ * "Nodo" is the node implementation's name. It is also, spelled with a
+ * small n, the ordinary Spanish, Italian and Portuguese word for a
+ * node — which is exactly why the glossary kept underlining it on the
+ * install page and offering to explain what a node is, under a heading
+ * that was naming a piece of software.
+ *
+ * The rule is a property of the RENDERED word, not of the dictionary
+ * entry: a locale may legitimately want `nodo` marked in its prose (it
+ * is the Spanish common noun) while the capitalised `Nodo` in "Instala
+ * Nodo" is a name and must be left alone. So the match is
+ * case-SENSITIVE and lives here rather than being dropped from any
+ * locale's alias list.
+ *
+ * Add a name here and it is excluded everywhere, in every language, in
+ * one place — which is the only version of this rule worth having.
+ * Names that are also glossary terms in their own right (Ergo has an
+ * entry, and wants one) do not belong here.
+ *
+ * @type {Set<string>}
+ */
+export const PROPER_NAMES = new Set(['Nodo']);
 
 /**
  * Elements whose text is eligible for annotation. Prose only: headings

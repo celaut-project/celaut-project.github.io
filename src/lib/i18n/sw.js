@@ -173,6 +173,27 @@ export default {
 				title: 'NET',
 				body: 'Kikomo kilichotangazwa cha kile programu inayoendeshwa inaruhusiwa kuzungumza nacho kwenye mtandao — huduma zipi za nje, kama zipo, na si zaidi.',
 				more: 'Sehemu ya tatu ya huduma ya Celaut. Huduma isiyotaja mitandao haiwezi kufikia ulimwengu wa nje, jambo ambalo pia hufanya tokeo liweze kukaguliwa.'
+			},
+			{
+				// ledger
+				match: ['kitabu cha hesabu', 'kitabu'],
+				title: 'Kitabu cha hesabu (ledger)',
+				body: 'Kitabu ambamo hesabu huwekwa: nani alimlipa nani, nani anadaiwa nini, ingizo baada ya ingizo kwa mfuatano wa jinsi mambo yalivyotokea. Neno hili ni la zamani kuliko kompyuta — hesabu za duka pia ni kitabu cha hesabu.',
+				more: 'Hapa ni kile cha pamoja na cha wazi, cha aina ambayo blockchain huitunza. Rekodi za sifa njema huandikwa humo na malipo hukamilishwa humo; muundo wenyewe hausemi kipi, na Ergo ndicho kinachotumika leo, si msingi.'
+			},
+			{
+				// parent-service
+				match: ['huduma mzazi', 'mzazi'],
+				title: 'Huduma mzazi',
+				body: 'Huduma iliyoomba huduma nyingine. Huduma inayoendeshwa inaweza kuiomba nodi yake huduma zaidi; anayeomba ndiye mzazi: hubainisha rasilimali anazohitaji kila mmoja na huwapa bajeti ya kutumia.',
+				more: 'Mzazi pia ndiye kikomo: mtoto anafikia tu mitandao ambayo mzazi alikuwa nayo — hakuna kitu ambacho huduma inaanzisha kinachofika mbali kuliko yenyewe.'
+			},
+			{
+				// child-service
+				match: ['huduma za watoto', 'watoto', 'mtoto'],
+				title: 'Huduma mtoto',
+				body: 'Huduma ambayo huduma nyingine iliiomba. Inayoiendesha ni nodi, si aliyeiomba: hubainisha rasilimali inazohitaji, na inapoishia kuendeshwa si uamuzi wa mzazi wake wala si shughuli yake.',
+				more: 'Ndivyo kazi kubwa inavyojengwa hapa — huduma zikiomba huduma, badala ya mpango mkuu unaoamua kipi kinaendeshwa wapi.'
 			}
 		]
 	},
@@ -1230,11 +1251,11 @@ export default {
 	install: {
 		meta: {
 			title: 'Sakinisha Nodo — Celaut',
-			description: 'Sakinisha nodi ya Celaut (nodo) kwenye Linux, Windows, au macOS.'
+			description: 'Sakinisha nodi ya Celaut (Nodo) kwenye Linux, Windows, au macOS.'
 		},
-		topbarTitle: 'Sakinisha nodo',
+		topbarTitle: 'Sakinisha Nodo',
 		heading: 'Endesha Nodi ya Celaut',
-		subtitle: 'Sakinisha <strong>nodo</strong> na ujiunge na mtandao usio na kituo kikuu — gundua wenzako, endesha na ratibu huduma, na geuza mashine yako kuwa uchakataji unaoshirikiwa na usiozuilika na udhibiti.',
+		subtitle: 'Sakinisha <strong>Nodo</strong> na ujiunge na mtandao usio na kituo kikuu — gundua wenzako, endesha na ratibu huduma, na geuza mashine yako kuwa uchakataji unaoshirikiwa na usiozuilika na udhibiti.',
 		tabs: {
 			linux: 'Linux',
 			windows: 'Windows',
@@ -1267,7 +1288,7 @@ export default {
 				'Msaada kwa macOS umepangwa. Wakati huo huo, unaweza kuendesha nodi kwenye mashine ya Linux au VM ya Linux.',
 				'Fuata {link} kwa masasisho.'
 			],
-			repoLink: 'ghala la nodo'
+			repoLink: 'ghala la Nodo'
 		}
 	},
 	paradigm: {
