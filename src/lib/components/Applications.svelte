@@ -29,7 +29,7 @@
 		{ href: 'https://celaut-project.github.io/skills', external: true }
 	];
 	const GAME_OF_PROMPTS = 'https://game-of-prompts.github.io';
-	const ERGO_DOCS = 'https://ergo-basics.github.io';
+	const ERGO_DOCS = 'https://docs.ergoplatform.com/eco/celaut/';
 </script>
 
 <div class="block">
