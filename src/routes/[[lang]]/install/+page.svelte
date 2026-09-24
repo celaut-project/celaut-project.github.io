@@ -14,7 +14,7 @@
 	const LINUX_CMD =
 		"curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/celaut-project/nodo/stable/install.sh | sudo bash";
 	const WINDOWS_EXE =
-		'https://github.com/celaut-project/nodo/releases/latest/download/Nodo-Setup.exe';
+		'https://github.com/celaut-project/nodo/releases/download/wsl-exe/Nodo-Setup.exe';
 	const MANUAL_GUIDE = 'https://github.com/celaut-project/nodo/blob/master/docs/INSTALL.md';
 	const NODO_REPO = 'https://github.com/celaut-project/nodo';
 
