@@ -206,6 +206,11 @@
 		color: var(--on-surface-subtle);
 	}
 
+	.gloss-card :global(a) {
+		color: var(--accent-text);
+		text-decoration: underline;
+	}
+
 	.close {
 		flex-shrink: 0;
 		width: 26px;

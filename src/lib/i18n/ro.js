@@ -152,8 +152,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Blockchain-ul pe care Celaut îl folosește acum ca să consemneze reputația și să mute plățile. ERG e unitatea lui monetară.',
-				more: 'E o alegere, nu o fundație: Celaut n-are monedă proprie, iar stratul de plată e deliberat înlocuibil.'
+				body: `Unul dintre blockchain-urile pe care Celaut le folosește acum ca să consemneze reputația și să mute plățile. ERG e unitatea lui monetară, alături de token-uri native precum SigUSD și GluonGold.`,
+				more: `E o alegere, nu o fundație: Celaut n-are monedă proprie, iar azi decontează plăți și pe Bitcoin — stratul de plată e deliberat înlocuibil. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Mai multe despre Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Celălalt blockchain pe care Celaut poate deconta plăți azi, alături de Ergo. Reputația rămâne pe Ergo; Bitcoin mută doar plata în sine.`
 			},
 			{
 				// dependency
@@ -545,7 +551,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Funcțional',
-					body: 'Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator oficial care își pregătește propriul mediu Linux izolat.'
+					body: `Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, decontează plățile pe <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> sau pe Bitcoin, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator oficial care își pregătește propriul mediu Linux izolat.`
 				},
 				{
 					name: 'Chatui',
@@ -643,7 +649,7 @@ export default {
 					},
 					{
 						h: 'Fii plătit pentru munca pe care o face.',
-						p: 'Semenii care au nevoie de calcul îți găsesc nodul, se înțeleg direct cu el asupra prețului și plătesc per execuție. <strong>Plata se decontează pe Ergo</strong> pe măsură ce fiecare lucrare se termină.',
+						p: `Semenii care au nevoie de calcul îți găsesc nodul, se înțeleg direct cu el asupra prețului și plătesc per execuție. <strong>Plata se decontează pe <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — în ERG sau în token-urile sale — sau pe Bitcoin</strong> pe măsură ce fiecare lucrare se termină.`,
 						note: 'Fără centru de date. Fără intermediar. Fără așteptat plata lunară.'
 					}
 				]
@@ -716,7 +722,7 @@ export default {
 				},
 				{
 					title: 'Plătit în avans',
-					body: 'Un nod este plătit în avans pentru o promisiune de resurse — pe Ergo (ERG), fără facturi, fără calendar de plăți impus de o platformă, fără prag minim. Reputația este garanția că va livra.'
+					body: `Un nod este plătit în avans pentru o promisiune de resurse — pe <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG și token-urile sale) sau pe Bitcoin, fără facturi, fără calendar de plăți impus de o platformă, fără prag minim. Reputația este garanția că va livra.`
 				},
 				{
 					title: 'Nimic de care să depindă încrederea',
@@ -772,7 +778,7 @@ export default {
 				},
 				{
 					title: 'Încasează',
-					body: 'Plata se încasează în avans pe Ergo; reputația se înregistrează pe măsură ce lucrarea este onorată. Contribuția e răsplătită, iar rezultatele rămân auditabile.'
+					body: `Plata se încasează în avans pe <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> sau pe Bitcoin; reputația se înregistrează pe măsură ce lucrarea este onorată. Contribuția e răsplătită, iar rezultatele rămân auditabile.`
 				}
 			]
 		},

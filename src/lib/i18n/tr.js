@@ -151,8 +151,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: "Celaut'un şu an itibarı kaydetmek ve ödemeleri taşımak için kullandığı blok zinciri. ERG onun para birimidir.",
-				more: "Bu bir tercih, temel değil: Celaut'un kendi sikkesi yoktur ve ödeme katmanı kasten değiştirilebilir bırakılmıştır."
+				body: `Celaut'un şu an itibarı kaydetmek ve ödemeleri taşımak için kullandığı blok zincirlerinden biri. ERG onun para birimidir, SigUSD ve GluonGold gibi yerel token'larıyla birlikte.`,
+				more: `Bu bir tercih, temel değil: Celaut'un kendi sikkesi yoktur ve bugün Bitcoin üzerinde de ödeme sonuçlandırır — ödeme katmanı kasten değiştirilebilir bırakılmıştır. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo hakkında daha fazla →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Celaut'un bugün Ergo'nun yanında ödeme sonuçlandırabildiği diğer blok zinciri. İtibar hâlâ Ergo üzerinde tutulur; Bitcoin yalnızca ödemenin kendisini taşır.`
 			},
 			{
 				// dependency
@@ -544,7 +550,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Çalışıyor',
-					body: "Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran resmî bir yükleyiciyle kurulur."
+					body: `Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, ödemeleri <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ya da Bitcoin üzerinde sonuçlandırır, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran resmî bir yükleyiciyle kurulur.`
 				},
 				{
 					name: 'Chatui',
@@ -642,7 +648,7 @@ export default {
 					},
 					{
 						h: 'Yaptığı iş için ödeme al.',
-						p: "Hesaplama gücüne ihtiyacı olan eşler node'unu bulur, doğrudan onunla fiyatta anlaşır ve yürütme başına öder. Her iş tamamlandıkça <strong>ödeme Ergo üzerinde sonuçlanır</strong>.",
+						p: `Hesaplama gücüne ihtiyacı olan eşler node'unu bulur, doğrudan onunla fiyatta anlaşır ve yürütme başına öder. Her iş tamamlandıkça <strong>ödeme <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> üzerinde — ERG veya token'larıyla — ya da Bitcoin üzerinde sonuçlanır</strong>.`,
 						note: 'Veri merkezi yok. Aracı yok. Aylık ödeme beklemek yok.'
 					}
 				]
@@ -715,7 +721,7 @@ export default {
 				},
 				{
 					title: 'Peşin ödeme',
-					body: "Bir node'a bir kaynak vaadi karşılığında önceden ödeme yapılır — Ergo (ERG) üzerinde, fatura yok, platform ödeme takvimi yok, asgari eşik yok. Teslim edeceğinin güvencesi itibarıdır."
+					body: `Bir node'a bir kaynak vaadi karşılığında önceden ödeme yapılır — <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG ve token'ları) ya da Bitcoin üzerinde, fatura yok, platform ödeme takvimi yok, asgari eşik yok. Teslim edeceğinin güvencesi itibarıdır.`
 				},
 				{
 					title: 'Güvenilecek bir şey yok',
@@ -771,7 +777,7 @@ export default {
 				},
 				{
 					title: 'Ödemeni al',
-					body: 'Ödeme Ergo üzerinde peşin alınır; itibar ise iş yerine getirildikçe kaydedilir. Katkı ödüllendirilir, sonuçlar denetlenebilir kalır.'
+					body: `Ödeme <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ya da Bitcoin üzerinde peşin alınır; itibar ise iş yerine getirildikçe kaydedilir. Katkı ödüllendirilir, sonuçlar denetlenebilir kalır.`
 				}
 			]
 		},

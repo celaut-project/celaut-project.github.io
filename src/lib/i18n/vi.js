@@ -150,8 +150,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Blockchain cụ thể mà Celaut hiện dùng để ghi danh tiếng và chuyển tiền. ERG là đơn vị tiền của nó.',
-				more: 'Đây là một lựa chọn, không phải nền móng: Celaut không có coin riêng và lớp thanh toán cố ý thay được.'
+				body: `Một trong những blockchain mà Celaut hiện dùng để ghi danh tiếng và chuyển tiền. ERG là đơn vị tiền của nó, cùng với các token gốc như SigUSD và GluonGold.`,
+				more: `Đây là một lựa chọn, không phải nền móng: Celaut không có coin riêng, và nay cũng tất toán thanh toán trên Bitcoin — lớp thanh toán cố ý thay được. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Tìm hiểu thêm về Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Blockchain còn lại mà Celaut có thể tất toán thanh toán ngày nay, bên cạnh Ergo. Danh tiếng vẫn sống trên Ergo; Bitcoin chỉ chuyển khoản thanh toán mà thôi.`
 			},
 			{
 				// dependency
@@ -543,7 +549,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Đang chạy',
-					body: 'Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt chính thức, tự dựng môi trường Linux cách ly riêng.'
+					body: `Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, tất toán thanh toán trên <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> hoặc Bitcoin, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt chính thức, tự dựng môi trường Linux cách ly riêng.`
 				},
 				{
 					name: 'Chatui',
@@ -641,7 +647,7 @@ export default {
 					},
 					{
 						h: 'Được trả tiền cho công việc nó làm.',
-						p: 'Những bên cần năng lực tính toán tìm thấy node của bạn, thoả thuận giá trực tiếp với nó, và trả tiền theo từng lần thực thi. <strong>Thanh toán tất toán trên Ergo</strong> mỗi khi một công việc kết thúc.',
+						p: `Những bên cần năng lực tính toán tìm thấy node của bạn, thoả thuận giá trực tiếp với nó, và trả tiền theo từng lần thực thi. <strong>Thanh toán tất toán trên <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — bằng ERG hoặc token của nó — hoặc trên Bitcoin</strong> mỗi khi một công việc kết thúc.`,
 						note: 'Không trung tâm dữ liệu. Không trung gian. Không chờ kỳ chi trả hàng tháng.'
 					}
 				]
@@ -714,7 +720,7 @@ export default {
 				},
 				{
 					title: 'Được trả trước',
-					body: 'Một node được trả tiền trước cho một lời hứa về tài nguyên — trên Ergo (ERG), không hoá đơn, không lịch chi trả của nền tảng, không ngưỡng tối thiểu. Danh tiếng là bảo chứng rằng nó sẽ giao hàng.'
+					body: `Một node được trả tiền trước cho một lời hứa về tài nguyên — trên <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG và token của nó) hoặc trên Bitcoin, không hoá đơn, không lịch chi trả của nền tảng, không ngưỡng tối thiểu. Danh tiếng là bảo chứng rằng nó sẽ giao hàng.`
 				},
 				{
 					title: 'Không cần tin ai cả',
@@ -770,7 +776,7 @@ export default {
 				},
 				{
 					title: 'Nhận tiền',
-					body: 'Tiền được thu trước trên Ergo; danh tiếng được ghi lại khi công việc được hoàn thành đúng cam kết. Đóng góp được thưởng; kết quả vẫn kiểm toán được.'
+					body: `Tiền được thu trước trên <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> hoặc Bitcoin; danh tiếng được ghi lại khi công việc được hoàn thành đúng cam kết. Đóng góp được thưởng; kết quả vẫn kiểm toán được.`
 				}
 			]
 		},

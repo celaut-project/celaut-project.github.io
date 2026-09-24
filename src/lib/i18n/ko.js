@@ -149,8 +149,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Celaut가 현재 평판 기록과 대금 이동에 쓰는 그 블록체인이다. ERG는 그 통화 단위다.',
-				more: '토대가 아니라 선택이다. Celaut에는 자체 코인이 없고, 결제 계층은 의도적으로 교체 가능하게 되어 있다.'
+				body: `Celaut가 현재 평판 기록과 대금 이동에 쓰는 블록체인 중 하나다. ERG는 그 통화 단위이며, SigUSD, GluonGold 같은 네이티브 토큰도 있다.`,
+				more: `토대가 아니라 선택이다. Celaut에는 자체 코인이 없고, 지금은 Bitcoin에서도 대금을 정산한다 — 결제 계층은 의도적으로 교체 가능하게 되어 있다. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo 더 알아보기 →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Celaut가 오늘날 Ergo와 함께 대금을 정산할 수 있는 또 다른 블록체인이다. 평판 기록은 여전히 Ergo에 남고, Bitcoin은 대금 자체만 옮긴다.`
 			},
 			{
 				// dependency
@@ -542,7 +548,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: '가동 중',
-					body: 'Python3와 Rust로 만든 레퍼런스 구현입니다. 서비스를 실행하고, 피어와 비용을 협상하며, 주소와 토큰을 발급하고, 의존성이 어디서 돌든 해결합니다. 리눅스에서는 명령 한 줄로, Windows 11에서는 자체 격리 리눅스 환경을 준비하는 공식 설치 프로그램으로 설치합니다.'
+					body: `Python3와 Rust로 만든 레퍼런스 구현입니다. 서비스를 실행하고, 피어와 비용을 협상하며, <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 또는 Bitcoin으로 대금을 정산하고, 주소와 토큰을 발급하고, 의존성이 어디서 돌든 해결합니다. 리눅스에서는 명령 한 줄로, Windows 11에서는 자체 격리 리눅스 환경을 준비하는 공식 설치 프로그램으로 설치합니다.`
 				},
 				{
 					name: 'Chatui',
@@ -640,7 +646,7 @@ export default {
 					},
 					{
 						h: '기계가 한 일에 대해 값을 받으라.',
-						p: '연산이 필요한 피어들이 당신의 노드를 찾아 직접 가격을 합의하고, 실행 단위로 지불한다. 각 작업이 끝나는 대로 <strong>결제는 Ergo에서 정산된다</strong>.',
+						p: `연산이 필요한 피어들이 당신의 노드를 찾아 직접 가격을 합의하고, 실행 단위로 지불한다. 각 작업이 끝나는 대로 <strong>결제는 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>(ERG 또는 그 토큰) 또는 Bitcoin에서 정산된다</strong>.`,
 						note: '데이터센터 없음. 중개자 없음. 월 정산을 기다릴 일도 없음.'
 					}
 				]
@@ -713,7 +719,7 @@ export default {
 				},
 				{
 					title: '선불로 받는다',
-					body: '노드는 자원에 대한 약속의 대가로 미리 지불받는다 — Ergo(ERG)로, 청구서도, 플랫폼의 정산 일정도, 최소 지급 기준도 없이. 이행하리라는 보증은 평판이다.'
+					body: `노드는 자원에 대한 약속의 대가로 미리 지불받는다 — <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>(ERG와 그 토큰) 또는 Bitcoin으로, 청구서도, 플랫폼의 정산 일정도, 최소 지급 기준도 없이. 이행하리라는 보증은 평판이다.`
 				},
 				{
 					title: '신뢰할 필요가 없다',
@@ -769,7 +775,7 @@ export default {
 				},
 				{
 					title: '대금 받기',
-					body: '대금은 Ergo에서 선불로 받고, 평판은 작업이 이행되면서 기록된다. 기여는 보상받고, 결과는 감사 가능한 상태로 남는다.'
+					body: `대금은 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 또는 Bitcoin에서 선불로 받고, 평판은 작업이 이행되면서 기록된다. 기여는 보상받고, 결과는 감사 가능한 상태로 남는다.`
 				}
 			]
 		},

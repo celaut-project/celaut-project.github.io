@@ -150,8 +150,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'A blockchain que o Celaut usa hoje para registar reputação e mover pagamentos. ERG é a sua unidade monetária.',
-				more: 'É uma escolha, não um alicerce: o Celaut não tem moeda própria e a camada de pagamento é deliberadamente substituível.'
+				body: `Uma das blockchains que o Celaut usa hoje para registar reputação e mover pagamentos. ERG é a sua unidade monetária, ao lado de tokens nativos como SigUSD e GluonGold.`,
+				more: `É uma escolha, não um alicerce: o Celaut não tem moeda própria, e hoje também liquida pagamentos em Bitcoin — a camada de pagamento é deliberadamente substituível. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Mais sobre a Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `A outra blockchain em que o Celaut pode liquidar pagamentos hoje, ao lado da Ergo. A reputação continua a viver na Ergo; o Bitcoin move apenas o pagamento em si.`
 			},
 			{
 				// dependency
@@ -543,7 +549,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'A funcionar',
-					body: 'A implementação de referência, em Python3 e Rust. Executa serviços, negoceia custos com os pares, fornece endereços e tokens, e resolve dependências onde quer que corram. Instalável em Linux com um único comando, e em Windows 11 através de um instalador oficial que prepara o seu próprio ambiente Linux isolado.'
+					body: `A implementação de referência, em Python3 e Rust. Executa serviços, negoceia custos com os pares, liquida pagamentos na <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou em Bitcoin, fornece endereços e tokens, e resolve dependências onde quer que corram. Instalável em Linux com um único comando, e em Windows 11 através de um instalador oficial que prepara o seu próprio ambiente Linux isolado.`
 				},
 				{
 					name: 'Chatui',
@@ -641,7 +647,7 @@ export default {
 					},
 					{
 						h: 'Receba pelo trabalho que ela faz.',
-						p: 'Pares que precisam de computação encontram o seu nó, negociam um preço diretamente com ele e pagam a cada execução. <strong>O pagamento é liquidado na Ergo</strong> assim que cada trabalho termina.',
+						p: `Pares que precisam de computação encontram o seu nó, negociam um preço diretamente com ele e pagam a cada execução. <strong>O pagamento é liquidado na <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — em ERG ou nos seus tokens — ou em Bitcoin</strong> assim que cada trabalho termina.`,
 						note: 'Sem data center. Sem intermediários. Sem esperar por um repasse mensal.'
 					}
 				]
@@ -714,7 +720,7 @@ export default {
 				},
 				{
 					title: 'Pago adiantado',
-					body: 'Um nó é pago de antemão por uma promessa de recursos — na Ergo (ERG), sem faturas, sem cronograma de pagamento de plataforma, sem limite mínimo. A reputação é a garantia de que ele vai entregar.'
+					body: `Um nó é pago de antemão por uma promessa de recursos — na <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG e os seus tokens) ou em Bitcoin, sem faturas, sem cronograma de pagamento de plataforma, sem limite mínimo. A reputação é a garantia de que ele vai entregar.`
 				},
 				{
 					title: 'Nada em que confiar',
@@ -770,7 +776,7 @@ export default {
 				},
 				{
 					title: 'Receba o pagamento',
-					body: 'O pagamento é cobrado adiantado na Ergo; a reputação é registrada à medida que o trabalho é honrado. A contribuição é recompensada; os resultados continuam auditáveis.'
+					body: `O pagamento é cobrado adiantado na <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou em Bitcoin; a reputação é registrada à medida que o trabalho é honrado. A contribuição é recompensada; os resultados continuam auditáveis.`
 				}
 			]
 		},

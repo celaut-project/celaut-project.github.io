@@ -45,7 +45,7 @@
 					<h3>{impl.name}</h3>
 					<span class="stage" class:live={i === LIVE}>{impl.stage}</span>
 				</div>
-				<p>{impl.body}</p>
+				<p>{@html impl.body}</p>
 				<div class="actions">
 					<a class="btn" href={repos[i]} target="_blank" rel="noopener noreferrer">
 						{$t('common.viewOnGitHub')}
@@ -59,6 +59,11 @@
 </div>
 
 <style>
+	.card :global(a) {
+		color: var(--accent-text);
+		text-decoration: underline;
+	}
+
 	.card-head {
 		display: flex;
 		align-items: center;

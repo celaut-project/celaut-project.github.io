@@ -147,8 +147,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Celaut 目前用来记录信誉和转移付款的那条区块链。ERG 是它的货币单位。',
-				more: '这是一种选择，不是地基：Celaut 没有自己的币，支付层被有意做成可替换的。'
+				body: `Celaut 目前用来记录信誉和转移付款的区块链之一。ERG 是它的货币单位，此外还有 SigUSD、GluonGold 等原生代币。`,
+				more: `这是一种选择，不是地基：Celaut 没有自己的币，如今也在 Bitcoin 上结算付款——支付层被有意做成可替换的。<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">了解更多关于 Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Celaut 如今可以结算付款的另一条区块链，与 Ergo 并列。信誉记录仍留在 Ergo 上；Bitcoin 只转移付款本身。`
 			},
 			{
 				// dependency
@@ -540,7 +546,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: '运行中',
-					body: '参考实现，用 Python3 与 Rust 编写。它执行服务、与对等节点协商成本、分配地址与令牌，并解析依赖——无论依赖在何处运行。在 Linux 上一条命令即可安装，在 Windows 11 上通过官方安装程序安装，后者会自行准备一个隔离的 Linux 环境。'
+					body: `参考实现，用 Python3 与 Rust 编写。它执行服务、与对等节点协商成本、在 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 或 Bitcoin 上结算款项、分配地址与令牌，并解析依赖——无论依赖在何处运行。在 Linux 上一条命令即可安装，在 Windows 11 上通过官方安装程序安装，后者会自行准备一个隔离的 Linux 环境。`
 				},
 				{
 					name: 'Chatui',
@@ -638,7 +644,7 @@ export default {
 					},
 					{
 						h: '为它所做的工作获得报酬。',
-						p: '需要算力的对等节点会找到你的节点,直接与它商定价格,并按次执行付费。<strong>每笔款项在 Ergo 上结算</strong>,任务一完成即到账。',
+						p: `需要算力的对等节点会找到你的节点,直接与它商定价格,并按次执行付费。<strong>每笔款项在 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>——以 ERG 或其代币——或在 Bitcoin 上结算</strong>,任务一完成即到账。`,
 						note: '没有数据中心。没有中间商。不用等每月的打款。'
 					}
 				]
@@ -711,7 +717,7 @@ export default {
 				},
 				{
 					title: '预先收款',
-					body: '节点为一份资源承诺预先收取费用，在 Ergo（ERG）上结算——没有发票，没有平台的打款周期，也没有最低门槛。信誉就是它会兑现的担保。'
+					body: `节点为一份资源承诺预先收取费用，在 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>（ERG 及其代币）或 Bitcoin 上结算——没有发票，没有平台的打款周期，也没有最低门槛。信誉就是它会兑现的担保。`
 				},
 				{
 					title: '无需信任任何人',
@@ -767,7 +773,7 @@ export default {
 				},
 				{
 					title: '获得报酬',
-					body: '费用在 Ergo 上预先收取；信誉则随着工作被兑现而记录在案。贡献会得到奖励，结果始终可被审计。'
+					body: `费用在 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 或 Bitcoin 上预先收取；信誉则随着工作被兑现而记录在案。贡献会得到奖励，结果始终可被审计。`
 				}
 			]
 		},

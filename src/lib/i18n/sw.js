@@ -151,8 +151,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Blockchain mahususi ambayo Celaut inatumia sasa kurekodi sifa na kuhamisha malipo. ERG ni kitengo chake cha fedha.',
-				more: 'Ni chaguo, si msingi: Celaut haina sarafu yake na safu ya malipo inabadilishwa kimakusudi.'
+				body: `Mojawapo ya blockchain ambazo Celaut inatumia sasa kurekodi sifa na kuhamisha malipo. ERG ni kitengo chake cha fedha, pamoja na tokeni asilia kama SigUSD na GluonGold.`,
+				more: `Ni chaguo, si msingi: Celaut haina sarafu yake, na leo pia inakamilisha malipo kwenye Bitcoin — safu ya malipo inabadilishwa kimakusudi. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Zaidi kuhusu Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Blockchain nyingine ambayo Celaut inaweza kukamilisha malipo juu yake leo, pamoja na Ergo. Sifa njema bado inabaki kwenye Ergo; Bitcoin inahamisha malipo yenyewe tu.`
 			},
 			{
 				// dependency
@@ -544,7 +550,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Inafanya kazi',
-					body: 'Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi rasmi kinachojiandalia mazingira yake ya Linux yaliyotengwa.'
+					body: `Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hukamilisha malipo kwenye <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> au Bitcoin, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi rasmi kinachojiandalia mazingira yake ya Linux yaliyotengwa.`
 				},
 				{
 					name: 'Chatui',
@@ -642,7 +648,7 @@ export default {
 					},
 					{
 						h: 'Lipwa kwa kazi inayofanya.',
-						p: 'Wenzake wanaohitaji uchakataji wanaipata nodi yako, wanajadiliana bei moja kwa moja nayo, na kulipa kwa kila utekelezaji. <strong>Malipo yanakamilishwa kwenye Ergo</strong> mara kazi inapokamilika.',
+						p: `Wenzake wanaohitaji uchakataji wanaipata nodi yako, wanajadiliana bei moja kwa moja nayo, na kulipa kwa kila utekelezaji. <strong>Malipo yanakamilishwa kwenye <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — kwa ERG au tokeni zake — au kwenye Bitcoin</strong> mara kazi inapokamilika.`,
 						note: 'Hakuna kituo cha data. Hakuna mtu wa katikati. Hakuna kusubiri malipo ya kila mwezi.'
 					}
 				]
@@ -715,7 +721,7 @@ export default {
 				},
 				{
 					title: 'Unalipwa kabla',
-					body: 'Nodi inalipwa mapema kwa ajili ya ahadi ya rasilimali — kwenye Ergo (ERG), hakuna ankara, hakuna ratiba ya malipo ya jukwaa, hakuna kiwango cha chini. Sifa njema ndiyo dhamana kwamba itatimiza.'
+					body: `Nodi inalipwa mapema kwa ajili ya ahadi ya rasilimali — kwenye <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG na tokeni zake) au kwenye Bitcoin, hakuna ankara, hakuna ratiba ya malipo ya jukwaa, hakuna kiwango cha chini. Sifa njema ndiyo dhamana kwamba itatimiza.`
 				},
 				{
 					title: 'Hakuna cha kuamini',
@@ -771,7 +777,7 @@ export default {
 				},
 				{
 					title: 'Lipwa',
-					body: 'Malipo yanachukuliwa mapema kwenye Ergo; sifa njema inaandikwa kadri kazi inavyotimizwa. Mchango unatuzwa; matokeo yanabaki kuweza kukaguliwa.'
+					body: `Malipo yanachukuliwa mapema kwenye <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> au Bitcoin; sifa njema inaandikwa kadri kazi inavyotimizwa. Mchango unatuzwa; matokeo yanabaki kuweza kukaguliwa.`
 				}
 			]
 		},

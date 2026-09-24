@@ -152,8 +152,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Blockchain tertentu yang saat ini dipakai Celaut untuk mencatat reputasi dan memindahkan pembayaran. ERG adalah satuan mata uangnya.',
-				more: 'Ini pilihan, bukan fondasi: Celaut tidak punya koin sendiri dan lapisan pembayaran sengaja bisa diganti.'
+				body: `Salah satu blockchain yang saat ini dipakai Celaut untuk mencatat reputasi dan memindahkan pembayaran. ERG adalah satuan mata uangnya, bersama token native seperti SigUSD dan GluonGold.`,
+				more: `Ini pilihan, bukan fondasi: Celaut tidak punya koin sendiri, dan kini juga menyelesaikan pembayaran di Bitcoin — lapisan pembayaran sengaja bisa diganti. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Selengkapnya soal Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Blockchain lain yang bisa dipakai Celaut untuk menyelesaikan pembayaran saat ini, selain Ergo. Reputasi tetap tercatat di Ergo; Bitcoin hanya memindahkan pembayarannya.`
 			},
 			{
 				// dependency
@@ -545,7 +551,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Berjalan',
-					body: 'Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang resmi yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.'
+					body: `Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyelesaikan pembayaran di <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> atau Bitcoin, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang resmi yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.`
 				},
 				{
 					name: 'Chatui',
@@ -643,7 +649,7 @@ export default {
 					},
 					{
 						h: 'Dibayar untuk pekerjaan yang dilakukannya.',
-						p: 'Rekan yang butuh komputasi menemukan node-mu, menyepakati harga langsung dengannya, dan membayar per eksekusi. <strong>Pembayaran diselesaikan di Ergo</strong> seiring tiap pekerjaan rampung.',
+						p: `Rekan yang butuh komputasi menemukan node-mu, menyepakati harga langsung dengannya, dan membayar per eksekusi. <strong>Pembayaran diselesaikan di <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — ERG atau token-tokennya — atau di Bitcoin</strong> seiring tiap pekerjaan rampung.`,
 						note: 'Tanpa pusat data. Tanpa perantara. Tanpa menunggu pencairan bulanan.'
 					}
 				]
@@ -716,7 +722,7 @@ export default {
 				},
 				{
 					title: 'Dibayar di muka',
-					body: 'Sebuah node dibayar lebih dulu untuk janji sumber daya — di Ergo (ERG), tanpa faktur, tanpa jadwal pencairan platform, tanpa ambang minimum. Reputasi adalah jaminan bahwa ia akan menyampaikan.'
+					body: `Sebuah node dibayar lebih dulu untuk janji sumber daya — di <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG dan token-tokennya) atau di Bitcoin, tanpa faktur, tanpa jadwal pencairan platform, tanpa ambang minimum. Reputasi adalah jaminan bahwa ia akan menyampaikan.`
 				},
 				{
 					title: 'Tak ada yang perlu dipercaya',
@@ -772,7 +778,7 @@ export default {
 				},
 				{
 					title: 'Dapatkan bayaran',
-					body: 'Pembayaran ditarik di muka di Ergo; reputasi dicatat seiring pekerjaan ditunaikan. Kontribusi diganjar; hasilnya tetap bisa diaudit.'
+					body: `Pembayaran ditarik di muka di <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> atau Bitcoin; reputasi dicatat seiring pekerjaan ditunaikan. Kontribusi diganjar; hasilnya tetap bisa diaudit.`
 				}
 			]
 		},

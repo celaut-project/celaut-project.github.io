@@ -342,6 +342,15 @@
 		font-family: var(--font-body);
 	}
 
+	/* Inline links inside {@html} prose (e.g. a payment-method mention
+	   that points out to Ergo/Bitcoin docs) — browsers default these to
+	   unstyled blue otherwise, since nothing upstream sets a colour. */
+	.audience-page :global(.beats a),
+	.audience-page :global(.ground a) {
+		color: var(--accent-text);
+		text-decoration: underline;
+	}
+
 	/*
 	 * These pages now carry SectionIndex's fixed rail down the leading
 	 * edge. The rail sits ~14px from the edge and grows to ~200px wide

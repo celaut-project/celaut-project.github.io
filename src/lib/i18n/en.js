@@ -250,8 +250,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'The particular blockchain Celaut currently uses to record reputation and move payments. ERG is its unit of currency.',
-				more: 'It is a choice, not a foundation: Celaut has no coin of its own and the payment layer is deliberately replaceable.'
+				body: `One of the blockchains Celaut currently uses to record reputation and move payments. ERG is its unit of currency, alongside native tokens such as SigUSD and GluonGold.`,
+				more: `It is a choice, not a foundation: Celaut has no coin of its own, and today it also settles payment on Bitcoin — the payment layer is deliberately replaceable. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">More on Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `The other blockchain Celaut can settle payment on today, alongside Ergo. Reputation records still live on Ergo — Bitcoin only carries the payment.`
 			},
 			{
 				// dependency
@@ -625,7 +631,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Running',
-					body: 'The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through an official installer that provisions its own isolated Linux environment.'
+					body: `The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, settles payment on <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> or Bitcoin, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through an official installer that provisions its own isolated Linux environment.`
 				},
 				{
 					name: 'Chatui',
@@ -731,7 +737,7 @@ export default {
 					},
 					{
 						h: 'Get paid for the work it does.',
-						p: 'Peers who need compute find your node, agree a price with it directly, and pay <strong>up front</strong> for a promise of resources. <strong>Payment settles on Ergo</strong>; reputation is the guarantee the node will deliver.',
+						p: `Peers who need compute find your node, agree a price with it directly, and pay <strong>up front</strong> for a promise of resources. <strong>Payment settles on <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — ERG or its tokens — or on Bitcoin</strong>; reputation is the guarantee the node will deliver.`,
 						note: 'No datacenter. No middleman. No monthly payout wait.'
 					}
 				]
@@ -804,7 +810,7 @@ export default {
 				},
 				{
 					title: 'Paid up front',
-					body: 'A node is paid beforehand for a promise of resources — on Ergo (ERG), no invoices, no platform payout schedule, no minimum threshold. Reputation is the guarantee it will deliver.'
+					body: `A node is paid beforehand for a promise of resources — on <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG and its tokens) or on Bitcoin, no invoices, no platform payout schedule, no minimum threshold. Reputation is the guarantee it will deliver.`
 				},
 				{
 					title: 'Nothing to trust',
@@ -866,7 +872,7 @@ export default {
 				},
 				{
 					title: 'Get paid',
-					body: 'Payment is taken up front on Ergo; reputation is recorded as the work is honoured. Contribution is rewarded; results stay auditable.'
+					body: `Payment is taken up front on <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> or Bitcoin; reputation is recorded as the work is honoured. Contribution is rewarded; results stay auditable.`
 				}
 			]
 		},

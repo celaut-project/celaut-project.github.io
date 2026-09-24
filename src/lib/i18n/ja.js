@@ -150,8 +150,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Celautが現在、評判の記録と支払いの移動に使っている、特定のブロックチェーンです。ERGはその通貨単位です。',
-				more: '土台ではなく、選択です。Celautに独自のコインはなく、支払いの層は意図して置き換え可能になっています。'
+				body: `Celautが現在、評判の記録と支払いの移動に使っているブロックチェーンの一つです。ERGはその通貨単位で、SigUSDやGluonGoldのようなネイティブトークンもあります。`,
+				more: `土台ではなく、選択です。Celautに独自のコインはなく、現在はBitcoin上でも支払いを決済しています——支払いの層は意図して置き換え可能になっています。<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergoについてもっと見る →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Celautが現在、Ergoと並んで支払いを決済できるもう一つのブロックチェーンです。評判の記録は引き続きErgo上にあり、Bitcoinは支払いそのものだけを運びます。`
 			},
 			{
 				// dependency
@@ -543,7 +549,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: '稼働中',
-					body: 'Python3 と Rust によるリファレンス実装です。サービスを実行し、ピアとコストを交渉し、アドレスとトークンを払い出し、依存関係がどこで走っていても解決します。Linux ではコマンド一つで、Windows 11 では専用の隔離 Linux 環境を用意する公式インストーラーで導入できます。'
+					body: `Python3 と Rust によるリファレンス実装です。サービスを実行し、ピアとコストを交渉し、<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>またはBitcoinで支払いを決済し、アドレスとトークンを払い出し、依存関係がどこで走っていても解決します。Linux ではコマンド一つで、Windows 11 では専用の隔離 Linux 環境を用意する公式インストーラーで導入できます。`
 				},
 				{
 					name: 'Chatui',
@@ -641,7 +647,7 @@ export default {
 					},
 					{
 						h: 'それがこなした仕事に対して対価を得る。',
-						p: '計算資源を必要とするピアがあなたのノードを見つけ、直接価格を交渉し、実行のたびに支払う。<strong>支払いはErgo上で決済される</strong>。各ジョブが終わるとすぐに。',
+						p: `計算資源を必要とするピアがあなたのノードを見つけ、直接価格を交渉し、実行のたびに支払う。<strong>支払いは<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>（ERGまたはそのトークン）か、Bitcoin上で決済される</strong>。各ジョブが終わるとすぐに。`,
 						note: 'データセンターは不要。仲介者も不要。月々の入金を待つ必要もない。'
 					}
 				]
@@ -714,7 +720,7 @@ export default {
 				},
 				{
 					title: '前払いで受け取る',
-					body: 'ノードはリソースの約束に対して前もってErgo（ERG）で支払いを受ける——請求書もなければ、プラットフォームの支払いスケジュールも、最低額の設定もない。履行されるという担保は評判である。'
+					body: `ノードはリソースの約束に対して前もって<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>（ERGとそのトークン）またはBitcoinで支払いを受ける——請求書もなければ、プラットフォームの支払いスケジュールも、最低額の設定もない。履行されるという担保は評判である。`
 				},
 				{
 					title: '何も信頼する必要がない',
@@ -770,7 +776,7 @@ export default {
 				},
 				{
 					title: '対価を受け取る',
-					body: '支払いはErgo上で前もって受け取られ、評判は仕事が履行されるにつれて記録されていく。貢献は報われ、結果は監査可能なまま残る。'
+					body: `支払いは<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>またはBitcoin上で前もって受け取られ、評判は仕事が履行されるにつれて記録されていく。貢献は報われ、結果は監査可能なまま残る。`
 				}
 			]
 		},

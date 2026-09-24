@@ -54,6 +54,7 @@ export const GLOSSARY_IDS = [
 	'reputation',
 	'blockchain',
 	'ergo',
+	'bitcoin',
 	'dependency',
 	'box',
 	'net',

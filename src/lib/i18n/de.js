@@ -151,8 +151,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'Die Blockchain, die Celaut derzeit nutzt, um Reputation festzuhalten und Zahlungen zu bewegen. ERG ist ihre Währungseinheit.',
-				more: 'Eine Wahl, kein Fundament: Celaut hat keine eigene Münze, und die Zahlungsschicht ist absichtlich austauschbar.'
+				body: `Eine der Blockchains, die Celaut derzeit nutzt, um Reputation festzuhalten und Zahlungen zu bewegen. ERG ist ihre Währungseinheit, neben nativen Token wie SigUSD und GluonGold.`,
+				more: `Eine Wahl, kein Fundament: Celaut hat keine eigene Münze, und wickelt Zahlungen heute auch über Bitcoin ab — die Zahlungsschicht ist absichtlich austauschbar. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Mehr zu Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `Die andere Blockchain, über die Celaut heute Zahlungen abwickeln kann, neben Ergo. Reputation bleibt auf Ergo; Bitcoin bewegt nur die Zahlung selbst.`
 			},
 			{
 				// dependency
@@ -544,7 +550,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'Läuft',
-					body: 'Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen offiziellen Installer, der seine eigene isolierte Linux-Umgebung einrichtet.'
+					body: `Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, wickelt Zahlungen über <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> oder Bitcoin ab, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen offiziellen Installer, der seine eigene isolierte Linux-Umgebung einrichtet.`
 				},
 				{
 					name: 'Chatui',
@@ -642,7 +648,7 @@ export default {
 					},
 					{
 						h: 'Werde für die geleistete Arbeit bezahlt.',
-						p: 'Peers, die Rechenleistung brauchen, finden deinen Node, einigen sich direkt mit ihm auf einen Preis und zahlen pro Ausführung. <strong>Die Abwicklung läuft über Ergo</strong>, sobald ein Auftrag abgeschlossen ist.',
+						p: `Peers, die Rechenleistung brauchen, finden deinen Node, einigen sich direkt mit ihm auf einen Preis und zahlen pro Ausführung. <strong>Die Abwicklung läuft über <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — ERG oder seine Token — oder über Bitcoin</strong>, sobald ein Auftrag abgeschlossen ist.`,
 						note: 'Kein Rechenzentrum. Kein Vermittler. Kein Warten auf Monatsauszahlungen.'
 					}
 				]
@@ -715,7 +721,7 @@ export default {
 				},
 				{
 					title: 'Bezahlung im Voraus',
-					body: 'Ein Node wird vorab für ein Ressourcenversprechen bezahlt — auf Ergo (ERG), keine Rechnungen, kein Auszahlungsplan einer Plattform, keine Mindestsumme. Die Reputation ist die Garantie, dass er liefert.'
+					body: `Ein Node wird vorab für ein Ressourcenversprechen bezahlt — auf <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG und seinen Token) oder auf Bitcoin, keine Rechnungen, kein Auszahlungsplan einer Plattform, keine Mindestsumme. Die Reputation ist die Garantie, dass er liefert.`
 				},
 				{
 					title: 'Nichts, dem man vertrauen muss',
@@ -771,7 +777,7 @@ export default {
 				},
 				{
 					title: 'Bezahlt werden',
-					body: 'Die Zahlung wird im Voraus auf Ergo eingezogen; Reputation wird eingetragen, während die Arbeit eingelöst wird. Beitrag wird belohnt, Ergebnisse bleiben prüfbar.'
+					body: `Die Zahlung wird im Voraus auf <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> oder Bitcoin eingezogen; Reputation wird eingetragen, während die Arbeit eingelöst wird. Beitrag wird belohnt, Ergebnisse bleiben prüfbar.`
 				}
 			]
 		},

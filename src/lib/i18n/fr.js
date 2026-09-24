@@ -150,8 +150,14 @@ export default {
 				// ergo
 				match: ['Ergo', 'ERG'],
 				title: 'Ergo',
-				body: 'La blockchain que Celaut utilise aujourd’hui pour consigner la réputation et faire circuler les paiements. ERG en est l’unité monétaire.',
-				more: 'C’est un choix, pas une fondation : Celaut n’a pas de monnaie propre et la couche de paiement est délibérément remplaçable.'
+				body: `Une des blockchains que Celaut utilise aujourd’hui pour consigner la réputation et faire circuler les paiements. ERG en est l’unité monétaire, aux côtés de jetons natifs comme SigUSD et GluonGold.`,
+				more: `C’est un choix, pas une fondation : Celaut n’a pas de monnaie propre, et règle aussi les paiements en Bitcoin aujourd’hui — la couche de paiement est délibérément remplaçable. <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">En savoir plus sur Ergo →</a>`
+			},
+			{
+				// bitcoin
+				match: ['Bitcoin', 'BTC'],
+				title: 'Bitcoin',
+				body: `L’autre blockchain sur laquelle Celaut peut régler les paiements aujourd’hui, aux côtés d’Ergo. La réputation reste sur Ergo ; Bitcoin ne fait circuler que le paiement lui-même.`
 			},
 			{
 				// dependency
@@ -543,7 +549,7 @@ export default {
 				{
 					name: 'Nodo',
 					stage: 'En service',
-					body: 'L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur officiel qui prépare son propre environnement Linux isolé.'
+					body: `L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, règle les paiements sur <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou en Bitcoin, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur officiel qui prépare son propre environnement Linux isolé.`
 				},
 				{
 					name: 'Chatui',
@@ -641,7 +647,7 @@ export default {
 					},
 					{
 						h: 'Soyez payé pour le travail qu’elle accomplit.',
-						p: 'Les pairs qui ont besoin de calcul trouvent votre nœud, négocient un prix directement avec lui, et paient à chaque exécution. <strong>Le paiement se règle sur Ergo</strong> dès qu’une tâche se termine.',
+						p: `Les pairs qui ont besoin de calcul trouvent votre nœud, négocient un prix directement avec lui, et paient à chaque exécution. <strong>Le paiement se règle sur <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> — en ERG ou en jetons — ou en Bitcoin</strong> dès qu’une tâche se termine.`,
 						note: 'Aucun centre de données. Aucun intermédiaire. Aucune attente de versement mensuel.'
 					}
 				]
@@ -714,7 +720,7 @@ export default {
 				},
 				{
 					title: 'Payé d’avance',
-					body: 'Un nœud est payé en amont pour une promesse de ressources — sur Ergo (ERG), aucune facture, aucun calendrier de versements imposé par une plateforme, aucun seuil minimum. La réputation est la garantie qu’il livrera.'
+					body: `Un nœud est payé en amont pour une promesse de ressources — sur <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> (ERG et ses jetons) ou en Bitcoin, aucune facture, aucun calendrier de versements imposé par une plateforme, aucun seuil minimum. La réputation est la garantie qu’il livrera.`
 				},
 				{
 					title: 'Rien à qui faire confiance',
@@ -770,7 +776,7 @@ export default {
 				},
 				{
 					title: 'Soyez payé',
-					body: 'Le paiement est encaissé d’avance sur Ergo ; la réputation est inscrite à mesure que le travail est honoré. La contribution est récompensée ; les résultats restent vérifiables.'
+					body: `Le paiement est encaissé d’avance sur <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou en Bitcoin ; la réputation est inscrite à mesure que le travail est honoré. La contribution est récompensée ; les résultats restent vérifiables.`
 				}
 			]
 		},
