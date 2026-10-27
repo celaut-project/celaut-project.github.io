@@ -1280,11 +1280,77 @@ export default {
 		copied: 'Đã sao chép ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Cài đặt cơ bản — chạy lệnh này trong terminal của bạn:',
-			notes: [
-				'Script cần <code>sudo</code> để thiết lập ở tầng hệ thống. Các runtime Python, Java và <code>yq</code> được cài cục bộ trong thư mục chính của node.',
-				'Thích cài thủ công, không cần sudo? Hãy theo {link}.'
+			lead: 'Có ba cách cài Nodo trên Linux. Chúng khác nhau ở người dùng chạy node. Cả ba đều cài cùng một service systemd, <code>nodo.service</code>, tự khởi động khi bật máy và tự khởi động lại nếu gặp lỗi.',
+			chooseHeading: 'Nên dùng cách nào?',
+			recommend: '<strong>Chưa chắc? Hãy dùng người dùng service.</strong> Đây là lựa chọn tốt nhất cho một node luôn bật, và node không chạy dưới người dùng của chính bạn. Hãy dùng cách cài không cần sudo nếu bạn muốn node nằm trong thư mục home của mình và muốn xem từng lệnh root trước khi nó chạy.',
+			recommended: 'Khuyên dùng',
+			table: {
+				mode: 'Chế độ',
+				sudo: 'Cần sudo',
+				runsAs: 'Node chạy dưới quyền',
+				path: 'Tệp nằm ở',
+				reach: 'Node bị xâm nhập có thể chạm tới',
+				restart: 'Khởi động lại sẽ dừng các VM',
+				bestFor: 'Phù hợp nhất cho'
+			},
+			check: 'Kiểm tra',
+			update: 'Cập nhật',
+			uninstall: 'Gỡ cài đặt',
+			modes: {
+				serviceUser: {
+					name: 'Người dùng service',
+					sudo: 'Có, để cài',
+					runsAs: 'Một người dùng hệ thống, <code>nodo</code>',
+					reach: 'Các tệp của chính node và cài đặt mạng',
+					restart: 'Có',
+					bestFor: 'Một máy chủ hoặc một máy luôn bật',
+					intro: 'Chạy trình cài đặt bằng sudo và chỉ định người dùng cho node:',
+					notes: [
+						'Trình cài đặt tạo người dùng hệ thống <code>nodo</code> (thư mục home <code>/var/lib/nodo</code>) và thêm nó vào nhóm <code>kvm</code>. Nodo được cài vào <code>/nodo</code>.',
+						'Node chỉ có capability <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU và <code>virtiofsd</code> chạy mà không có capability nào.',
+						'Trình cài đặt thêm bạn vào nhóm <code>nodo</code>, nên bạn vẫn có thể sửa <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> giữ nguyên người dùng service. Để quay lại node chạy bằng root, hãy chạy lại trình cài đặt với <code>--service-user root</code>. <code>nodo uninstall</code> không xóa người dùng này.'
+					]
+				},
+				withoutSudo: {
+					name: 'Không cần sudo',
+					sudo: 'Chỉ vài bước, được hiển thị trước khi chạy',
+					runsAs: 'Bạn',
+					reach: 'Các tệp của bạn và cài đặt mạng',
+					restart: 'Có',
+					bestFor: 'Máy tính của riêng bạn, hoặc để dùng thử Nodo',
+					intro: 'Chạy trình cài đặt bằng chính người dùng của bạn, không cần sudo:',
+					notes: [
+						'Nodo được cài vào <code>~/.local/share/nodo</code> và lệnh <code>nodo</code> vào <code>~/.local/bin</code>. Mọi tệp đều thuộc về bạn. Nếu shell không tìm thấy <code>nodo</code>, hãy mở một phiên đăng nhập mới.',
+						'Một số bước cần root: các gói còn thiếu, một dải trong <code>/etc/subuid</code>, unit systemd và, trên Ubuntu 23.10 trở lên, một profile AppArmor cho <code>virtiofsd</code>. Trình cài đặt hiển thị từng lệnh, lưu chúng vào <code>install-privileged.sh</code> và chỉ chạy chúng bằng sudo nếu bạn đồng ý. Để chỉ hiển thị chúng, hãy thay <code>bash</code> ở cuối lệnh bằng <code>bash -s -- --no-input</code>.',
+						'Trên một máy mới, trình cài đặt có thể dừng lại sau khi hiển thị các gói cần cài. Hãy cài chúng, rồi chạy lại đúng lệnh đó.',
+						'Khi không có sudo, <code>nodo doctor</code> chỉ kiểm tra node. Để nó có thể sửa cả service, hãy chạy <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Có, để cài',
+					runsAs: '<code>root</code>',
+					reach: 'Mọi thứ trên máy',
+					restart: 'Không',
+					bestFor: 'Cách cài đơn giản nhất, hoặc các VM phải tiếp tục chạy khi node khởi động lại',
+					intro: 'Chạy trình cài đặt bằng sudo. Nó tự làm mọi bước:',
+					notes: [
+						'Node chạy bằng root. Nodo được cài vào <code>/nodo</code>.',
+						'Các VM vẫn tiếp tục chạy khi node khởi động lại, kể cả trong lúc <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Cần biết',
+			common: [
+				'Ở chế độ người dùng service và chế độ không cần sudo, các VM chạy bên trong <code>nodo.service</code>. Mỗi lần khởi động lại service đều dừng tất cả chúng, kể cả khi do <code>nodo update</code> và <code>nodo daemon restart</code>. Các client của chúng phải khởi động lại chúng.',
+				'Mỗi máy chạy một node: cả ba chế độ đều cài cùng một <code>nodo.service</code>.',
+				'Python, Java và <code>yq</code> được cài trong thư mục riêng của node, ở cả ba chế độ.',
+				'Nodo hiển thị lệnh mở cổng gateway của nó trên tường lửa của bạn (ufw, firewalld). Nodo không tự thay đổi tường lửa đó.'
 			],
+			rootlessNote: 'Mỗi chế độ cần gì, và vì sao: {link}.',
+			manualNote: 'Để cài hoàn toàn thủ công, hãy theo {link}.',
+			rootlessLink: 'Vận hành không cần root (ROOTLESS.md, bằng tiếng Anh)',
 			manualLink: 'hướng dẫn thủ công'
 		},
 		windows: {

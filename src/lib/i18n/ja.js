@@ -1280,11 +1280,77 @@ export default {
 		copied: 'コピーしました ✓',
 		linux: {
 			heading: 'Linux',
-			intro: '基本的なインストール——ターミナルでこれを実行してください:',
-			notes: [
-				'このスクリプトはシステムレベルの設定のために<code>sudo</code>を必要とする。Python、Java、<code>yq</code>のランタイムは、ノードのメインディレクトリの下にローカルにインストールされる。',
-				'sudoを使わない手動インストールを好む場合は、{link}に従ってください。'
+			lead: 'LinuxにNodoをインストールする方法は3つある。違いは、ノードを実行するユーザーだ。3つとも同じsystemdサービス<code>nodo.service</code>をインストールする。このサービスは起動時に開始し、失敗すると再起動する。',
+			chooseHeading: 'どれを使えばいい？',
+			recommend: '<strong>迷ったら、サービスユーザーを使ってください。</strong>常時稼働させるノードには最適な選択で、ノードはあなた自身のユーザーとしては動かない。ノードをホームディレクトリに置き、rootで実行されるコマンドを実行前に一つずつ確認したい場合は、sudoなしのインストールを使ってください。',
+			recommended: '推奨',
+			table: {
+				mode: 'モード',
+				sudo: 'sudoが必要',
+				runsAs: 'ノードの実行ユーザー',
+				path: 'ファイルの場所',
+				reach: '乗っ取られたノードが触れる範囲',
+				restart: '再起動でVMが止まる',
+				bestFor: '向いている用途'
+			},
+			check: '確認',
+			update: '更新',
+			uninstall: 'アンインストール',
+			modes: {
+				serviceUser: {
+					name: 'サービスユーザー',
+					sudo: 'はい、インストール時',
+					runsAs: 'システムユーザー<code>nodo</code>',
+					reach: 'ノード自身のファイルとネットワーク設定',
+					restart: 'はい',
+					bestFor: 'サーバー、または常時稼働のマシン',
+					intro: 'sudoでインストーラーを実行し、ノード用のユーザーを指定してください：',
+					notes: [
+						'インストーラーはシステムユーザー<code>nodo</code>（ホームは<code>/var/lib/nodo</code>）を作成し、<code>kvm</code>グループに追加する。Nodoは<code>/nodo</code>に入る。',
+						'ノードが持つのは<code>CAP_NET_ADMIN</code>ケイパビリティだけだ。Cloud Hypervisor、QEMU、<code>virtiofsd</code>はケイパビリティなしで動く。',
+						'インストーラーはあなたを<code>nodo</code>グループに追加するので、引き続き<code>/nodo/config.yaml</code>を編集できる。',
+						'<code>nodo update</code>はサービスユーザーを維持する。rootのノードに戻すには、<code>--service-user root</code>を付けてインストーラーをもう一度実行してください。<code>nodo uninstall</code>はこのユーザーを削除しない。'
+					]
+				},
+				withoutSudo: {
+					name: 'sudoなし',
+					sudo: 'いくつかの手順だけ。実行前に表示される',
+					runsAs: 'あなた自身',
+					reach: 'あなたのファイルとネットワーク設定',
+					restart: 'はい',
+					bestFor: '自分のコンピューター、またはNodoのお試し',
+					intro: 'sudoを使わず、自分のユーザーでインストーラーを実行してください：',
+					notes: [
+						'Nodoは<code>~/.local/share/nodo</code>に、<code>nodo</code>コマンドは<code>~/.local/bin</code>に入る。ファイルはすべてあなたのものだ。シェルが<code>nodo</code>を見つけられない場合は、新しいログインセッションを開いてください。',
+						'一部の手順にはrootが必要だ：不足しているパッケージ、<code>/etc/subuid</code>の範囲、systemdユニット、そしてUbuntu 23.10以降では<code>virtiofsd</code>用のAppArmorプロファイル。インストーラーは各コマンドを表示して<code>install-privileged.sh</code>に保存し、あなたが「はい」と答えた場合にだけsudoで実行する。表示だけさせるには、コマンド末尾の<code>bash</code>を<code>bash -s -- --no-input</code>に置き換えてください。',
+						'新しいマシンでは、インストールすべきパッケージを表示したところでインストーラーが止まることがある。それらをインストールしてから、同じコマンドをもう一度実行してください。',
+						'sudoなしの<code>nodo doctor</code>はノードを確認するだけだ。サービスの修復もさせるには、<code>sudo ~/.local/bin/nodo doctor</code>を実行してください。'
+					]
+				},
+				root: {
+					name: 'root',
+					sudo: 'はい、インストール時',
+					runsAs: '<code>root</code>',
+					reach: 'マシン上のすべて',
+					restart: 'いいえ',
+					bestFor: '最もシンプルな構成、またはノードの再起動中も動き続ける必要があるVM',
+					intro: 'sudoでインストーラーを実行してください。すべての手順を自分で行う：',
+					notes: [
+						'ノードはrootとして動く。Nodoは<code>/nodo</code>に入る。',
+						'ノードが再起動してもVMは動き続ける。<code>nodo update</code>の間も同様だ。'
+					]
+				}
+			},
+			commonHeading: '知っておくと良いこと',
+			common: [
+				'サービスユーザーとsudoなしのモードでは、VMは<code>nodo.service</code>の中で動く。サービスを再起動すると、<code>nodo update</code>や<code>nodo daemon restart</code>による再起動も含め、VMはすべて止まる。それらのクライアントがVMを再び起動する必要がある。',
+				'1台のマシンで動かせるノードは1つ：3つのモードはどれも同じ<code>nodo.service</code>をインストールする。',
+				'Python、Java、<code>yq</code>は、3つのモードすべてでノード自身のディレクトリにインストールされる。',
+				'Nodoは、ファイアウォール（ufw、firewalld）でゲートウェイポートを開くコマンドを表示する。そのファイアウォール自体をNodoが変更することはない。'
 			],
+			rootlessNote: '各モードに必要なものとその理由：{link}。',
+			manualNote: '完全に手動でインストールするには、{link}に従ってください。',
+			rootlessLink: 'rootなしでの運用（ROOTLESS.md、英語）',
 			manualLink: '手動インストールガイド'
 		},
 		windows: {

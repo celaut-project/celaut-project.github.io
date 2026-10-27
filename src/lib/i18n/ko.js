@@ -1279,11 +1279,77 @@ export default {
 		copied: '복사됨 ✓',
 		linux: {
 			heading: 'Linux',
-			intro: '기본 설치 — 터미널에서 다음을 실행하라:',
-			notes: [
-				'스크립트는 시스템 수준 설정을 위해 <code>sudo</code>가 필요하다. Python, Java, <code>yq</code> 런타임은 노드의 기본 디렉터리 아래에 로컬로 설치된다.',
-				'sudo 없이 수동으로 설치하고 싶다면 {link}를 따르라.'
+			lead: '리눅스에 Nodo를 설치하는 방법은 세 가지다. 차이는 노드를 실행하는 사용자에 있다. 세 방법 모두 같은 systemd 서비스 <code>nodo.service</code>를 설치하며, 이 서비스는 부팅 시 시작되고 실패하면 다시 시작된다.',
+			chooseHeading: '어느 것을 써야 할까?',
+			recommend: '<strong>잘 모르겠다면 서비스 사용자를 써라.</strong> 항상 켜 두는 노드에 가장 좋은 선택이며, 노드가 당신 자신의 사용자로 실행되지 않는다. 노드를 홈 디렉터리에 두고 root 명령이 실행되기 전에 하나하나 확인하고 싶다면 sudo 없는 설치를 써라.',
+			recommended: '추천',
+			table: {
+				mode: '모드',
+				sudo: 'sudo 필요',
+				runsAs: '노드 실행 사용자',
+				path: '파일 위치',
+				reach: '탈취된 노드가 닿을 수 있는 범위',
+				restart: '재시작 시 VM 중지',
+				bestFor: '적합한 용도'
+			},
+			check: '확인',
+			update: '업데이트',
+			uninstall: '제거',
+			modes: {
+				serviceUser: {
+					name: '서비스 사용자',
+					sudo: '예, 설치할 때',
+					runsAs: '시스템 사용자 <code>nodo</code>',
+					reach: '노드 자신의 파일과 네트워크 설정',
+					restart: '예',
+					bestFor: '서버 또는 항상 켜 두는 기계',
+					intro: 'sudo로 설치 프로그램을 실행하고 노드용 사용자를 지정하라:',
+					notes: [
+						'설치 프로그램은 시스템 사용자 <code>nodo</code>(홈 <code>/var/lib/nodo</code>)를 만들고 <code>kvm</code> 그룹에 추가한다. Nodo는 <code>/nodo</code>에 설치된다.',
+						'노드는 <code>CAP_NET_ADMIN</code> capability만 가진다. Cloud Hypervisor, QEMU, <code>virtiofsd</code>는 아무 capability 없이 실행된다.',
+						'설치 프로그램이 당신을 <code>nodo</code> 그룹에 추가하므로, 계속 <code>/nodo/config.yaml</code>을 편집할 수 있다.',
+						'<code>nodo update</code>는 서비스 사용자를 유지한다. root 노드로 되돌리려면 <code>--service-user root</code>를 붙여 설치 프로그램을 다시 실행하라. <code>nodo uninstall</code>은 이 사용자를 삭제하지 않는다.'
+					]
+				},
+				withoutSudo: {
+					name: 'sudo 없이',
+					sudo: '몇 단계만, 실행 전에 보여 준다',
+					runsAs: '당신',
+					reach: '당신의 파일과 네트워크 설정',
+					restart: '예',
+					bestFor: '자신의 컴퓨터, 또는 Nodo 체험',
+					intro: 'sudo 없이 자신의 사용자로 설치 프로그램을 실행하라:',
+					notes: [
+						'Nodo는 <code>~/.local/share/nodo</code>에, <code>nodo</code> 명령은 <code>~/.local/bin</code>에 설치된다. 모든 파일은 당신 소유다. 셸이 <code>nodo</code>를 찾지 못하면 새 로그인 세션을 열어라.',
+						'일부 단계에는 root가 필요하다: 없는 패키지, <code>/etc/subuid</code>의 범위, systemd 유닛, 그리고 Ubuntu 23.10 이상에서는 <code>virtiofsd</code>용 AppArmor 프로필. 설치 프로그램은 각 명령을 보여 주고 <code>install-privileged.sh</code>에 저장하며, 당신이 동의할 때만 sudo로 실행한다. 보여 주기만 하려면 명령 끝의 <code>bash</code>를 <code>bash -s -- --no-input</code>으로 바꿔라.',
+						'새 기계에서는 설치할 패키지를 보여 준 뒤 설치 프로그램이 멈출 수 있다. 그 패키지들을 설치한 다음 같은 명령을 다시 실행하라.',
+						'sudo 없이 실행한 <code>nodo doctor</code>는 노드를 점검만 한다. 서비스까지 고치게 하려면 <code>sudo ~/.local/bin/nodo doctor</code>를 실행하라.'
+					]
+				},
+				root: {
+					name: 'root',
+					sudo: '예, 설치할 때',
+					runsAs: '<code>root</code>',
+					reach: '기계의 모든 것',
+					restart: '아니요',
+					bestFor: '가장 간단한 구성, 또는 노드가 재시작될 때도 계속 돌아야 하는 VM',
+					intro: 'sudo로 설치 프로그램을 실행하라. 모든 단계를 스스로 처리한다:',
+					notes: [
+						'노드는 root로 실행된다. Nodo는 <code>/nodo</code>에 설치된다.',
+						'노드가 재시작되어도 VM은 계속 돈다. <code>nodo update</code> 중에도 마찬가지다.'
+					]
+				}
+			},
+			commonHeading: '알아 두면 좋은 점',
+			common: [
+				'서비스 사용자 모드와 sudo 없는 모드에서는 VM이 <code>nodo.service</code> 안에서 실행된다. 서비스가 재시작되면 <code>nodo update</code>나 <code>nodo daemon restart</code>에 의한 재시작을 포함해 VM이 모두 멈춘다. 그 VM의 클라이언트가 다시 시작해야 한다.',
+				'한 기계에서는 노드 하나만 돌린다: 세 모드 모두 같은 <code>nodo.service</code>를 설치한다.',
+				'Python, Java, <code>yq</code>는 세 모드 모두에서 노드 자신의 디렉터리에 설치된다.',
+				'Nodo는 방화벽(ufw, firewalld)에서 자신의 게이트웨이 포트를 여는 명령을 보여 준다. 그 방화벽을 Nodo가 직접 바꾸지는 않는다.'
 			],
+			rootlessNote: '각 모드에 필요한 것과 그 이유: {link}.',
+			manualNote: '완전히 수동으로 설치하려면 {link}를 따르라.',
+			rootlessLink: 'root 없이 운영하기 (ROOTLESS.md, 영어)',
 			manualLink: '수동 설치 가이드'
 		},
 		windows: {

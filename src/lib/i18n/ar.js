@@ -1282,11 +1282,77 @@ export default {
 		copied: 'تم النسخ ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'تثبيت أساسي — شغّل هذا في الطرفية لديك:',
-			notes: [
-				'يحتاج السكربت إلى <code>sudo</code> للإعداد على مستوى النظام. تُثبَّت بيئات تشغيل Python وJava وأداة <code>yq</code> محليًا داخل الدليل الرئيسي للعُقدة.',
-				'تفضّل تثبيتًا يدويًا بلا sudo؟ اتّبع {link}.'
+			lead: 'هناك ثلاث طرق لتثبيت Nodo على Linux. تختلف في المستخدم الذي يشغّل العُقدة. تثبّت الطرق الثلاث خدمة systemd نفسها، <code>nodo.service</code>، التي تبدأ مع إقلاع النظام ويُعاد تشغيلها إذا فشلت.',
+			chooseHeading: 'أيّها أستخدم؟',
+			recommend: '<strong>لست متأكدًا؟ استخدم مستخدم الخدمة.</strong> إنه الخيار الأفضل لعُقدة تعمل دائمًا، ولا تعمل العُقدة باسم مستخدمك أنت. استخدم التثبيت بلا sudo إذا أردت العُقدة في دليلك المنزلي وأردت أن ترى كل أمر root قبل تنفيذه.',
+			recommended: 'موصى به',
+			table: {
+				mode: 'الوضع',
+				sudo: 'يحتاج sudo',
+				runsAs: 'تعمل العُقدة باسم',
+				path: 'الملفات في',
+				reach: 'ما تصل إليه عُقدة مخترَقة',
+				restart: 'إعادة التشغيل توقف الآلات الافتراضية',
+				bestFor: 'الأنسب لـ'
+			},
+			check: 'التحقّق',
+			update: 'التحديث',
+			uninstall: 'إلغاء التثبيت',
+			modes: {
+				serviceUser: {
+					name: 'مستخدم الخدمة',
+					sudo: 'نعم، للتثبيت',
+					runsAs: 'مستخدم نظام، <code>nodo</code>',
+					reach: 'ملفات العُقدة نفسها وإعدادات الشبكة',
+					restart: 'نعم',
+					bestFor: 'خادم أو جهاز يعمل دائمًا',
+					intro: 'شغّل المثبِّت باستخدام sudo، وحدّد مستخدم العُقدة:',
+					notes: [
+						'يُنشئ المثبِّت مستخدم النظام <code>nodo</code> (دليله المنزلي <code>/var/lib/nodo</code>) ويضيفه إلى المجموعة <code>kvm</code>. يُثبَّت Nodo في <code>/nodo</code>.',
+						'لا تملك العُقدة إلا القدرة <code>CAP_NET_ADMIN</code>. يعمل Cloud Hypervisor وQEMU و<code>virtiofsd</code> بلا أي قدرات.',
+						'يضيفك المثبِّت إلى المجموعة <code>nodo</code>، لذا يمكنك الاستمرار في تعديل <code>/nodo/config.yaml</code>.',
+						'يُبقي <code>nodo update</code> على مستخدم الخدمة. للعودة إلى عُقدة تعمل باسم root، شغّل المثبِّت مجددًا مع <code>--service-user root</code>. لا يحذف <code>nodo uninstall</code> هذا المستخدم.'
+					]
+				},
+				withoutSudo: {
+					name: 'بلا sudo',
+					sudo: 'بضع خطوات فقط، تُعرض قبل تنفيذها',
+					runsAs: 'أنت',
+					reach: 'ملفاتك وإعدادات الشبكة',
+					restart: 'نعم',
+					bestFor: 'حاسوبك الشخصي، أو لتجربة Nodo',
+					intro: 'شغّل المثبِّت باسم مستخدمك، بلا sudo:',
+					notes: [
+						'يُثبَّت Nodo في <code>~/.local/share/nodo</code> والأمر <code>nodo</code> في <code>~/.local/bin</code>. كل الملفات ملكك. إذا لم تجد الصدفة (shell) الأمر <code>nodo</code>، فافتح جلسة دخول جديدة.',
+						'بعض الخطوات تحتاج إلى root: الحزم الناقصة، ونطاق في <code>/etc/subuid</code>، ووحدة systemd، وعلى Ubuntu 23.10 وما بعده، ملف تعريف AppArmor لـ <code>virtiofsd</code>. يعرض المثبِّت كل أمر، ويحفظ الأوامر في <code>install-privileged.sh</code>، ولا ينفّذها باستخدام sudo إلا إذا وافقت. لعرضها فقط، استبدل <code>bash</code> الأخير في الأمر بـ <code>bash -s -- --no-input</code>.',
+						'على جهاز جديد، قد يتوقف المثبِّت بعد أن يعرض الحزم المطلوب تثبيتها. ثبّتها، ثم شغّل الأمر نفسه مرة أخرى.',
+						'بلا sudo، يكتفي <code>nodo doctor</code> بفحص العُقدة. ولكي يتمكن من إصلاح الخدمة أيضًا، شغّل <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'نعم، للتثبيت',
+					runsAs: '<code>root</code>',
+					reach: 'كل شيء على الجهاز',
+					restart: 'لا',
+					bestFor: 'أبسط إعداد، أو آلات افتراضية يجب أن تستمر في العمل عند إعادة تشغيل العُقدة',
+					intro: 'شغّل المثبِّت باستخدام sudo. ينفّذ كل الخطوات بنفسه:',
+					notes: [
+						'تعمل العُقدة باسم root. يُثبَّت Nodo في <code>/nodo</code>.',
+						'تستمر الآلات الافتراضية في العمل عند إعادة تشغيل العُقدة، وكذلك أثناء <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'من المفيد أن تعرف',
+			common: [
+				'في وضعَي مستخدم الخدمة وبلا sudo، تعمل الآلات الافتراضية داخل <code>nodo.service</code>. أي إعادة تشغيل للخدمة توقفها كلها، بما في ذلك إعادة التشغيل التي يجريها <code>nodo update</code> و<code>nodo daemon restart</code>. على عملائها تشغيلها من جديد.',
+				'كل جهاز يشغّل عُقدة واحدة: الأوضاع الثلاثة تثبّت <code>nodo.service</code> نفسها.',
+				'تُثبَّت Python وJava و<code>yq</code> داخل دليل العُقدة نفسها، في الأوضاع الثلاثة.',
+				'يعرض Nodo الأمر الذي يفتح منفذ البوابة (gateway) الخاص به في جدار الحماية لديك (ufw، firewalld). ولا يغيّر جدار الحماية هذا بنفسه.'
 			],
+			rootlessNote: 'ما يحتاجه كل وضع، ولماذا: {link}.',
+			manualNote: 'لتثبيت يدوي بالكامل، اتّبع {link}.',
+			rootlessLink: 'التشغيل بلا root (ROOTLESS.md، بالإنجليزية)',
 			manualLink: 'الدليل اليدوي'
 		},
 		windows: {

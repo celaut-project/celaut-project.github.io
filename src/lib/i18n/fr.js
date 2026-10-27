@@ -1280,11 +1280,77 @@ export default {
 		copied: 'Copié ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Installation de base — exécutez ceci dans votre terminal :',
-			notes: [
-				'Le script a besoin de <code>sudo</code> pour la configuration au niveau système. Les runtimes Python, Java et <code>yq</code> s’installent localement dans le répertoire principal du nœud.',
-				'Vous préférez une installation manuelle, sans sudo ? Suivez le {link}.'
+			lead: 'Il existe trois façons d’installer Nodo sous Linux. Elles diffèrent par l’utilisateur qui exécute le nœud. Les trois installent le même service systemd, <code>nodo.service</code>, qui démarre avec la machine et redémarre en cas d’échec.',
+			chooseHeading: 'Laquelle choisir ?',
+			recommend: '<strong>Vous hésitez ? Choisissez l’utilisateur de service.</strong> C’est le meilleur choix pour un nœud toujours allumé, et le nœud ne tourne pas sous votre propre utilisateur. Choisissez l’installation sans sudo si vous voulez le nœud dans votre répertoire personnel et voir chaque commande root avant qu’elle ne s’exécute.',
+			recommended: 'Recommandé',
+			table: {
+				mode: 'Mode',
+				sudo: 'Besoin de sudo',
+				runsAs: 'Le nœud tourne en tant que',
+				path: 'Fichiers dans',
+				reach: 'Un nœud compromis peut atteindre',
+				restart: 'Un redémarrage arrête les VM',
+				bestFor: 'Idéal pour'
+			},
+			check: 'Vérifier',
+			update: 'Mettre à jour',
+			uninstall: 'Désinstaller',
+			modes: {
+				serviceUser: {
+					name: 'Utilisateur de service',
+					sudo: 'Oui, pour installer',
+					runsAs: 'Un utilisateur système, <code>nodo</code>',
+					reach: 'Les fichiers du nœud lui-même et les paramètres réseau',
+					restart: 'Oui',
+					bestFor: 'Un serveur ou une machine toujours allumée',
+					intro: 'Lancez l’installateur avec sudo et indiquez l’utilisateur du nœud :',
+					notes: [
+						'L’installateur crée l’utilisateur système <code>nodo</code> (répertoire personnel <code>/var/lib/nodo</code>) et l’ajoute au groupe <code>kvm</code>. Nodo s’installe dans <code>/nodo</code>.',
+						'Le nœud n’a que la capability <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU et <code>virtiofsd</code> tournent sans aucune capability.',
+						'L’installateur vous ajoute au groupe <code>nodo</code> : vous pouvez donc toujours modifier <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> conserve l’utilisateur de service. Pour revenir à un nœud root, relancez l’installateur avec <code>--service-user root</code>. <code>nodo uninstall</code> ne supprime pas l’utilisateur.'
+					]
+				},
+				withoutSudo: {
+					name: 'Sans sudo',
+					sudo: 'Seulement quelques étapes, affichées avant de s’exécuter',
+					runsAs: 'Vous',
+					reach: 'Vos fichiers et les paramètres réseau',
+					restart: 'Oui',
+					bestFor: 'Votre propre ordinateur, ou pour essayer Nodo',
+					intro: 'Lancez l’installateur avec votre propre utilisateur, sans sudo :',
+					notes: [
+						'Nodo s’installe dans <code>~/.local/share/nodo</code> et la commande <code>nodo</code> dans <code>~/.local/bin</code>. Tous les fichiers vous appartiennent. Si votre shell ne trouve pas <code>nodo</code>, ouvrez une nouvelle session.',
+						'Certaines étapes demandent root : les paquets manquants, une plage dans <code>/etc/subuid</code>, l’unité systemd et, sur Ubuntu 23.10 et versions ultérieures, un profil AppArmor pour <code>virtiofsd</code>. L’installateur affiche chaque commande, les enregistre dans <code>install-privileged.sh</code> et ne les exécute avec sudo que si vous répondez oui. Pour seulement les afficher, remplacez le <code>bash</code> final de la commande par <code>bash -s -- --no-input</code>.',
+						'Sur une nouvelle machine, l’installateur peut s’arrêter après avoir affiché les paquets à installer. Installez-les, puis relancez la même commande.',
+						'Sans sudo, <code>nodo doctor</code> ne fait que vérifier le nœud. Pour qu’il puisse aussi réparer le service, lancez <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Oui, pour installer',
+					runsAs: '<code>root</code>',
+					reach: 'Tout ce qui se trouve sur la machine',
+					restart: 'Non',
+					bestFor: 'L’installation la plus simple, ou des VM qui doivent continuer à tourner quand le nœud redémarre',
+					intro: 'Lancez l’installateur avec sudo. Il fait lui-même toutes les étapes :',
+					notes: [
+						'Le nœud tourne en tant que root. Nodo s’installe dans <code>/nodo</code>.',
+						'Les VM continuent de tourner quand le nœud redémarre, y compris pendant <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Bon à savoir',
+			common: [
+				'Avec l’utilisateur de service et sans sudo, les VM tournent dans <code>nodo.service</code>. Tout redémarrage du service les arrête toutes, y compris celui que font <code>nodo update</code> et <code>nodo daemon restart</code>. Leurs clients doivent les relancer.',
+				'Une machine fait tourner un seul nœud : les trois modes installent le même <code>nodo.service</code>.',
+				'Python, Java et <code>yq</code> s’installent dans le répertoire du nœud lui-même, dans les trois modes.',
+				'Nodo affiche la commande qui ouvre son port de passerelle (gateway) dans votre pare-feu (ufw, firewalld). Il ne modifie pas ce pare-feu lui-même.'
 			],
+			rootlessNote: 'Ce dont chaque mode a besoin, et pourquoi : {link}.',
+			manualNote: 'Pour une installation entièrement manuelle, suivez le {link}.',
+			rootlessLink: 'Fonctionnement sans root (ROOTLESS.md, en anglais)',
 			manualLink: 'guide manuel'
 		},
 		windows: {

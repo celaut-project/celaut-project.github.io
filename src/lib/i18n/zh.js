@@ -1277,11 +1277,77 @@ export default {
 		copied: '已复制 ✓',
 		linux: {
 			heading: 'Linux',
-			intro: '基础安装——在你的终端中运行以下命令:',
-			notes: [
-				'该脚本需要 <code>sudo</code> 权限来完成系统级的设置。Python、Java 与 <code>yq</code> 运行时会被安装在节点主目录之下的本地环境中。',
-				'更倾向于手动安装、不使用 sudo?请参考{link}。'
+			lead: '在 Linux 上安装 Nodo 有三种方式，区别在于由哪个用户运行节点。三种方式安装的都是同一个 systemd 服务 <code>nodo.service</code>，它会在开机时启动，并在出错时自动重启。',
+			chooseHeading: '我该用哪一种？',
+			recommend: '<strong>拿不准？就用服务用户。</strong>对于一直开着的节点，这是最好的选择，而且节点不会以你自己的用户身份运行。如果你希望节点放在自己的主目录下，并想在每条 root 命令运行前先看到它，就用免 sudo 安装。',
+			recommended: '推荐',
+			table: {
+				mode: '模式',
+				sudo: '需要 sudo',
+				runsAs: '节点运行身份',
+				path: '文件位置',
+				reach: '被攻破的节点能触及',
+				restart: '重启会停止虚拟机',
+				bestFor: '最适合'
+			},
+			check: '检查',
+			update: '更新',
+			uninstall: '卸载',
+			modes: {
+				serviceUser: {
+					name: '服务用户',
+					sudo: '是，安装时需要',
+					runsAs: '系统用户 <code>nodo</code>',
+					reach: '节点自己的文件和网络设置',
+					restart: '是',
+					bestFor: '服务器或一直开着的机器',
+					intro: '用 sudo 运行安装程序，并指定节点使用的用户：',
+					notes: [
+						'安装程序会创建系统用户 <code>nodo</code>（主目录为 <code>/var/lib/nodo</code>），并把它加入 <code>kvm</code> 组。Nodo 安装在 <code>/nodo</code>。',
+						'节点只拥有 <code>CAP_NET_ADMIN</code> 这一项 capability。Cloud Hypervisor、QEMU 和 <code>virtiofsd</code> 运行时不带任何 capability。',
+						'安装程序会把你加入 <code>nodo</code> 组，所以你仍然可以编辑 <code>/nodo/config.yaml</code>。',
+						'<code>nodo update</code> 会保留服务用户。要改回以 root 运行的节点，请带上 <code>--service-user root</code> 重新运行安装程序。<code>nodo uninstall</code> 不会删除该用户。'
+					]
+				},
+				withoutSudo: {
+					name: '免 sudo',
+					sudo: '只有少数几步，运行前会先显示',
+					runsAs: '你自己',
+					reach: '你的文件和网络设置',
+					restart: '是',
+					bestFor: '你自己的电脑，或用来试用 Nodo',
+					intro: '以你自己的用户运行安装程序，不用 sudo：',
+					notes: [
+						'Nodo 安装在 <code>~/.local/share/nodo</code>，<code>nodo</code> 命令安装在 <code>~/.local/bin</code>。所有文件都归你所有。如果 shell 找不到 <code>nodo</code>，请打开一个新的登录会话。',
+						'有些步骤需要 root：缺少的软件包、<code>/etc/subuid</code> 中的一段范围、systemd 单元，以及在 Ubuntu 23.10 及更高版本上为 <code>virtiofsd</code> 准备的 AppArmor 配置文件。安装程序会显示每条命令，把它们保存到 <code>install-privileged.sh</code>，只有在你同意后才用 sudo 运行。如果只想显示这些命令，把命令末尾的 <code>bash</code> 换成 <code>bash -s -- --no-input</code>。',
+						'在新机器上，安装程序可能会在列出需要安装的软件包后停下。装好它们，再运行一次同样的命令。',
+						'不用 sudo 时，<code>nodo doctor</code> 只会检查节点。若要让它也能修复服务，请运行 <code>sudo ~/.local/bin/nodo doctor</code>。'
+					]
+				},
+				root: {
+					name: 'root',
+					sudo: '是，安装时需要',
+					runsAs: '<code>root</code>',
+					reach: '机器上的一切',
+					restart: '否',
+					bestFor: '最简单的安装方式，或节点重启时必须继续运行的虚拟机',
+					intro: '用 sudo 运行安装程序，它会自己完成所有步骤：',
+					notes: [
+						'节点以 root 身份运行。Nodo 安装在 <code>/nodo</code>。',
+						'节点重启时虚拟机会继续运行，<code>nodo update</code> 期间也是如此。'
+					]
+				}
+			},
+			commonHeading: '值得了解',
+			common: [
+				'在服务用户和免 sudo 模式下，虚拟机运行在 <code>nodo.service</code> 之内。服务的每次重启都会停止所有虚拟机，<code>nodo update</code> 和 <code>nodo daemon restart</code> 引起的重启也一样。它们的客户端需要重新启动它们。',
+				'一台机器只运行一个节点：三种模式安装的都是同一个 <code>nodo.service</code>。',
+				'在三种模式下，Python、Java 和 <code>yq</code> 都安装在节点自己的目录中。',
+				'Nodo 会显示在你的防火墙（ufw、firewalld）中打开其网关端口的命令，但不会自己修改该防火墙。'
 			],
+			rootlessNote: '每种模式需要什么，以及原因：{link}。',
+			manualNote: '如需完全手动安装，请参考{link}。',
+			rootlessLink: '无 root 运行（ROOTLESS.md，英文）',
 			manualLink: '手动安装指南'
 		},
 		windows: {

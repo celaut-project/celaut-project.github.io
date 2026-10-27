@@ -1281,11 +1281,77 @@ export default {
 		copied: 'Imenakiliwa ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Usakinishaji wa msingi — endesha hii kwenye terminal yako:',
-			notes: [
-				'Skripti inahitaji <code>sudo</code> kwa mipangilio ya ngazi ya mfumo. Mazingira ya kuendesha ya Python, Java, na <code>yq</code> yanasakinishwa kwa ndani ndani ya saraka kuu ya nodi.',
-				'Unapendelea usakinishaji wa mkono, bila sudo? Fuata {link}.'
+			lead: 'Kuna njia tatu za kusakinisha Nodo kwenye Linux. Zinatofautiana kwa mtumiaji anayeendesha nodi. Zote tatu zinasakinisha huduma ileile ya systemd, <code>nodo.service</code>, inayoanza mashine inapowashwa na kujianzisha upya ikishindwa.',
+			chooseHeading: 'Nitumie ipi?',
+			recommend: '<strong>Huna uhakika? Tumia mtumiaji wa huduma.</strong> Ndilo chaguo bora kwa nodi inayowashwa kila wakati, na nodi haiendeshwi kama mtumiaji wako mwenyewe. Tumia usakinishaji bila sudo ikiwa unataka nodi iwe kwenye saraka yako ya nyumbani na unataka kuona kila amri ya root kabla haijaendeshwa.',
+			recommended: 'Inapendekezwa',
+			table: {
+				mode: 'Njia',
+				sudo: 'Inahitaji sudo',
+				runsAs: 'Nodi ina\u00ADendeshwa kama',
+				path: 'Faili ziko',
+				reach: 'Nodi iliyo\u00ADdukuliwa inaweza kufikia',
+				restart: 'Kuanzisha upya kuna\u00ADsimamisha VM',
+				bestFor: 'Inafaa zaidi kwa'
+			},
+			check: 'Kagua',
+			update: 'Sasisha',
+			uninstall: 'Ondoa',
+			modes: {
+				serviceUser: {
+					name: 'Mtumiaji wa huduma',
+					sudo: 'Ndiyo, kwa kusaki\u00ADnisha',
+					runsAs: 'Mtumiaji wa mfumo, <code>nodo</code>',
+					reach: 'Faili za nodi yenyewe na mipangilio ya mtandao',
+					restart: 'Ndiyo',
+					bestFor: 'Seva au mashine inayo\u00ADwashwa kila wakati',
+					intro: 'Endesha kisakinishi kwa sudo, na utaje mtumiaji wa nodi:',
+					notes: [
+						'Kisakinishi kinaunda mtumiaji wa mfumo <code>nodo</code> (saraka ya nyumbani <code>/var/lib/nodo</code>) na kumwongeza kwenye kikundi <code>kvm</code>. Nodo inasakinishwa kwenye <code>/nodo</code>.',
+						'Nodi ina uwezo (capability) mmoja tu, <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU na <code>virtiofsd</code> zinaendeshwa bila uwezo wowote.',
+						'Kisakinishi kinakuongeza kwenye kikundi <code>nodo</code>, kwa hivyo bado unaweza kuhariri <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> inabakiza mtumiaji wa huduma. Ili kurudi kwenye nodi ya root, endesha kisakinishi tena kwa <code>--service-user root</code>. <code>nodo uninstall</code> haimfuti mtumiaji huyo.'
+					]
+				},
+				withoutSudo: {
+					name: 'Bila sudo',
+					sudo: 'Hatua chache tu, zinazo\u00ADonyeshwa kabla ya kuen\u00ADdeshwa',
+					runsAs: 'Wewe',
+					reach: 'Faili zako na mipangilio ya mtandao',
+					restart: 'Ndiyo',
+					bestFor: 'Kompyuta yako mwenyewe, au kujaribu Nodo',
+					intro: 'Endesha kisakinishi kama mtumiaji wako mwenyewe, bila sudo:',
+					notes: [
+						'Nodo inasakinishwa kwenye <code>~/.local/share/nodo</code> na amri ya <code>nodo</code> kwenye <code>~/.local/bin</code>. Faili zote ni zako. Ikiwa shell yako haipati <code>nodo</code>, fungua kipindi kipya cha kuingia.',
+						'Baadhi ya hatua zinahitaji root: vifurushi vinavyokosekana, masafa katika <code>/etc/subuid</code>, kitengo cha systemd na, kwenye Ubuntu 23.10 na baadaye, wasifu wa AppArmor wa <code>virtiofsd</code>. Kisakinishi kinaonyesha kila amri, kinazihifadhi katika <code>install-privileged.sh</code>, na kinaziendesha kwa sudo tu ukikubali. Ili kizionyeshe tu, badilisha <code>bash</code> ya mwisho ya amri kuwa <code>bash -s -- --no-input</code>.',
+						'Kwenye mashine mpya, kisakinishi kinaweza kusimama baada ya kuonyesha vifurushi vya kusakinisha. Visakinishe, kisha endesha amri ileile tena.',
+						'Bila sudo, <code>nodo doctor</code> inakagua nodi tu. Ili iweze pia kurekebisha huduma, endesha <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Ndiyo, kwa kusaki\u00ADnisha',
+					runsAs: '<code>root</code>',
+					reach: 'Kila kitu kwenye mashine',
+					restart: 'Hapana',
+					bestFor: 'Usanidi rahisi zaidi, au VM zinazo\u00ADpaswa kuen\u00ADdelea kufanya kazi nodi inapo\u00ADanzishwa upya',
+					intro: 'Endesha kisakinishi kwa sudo. Kinafanya hatua zote chenyewe:',
+					notes: [
+						'Nodi inaendeshwa kama root. Nodo inasakinishwa kwenye <code>/nodo</code>.',
+						'VM zinaendelea kufanya kazi nodi inapoanzishwa upya, hata wakati wa <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Vizuri kujua',
+			common: [
+				'Kwa mtumiaji wa huduma na bila sudo, VM zinaendeshwa ndani ya <code>nodo.service</code>. Kila mara huduma inapoanzishwa upya, zote husimama, hata kwa <code>nodo update</code> na <code>nodo daemon restart</code>. Wateja wa VM hizo lazima wazianzishe tena.',
+				'Mashine moja inaendesha nodi moja: njia zote tatu zinasakinisha <code>nodo.service</code> ileile.',
+				'Python, Java na <code>yq</code> zinasakinishwa ndani ya saraka ya nodi yenyewe, katika njia zote tatu.',
+				'Nodo inaonyesha amri inayofungua mlango (port) wake wa gateway kwenye firewall yako (ufw, firewalld). Haibadilishi firewall hiyo yenyewe.'
 			],
+			rootlessNote: 'Kile ambacho kila njia inahitaji, na kwa nini: {link}.',
+			manualNote: 'Kwa usakinishaji wa mkono kabisa, fuata {link}.',
+			rootlessLink: 'Uendeshaji bila root (ROOTLESS.md, kwa Kiingereza)',
 			manualLink: 'mwongozo wa mkono'
 		},
 		windows: {

@@ -1282,11 +1282,77 @@ export default {
 		copied: 'Tersalin ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Pemasangan dasar — jalankan ini di terminalmu:',
-			notes: [
-				'Skripnya butuh <code>sudo</code> untuk penyiapan di tingkat sistem. Runtime Python, Java, dan <code>yq</code> dipasang secara lokal di bawah direktori utama node.',
-				'Lebih suka pemasangan manual tanpa sudo? Ikuti {link}.'
+			lead: 'Ada tiga cara memasang Nodo di Linux. Bedanya ada pada pengguna yang menjalankan node. Ketiganya memasang service systemd yang sama, <code>nodo.service</code>, yang berjalan saat boot dan dimulai ulang jika gagal.',
+			chooseHeading: 'Mana yang sebaiknya kupakai?',
+			recommend: '<strong>Ragu? Pakai pengguna service.</strong> Ini pilihan terbaik untuk node yang selalu menyala, dan node tidak berjalan sebagai penggunamu sendiri. Pakai pemasangan tanpa sudo jika kamu ingin node ada di direktori home-mu dan ingin melihat setiap perintah root sebelum dijalankan.',
+			recommended: 'Disarankan',
+			table: {
+				mode: 'Mode',
+				sudo: 'Perlu sudo',
+				runsAs: 'Node berjalan sebagai',
+				path: 'Berkas di',
+				reach: 'Node yang dibobol bisa menjangkau',
+				restart: 'Restart meng\u00ADhentikan VM',
+				bestFor: 'Cocok untuk'
+			},
+			check: 'Periksa',
+			update: 'Perbarui',
+			uninstall: 'Copot',
+			modes: {
+				serviceUser: {
+					name: 'Pengguna service',
+					sudo: 'Ya, untuk memasang',
+					runsAs: 'Pengguna sistem, <code>nodo</code>',
+					reach: 'Berkas milik node itu sendiri dan pengaturan jaringan',
+					restart: 'Ya',
+					bestFor: 'Server atau mesin yang selalu menyala',
+					intro: 'Jalankan installer dengan sudo, dan sebutkan pengguna untuk node:',
+					notes: [
+						'Installer membuat pengguna sistem <code>nodo</code> (home <code>/var/lib/nodo</code>) dan menambahkannya ke grup <code>kvm</code>. Nodo dipasang di <code>/nodo</code>.',
+						'Node hanya punya capability <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU, dan <code>virtiofsd</code> berjalan tanpa capability apa pun.',
+						'Installer menambahkanmu ke grup <code>nodo</code>, jadi kamu tetap bisa menyunting <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> mempertahankan pengguna service. Untuk kembali ke node root, jalankan installer lagi dengan <code>--service-user root</code>. <code>nodo uninstall</code> tidak menghapus pengguna itu.'
+					]
+				},
+				withoutSudo: {
+					name: 'Tanpa sudo',
+					sudo: 'Hanya beberapa langkah, ditampilkan sebelum dijalankan',
+					runsAs: 'Kamu',
+					reach: 'Berkasmu dan pengaturan jaringan',
+					restart: 'Ya',
+					bestFor: 'Kom\u00ADputermu sendiri, atau untuk mencoba Nodo',
+					intro: 'Jalankan installer dengan penggunamu sendiri, tanpa sudo:',
+					notes: [
+						'Nodo dipasang di <code>~/.local/share/nodo</code> dan perintah <code>nodo</code> di <code>~/.local/bin</code>. Semua berkas milikmu. Jika shell-mu tidak menemukan <code>nodo</code>, buka sesi login baru.',
+						'Beberapa langkah butuh root: paket yang belum ada, rentang di <code>/etc/subuid</code>, unit systemd, dan, di Ubuntu 23.10 ke atas, profil AppArmor untuk <code>virtiofsd</code>. Installer menampilkan setiap perintah, menyimpannya di <code>install-privileged.sh</code>, dan hanya menjalankannya dengan sudo jika kamu menjawab ya. Agar hanya ditampilkan, ganti <code>bash</code> terakhir pada perintah dengan <code>bash -s -- --no-input</code>.',
+						'Di mesin baru, installer bisa berhenti setelah menampilkan paket yang perlu dipasang. Pasang paket-paket itu, lalu jalankan lagi perintah yang sama.',
+						'Tanpa sudo, <code>nodo doctor</code> hanya memeriksa node. Agar ia juga bisa memperbaiki service, jalankan <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Ya, untuk memasang',
+					runsAs: '<code>root</code>',
+					reach: 'Semua yang ada di mesin',
+					restart: 'Tidak',
+					bestFor: 'Penyiapan paling sederhana, atau VM yang harus tetap berjalan saat node dimulai ulang',
+					intro: 'Jalankan installer dengan sudo. Ia mengerjakan semua langkahnya sendiri:',
+					notes: [
+						'Node berjalan sebagai root. Nodo dipasang di <code>/nodo</code>.',
+						'VM tetap berjalan saat node dimulai ulang, juga selama <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Perlu diketahui',
+			common: [
+				'Dengan pengguna service dan tanpa sudo, VM berjalan di dalam <code>nodo.service</code>. Setiap restart service menghentikan semuanya, termasuk restart oleh <code>nodo update</code> dan <code>nodo daemon restart</code>. Klien VM itu harus menyalakannya lagi.',
+				'Satu mesin menjalankan satu node: ketiga mode memasang <code>nodo.service</code> yang sama.',
+				'Python, Java, dan <code>yq</code> dipasang di direktori milik node itu sendiri, di ketiga mode.',
+				'Nodo menampilkan perintah untuk membuka port gateway-nya di firewall-mu (ufw, firewalld). Nodo tidak mengubah firewall itu sendiri.'
 			],
+			rootlessNote: 'Apa yang dibutuhkan tiap mode, dan alasannya: {link}.',
+			manualNote: 'Untuk pemasangan yang sepenuhnya manual, ikuti {link}.',
+			rootlessLink: 'Operasi tanpa root (ROOTLESS.md, dalam bahasa Inggris)',
 			manualLink: 'panduan manual'
 		},
 		windows: {

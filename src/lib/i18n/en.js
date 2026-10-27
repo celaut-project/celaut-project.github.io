@@ -1363,11 +1363,78 @@ export default {
 		copied: 'Copied ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Basic installation — run this in your terminal:',
-			notes: [
-				"The script needs <code>sudo</code> for system-level setup. Python, Java and <code>yq</code> runtimes are installed locally under the node's main directory.",
-				'Prefer a manual, no-sudo install? Follow the {link}.'
+			lead: 'There are three ways to install Nodo on Linux. They differ in the user that runs the node. All three install the same systemd service, <code>nodo.service</code>, which starts at boot and restarts if it fails.',
+			chooseHeading: 'Which one should I use?',
+			recommend:
+				'<strong>Not sure? Use the service user.</strong> It is the best choice for a node that is always on, and the node does not run as your own user. Use the install without sudo if you want the node in your home directory and want to see each root command before it runs.',
+			recommended: 'Recommended',
+			table: {
+				mode: 'Mode',
+				sudo: 'Needs sudo',
+				runsAs: 'The node runs as',
+				path: 'Files in',
+				reach: 'A compromised node can reach',
+				restart: 'Restart stops the VMs',
+				bestFor: 'Best for'
+			},
+			check: 'Check it',
+			update: 'Update',
+			uninstall: 'Uninstall',
+			modes: {
+				serviceUser: {
+					name: 'Service user',
+					sudo: 'Yes, to install',
+					runsAs: 'A system user, <code>nodo</code>',
+					reach: 'The node’s own files and the network settings',
+					restart: 'Yes',
+					bestFor: 'A server or a machine that is always on',
+					intro: 'Run the installer with sudo, and name the user for the node:',
+					notes: [
+						'The installer creates the system user <code>nodo</code> (home <code>/var/lib/nodo</code>) and adds it to the <code>kvm</code> group. Nodo goes in <code>/nodo</code>.',
+						'The node has the <code>CAP_NET_ADMIN</code> capability only. Cloud Hypervisor, QEMU and <code>virtiofsd</code> run with no capabilities.',
+						'The installer adds you to the <code>nodo</code> group, so you can still edit <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> keeps the service user. To go back to a root node, run the installer again with <code>--service-user root</code>. <code>nodo uninstall</code> does not delete the user.'
+					]
+				},
+				withoutSudo: {
+					name: 'Without sudo',
+					sudo: 'Only a few steps, shown before they run',
+					runsAs: 'You',
+					reach: 'Your files and the network settings',
+					restart: 'Yes',
+					bestFor: 'Your own computer, or to try Nodo',
+					intro: 'Run the installer as yourself, without sudo:',
+					notes: [
+						'Nodo goes in <code>~/.local/share/nodo</code> and the <code>nodo</code> command in <code>~/.local/bin</code>. You own all the files. If your shell does not find <code>nodo</code>, open a new login session.',
+						'Some steps need root: missing packages, a <code>/etc/subuid</code> range, the systemd unit and, on Ubuntu 23.10 and later, an AppArmor profile for <code>virtiofsd</code>. The installer shows each command, saves them in <code>install-privileged.sh</code>, and runs them with sudo only if you say yes. To only show them, replace the final <code>bash</code> of the command with <code>bash -s -- --no-input</code>.',
+						'On a new machine, the installer can stop after it shows the packages to install. Install them, then run the same command again.',
+						'<code>nodo doctor</code> without sudo only checks the node. To let it repair the service, run <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Yes, to install',
+					runsAs: '<code>root</code>',
+					reach: 'Everything on the machine',
+					restart: 'No',
+					bestFor: 'The simplest setup, or VMs that must keep running when the node restarts',
+					intro: 'Run the installer with sudo. It does all the steps itself:',
+					notes: [
+						'The node runs as root. Nodo goes in <code>/nodo</code>.',
+						'The VMs keep running when the node restarts, also during <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Good to know',
+			common: [
+				'With a service user and without sudo, the VMs run inside <code>nodo.service</code>. A restart of the service stops all of them, also <code>nodo update</code> and <code>nodo daemon restart</code>. Their clients must start them again.',
+				'One machine runs one node: the three modes install the same <code>nodo.service</code>.',
+				'Python, Java and <code>yq</code> are installed under the node’s own directory, in all three modes.',
+				'Nodo shows the command that opens its gateway port in your firewall (ufw, firewalld). It does not change that firewall itself.'
 			],
+			rootlessNote: 'What each mode needs, and why: {link}.',
+			manualNote: 'For a fully manual install, follow the {link}.',
+			rootlessLink: 'Rootless operation (ROOTLESS.md)',
 			manualLink: 'manual guide'
 		},
 		windows: {

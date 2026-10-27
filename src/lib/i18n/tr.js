@@ -1281,11 +1281,77 @@ export default {
 		copied: 'Kopyalandı ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Temel kurulum — bunu terminalinde çalıştır:',
-			notes: [
-				"Betik, sistem düzeyindeki kurulum için <code>sudo</code> gerektirir. Python, Java ve <code>yq</code> çalışma zamanları node'un ana dizini altına yerel olarak kurulur.",
-				"Elle, sudo'suz kurulumu mu tercih edersin? {link} izle."
+			lead: "Nodo'yu Linux'a kurmanın üç yolu var. Aralarındaki fark, node'u çalıştıran kullanıcıdır. Üçü de aynı systemd servisini, <code>nodo.service</code>'i kurar; bu servis açılışta başlar ve çökerse yeniden başlar.",
+			chooseHeading: 'Hangisini kullanmalıyım?',
+			recommend: "<strong>Emin değil misin? Servis kullanıcısını seç.</strong> Sürekli açık bir node için en iyi seçenek budur ve node senin kendi kullanıcınla çalışmaz. Node'un senin ev dizininde olmasını ve her root komutunu çalışmadan önce görmeyi istiyorsan sudo'suz kurulumu seç.",
+			recommended: 'Önerilen',
+			table: {
+				mode: 'Mod',
+				sudo: 'sudo gerekir',
+				runsAs: "Node'u çalıştıran kullanıcı",
+				path: 'Dosyaların yeri',
+				reach: "Ele geçirilmiş bir node'un erişebildikleri",
+				restart: "Yeniden başlatma VM'leri durdurur",
+				bestFor: 'En uygun kullanım'
+			},
+			check: 'Kontrol et',
+			update: 'Güncelle',
+			uninstall: 'Kaldır',
+			modes: {
+				serviceUser: {
+					name: 'Servis kullanıcısı',
+					sudo: 'Evet, kurulum için',
+					runsAs: 'Bir sistem kullanıcısı, <code>nodo</code>',
+					reach: "Node'un kendi dosyaları ve ağ ayarları",
+					restart: 'Evet',
+					bestFor: 'Bir sunucu ya da sürekli açık bir makine',
+					intro: 'Kurulum programını sudo ile çalıştır ve node için kullanıcıyı belirt:',
+					notes: [
+						'Kurulum programı <code>nodo</code> sistem kullanıcısını oluşturur (ev dizini <code>/var/lib/nodo</code>) ve onu <code>kvm</code> grubuna ekler. Nodo <code>/nodo</code> dizinine kurulur.',
+						"Node'un yalnızca <code>CAP_NET_ADMIN</code> yetkisi (capability) vardır. Cloud Hypervisor, QEMU ve <code>virtiofsd</code> hiçbir yetki olmadan çalışır.",
+						'Kurulum programı seni <code>nodo</code> grubuna ekler; böylece <code>/nodo/config.yaml</code> dosyasını düzenlemeye devam edebilirsin.',
+						"<code>nodo update</code> servis kullanıcısını korur. Root olarak çalışan bir node'a geri dönmek için kurulum programını <code>--service-user root</code> ile yeniden çalıştır. <code>nodo uninstall</code> kullanıcıyı silmez."
+					]
+				},
+				withoutSudo: {
+					name: 'sudo olmadan',
+					sudo: 'Yalnızca birkaç adım, çalışmadan önce gösterilir',
+					runsAs: 'Sen',
+					reach: 'Senin dosyaların ve ağ ayarları',
+					restart: 'Evet',
+					bestFor: "Kendi bilgisayarın ya da Nodo'yu denemek için",
+					intro: 'Kurulum programını kendi kullanıcınla, sudo olmadan çalıştır:',
+					notes: [
+						'Nodo <code>~/.local/share/nodo</code> dizinine, <code>nodo</code> komutu da <code>~/.local/bin</code> dizinine kurulur. Tüm dosyalar senindir. Kabuğun <code>nodo</code> komutunu bulamazsa yeni bir oturum aç.',
+						'Bazı adımlar root gerektirir: eksik paketler, <code>/etc/subuid</code> içinde bir aralık, systemd birimi ve Ubuntu 23.10 ve sonrasında <code>virtiofsd</code> için bir AppArmor profili. Kurulum programı her komutu gösterir, hepsini <code>install-privileged.sh</code> dosyasına kaydeder ve yalnızca sen evet dersen sudo ile çalıştırır. Yalnızca göstermesi için komutun sonundaki <code>bash</code> yerine <code>bash -s -- --no-input</code> yaz.',
+						'Yeni bir makinede kurulum programı, kurulması gereken paketleri gösterdikten sonra durabilir. Onları kur, sonra aynı komutu yeniden çalıştır.',
+						"sudo olmadan <code>nodo doctor</code> node'u yalnızca kontrol eder. Servisi de onarabilmesi için <code>sudo ~/.local/bin/nodo doctor</code> çalıştır."
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Evet, kurulum için',
+					runsAs: '<code>root</code>',
+					reach: 'Makinedeki her şey',
+					restart: 'Hayır',
+					bestFor: "En basit kurulum ya da node yeniden başladığında çalışmaya devam etmesi gereken VM'ler",
+					intro: 'Kurulum programını sudo ile çalıştır. Tüm adımları kendisi yapar:',
+					notes: [
+						'Node root olarak çalışır. Nodo <code>/nodo</code> dizinine kurulur.',
+						"VM'ler node yeniden başladığında, <code>nodo update</code> sırasında da çalışmaya devam eder."
+					]
+				}
+			},
+			commonHeading: 'Bilmekte fayda var',
+			common: [
+				"Servis kullanıcısıyla ve sudo olmadan VM'ler <code>nodo.service</code> içinde çalışır. Servisin her yeniden başlatılması, <code>nodo update</code> ve <code>nodo daemon restart</code> dahil, hepsini durdurur. İstemcilerinin onları yeniden başlatması gerekir.",
+				"Bir makinede tek bir node çalışır: üç mod da aynı <code>nodo.service</code>'i kurar.",
+				"Python, Java ve <code>yq</code> üç modda da node'un kendi dizinine kurulur.",
+				'Nodo, gateway portunu güvenlik duvarında (ufw, firewalld) açan komutu gösterir. O güvenlik duvarını kendisi değiştirmez.'
 			],
+			rootlessNote: 'Her modun neye ihtiyaç duyduğu ve nedeni: {link}.',
+			manualNote: 'Tamamen elle kurulum için {link} izle.',
+			rootlessLink: "Root'suz çalışma (ROOTLESS.md, İngilizce)",
 			manualLink: 'elle kurulum kılavuzunu'
 		},
 		windows: {

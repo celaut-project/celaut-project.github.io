@@ -1281,11 +1281,77 @@ export default {
 		copied: 'Kopiert ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Grundinstallation — führe das in deinem Terminal aus:',
-			notes: [
-				'Das Skript braucht <code>sudo</code> für die Einrichtung auf Systemebene. Die Laufzeitumgebungen für Python, Java und <code>yq</code> werden lokal im Hauptverzeichnis des Nodes installiert.',
-				'Lieber manuell und ohne sudo installieren? Folge der {link}.'
+			lead: 'Es gibt drei Wege, Nodo unter Linux zu installieren. Sie unterscheiden sich darin, welcher Benutzer den Node ausführt. Alle drei installieren denselben systemd-Dienst, <code>nodo.service</code>, der beim Booten startet und nach einem Fehler neu startet.',
+			chooseHeading: 'Welchen Weg soll ich wählen?',
+			recommend: '<strong>Unsicher? Nimm den Dienstbenutzer.</strong> Er ist die beste Wahl für einen Node, der immer läuft, und der Node läuft nicht unter deinem eigenen Benutzer. Nimm die Installation ohne sudo, wenn du den Node in deinem Home-Verzeichnis haben und jeden Root-Befehl sehen willst, bevor er ausgeführt wird.',
+			recommended: 'Empfohlen',
+			table: {
+				mode: 'Modus',
+				sudo: 'Braucht sudo',
+				runsAs: 'Der Node läuft als',
+				path: 'Dateien in',
+				reach: 'Ein kompromittierter Node erreicht',
+				restart: 'Neustart stoppt die VMs',
+				bestFor: 'Ideal für'
+			},
+			check: 'Prüfen',
+			update: 'Aktualisieren',
+			uninstall: 'Deinstallieren',
+			modes: {
+				serviceUser: {
+					name: 'Dienst\u00ADbenutzer',
+					sudo: 'Ja, zum Instal\u00ADlieren',
+					runsAs: 'Ein System\u00ADbenutzer, <code>nodo</code>',
+					reach: 'Die eigenen Dateien des Nodes und die Netzwerk\u00ADeinstellungen',
+					restart: 'Ja',
+					bestFor: 'Ein Server oder eine Maschine, die immer läuft',
+					intro: 'Führe den Installer mit sudo aus und gib den Benutzer für den Node an:',
+					notes: [
+						'Der Installer legt den Systembenutzer <code>nodo</code> an (Home-Verzeichnis <code>/var/lib/nodo</code>) und fügt ihn der Gruppe <code>kvm</code> hinzu. Nodo kommt nach <code>/nodo</code>.',
+						'Der Node hat nur die Capability <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU und <code>virtiofsd</code> laufen ohne Capabilities.',
+						'Der Installer fügt dich der Gruppe <code>nodo</code> hinzu, sodass du <code>/nodo/config.yaml</code> weiterhin bearbeiten kannst.',
+						'<code>nodo update</code> behält den Dienstbenutzer bei. Um zu einem Root-Node zurückzukehren, führe den Installer erneut mit <code>--service-user root</code> aus. <code>nodo uninstall</code> löscht den Benutzer nicht.'
+					]
+				},
+				withoutSudo: {
+					name: 'Ohne sudo',
+					sudo: 'Nur wenige Schritte, die vorher angezeigt werden',
+					runsAs: 'Du',
+					reach: 'Deine Dateien und die Netzwerk\u00ADeinstellungen',
+					restart: 'Ja',
+					bestFor: 'Dein eigener Computer, oder um Nodo auszu\u00ADprobieren',
+					intro: 'Führe den Installer mit deinem eigenen Benutzer aus, ohne sudo:',
+					notes: [
+						'Nodo kommt nach <code>~/.local/share/nodo</code> und der Befehl <code>nodo</code> nach <code>~/.local/bin</code>. Alle Dateien gehören dir. Wenn deine Shell <code>nodo</code> nicht findet, öffne eine neue Login-Sitzung.',
+						'Einige Schritte brauchen root: fehlende Pakete, ein Bereich in <code>/etc/subuid</code>, die systemd-Unit und, ab Ubuntu 23.10, ein AppArmor-Profil für <code>virtiofsd</code>. Der Installer zeigt jeden Befehl, speichert sie in <code>install-privileged.sh</code> und führt sie nur dann mit sudo aus, wenn du zustimmst. Um sie nur anzuzeigen, ersetze das letzte <code>bash</code> des Befehls durch <code>bash -s -- --no-input</code>.',
+						'Auf einer neuen Maschine kann der Installer anhalten, nachdem er die zu installierenden Pakete angezeigt hat. Installiere sie und führe dann denselben Befehl erneut aus.',
+						'Ohne sudo prüft <code>nodo doctor</code> den Node nur. Damit er den Dienst auch reparieren kann, führe <code>sudo ~/.local/bin/nodo doctor</code> aus.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Ja, zum Instal\u00ADlieren',
+					runsAs: '<code>root</code>',
+					reach: 'Alles auf der Maschine',
+					restart: 'Nein',
+					bestFor: 'Die einfachste Einrichtung, oder VMs, die weiterlaufen müssen, wenn der Node neu startet',
+					intro: 'Führe den Installer mit sudo aus. Er erledigt alle Schritte selbst:',
+					notes: [
+						'Der Node läuft als root. Nodo kommt nach <code>/nodo</code>.',
+						'Die VMs laufen weiter, wenn der Node neu startet, auch während <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Gut zu wissen',
+			common: [
+				'Mit Dienstbenutzer und ohne sudo laufen die VMs innerhalb von <code>nodo.service</code>. Jeder Neustart des Dienstes stoppt sie alle, auch der durch <code>nodo update</code> und <code>nodo daemon restart</code>. Ihre Clients müssen sie erneut starten.',
+				'Eine Maschine betreibt einen Node: Die drei Modi installieren denselben Dienst <code>nodo.service</code>.',
+				'Python, Java und <code>yq</code> werden in allen drei Modi im eigenen Verzeichnis des Nodes installiert.',
+				'Nodo zeigt den Befehl, der seinen Gateway-Port in deiner Firewall (ufw, firewalld) öffnet. Diese Firewall ändert Nodo nicht selbst.'
 			],
+			rootlessNote: 'Was jeder Modus braucht, und warum: {link}.',
+			manualNote: 'Für eine vollständig manuelle Installation folge der {link}.',
+			rootlessLink: 'Betrieb ohne root (ROOTLESS.md, auf Englisch)',
 			manualLink: 'Anleitung für die manuelle Installation'
 		},
 		windows: {

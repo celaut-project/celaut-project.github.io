@@ -1280,11 +1280,77 @@ export default {
 		copied: 'Copiado ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Instalação básica — execute isto no seu terminal:',
-			notes: [
-				'O script precisa de <code>sudo</code> para a configuração em nível de sistema. Os runtimes de Python, Java e <code>yq</code> são instalados localmente dentro do diretório principal do nó.',
-				'Prefere uma instalação manual, sem sudo? Siga o {link}.'
+			lead: 'Há três formas de instalar o Nodo no Linux. Elas diferem no usuário que executa o nó. As três instalam o mesmo serviço do systemd, <code>nodo.service</code>, que inicia com o sistema e reinicia se falhar.',
+			chooseHeading: 'Qual devo usar?',
+			recommend: '<strong>Na dúvida? Use o usuário de serviço.</strong> É a melhor opção para um nó sempre ligado, e o nó não roda com o seu próprio usuário. Use a instalação sem sudo se quiser o nó no seu diretório pessoal e quiser ver cada comando de root antes de ele ser executado.',
+			recommended: 'Recomendado',
+			table: {
+				mode: 'Modo',
+				sudo: 'Precisa de sudo',
+				runsAs: 'O nó roda como',
+				path: 'Arquivos em',
+				reach: 'Um nó comprometido alcança',
+				restart: 'Reiniciar interrompe as VMs',
+				bestFor: 'Ideal para'
+			},
+			check: 'Verificar',
+			update: 'Atualizar',
+			uninstall: 'Desinstalar',
+			modes: {
+				serviceUser: {
+					name: 'Usuário de serviço',
+					sudo: 'Sim, para instalar',
+					runsAs: 'Um usuário do sistema, <code>nodo</code>',
+					reach: 'Os arquivos do próprio nó e as configurações de rede',
+					restart: 'Sim',
+					bestFor: 'Um servidor ou uma máquina sempre ligada',
+					intro: 'Execute o instalador com sudo e informe o usuário do nó:',
+					notes: [
+						'O instalador cria o usuário do sistema <code>nodo</code> (diretório pessoal <code>/var/lib/nodo</code>) e o adiciona ao grupo <code>kvm</code>. O Nodo fica em <code>/nodo</code>.',
+						'O nó tem apenas a capability <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU e <code>virtiofsd</code> rodam sem nenhuma capability.',
+						'O instalador adiciona você ao grupo <code>nodo</code>, então você continua podendo editar <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> mantém o usuário de serviço. Para voltar a um nó como root, execute o instalador de novo com <code>--service-user root</code>. <code>nodo uninstall</code> não apaga o usuário.'
+					]
+				},
+				withoutSudo: {
+					name: 'Sem sudo',
+					sudo: 'Só alguns passos, mostrados antes de rodar',
+					runsAs: 'Você',
+					reach: 'Seus arquivos e as configurações de rede',
+					restart: 'Sim',
+					bestFor: 'Seu próprio computador, ou para experimentar o Nodo',
+					intro: 'Execute o instalador com o seu usuário, sem sudo:',
+					notes: [
+						'O Nodo fica em <code>~/.local/share/nodo</code> e o comando <code>nodo</code> em <code>~/.local/bin</code>. Todos os arquivos são seus. Se o seu shell não encontrar <code>nodo</code>, abra uma nova sessão de login.',
+						'Alguns passos precisam de root: pacotes que faltam, um intervalo em <code>/etc/subuid</code>, a unidade do systemd e, no Ubuntu 23.10 ou mais recente, um perfil do AppArmor para o <code>virtiofsd</code>. O instalador mostra cada comando, salva todos em <code>install-privileged.sh</code> e só os executa com sudo se você disser que sim. Para apenas mostrá-los, troque o <code>bash</code> final do comando por <code>bash -s -- --no-input</code>.',
+						'Em uma máquina nova, o instalador pode parar depois de mostrar os pacotes a instalar. Instale-os e execute o mesmo comando de novo.',
+						'Sem sudo, <code>nodo doctor</code> apenas verifica o nó. Para que ele também possa reparar o serviço, execute <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Sim, para instalar',
+					runsAs: '<code>root</code>',
+					reach: 'Tudo o que há na máquina',
+					restart: 'Não',
+					bestFor: 'A instalação mais simples, ou VMs que precisam continuar rodando quando o nó reinicia',
+					intro: 'Execute o instalador com sudo. Ele faz todos os passos sozinho:',
+					notes: [
+						'O nó roda como root. O Nodo fica em <code>/nodo</code>.',
+						'As VMs continuam rodando quando o nó reinicia, inclusive durante <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Bom saber',
+			common: [
+				'Com o usuário de serviço e sem sudo, as VMs rodam dentro do <code>nodo.service</code>. Qualquer reinício do serviço interrompe todas elas, inclusive o de <code>nodo update</code> e o de <code>nodo daemon restart</code>. Os clientes delas precisam iniciá-las de novo.',
+				'Uma máquina roda um só nó: os três modos instalam o mesmo <code>nodo.service</code>.',
+				'Python, Java e <code>yq</code> são instalados dentro do diretório do próprio nó, nos três modos.',
+				'O Nodo mostra o comando que abre a porta do gateway dele no seu firewall (ufw, firewalld). Ele não altera esse firewall por conta própria.'
 			],
+			rootlessNote: 'Do que cada modo precisa, e por quê: {link}.',
+			manualNote: 'Para uma instalação totalmente manual, siga o {link}.',
+			rootlessLink: 'Operação sem root (ROOTLESS.md, em inglês)',
 			manualLink: 'guia manual'
 		},
 		windows: {

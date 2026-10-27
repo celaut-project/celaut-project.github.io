@@ -1282,11 +1282,77 @@ export default {
 		copied: 'Copiat ✓',
 		linux: {
 			heading: 'Linux',
-			intro: 'Instalare de bază — rulează asta în terminal:',
-			notes: [
-				'Scriptul are nevoie de <code>sudo</code> pentru configurarea la nivel de sistem. Mediile de rulare Python, Java și <code>yq</code> se instalează local, în directorul principal al nodului.',
-				'Preferi o instalare manuală, fără sudo? Urmează {link}.'
+			lead: 'Există trei moduri de a instala Nodo pe Linux. Ele diferă prin utilizatorul care rulează nodul. Toate trei instalează același serviciu systemd, <code>nodo.service</code>, care pornește odată cu sistemul și repornește dacă eșuează.',
+			chooseHeading: 'Pe care să-l aleg?',
+			recommend: '<strong>Nu ești sigur? Folosește utilizatorul de serviciu.</strong> Este cea mai bună alegere pentru un nod mereu pornit, iar nodul nu rulează sub utilizatorul tău. Folosește instalarea fără sudo dacă vrei nodul în directorul tău personal și vrei să vezi fiecare comandă root înainte să ruleze.',
+			recommended: 'Recomandat',
+			table: {
+				mode: 'Mod',
+				sudo: 'Necesită sudo',
+				runsAs: 'Nodul rulează ca',
+				path: 'Fișiere în',
+				reach: 'Un nod compromis poate ajunge la',
+				restart: 'Repornirea oprește VM-urile',
+				bestFor: 'Potrivit pentru'
+			},
+			check: 'Verifică',
+			update: 'Actualizează',
+			uninstall: 'Dezinstalează',
+			modes: {
+				serviceUser: {
+					name: 'Utilizator de serviciu',
+					sudo: 'Da, pentru instalare',
+					runsAs: 'Un utilizator de sistem, <code>nodo</code>',
+					reach: 'Fișierele nodului însuși și setările de rețea',
+					restart: 'Da',
+					bestFor: 'Un server sau o mașină mereu pornită',
+					intro: 'Rulează installerul cu sudo și indică utilizatorul pentru nod:',
+					notes: [
+						'Installerul creează utilizatorul de sistem <code>nodo</code> (cu directorul personal <code>/var/lib/nodo</code>) și îl adaugă în grupul <code>kvm</code>. Nodo se instalează în <code>/nodo</code>.',
+						'Nodul are doar capabilitatea <code>CAP_NET_ADMIN</code>. Cloud Hypervisor, QEMU și <code>virtiofsd</code> rulează fără nicio capabilitate.',
+						'Installerul te adaugă în grupul <code>nodo</code>, așa că poți edita în continuare <code>/nodo/config.yaml</code>.',
+						'<code>nodo update</code> păstrează utilizatorul de serviciu. Ca să revii la un nod root, rulează din nou installerul cu <code>--service-user root</code>. <code>nodo uninstall</code> nu șterge utilizatorul.'
+					]
+				},
+				withoutSudo: {
+					name: 'Fără sudo',
+					sudo: 'Doar câțiva pași, afișați înainte să ruleze',
+					runsAs: 'Tu',
+					reach: 'Fișierele tale și setările de rețea',
+					restart: 'Da',
+					bestFor: 'Propriul tău calculator, sau ca să încerci Nodo',
+					intro: 'Rulează installerul cu utilizatorul tău, fără sudo:',
+					notes: [
+						'Nodo se instalează în <code>~/.local/share/nodo</code>, iar comanda <code>nodo</code> în <code>~/.local/bin</code>. Toate fișierele sunt ale tale. Dacă shell-ul tău nu găsește <code>nodo</code>, deschide o nouă sesiune de login.',
+						'Unii pași necesită root: pachetele lipsă, un interval în <code>/etc/subuid</code>, unitatea systemd și, pe Ubuntu 23.10 sau mai nou, un profil AppArmor pentru <code>virtiofsd</code>. Installerul afișează fiecare comandă, le salvează în <code>install-privileged.sh</code> și le rulează cu sudo doar dacă răspunzi da. Ca doar să le afișeze, înlocuiește <code>bash</code> de la finalul comenzii cu <code>bash -s -- --no-input</code>.',
+						'Pe o mașină nouă, installerul se poate opri după ce afișează pachetele de instalat. Instalează-le, apoi rulează din nou aceeași comandă.',
+						'Fără sudo, <code>nodo doctor</code> doar verifică nodul. Ca să poată repara și serviciul, rulează <code>sudo ~/.local/bin/nodo doctor</code>.'
+					]
+				},
+				root: {
+					name: 'Root',
+					sudo: 'Da, pentru instalare',
+					runsAs: '<code>root</code>',
+					reach: 'Tot ce există pe mașină',
+					restart: 'Nu',
+					bestFor: 'Cea mai simplă instalare, sau VM-uri care trebuie să ruleze în continuare când nodul repornește',
+					intro: 'Rulează installerul cu sudo. Face singur toți pașii:',
+					notes: [
+						'Nodul rulează ca root. Nodo se instalează în <code>/nodo</code>.',
+						'VM-urile continuă să ruleze când nodul repornește, inclusiv în timpul <code>nodo update</code>.'
+					]
+				}
+			},
+			commonHeading: 'Bine de știut',
+			common: [
+				'Cu utilizator de serviciu și fără sudo, VM-urile rulează în interiorul <code>nodo.service</code>. Orice repornire a serviciului le oprește pe toate, inclusiv cea făcută de <code>nodo update</code> și <code>nodo daemon restart</code>. Clienții lor trebuie să le pornească din nou.',
+				'O mașină rulează un singur nod: cele trei moduri instalează același <code>nodo.service</code>.',
+				'Python, Java și <code>yq</code> se instalează în directorul propriu al nodului, în toate cele trei moduri.',
+				'Nodo afișează comanda care deschide portul său de gateway în firewall-ul tău (ufw, firewalld). Nu modifică el însuși acel firewall.'
 			],
+			rootlessNote: 'De ce are nevoie fiecare mod, și de ce: {link}.',
+			manualNote: 'Pentru o instalare complet manuală, urmează {link}.',
+			rootlessLink: 'Funcționarea fără root (ROOTLESS.md, în engleză)',
 			manualLink: 'ghidul manual'
 		},
 		windows: {
