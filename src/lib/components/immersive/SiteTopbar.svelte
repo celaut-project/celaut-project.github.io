@@ -7,8 +7,8 @@
 	 * without going via the landing page. Now the three audience routes,
 	 * the paradigm deep dive and the blog are always one click away, and
 	 * the current one is marked with aria-current and an underline.
-	 * The brand mark is a few cells of a cellular automaton, a nod to the
-	 * name; it is the link home.
+	 * The brand mark is the same logo as the landing page's (HeroLogo), and
+	 * it is the link home.
 	 *
 	 * Deliberately not in +layout.svelte: the landing page has its own
 	 * SectionIndex rail and hero, and a second fixed bar there would
@@ -16,6 +16,7 @@
 	 */
 	import { page } from '$app/stores';
 	import { t, href, stripLocalePrefix } from '$lib/i18n/index.js';
+	import HeroLogo from '../HeroLogo.svelte';
 
 	/** Page title shown next to the wordmark. Already translated. */
 	export let title = '';
@@ -50,13 +51,7 @@
 
 <header class="topbar" class:sticky={position === 'sticky'}>
 	<a class="home-link" href={$href('/')}>
-		<svg class="mark" viewBox="0 0 15 15" width="22" height="22" aria-hidden="true">
-			<rect x="5" y="0" width="5" height="5" rx="1" />
-			<rect x="10" y="5" width="5" height="5" rx="1" />
-			<rect x="0" y="10" width="5" height="5" rx="1" />
-			<rect x="5" y="10" width="5" height="5" rx="1" />
-			<rect x="10" y="10" width="5" height="5" rx="1" />
-		</svg>
+		<span class="mark"><HeroLogo size={36} instant decorative /></span>
 		<span class="wordmark">CELAUT</span>
 	</a>
 
@@ -124,9 +119,9 @@
 		color: var(--accent-text);
 	}
 
-	/* A glider, the smallest pattern that travels. */
+	/* The Celaut mark: a glider, the smallest pattern that travels. */
 	.mark {
-		fill: var(--accent);
+		display: inline-flex;
 		flex: none;
 	}
 

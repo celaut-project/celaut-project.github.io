@@ -25,6 +25,13 @@
 	 */
 	export let sections = [];
 
+	/**
+	 * Keeps the rail and the mobile button out of sight (and out of the tab
+	 * order) until the page asks for them. The landing hero uses it so the
+	 * opening shows nothing but the logo.
+	 */
+	export let hidden = false;
+
 	let active = sections[0]?.id;
 	let open = false;
 
@@ -76,7 +83,7 @@
 {#if sections.length}
 	{#key ids}
 		<!-- Desktop side rail -->
-		<nav class="rail" aria-label={$t('common.toc.nav')}>
+		<nav class="rail" class:hidden aria-label={$t('common.toc.nav')} aria-hidden={hidden ? 'true' : undefined}>
 			<ul>
 				{#each sections as section}
 					<li>
@@ -97,6 +104,8 @@
 		<!-- Mobile toggle + menu -->
 		<button
 			class="toc-fab"
+			class:hidden
+			tabindex={hidden ? -1 : undefined}
 			on:click={() => (open = !open)}
 			aria-label={open ? $t('common.toc.close') : $t('common.toc.open')}
 			aria-expanded={open}
@@ -148,6 +157,19 @@
 		max-height: 84vh;
 		overflow-y: auto;
 		scrollbar-width: none;
+	}
+
+	.rail,
+	.toc-fab {
+		transition: opacity 0.7s ease, visibility 0s;
+	}
+
+	.rail.hidden,
+	.toc-fab.hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 0.7s ease, visibility 0s 0.7s;
 	}
 
 	.rail::-webkit-scrollbar {

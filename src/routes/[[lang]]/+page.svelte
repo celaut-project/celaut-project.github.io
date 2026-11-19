@@ -343,12 +343,15 @@
 			cleanupGsap();
 		};
 	});
+	// The opening shows only the logo; the hero tells us when the rest of the
+	// page (the index rail included) may appear.
+	let introRevealed = false;
 </script>
 
-<SectionIndex sections={indexSections} />
+<SectionIndex sections={indexSections} hidden={!introRevealed} />
 
 <main bind:this={main} class="home">
-	<Hero />
+	<Hero on:reveal={() => (introRevealed = true)} />
 
 	<!-- #learn-more is kept for the Hero CTA, which predates the TOC. -->
 	<div id="learn-more"></div>

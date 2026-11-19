@@ -1,6 +1,14 @@
+<script context="module">
+    // Lives as long as the page does: a reload replays the opening, while
+    // coming back to the home page from another route inside the site (the
+    // module stays loaded) does not.
+    let introPlayed = false;
+</script>
+
 <script>
-    import { onMount } from 'svelte';
+    import { onMount, tick, createEventDispatcher } from 'svelte';
     import GlossaryGuide from './glossary/GlossaryGuide.svelte';
+    import HeroLogo from './HeroLogo.svelte';
     import { fly, fade } from 'svelte/transition';
     import { locale, t, href } from '$lib/i18n/index.js';
     import { createViewportGate, releaseCanvas } from '$lib/motion.js';
@@ -137,29 +145,54 @@
         };
     }
 
+    // --- OPENING ---------------------------------------------------------
+    // 1. BUILD   The logo assembles itself cell by cell, huge, centred, and
+    //            nothing else is on screen (see HeroLogo.svelte).
+    // 2. SETTLE  It shrinks and glides up; the wordmark and tagline write
+    //            themselves underneath. Nothing else yet.
+    // 3. REVEAL  At the first small scroll (or a click on the hint) the
+    //            index rail, the tips carousel and the buttons fade in.
+    // Coming back to the home page inside the site, a reload part-way down the page, a
+    // #hash link and reduced motion all skip straight to the finished state.
+    const dispatch = createEventDispatcher();
+    const BUILD = 2900; // ms until the last cell of the logo has landed
+    const SETTLE = 1100; // ms the logo takes to shrink into place
+    const fast = (() => {
+        if (typeof window === 'undefined') return false;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+        return window.scrollY > 0 || !!location.hash || introPlayed;
+    })();
+    const TITLE_AT = fast ? 200 : BUILD + 600;
+
+    let stage = 'build'; // 'build' | 'done'
+    let extras = false; // index rail, carousel and buttons are visible
+    let measured = false; // the logo has been placed for its big phase
+    let instant = false; // finished logo, no build
+    let markStyle = '';
+    let liftShift = 0; // px the title block sits below its final spot
+    let glide = false;
+    let extrasEl;
+
     // The tagline's reveal is choreographed to land after the wordmark on
     // first paint. A later replay (a language switch) should be immediate —
     // the visitor is already looking at it.
-    let taglineDelay = 800;
+    let taglineDelay = fast ? 0 : TITLE_AT + 300;
 
-    // --- 1. LÓGICA PARA EL EFECTO PARALLAX ---
-    let parallaxX = 0;
-    let parallaxY = 0;
 
-    /**
-     * Actualiza las coordenadas para el efecto parallax basándose en la posición del ratón.
-     * Las coordenadas se normalizan (-0.5 a 0.5) para un cálculo más sencillo.
-     */
+
+    // --- 1. THE POINTER ---
+    // The logo, wordmark and tagline stay perfectly still. Only the
+    // background automaton reacts to the mouse (see nextGeneration). These
+    // are plain variables, not template state, so moving the mouse never
+    // re-renders the hero.
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerOn = false;
+
     function handleMousemove(event) {
-        // The parallax only moves the hero's own content wrapper, so once
-        // the hero has scrolled off there is nothing to update — and this
-        // is a reactive assignment, which would otherwise re-render the
-        // hero subtree on every single mouse move for the whole visit.
-        if (!heroLive) return;
-        const { clientX, clientY } = event;
-        const { innerWidth, innerHeight } = window;
-        parallaxX = (clientX / innerWidth) - 0.5;
-        parallaxY = (clientY / innerHeight) - 0.5;
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        pointerOn = true;
     }
 
 
@@ -235,8 +268,6 @@
             }
         });
 
-        taglineDelay = 0;
-
         return {
             destroy() {
                 // Lógica de limpieza si fuera necesaria
@@ -270,43 +301,194 @@
         target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     }
 
-    // True only while the hero backdrop is on screen; the parallax handler
+    // True only while the hero backdrop is on screen; the pointer handler
     // and the automata loop both read it. The hero is one viewport tall at
     // the very top of a very long page, so for most of a visit this is
     // false and all of this work can simply not happen.
     let heroLive = false;
+    let markEl;
+    let revealNow = () => {};
 
     onMount(() => {
-        let ctx = canvas.getContext('2d');
-        let cols, rows, grid;
-        const resolution = 25; // Tamaño en píxeles de cada celda
-        // Cell colour comes from the theme's decorative --viz-grid channel
-        // rather than a pair of hardcoded hexes, so it tracks the palette.
-        const cellColor = () =>
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--viz-grid')
-                .trim() || 'rgba(255,255,255,0.08)';
+        // After the first reveal, a language switch replays the tagline at once.
+        const tagTimer = setTimeout(() => (taglineDelay = 0), TITLE_AT + 1500);
+        // ---- opening sequence ----
+        let destroyed = false;
+        let settled = false;
+        let wantExtras = false;
+        const timers = [];
 
+        function reveal() {
+            if (extras) return;
+            glide = true;
+            liftShift = 0;
+            extras = true;
+            dispatch('reveal');
+        }
+
+        const onIntent = (e) => {
+            if (e.type === 'scroll' && window.scrollY < 4) return;
+            if (e.type === 'wheel' && e.deltaY <= 0) return;
+            if (e.type === 'keydown' && !['ArrowDown', 'PageDown', ' ', 'End', 'Tab'].includes(e.key)) return;
+            wantExtras = true;
+            if (settled) reveal();
+        };
+        window.addEventListener('scroll', onIntent, { passive: true });
+        window.addEventListener('wheel', onIntent, { passive: true });
+        window.addEventListener('touchmove', onIntent, { passive: true });
+        window.addEventListener('keydown', onIntent);
+        revealNow = reveal;
+
+        const startOpening = async () => {
+            if (fast) {
+                instant = true;
+                measured = true;
+                stage = 'done';
+                settled = true;
+                reveal();
+                started = true;
+                if (!reducedMotion()) seedFromMark();
+                return;
+            }
+            introPlayed = true;
+            // Park the title block lower by half the height of what will
+            // appear later, so the opening sits in the middle of the screen.
+            liftShift = Math.round((extrasEl?.offsetHeight || 0) / 2);
+            await tick();
+            if (destroyed) return;
+            // Scale and move the finished logo to the middle of the window.
+            const r = markEl.getBoundingClientRect();
+            const target = bigSize();
+            const k = target / r.width;
+            const dx = window.innerWidth / 2 - (r.left + r.width / 2);
+            const dy = window.innerHeight / 2 - (r.top + r.height / 2);
+            markStyle = `transform: translate(${dx}px, ${dy}px) scale(${k}); transition: none;`;
+            measured = true;
+            seedFromLogo();
+            timers.push(
+                // The glider starts to travel as the logo pulls away.
+                setTimeout(() => (started = true), BUILD + 500),
+                setTimeout(() => {
+                    markStyle = `transform: none; transition: transform ${SETTLE}ms cubic-bezier(0.65, 0, 0.25, 1);`;
+                }, BUILD),
+                setTimeout(() => {
+                    stage = 'done';
+                    settled = true;
+                    if (wantExtras || window.scrollY > 4) reveal();
+                }, BUILD + SETTLE)
+            );
+        };
+
+        let ctx = canvas.getContext('2d');
+
+        // ---- Background automaton ------------------------------------------
+        // The logo is a Game of Life glider, and the background is the same
+        // kind of automaton picking up where the logo leaves off:
+        //   * the grid is the logo's own grid, scaled to the big opening
+        //     logo, so each of its cells lands exactly on a grid cell;
+        //   * the five live cells of the logo are the seed of the field.
+        //     When the logo shrinks they stay behind, and from there the
+        //     pattern spreads out in every direction, chaotically.
+        // Plain Life would send that glider off in one straight line, so the
+        // field runs "Seeds" (a cell is born with exactly two live
+        // neighbours, and no cell survives): from five cells it explodes
+        // outwards and never dies out or freezes. It is kept quiet by being
+        // faint, and by each cell fading out as it dies.
+        const LOGO_VIEW = 244; // the logo's viewBox, and the numbers below
+        const LOGO_PITCH = 31.5; // distance between cell origins
+        const LOGO_CELL = 27.5; // cell size
+        const LOGO_RX = 6; // cell corner radius
+        const LOGO_X0 = -8.25 + 22; // first cell's offset inside the viewBox
+        const LOGO_Y0 = 7.5 + 22;
+        const PAD = 3; // cells kept beyond every screen edge
+        // The glider of the logo: [row, col] in its 7x6 grid.
+        const LOGO_GLIDER = [[1, 3], [2, 4], [3, 2], [3, 3], [3, 4]];
+        const STEP_MS = 900; // ms between generations: slow, so it never feels busy
+        const FADE_IN = 450; // ms for a new cell to come into view
+        const FADE_OUT = 1500; // ms for a dead cell to fade away
+        const STIR_MS = 110; // ms between pointer stirs
+        const ALPHA = 0.16; // overall strength of the backdrop
+        const TEXT_DIM = 0.35; // share of that strength kept right behind the text
+
+        let R = 30; // px per grid cell
+        let gx0 = 0;
+        let gy0 = 0;
+        let cols = 0;
+        let rows = 0;
+        let alive = null;
+        let hue = null; // 0 coral, 1 teal (just born), 2 woken by the pointer
+        let shown = null; // how visible each cell is right now, eased 0..1
+        let gen = 0;
+        let started = false;
         // Whether the canvas currently owns a pixel buffer. The hero is a
         // full-window canvas (~8MB at 1920x1080, and four times that on a
         // retina panel), so it is worth handing back once it has scrolled
         // away — the reader is nine scenes deep and cannot see it.
         let allocated = false;
+        let laidOut = '';
+
+        // Size of the logo during the opening (see startOpening).
+        const bigSize = () => Math.min(window.innerHeight * 0.4, window.innerWidth * 0.6, 360);
+
+        // Builds the grid for the current window. The big logo sits in the
+        // middle of the window, so the grid is aligned to where its cells are.
+        function layout() {
+            const S = bigSize();
+            const u = S / LOGO_VIEW;
+            R = LOGO_PITCH * u;
+            const left = window.innerWidth / 2 - S / 2 + LOGO_X0 * u;
+            const top = window.innerHeight / 2 - S / 2 + LOGO_Y0 * u;
+            gx0 = (((left % R) + R) % R) - PAD * R;
+            gy0 = (((top % R) + R) % R) - PAD * R;
+            cols = Math.ceil((window.innerWidth - gx0) / R) + PAD;
+            rows = Math.ceil((window.innerHeight - gy0) / R) + PAD;
+            alive = new Uint8Array(cols * rows);
+            hue = new Uint8Array(cols * rows);
+            shown = new Float32Array(cols * rows);
+            laidOut = `${window.innerWidth}x${window.innerHeight}`;
+        }
+
+        function place(pattern, c0, r0) {
+            for (const [r, c] of pattern) {
+                const i = (r0 + r) * cols + (c0 + c);
+                if (c0 + c < 1 || r0 + r < 1 || c0 + c >= cols - 1 || r0 + r >= rows - 1) continue;
+                alive[i] = 1;
+                hue[i] = 0;
+                shown[i] = 1;
+            }
+        }
+
+        // The glider of the big logo, exactly under the logo's own cells.
+        function seedFromLogo() {
+            if (!alive) layout();
+            const S = bigSize();
+            const u = S / LOGO_VIEW;
+            const left = window.innerWidth / 2 - S / 2 + LOGO_X0 * u;
+            const top = window.innerHeight / 2 - S / 2 + LOGO_Y0 * u;
+            place(LOGO_GLIDER, Math.round((left - gx0) / R), Math.round((top - gy0) / R));
+            draw();
+        }
+
+        // Same seed, placed behind the small logo: for visits that skip the
+        // opening, and to restart the field if it ever empties.
+        function seedFromMark() {
+            if (!alive) layout();
+            if (!markEl) return;
+            const m = markEl.getBoundingClientRect();
+            const ci = Math.floor((m.left + m.width / 2 - gx0) / R);
+            const ri = Math.floor((m.top + m.height / 2 - gy0) / R);
+            place(LOGO_GLIDER, ci - 3, ri - 2);
+        }
 
         function setup() {
             if (!allocated) return;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const nextCols = Math.ceil(canvas.width / resolution);
-            const nextRows = Math.ceil(canvas.height / resolution);
-            // Only re-seed when the grid's shape actually changed. Releasing
-            // the backing store must not restart the simulation: a reader
-            // who scrolls back to the top should find the automata where
-            // they left it, not a fresh random field.
-            if (!grid || nextCols !== cols || nextRows !== rows) {
-                cols = nextCols;
-                rows = nextRows;
-                grid = createGrid(cols, rows);
+            // Only rebuild when the window changed shape: releasing the
+            // backing store must not wipe the glider in flight.
+            if (!alive || laidOut !== `${window.innerWidth}x${window.innerHeight}`) {
+                layout();
+                if (started) seedFromMark();
             }
         }
 
@@ -314,7 +496,7 @@
             if (allocated) return;
             allocated = true;
             setup();
-            draw(grid);
+            draw();
         }
 
         function release() {
@@ -323,32 +505,89 @@
             releaseCanvas(canvas);
         }
 
-        // Crea una retícula 2D con un estado inicial aleatorio
-        function createGrid(cols, rows) {
-            return new Array(cols).fill(null)
-                .map(() => new Array(rows).fill(null)
-                .map(() => Math.floor(Math.random() * 1.4))); // Más ceros que unos para un look más disperso
+        // One generation. The outermost ring of cells is kept dead, so the
+        // pattern simply vanishes off screen at the edges.
+        function nextGeneration() {
+            const next = new Uint8Array(alive.length);
+            for (let r = 1; r < rows - 1; r++) {
+                for (let c = 1; c < cols - 1; c++) {
+                    const i = r * cols + c;
+                    const n =
+                        alive[i - cols - 1] + alive[i - cols] + alive[i - cols + 1] +
+                        alive[i - 1] + alive[i + 1] +
+                        alive[i + cols - 1] + alive[i + cols] + alive[i + cols + 1];
+                    // Seeds: born with exactly two neighbours, never survives.
+                    next[i] = n === 2 && !alive[i] ? 1 : 0;
+                }
+            }
+            for (let i = 0; i < next.length; i++) {
+                if (next[i] && !alive[i]) hue[i] = 1;
+            }
+            alive = next;
+            // Should the field ever run empty, the logo starts it again.
+            if (!next.includes(1)) seedFromMark();
         }
 
-        // Bucle principal de la animación.
-        // Throttled to one generation every 0.2s (instead of once per frame)
-        // so the automata background evolves at a calmer, more readable pace.
-        const stepInterval = 200; // ms between generations
+        const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // The pointer stirs the field: the cells under and around it wake up
+        // with some chance. Under the Seeds rule those cells breed their
+        // neighbours at the next generation, so a sweep of the mouse leaves
+        // a spreading, chaotic trail. Done between generations, so the
+        // cursor answers at once even though the field itself is slow.
+        function stirPointer() {
+            const pc = Math.floor((pointerX - gx0) / R);
+            const pr = Math.floor((pointerY - gy0) / R);
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    const rr = pr + dr;
+                    const cc = pc + dc;
+                    if (rr < 1 || cc < 1 || rr >= rows - 1 || cc >= cols - 1) continue;
+                    if (Math.random() < 0.5) {
+                        alive[rr * cols + cc] = 1;
+                        hue[rr * cols + cc] = 2;
+                    }
+                }
+            }
+        }
+
+        // Calm pace: one generation every STEP_MS, and in between every
+        // cell eases towards its target (in over FADE_IN, out over FADE_OUT)
+        // instead of switching, so nothing flickers. Runs only while the
+        // hero is on screen and the tab is in the foreground (viewport gate).
         let lastStep = 0;
+        let lastStir = 0;
+        let lastFrame = 0;
         let raf = 0;
         function gameLoop(now) {
-            if (now - lastStep >= stepInterval) {
-                lastStep = now;
-                grid = computeNextGeneration(grid);
-                draw(grid);
+            const still = reducedMotion();
+            const dt = Math.min(100, now - (lastFrame || now));
+            lastFrame = now;
+            if (alive && started && !still) {
+                if (now - lastStep >= STEP_MS) {
+                    lastStep = now;
+                    nextGeneration();
+                    gen++;
+                }
+                if (pointerOn && now - lastStir >= STIR_MS) {
+                    lastStir = now;
+                    stirPointer();
+                }
+                const up = 1 - Math.exp(-dt / FADE_IN);
+                const down = 1 - Math.exp(-dt / FADE_OUT);
+                let moving = false;
+                for (let i = 0; i < shown.length; i++) {
+                    const target = alive[i];
+                    const v = shown[i];
+                    if (v === target) continue;
+                    const nv = v + (target - v) * (target > v ? up : down);
+                    shown[i] = Math.abs(nv - target) < 0.01 ? target : nv;
+                    moving = true;
+                }
+                if (moving) draw();
             }
             raf = requestAnimationFrame(gameLoop);
         }
-
-        // This loop used to run for the entire visit, recomputing a
-        // full-window cellular automaton five times a second behind nine
-        // scenes of content. Now it runs only while the hero is on screen
-        // and the tab is in the foreground.
         function startLoop() {
             if (raf) return;
             lastStep = 0;
@@ -360,51 +599,53 @@
             raf = 0;
         }
 
-        // Calcula el estado de la siguiente generación basándose en las reglas del Juego de la Vida
-        function computeNextGeneration(grid) {
-            const nextGen = grid.map(arr => [...arr]);
-            for (let col = 0; col < grid.length; col++) {
-                for (let row = 0; row < grid[col].length; row++) {
-                    const cell = grid[col][row];
-                    let numNeighbors = 0;
-                    for (let i = -1; i < 2; i++) {
-                        for (let j = -1; j < 2; j++) {
-                            if (i === 0 && j === 0) continue;
-                            const x_cell = col + i;
-                            const y_cell = row + j;
+        // Theme colours: coral for live cells, the logo's teal for the ones
+        // just born, both from the palette so they follow light and dark.
+        const rgb = (name, fallback) => {
+            const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+            const m = /^#([0-9a-f]{6})$/i.exec(v);
+            if (!m) return fallback;
+            const n = parseInt(m[1], 16);
+            return [n >> 16, (n >> 8) & 255, n & 255];
+        };
 
-                            if (x_cell >= 0 && y_cell >= 0 && x_cell < cols && y_cell < rows) {
-                                const currentNeighbor = grid[x_cell][y_cell];
-                                numNeighbors += currentNeighbor;
-                            }
-                        }
-                    }
-
-                    // Reglas del Juego de la Vida
-                    if (cell === 1 && (numNeighbors < 2 || numNeighbors > 3)) {
-                        nextGen[col][row] = 0;
-                    } else if (cell === 0 && numNeighbors === 3) {
-                        nextGen[col][row] = 1;
-                    }
-                }
-            }
-            return nextGen;
-        }
-
-        // Dibuja la retícula en el canvas
-        function draw(grid) {
-            if (!allocated || !grid) return;
+        function draw() {
+            if (!allocated || !alive) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let col = 0; col < grid.length; col++) {
-                for (let row = 0; row < grid[col].length; row++) {
-                    if (grid[col][row] === 1) {
-                        ctx.fillStyle = cellColor();
-                        ctx.fillRect(col * resolution, row * resolution, resolution - 1, resolution - 1);
+            const warm = rgb('--viz-warm', [239, 156, 130]);
+            const teal = rgb('--viz-node', [111, 227, 196]);
+            const size = (LOGO_CELL / LOGO_PITCH) * R;
+            const inset = (R - size) / 2;
+            const radius = (LOGO_RX / LOGO_PITCH) * R;
+            const round = typeof ctx.roundRect === 'function';
+            // The wordmark and tagline sit in a central column; cells behind
+            // it are dimmed so the text stays easy to read, and they return
+            // to full strength towards the sides.
+            const mid = canvas.width / 2;
+            const half = Math.min(340, canvas.width * 0.4);
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const i = r * cols + c;
+                    const g = shown[i];
+                    if (g < 0.03) continue;
+                    const touched = hue[i] === 2;
+                    const col = hue[i] === 1 ? teal : warm;
+                    const x = gx0 + c * R + inset;
+                    const away = Math.min(1, Math.abs(x + size / 2 - mid) / half);
+                    const dim = TEXT_DIM + (1 - TEXT_DIM) * away * away;
+                    ctx.fillStyle = `rgba(${col[0]}, ${col[1]}, ${col[2]}, ${Math.min(0.6, ALPHA * (touched ? 3 : dim) * g)})`;
+                    const y = gy0 + r * R + inset;
+                    if (round) {
+                        ctx.beginPath();
+                        ctx.roundRect(x, y, size, size, radius);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(x, y, size, size);
                     }
                 }
             }
         }
-        
+
         // Inicialización — allocation and the loop are both driven by the
         // viewport gate, which fires immediately with the current state.
         const stopGate = createViewportGate(canvas, {
@@ -423,7 +664,7 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 setup();
-                draw(grid);
+                draw();
             }, 150);
         }
         window.addEventListener('resize', onResize);
@@ -439,7 +680,7 @@
             return r.bottom > 0 && r.top < window.innerHeight;
         };
         cardsTimer = setInterval(() => {
-            if (document.hidden || reduceMotion.matches || !bannerOnScreen()) return;
+            if (!extras || document.hidden || reduceMotion.matches || !bannerOnScreen()) return;
             if (banner?.matches(':hover, :focus-within')) return;
             // Someone is stepping through the cards by hand; stay put.
             if (Date.now() < holdUntil) return;
@@ -447,10 +688,19 @@
             cardIndex = cardIndex + 1;
         }, 4000);
 
+        startOpening();
+
         return () => {
             stopLoop();
             stopGate();
             clearTimeout(resizeTimer);
+            clearTimeout(tagTimer);
+            destroyed = true;
+            timers.forEach(clearTimeout);
+            window.removeEventListener('scroll', onIntent);
+            window.removeEventListener('wheel', onIntent);
+            window.removeEventListener('touchmove', onIntent);
+            window.removeEventListener('keydown', onIntent);
             window.removeEventListener('resize', onResize);
             clearInterval(cardsTimer);
             releaseCanvas(canvas);
@@ -459,15 +709,21 @@
 </script>
 
 <svelte:window on:mousemove={handleMousemove} />
+<svelte:document on:mouseleave={() => (pointerOn = false)} />
 
 <section>
     <canvas bind:this={canvas} id="automata-bg"></canvas>
 
-    <div
-        class="content-wrapper"
-        style="transform: translate({parallaxX * -30}px, {parallaxY * -20}px);"
-    >
-        <h1 dir="ltr" use:staggeredFadeIn={{ delay: 200, stagger: 70 }}>CELAUT</h1>
+    <div class="content-wrapper">
+        <div
+            class="top"
+            class:glide
+            style="transform: translateY({liftShift}px);"
+        >
+        <div class="mark" class:pending={!measured} class:rest={stage === 'done'} style={markStyle} bind:this={markEl}>
+            <HeroLogo size={104} delay={150} {instant} />
+        </div>
+        <h1 dir="ltr" use:staggeredFadeIn={{ delay: TITLE_AT, stagger: 70 }}>CELAUT</h1>
 
         <!-- staggeredFadeIn rewrites the element's children into per-character
              spans, so Svelte can no longer patch the text in place. Keying on
@@ -478,15 +734,19 @@
                 {$t('home.hero.tagline')}
             </h2>
         {/key}
+        </div>
+
+        <div class="extras" bind:this={extrasEl} aria-hidden={extras ? undefined : 'true'}>
         
         <!-- role="group" + a name, so the arrows, the card and the dots are
              announced as one thing rather than as three unrelated controls;
              the keydown handler lives here so the arrow keys work wherever
              focus is inside it. -->
         <div
-            class="facts"
+            class="facts extra"
+            class:shown={extras}
+            style="--i: 0"
             bind:this={banner}
-            in:fly={{ y: 20, duration: 600, delay: 1600 }}
             aria-live="polite"
             role="group"
             aria-label={$t('common.carousel.nav')}
@@ -560,7 +820,7 @@
         <!-- Dots: position AND direct access. Outside `.facts` because that
              box has a fixed height the cards fill absolutely; a row of dots
              inside it would sit on top of the prose. -->
-        <div class="dots" in:fade={{ duration: 400, delay: 1800 }}>
+        <div class="dots extra" class:shown={extras} style="--i: 1">
             {#each cards as _, i}
                 <button
                     class="dot"
@@ -573,7 +833,7 @@
             {/each}
         </div>
 
-        <div class="buttons" in:fly={{ y: 20, duration: 600, delay: 2600 }}>
+        <div class="buttons extra" class:shown={extras} style="--i: 2">
             <a class="button primary" href="#user-roles" on:click={scrollToRoles}
                 >{$t('home.hero.primary')}</a
             >
@@ -581,8 +841,23 @@
                 >{$t('home.hero.secondary')}</a
             >
         </div>
-        <GlossaryGuide />
+        <div class="extra" class:shown={extras} style="--i: 3"><GlossaryGuide /></div>
+        </div>
     </div>
+
+    <button
+        type="button"
+        class="scroll-hint"
+        class:on={stage === 'done' && !extras}
+        tabindex={stage === 'done' && !extras ? 0 : -1}
+        aria-label={$t('home.hero.secondary')}
+        on:click={() => revealNow()}
+    >
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6" />
+        </svg>
+    </button>
 </section>
 
 <style>
@@ -601,9 +876,125 @@
         position: absolute;
         top: 0;
         left: 0;
+        /* Exactly the window, 1:1 with the canvas pixels. The section is
+           taller than the window (100vh plus its padding), and stretching
+           the canvas to it skewed the grid away from the logo's cells. */
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+    }
+
+    .mark {
+        /* Scales down on short screens so the hero still fits in one view. */
+        --mark: clamp(60px, 10.5vh, 112px);
+        width: var(--mark);
+        height: var(--mark);
+        margin-bottom: 10px;
+    }
+
+    /* The title block (logo, wordmark, tagline) and the part that appears on
+       the first scroll. The latter keeps its space reserved so nothing
+       jumps when it fades in. */
+    .top,
+    .extras {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .top.glide {
+        transition: transform 900ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .extra {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(16px);
+        transition:
+            opacity 0.6s ease calc(var(--i, 0) * 110ms),
+            transform 0.6s ease calc(var(--i, 0) * 110ms),
+            visibility 0s 0.8s;
+    }
+    .extra.shown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        transition:
+            opacity 0.6s ease calc(var(--i, 0) * 110ms + 250ms),
+            transform 0.6s ease calc(var(--i, 0) * 110ms + 250ms),
+            visibility 0s;
+    }
+
+    .scroll-hint {
+        position: absolute;
+        /* The section is 100vh plus its 20px padding, so the bottom 40px
+           can sit under the fold; keep the hint clear of it. */
+        bottom: 64px;
+        left: 50%;
+        z-index: 2;
+        width: 44px;
+        height: 44px;
+        margin-left: -22px;
+        padding: 0;
+        border: none;
+        background: none;
+        color: var(--accent-text);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.8s ease 0.4s, visibility 0s 1.2s;
+    }
+    .scroll-hint.on {
+        opacity: 0.85;
+        visibility: visible;
+        transition: opacity 0.8s ease 0.4s, visibility 0s;
+        animation: hint-bob 1.8s ease-in-out 1.2s infinite;
+    }
+    .scroll-hint svg {
+        width: 32px;
+        height: 32px;
+    }
+    @keyframes hint-bob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(7px); }
+    }
+
+    .mark {
+        position: relative;
+        z-index: 3;
+    }
+    /* Shadow only once the mark is small: scaled up with the logo it
+       became a wide grey halo. */
+    .mark :global(.logo) {
+        transition: filter 0.6s ease;
+    }
+    .mark.rest :global(.logo) {
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+    }
+    /* No tile on the light page, so no shadow either. */
+    :global(:root[data-theme='light']) .mark.rest :global(.logo) {
+        filter: none;
+    }
+    .mark.pending {
+        opacity: 0;
+    }
+
+    .mark :global(svg) {
         width: 100%;
         height: 100%;
-        z-index: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .scroll-hint.on {
+            animation: none;
+        }
+        .extra,
+        .top.glide {
+            transition: none;
+        }
     }
 
     .content-wrapper {
@@ -615,7 +1006,6 @@
         align-items: center;
         text-align: center;
         color: var(--on-surface);
-        transition: transform 0.2s ease-out; /* Transición suave para el parallax */
     }
 
     h1 {
