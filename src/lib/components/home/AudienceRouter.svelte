@@ -11,14 +11,14 @@
 	 */
 	import { t, href } from '$lib/i18n/index.js';
 
-	const SKILLS_URL = 'https://celaut-project.github.io/skills';
+	const REGISTRY_URL = 'https://celaut-project.github.io/registry';
 
 	// Every primary is an internal route; only a secondary ever leaves
 	// the site.
 	const destinations = [
 		{ primary: '/depin', secondary: { href: '/install' } },
-		{ primary: '/developers', secondary: { href: SKILLS_URL, external: true } },
-		{ primary: '/users', secondary: { href: SKILLS_URL, external: true } }
+		{ primary: '/developers', secondary: { href: REGISTRY_URL, external: true } },
+		{ primary: '/users', secondary: { href: REGISTRY_URL, external: true } }
 	];
 </script>
 
@@ -80,7 +80,7 @@
 
 	/* Stacked, full width, always two rows. Side by side, the pairs
 	   wrap at different widths — "Rent your PC / Run a node" fits on
-	   one line where "Build on Celaut / Explore Skills" does not — so
+	   one line where "Build on Celaut / Explore Celaut Registry" does not — so
 	   the bottoms lined up while the buttons themselves did not. */
 	.card .actions {
 		flex-direction: column;

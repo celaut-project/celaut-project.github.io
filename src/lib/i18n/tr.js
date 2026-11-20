@@ -495,7 +495,7 @@ export default {
 						"Servisleri node'lara dağıtmak"
 					],
 					primary: 'Celaut üzerinde geliştir',
-					secondary: "Skills'i keşfet"
+					secondary: "Celaut Registry'yi keşfet"
 				},
 				{
 					eyebrow: 'Rol 03',
@@ -507,7 +507,7 @@ export default {
 						'Servis çıktılarını kullanmak'
 					],
 					primary: 'Ağı kullan',
-					secondary: "Skills'i keşfet"
+					secondary: "Celaut Registry'yi keşfet"
 				}
 			]
 		},
@@ -574,8 +574,8 @@ export default {
 					body: 'İsteyen herkes bir Celaut düğümü çalıştırıp merkeziyetsiz fiziksel altyapı ağının parçası olabilir. Her düğüm eşleri bulur, servisleri çalıştırıp düzenler ve bağımlılıklarını yönetir — sıradan bilgisayarları paylaşılan, sansüre dirençli işlem gücüne dönüştürür. Bu, ağın üzerindeki bir ürün değil, ağın kendisidir.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Baş rolde problemlerin olduğu, tamamen zincir üstünde ve sunucusuz bir kayıt defteri. Ajanlar servis aramak yerine bir beceri arar ve o beceriyi karşılayan servisleri, gerçek kıyaslamalar ve itibara dayalı sıralamayla bulur. Paradigmanın itibar katmanına pratikte böyle ulaşılır — Ergo üzerinde ve gerçek bir riskle: kimse itibarını tehlikeye atmadan ortalığı doldurmaz.'
+					name: 'Celaut Registry',
+					body: 'Baş rolde problemlerin olduğu, tamamen zincir üstünde ve sunucusuz bir kayıt defteri. Ajanlar servis aramak yerine bir hedef arar ve onu karşılayan servisleri, gerçek kıyaslamalar ve itibara dayalı sıralamayla bulur. Paradigmanın itibar katmanına pratikte böyle ulaşılır — Ergo üzerinde ve gerçek bir riskle: kimse itibarını tehlikeye atmadan ortalığı doldurmaz.'
 				}
 			],
 			builtOnHeading: 'Üzerine inşa edilenler',
@@ -837,7 +837,7 @@ export default {
 			tagline: 'Sonra nerede çalıştığını düşünmeyi bırak.',
 			lede: "Bir Celaut servisi bir dağıtım değil, bir şartnamedir. Ortamı, arayüzü ve ağ kapsamını tarif et, tek bir node'a ver; gerisini ağ halleder.",
 			actions: [
-				"Skills'i keşfet",
+				"Celaut Registry'yi keşfet",
 				'Nasıl çalıştığını gör'
 			],
 			stats: [
@@ -1038,9 +1038,9 @@ export default {
 		},
 		cta: {
 			heading: 'İşe problemlerden başla.',
-			body: 'Unstoppable Skills, başrolde problemlerin olduğu bir kayıt defteri: bir beceri ara ve onu karşılayan servisleri, kıyaslamalarını ve itibarlarını bul. &ldquo;Ne kurmalıyım&rdquo; ile &ldquo;kimin ihtiyacı var&rdquo; arasındaki en kısa yol.',
+			body: 'Celaut Registry, başrolde problemlerin olduğu bir kayıt defteri: bir hedef ara ve onu karşılayan servisleri, kıyaslamalarını ve itibarlarını bul. &ldquo;Ne kurmalıyım&rdquo; ile &ldquo;kimin ihtiyacı var&rdquo; arasındaki en kısa yol.',
 			actions: [
-				"Skills'i keşfet",
+				"Celaut Registry'yi keşfet",
 				'Paradigmayı oku'
 			]
 		}
@@ -1070,7 +1070,7 @@ export default {
 			tagline: 'Kullandığın kadar öde. Başka bir şey yok.',
 			lede: "Bir node'da servis başlat, sonucu al, tükettiği hesaplama gücü için öde. Oluşturulacak bir hesap, iptal edilecek bir abonelik ve seninle işi yapan makine arasında oturan bir şirket yok.",
 			actions: [
-				"Skills'i keşfet",
+				"Celaut Registry'yi keşfet",
 				'Nasıl çalıştığını gör'
 			],
 			stats: [
@@ -1196,7 +1196,7 @@ export default {
 			items: [
 				{
 					title: 'Servisi bul',
-					body: "Çözülmesini istediğin probleme göre ara. Node'lar servisleri eşler arası keşfeder ve Unstoppable Skills gibi kayıt defterleri problemleri onları karşılayan servislerle eşleştirir."
+					body: "Çözülmesini istediğin probleme göre ara. Node'lar servisleri eşler arası keşfeder ve Celaut Registry gibi kayıt defterleri problemleri onları karşılayan servislerle eşleştirir."
 				},
 				{
 					title: 'Bir yürütme iste',
@@ -1257,9 +1257,9 @@ export default {
 		},
 		cta: {
 			heading: 'Elindeki problemden başla.',
-			body: 'Unstoppable Skills, tamamen zincir üzerinde çalışan, sunucusuz bir kayıt defteri; burada başrolde problemlerin kendisi var. Bir beceri ara ve onu karşılayan servisleri, gerçek karşılaştırmalı kıyaslamaları, tartışmayı ve itibara dayalı sıralamayı bul.',
+			body: 'Celaut Registry, tamamen zincir üzerinde çalışan, sunucusuz bir kayıt defteri; burada başrolde problemlerin kendisi var. Bir hedef ara ve onu karşılayan servisleri, gerçek karşılaştırmalı kıyaslamaları, tartışmayı ve itibara dayalı sıralamayı bul.',
 			actions: [
-				"Skills'i keşfet",
+				"Celaut Registry'yi keşfet",
 				"Onun yerine PC'ni kirala"
 			]
 		}

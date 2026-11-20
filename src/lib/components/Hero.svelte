@@ -22,7 +22,7 @@
     // The wrapper below is sized with a fixed min-height so swapping cards
     // never shifts the surrounding layout.
     $: facts = $t('home.hero.facts');
-    const appLinks = ['/depin', 'https://celaut-project.github.io/skills', 'https://game-of-prompts.github.io'];
+    const appLinks = ['/depin', 'https://celaut-project.github.io/registry', 'https://game-of-prompts.github.io'];
     const roleLinks = ['/depin', '/developers', '/users'];
     $: appCards = [...$t('home.applications.layer'), $t('home.applications.builtOn')].map((app, i) => ({
         kind: 'app',

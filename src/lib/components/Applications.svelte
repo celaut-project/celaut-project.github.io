@@ -10,7 +10,7 @@
 	 * besides. Authorship is not the interesting difference here.
 	 *
 	 * The interesting difference is how much of each thing survives if
-	 * you take Celaut away. DePIN and Unstoppable Skills do not survive
+	 * you take Celaut away. DePIN and Celaut Registry do not survive
 	 * at all: they ARE the architecture, once nodes are running and the
 	 * reputation layer is reachable. Game of Prompts survives as an idea
 	 * — it is a competition with its own users and its own reason to
@@ -26,7 +26,7 @@
 
 	const layerLinks = [
 		{ href: '/depin', external: false },
-		{ href: 'https://celaut-project.github.io/skills', external: true }
+		{ href: 'https://celaut-project.github.io/registry', external: true }
 	];
 	const GAME_OF_PROMPTS = 'https://game-of-prompts.github.io';
 	const ERGO_DOCS = 'https://docs.ergoplatform.com/eco/celaut/';

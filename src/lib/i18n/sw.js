@@ -495,7 +495,7 @@ export default {
 						'Wanasambaza huduma kwa nodi'
 					],
 					primary: 'Unda kwenye Celaut',
-					secondary: 'Chunguza Skills'
+					secondary: 'Chunguza Celaut Registry'
 				},
 				{
 					eyebrow: 'Jukumu 03',
@@ -507,7 +507,7 @@ export default {
 						'Wanatumia matokeo ya huduma'
 					],
 					primary: 'Tumia mtandao',
-					secondary: 'Chunguza Skills'
+					secondary: 'Chunguza Celaut Registry'
 				}
 			]
 		},
@@ -574,8 +574,8 @@ export default {
 					body: 'Yeyote anaweza kuendesha nodi ya Celaut na kuwa sehemu ya mtandao uliogatuliwa wa miundombinu halisi. Kila nodi hutafuta wenzake, huendesha na kuratibu huduma, na kusimamia utegemezi wake — ikigeuza kompyuta za kawaida kuwa uwezo wa kukokotoa unaoshirikiwa na unaostahimili udhibiti. Huu ni mtandao wenyewe, si bidhaa juu yake.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Daftari lililo kwenye chaini kabisa, bila seva, ambapo mashujaa ni matatizo yenyewe. Badala ya kuwinda huduma, mawakala hutafuta ujuzi na kugundua huduma zinazoukidhi, zikiwa na vipimo halisi na madaraja yanayotegemea sifa. Ndiyo njia ambayo safu ya sifa ya dhana hii inafikiwa kivitendo — juu ya Ergo, na hatari halisi ya kibinafsi: hakuna anayejaza taka bila kuhatarisha sifa yake.'
+					name: 'Celaut Registry',
+					body: 'Daftari lililo kwenye chaini kabisa, bila seva, ambapo mashujaa ni matatizo yenyewe. Badala ya kuwinda huduma, mawakala hutafuta lengo na kugundua huduma zinazolikidhi, zikiwa na vipimo halisi na madaraja yanayotegemea sifa. Ndiyo njia ambayo safu ya sifa ya dhana hii inafikiwa kivitendo — juu ya Ergo, na hatari halisi ya kibinafsi: hakuna anayejaza taka bila kuhatarisha sifa yake.'
 				}
 			],
 			builtOnHeading: 'Kilichojengwa juu yake',
@@ -837,7 +837,7 @@ export default {
 			tagline: 'Kisha acha kufikiria kuhusu inaendeshwa wapi.',
 			lede: 'Huduma ya Celaut si utekelezaji — ni vipimo. Eleza mazingira, kiunganishi, na wigo wa mtandao, ikabidhi kwa nodi moja tu, na mtandao unachukua jukumu kutoka hapo.',
 			actions: [
-				'Chunguza Skills',
+				'Chunguza Celaut Registry',
 				'Ona jinsi inavyofanya kazi'
 			],
 			stats: [
@@ -1038,9 +1038,9 @@ export default {
 		},
 		cta: {
 			heading: 'Anzia kwenye matatizo yenyewe.',
-			body: 'Unstoppable Skills ni orodha ya usajili ambapo mashujaa ni matatizo yenyewe: tafuta ujuzi, na upate huduma zinazoushughulikia, vipimo vyao, na sifa yao njema. Ni njia fupi zaidi kutoka “nijenge nini” hadi “nani anahitaji hili”.',
+			body: 'Celaut Registry ni orodha ya usajili ambapo mashujaa ni matatizo yenyewe: tafuta lengo, na upate huduma zinazolishughulikia, vipimo vyao, na sifa yao njema. Ni njia fupi zaidi kutoka “nijenge nini” hadi “nani anahitaji hili”.',
 			actions: [
-				'Chunguza Skills',
+				'Chunguza Celaut Registry',
 				'Soma mfumo msingi'
 			]
 		}
@@ -1070,7 +1070,7 @@ export default {
 			tagline: 'Lipia kilichotumika. Hakuna kingine.',
 			lede: 'Endesha huduma kwenye nodi, pata matokeo, lipia uchakataji ulioutumia. Hakuna akaunti ya kuunda, hakuna usajili wa kufuta, na hakuna kampuni iliyoketi kati yako na mashine iliyofanya kazi hiyo.',
 			actions: [
-				'Chunguza Skills',
+				'Chunguza Celaut Registry',
 				'Ona jinsi inavyofanya kazi'
 			],
 			stats: [
@@ -1196,7 +1196,7 @@ export default {
 			items: [
 				{
 					title: 'Pata huduma',
-					body: 'Tafuta kulingana na tatizo unalotaka kutatua. Nodi zinagundua huduma moja kwa moja, na orodha za usajili kama Unstoppable Skills zinaunganisha matatizo na huduma zinazoyashughulikia.'
+					body: 'Tafuta kulingana na tatizo unalotaka kutatua. Nodi zinagundua huduma moja kwa moja, na orodha za usajili kama Celaut Registry zinaunganisha matatizo na huduma zinazoyashughulikia.'
 				},
 				{
 					title: 'Omba utekelezaji',
@@ -1257,9 +1257,9 @@ export default {
 		},
 		cta: {
 			heading: 'Anzia kwenye tatizo ulilonalo.',
-			body: 'Unstoppable Skills ni orodha ya usajili iliyo kabisa kwenye msururu wa data na isiyo na seva, ambapo mashujaa ni matatizo yenyewe. Tafuta ujuzi na upate huduma zinazoushughulikia, vipimo halisi vya kulinganisha, majadiliano, na uorodheshaji unaotegemea sifa njema.',
+			body: 'Celaut Registry ni orodha ya usajili iliyo kabisa kwenye msururu wa data na isiyo na seva, ambapo mashujaa ni matatizo yenyewe. Tafuta lengo na upate huduma zinazolishughulikia, vipimo halisi vya kulinganisha, majadiliano, na uorodheshaji unaotegemea sifa njema.',
 			actions: [
-				'Chunguza Skills',
+				'Chunguza Celaut Registry',
 				'Kodisha PC yako badala yake'
 			]
 		}

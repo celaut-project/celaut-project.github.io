@@ -496,7 +496,7 @@ export default {
 						'Distribuie servicii către noduri'
 					],
 					primary: 'Construiește pe Celaut',
-					secondary: 'Explorează Skills'
+					secondary: 'Explorează Celaut Registry'
 				},
 				{
 					eyebrow: 'Rolul 03',
@@ -508,7 +508,7 @@ export default {
 						'Consumă rezultatele serviciului'
 					],
 					primary: 'Folosește rețeaua',
-					secondary: 'Explorează Skills'
+					secondary: 'Explorează Celaut Registry'
 				}
 			]
 		},
@@ -575,8 +575,8 @@ export default {
 					body: 'Oricine poate rula un nod Celaut și poate deveni parte dintr-o rețea descentralizată de infrastructură fizică. Fiecare nod descoperă perechi, execută și orchestrează servicii și le gestionează dependențele — transformând calculatoare obișnuite în putere de calcul partajată și rezistentă la cenzură. Aceasta este rețeaua, nu un produs așezat peste ea.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Un registru complet on-chain și fără servere, în care protagonistele sunt problemele. În loc să vâneze servicii, agenții caută o competență și descoperă serviciile care o acoperă, cu benchmark-uri reale și clasare bazată pe reputație. Așa devine efectiv accesibil stratul de reputație al paradigmei — pe Ergo, cu o miză reală: nimeni nu inundă registrul fără să-și rișteze reputația.'
+					name: 'Celaut Registry',
+					body: 'Un registru complet on-chain și fără servere, în care protagonistele sunt problemele. În loc să vâneze servicii, agenții caută un obiectiv și descoperă serviciile care îl acoperă, cu benchmark-uri reale și clasare bazată pe reputație. Așa devine efectiv accesibil stratul de reputație al paradigmei — pe Ergo, cu o miză reală: nimeni nu inundă registrul fără să-și rișteze reputația.'
 				}
 			],
 			builtOnHeading: 'Construit peste ea',
@@ -838,7 +838,7 @@ export default {
 			tagline: 'Apoi nu te mai gândi unde rulează.',
 			lede: 'Un serviciu Celaut nu este o desfășurare — este o specificație. Descrie mediul, interfața și domeniul de rețea, predă-l unui singur nod, iar rețeaua se ocupă de restul.',
 			actions: [
-				'Explorează Skills',
+				'Explorează Celaut Registry',
 				'Vezi cum funcționează'
 			],
 			stats: [
@@ -1039,9 +1039,9 @@ export default {
 		},
 		cta: {
 			heading: 'Pornește de la probleme.',
-			body: 'Unstoppable Skills este un registru în care protagonistele sunt problemele: caută o abilitate și găsește serviciile care o acoperă, benchmark-urile și reputația lor. E cel mai scurt drum de la „ce ar trebui să construiesc” la „cine are nevoie de asta”.',
+			body: 'Celaut Registry este un registru în care protagonistele sunt problemele: caută un obiectiv și găsește serviciile care îl acoperă, benchmark-urile și reputația lor. E cel mai scurt drum de la „ce ar trebui să construiesc” la „cine are nevoie de asta”.',
 			actions: [
-				'Explorează Skills',
+				'Explorează Celaut Registry',
 				'Citește paradigma'
 			]
 		}
@@ -1071,7 +1071,7 @@ export default {
 			tagline: 'Plătește cât a consumat. Nimic altceva.',
 			lede: 'Lansează un serviciu pe un nod, ia rezultatul, plătește calculul consumat. Nu ai niciun cont de creat, niciun abonament de anulat și nicio companie între tine și mașina care a făcut treaba.',
 			actions: [
-				'Explorează Skills',
+				'Explorează Celaut Registry',
 				'Vezi cum funcționează'
 			],
 			stats: [
@@ -1197,7 +1197,7 @@ export default {
 			items: [
 				{
 					title: 'Găsește serviciul',
-					body: 'Caută după problema pe care vrei să o rezolvi. Nodurile descoperă servicii peer-to-peer, iar registre precum Unstoppable Skills leagă problemele de serviciile care le acoperă.'
+					body: 'Caută după problema pe care vrei să o rezolvi. Nodurile descoperă servicii peer-to-peer, iar registre precum Celaut Registry leagă problemele de serviciile care le acoperă.'
 				},
 				{
 					title: 'Cere o execuție',
@@ -1258,9 +1258,9 @@ export default {
 		},
 		cta: {
 			heading: 'Pornește de la problema pe care o ai.',
-			body: 'Unstoppable Skills este un registru complet on-chain, fără server, în care protagonistele sunt problemele înseși. Caută o abilitate și găsește serviciile care o acoperă, benchmark-uri comparative reale, discuții și clasare bazată pe reputație.',
+			body: 'Celaut Registry este un registru complet on-chain, fără server, în care protagonistele sunt problemele înseși. Caută un obiectiv și găsește serviciile care îl acoperă, benchmark-uri comparative reale, discuții și clasare bazată pe reputație.',
 			actions: [
-				'Explorează Skills',
+				'Explorează Celaut Registry',
 				'Mai bine închiriază-ți PC-ul'
 			]
 		}

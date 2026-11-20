@@ -496,7 +496,7 @@ export default {
 						'Distribuyen servicios a los nodos'
 					],
 					primary: 'Construye sobre Celaut',
-					secondary: 'Explorar Skills'
+					secondary: 'Explorar Celaut Registry'
 				},
 				{
 					eyebrow: 'Rol 03',
@@ -508,7 +508,7 @@ export default {
 						'Consumen las salidas del servicio'
 					],
 					primary: 'Usa la red',
-					secondary: 'Explorar Skills'
+					secondary: 'Explorar Celaut Registry'
 				}
 			]
 		},
@@ -575,8 +575,8 @@ export default {
 					body: 'Cualquiera puede ejecutar un nodo Celaut y pasar a formar parte de una red de infraestructura física descentralizada. Cada nodo descubre pares, ejecuta y orquesta servicios y gestiona sus dependencias, convirtiendo ordenadores corrientes en cómputo compartido y resistente a la censura. Esto es la red, no un producto sobre ella.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Un registro totalmente on-chain y sin servidores donde los protagonistas son los problemas. En lugar de buscar servicios, los agentes buscan una habilidad y descubren los servicios que la cubren, con benchmarks reales y clasificación por reputación. Es la forma en que se alcanza en la práctica la capa de reputación del paradigma: sobre Ergo, con implicación real de por medio, porque nadie hace spam sin arriesgar su reputación.'
+					name: 'Celaut Registry',
+					body: 'Un registro totalmente on-chain y sin servidores donde los protagonistas son los problemas. En lugar de buscar servicios, los agentes buscan un objetivo y descubren los servicios que lo cubren, con benchmarks reales y clasificación por reputación. Es la forma en que se alcanza en la práctica la capa de reputación del paradigma: sobre Ergo, con implicación real de por medio, porque nadie hace spam sin arriesgar su reputación.'
 				}
 			],
 			builtOnHeading: 'Construido encima',
@@ -838,7 +838,7 @@ export default {
 			tagline: 'Y deja de pensar en dónde se ejecuta.',
 			lede: 'Un servicio Celaut no es un despliegue: es una especificación. Describe el entorno, la interfaz y el alcance de red, entrégaselo a un solo nodo y la red se encarga a partir de ahí.',
 			actions: [
-				'Explorar Skills',
+				'Explorar Celaut Registry',
 				'Cómo funciona'
 			],
 			stats: [
@@ -1039,9 +1039,9 @@ export default {
 		},
 		cta: {
 			heading: 'Empieza por los problemas.',
-			body: 'Unstoppable Skills es un registro donde los protagonistas son los problemas: busca una habilidad y encuentra los servicios que la cubren, sus benchmarks y su reputación. Es el camino más corto entre «qué debería construir» y «quién lo necesita».',
+			body: 'Celaut Registry es un registro donde los protagonistas son los problemas: busca un objetivo y encuentra los servicios que lo cubren, sus benchmarks y su reputación. Es el camino más corto entre «qué debería construir» y «quién lo necesita».',
 			actions: [
-				'Explorar Skills',
+				'Explorar Celaut Registry',
 				'Lee el paradigma'
 			]
 		}
@@ -1071,7 +1071,7 @@ export default {
 			tagline: 'Paga por lo que use. Nada más.',
 			lede: 'Lanza un servicio en un nodo, recibe el resultado y paga por la computación que consumió. No hay cuenta que crear, ni suscripción que cancelar, ni empresa sentada entre tú y la máquina que hizo el trabajo.',
 			actions: [
-				'Explorar Skills',
+				'Explorar Celaut Registry',
 				'Cómo funciona'
 			],
 			stats: [
@@ -1197,7 +1197,7 @@ export default {
 			items: [
 				{
 					title: 'Encuentra el servicio',
-					body: 'Busca por el problema que quieres resolver. Los nodos descubren servicios peer-to-peer, y registros como Unstoppable Skills relacionan problemas con los servicios que los cubren.'
+					body: 'Busca por el problema que quieres resolver. Los nodos descubren servicios peer-to-peer, y registros como Celaut Registry relacionan problemas con los servicios que los cubren.'
 				},
 				{
 					title: 'Solicita una ejecución',
@@ -1258,9 +1258,9 @@ export default {
 		},
 		cta: {
 			heading: 'Empieza por el problema que tienes.',
-			body: 'Unstoppable Skills es un registro completamente on-chain y sin servidores donde los protagonistas son los propios problemas. Busca una habilidad y encuentra los servicios que la cubren, benchmarks comparativos reales, discusión y ranking basado en reputación.',
+			body: 'Celaut Registry es un registro completamente on-chain y sin servidores donde los protagonistas son los propios problemas. Busca un objetivo y encuentra los servicios que lo cubren, benchmarks comparativos reales, discusión y ranking basado en reputación.',
 			actions: [
-				'Explorar Skills',
+				'Explorar Celaut Registry',
 				'Mejor alquila tu PC'
 			]
 		}

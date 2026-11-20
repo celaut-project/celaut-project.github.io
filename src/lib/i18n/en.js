@@ -560,7 +560,7 @@ export default {
 						'Distribute services to nodes'
 					],
 					primary: 'Build on Celaut',
-					secondary: 'Explore Skills'
+					secondary: 'Explore Celaut Registry'
 				},
 				{
 					eyebrow: 'Role 03',
@@ -572,7 +572,7 @@ export default {
 						'Consume service outputs'
 					],
 					primary: 'Use the network',
-					secondary: 'Explore Skills'
+					secondary: 'Explore Celaut Registry'
 				}
 			]
 		},
@@ -648,7 +648,7 @@ export default {
 		// The old shape here was "ours" versus "third-party / not built by
 		// us", which put a company voice on a page that has none, and drew
 		// the wrong line anyway: what actually separates these things is
-		// DISTANCE FROM THE ARCHITECTURE. DePIN and Skills are what the
+		// DISTANCE FROM THE ARCHITECTURE. DePIN and Celaut Registry are what the
 		// architecture does when you switch it on — remove Celaut and there
 		// is nothing left of them. Game of Prompts is a product with its own
 		// reason to exist that happens to be built out of Celaut services;
@@ -669,8 +669,8 @@ export default {
 					body: 'Anyone can run a Celaut node and become part of a decentralized physical infrastructure network. Each node discovers peers, executes and orchestrates services, and manages their dependencies — turning ordinary computers into shared, censorship-resistant compute. This is the network, not a product on it.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'A fully on-chain, serverless registry where the problems are the protagonists. Instead of hunting for services, agents search for a skill and discover the services that cover it, with real benchmarks and reputation-based ranking. It is how the paradigm’s reputation layer is actually reached — on Ergo, with native skin-in-the-game: nobody spams without risking reputation.'
+					name: 'Celaut Registry',
+					body: 'A fully on-chain, serverless registry where the problems are the protagonists. Instead of hunting for services, agents search for an objective and discover the services that cover it, with real benchmarks and reputation-based ranking. It is how the paradigm’s reputation layer is actually reached — on Ergo, with native skin-in-the-game: nobody spams without risking reputation.'
 				}
 			],
 			builtOnHeading: 'Built on top of it',
@@ -934,7 +934,7 @@ export default {
 			title: 'Build it once.',
 			tagline: 'Then stop thinking about where it runs.',
 			lede: "A Celaut service isn't a deployment — it's a specification. Describe the environment, the interface and the network scope, hand it to a single node, and the network takes it from there.",
-			actions: ['Explore Skills', 'See how it works'],
+			actions: ['Explore Celaut Registry', 'See how it works'],
 			stats: [
 				{ value: 'BOX · API · NET', label: 'three components — that is the whole specification' },
 				{ value: 'No DevOps', label: 'nodes handle execution; there is no cloud account to open' },
@@ -1131,8 +1131,8 @@ export default {
 		},
 		cta: {
 			heading: 'Start from the problems.',
-			body: 'Unstoppable Skills is a registry where the problems are the protagonists: search for a skill, and find the services that cover it, their benchmarks and their reputation. It’s the shortest path from &ldquo;what should I build&rdquo; to &ldquo;who needs it&rdquo;.',
-			actions: ['Explore Skills', 'Read the paradigm']
+			body: 'Celaut Registry is a registry where the problems are the protagonists: search for an objective, and find the services that cover it, their benchmarks and their reputation. It’s the shortest path from &ldquo;what should I build&rdquo; to &ldquo;who needs it&rdquo;.',
+			actions: ['Explore Celaut Registry', 'Read the paradigm']
 		}
 	},
 
@@ -1165,7 +1165,7 @@ export default {
 			title: 'Run it.',
 			tagline: 'Pay for what it used. Nothing else.',
 			lede: "Launch a service on a node, get the result, pay for the compute it consumed. There's no account to create, no subscription to cancel, and no company sitting between you and the machine that did the work.",
-			actions: ['Explore Skills', 'See how it works'],
+			actions: ['Explore Celaut Registry', 'See how it works'],
 			stats: [
 				{ value: 'No account', label: 'nothing to sign up for, nothing to be locked out of' },
 				{ value: 'Per execution', label: 'you pay for the computational resources actually used' },
@@ -1280,7 +1280,7 @@ export default {
 			items: [
 				{
 					title: 'Find the service',
-					body: 'Search by the problem you want solved. Nodes discover services peer-to-peer, and registries like Unstoppable Skills map problems to the services that cover them.'
+					body: 'Search by the problem you want solved. Nodes discover services peer-to-peer, and registries like Celaut Registry map problems to the services that cover them.'
 				},
 				{
 					title: 'Request an execution',
@@ -1341,8 +1341,8 @@ export default {
 		},
 		cta: {
 			heading: 'Start from the problem you have.',
-			body: 'Unstoppable Skills is a fully on-chain, serverless registry where the problems themselves are the protagonists. Search for a skill and find the services that cover it, real comparative benchmarks, discussion, and reputation-based ranking.',
-			actions: ['Explore Skills', 'Rent your PC instead']
+			body: 'Celaut Registry is a fully on-chain, serverless registry where the problems themselves are the protagonists. Search for an objective and find the services that cover it, real comparative benchmarks, discussion, and reputation-based ranking.',
+			actions: ['Explore Celaut Registry', 'Rent your PC instead']
 		}
 	},
 
