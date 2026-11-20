@@ -7,7 +7,7 @@
 	 *   • DARK (default) → a faint, gently twinkling STAR field up top.
 	 *   • LIGHT          → a soft, slowly pulsing warm SUN toward top-right.
 	 *
-	 * Ported from celaut-project/skills' AmbientBackground. Very low
+	 * Ported from celaut-project/registry' AmbientBackground. Very low
 	 * opacity / very slow motion so it never competes with content.
 	 * Honours prefers-reduced-motion (motion off, static gradients kept).
 	 */

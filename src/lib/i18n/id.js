@@ -496,7 +496,7 @@ export default {
 						'Mendistribusikan service ke node'
 					],
 					primary: 'Bangun di Celaut',
-					secondary: 'Jelajahi Skills'
+					secondary: 'Jelajahi Celaut Registry'
 				},
 				{
 					eyebrow: 'Peran 03',
@@ -508,7 +508,7 @@ export default {
 						'Memakai keluaran service'
 					],
 					primary: 'Gunakan jaringannya',
-					secondary: 'Jelajahi Skills'
+					secondary: 'Jelajahi Celaut Registry'
 				}
 			]
 		},
@@ -575,8 +575,8 @@ export default {
 					body: 'Siapa pun bisa menjalankan node Celaut dan menjadi bagian dari jaringan infrastruktur fisik terdesentralisasi. Setiap node menemukan peer, mengeksekusi dan mengorkestrasi layanan, serta mengelola dependensinya — mengubah komputer biasa menjadi komputasi bersama yang tahan sensor. Ini jaringannya sendiri, bukan produk di atasnya.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Registri sepenuhnya on-chain dan tanpa server, dengan masalah sebagai tokoh utamanya. Alih-alih memburu layanan, agen mencari sebuah keterampilan dan menemukan layanan yang menutupinya, lengkap dengan benchmark nyata dan peringkat berbasis reputasi. Inilah cara lapisan reputasi paradigma benar-benar dijangkau — di atas Ergo, dengan taruhan yang nyata: tak seorang pun bisa nyampah tanpa mempertaruhkan reputasinya.'
+					name: 'Celaut Registry',
+					body: 'Registri sepenuhnya on-chain dan tanpa server, dengan masalah sebagai tokoh utamanya. Alih-alih memburu layanan, agen mencari sebuah tujuan dan menemukan layanan yang menutupinya, lengkap dengan benchmark nyata dan peringkat berbasis reputasi. Inilah cara lapisan reputasi paradigma benar-benar dijangkau — di atas Ergo, dengan taruhan yang nyata: tak seorang pun bisa nyampah tanpa mempertaruhkan reputasinya.'
 				}
 			],
 			builtOnHeading: 'Dibangun di atasnya',
@@ -838,7 +838,7 @@ export default {
 			tagline: 'Lalu berhenti memikirkan di mana ia berjalan.',
 			lede: 'Service Celaut bukan sebuah deployment — ia sebuah spesifikasi. Uraikan lingkungannya, antarmukanya, dan cakupan jaringannya, serahkan ke satu node, dan jaringan mengurus sisanya.',
 			actions: [
-				'Jelajahi Skills',
+				'Jelajahi Celaut Registry',
 				'Lihat cara kerjanya'
 			],
 			stats: [
@@ -1039,9 +1039,9 @@ export default {
 		},
 		cta: {
 			heading: 'Mulailah dari masalahnya.',
-			body: 'Unstoppable Skills adalah registri di mana masalah menjadi tokoh utamanya: cari sebuah skill, lalu temukan service yang menutupinya, tolok ukurnya, dan reputasinya. Inilah jalan terpendek dari &ldquo;apa yang harus kubangun&rdquo; ke &ldquo;siapa yang membutuhkannya&rdquo;.',
+			body: 'Celaut Registry adalah registri di mana masalah menjadi tokoh utamanya: cari sebuah tujuan, lalu temukan service yang menutupinya, tolok ukurnya, dan reputasinya. Inilah jalan terpendek dari &ldquo;apa yang harus kubangun&rdquo; ke &ldquo;siapa yang membutuhkannya&rdquo;.',
 			actions: [
-				'Jelajahi Skills',
+				'Jelajahi Celaut Registry',
 				'Baca paradigmanya'
 			]
 		}
@@ -1071,7 +1071,7 @@ export default {
 			tagline: 'Bayar yang terpakai. Tak lebih.',
 			lede: 'Jalankan sebuah service di node, ambil hasilnya, bayar komputasi yang ia habiskan. Tak ada akun untuk dibuat, tak ada langganan untuk dibatalkan, dan tak ada perusahaan yang duduk antara kamu dan mesin yang mengerjakannya.',
 			actions: [
-				'Jelajahi Skills',
+				'Jelajahi Celaut Registry',
 				'Lihat cara kerjanya'
 			],
 			stats: [
@@ -1197,7 +1197,7 @@ export default {
 			items: [
 				{
 					title: 'Temukan service-nya',
-					body: 'Cari berdasarkan masalah yang ingin kamu pecahkan. Node menemukan service secara peer-to-peer, dan registri seperti Unstoppable Skills memetakan masalah ke service yang menutupinya.'
+					body: 'Cari berdasarkan masalah yang ingin kamu pecahkan. Node menemukan service secara peer-to-peer, dan registri seperti Celaut Registry memetakan masalah ke service yang menutupinya.'
 				},
 				{
 					title: 'Minta sebuah eksekusi',
@@ -1258,9 +1258,9 @@ export default {
 		},
 		cta: {
 			heading: 'Mulailah dari masalah yang kamu punya.',
-			body: 'Unstoppable Skills adalah registri tanpa server yang sepenuhnya on-chain, di mana masalah itu sendiri yang jadi tokoh utamanya. Cari sebuah skill lalu temukan service yang menutupinya, tolok ukur pembanding yang nyata, diskusi, dan peringkat berbasis reputasi.',
+			body: 'Celaut Registry adalah registri tanpa server yang sepenuhnya on-chain, di mana masalah itu sendiri yang jadi tokoh utamanya. Cari sebuah tujuan lalu temukan service yang menutupinya, tolok ukur pembanding yang nyata, diskusi, dan peringkat berbasis reputasi.',
 			actions: [
-				'Jelajahi Skills',
+				'Jelajahi Celaut Registry',
 				'Sewakan PC-mu saja'
 			]
 		}

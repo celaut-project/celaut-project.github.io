@@ -495,7 +495,7 @@ export default {
 						'Services an Nodes verteilen'
 					],
 					primary: 'Auf Celaut bauen',
-					secondary: 'Skills erkunden'
+					secondary: 'Celaut Registry erkunden'
 				},
 				{
 					eyebrow: 'Rolle 03',
@@ -507,7 +507,7 @@ export default {
 						'Service-Ergebnisse nutzen'
 					],
 					primary: 'Netzwerk nutzen',
-					secondary: 'Skills erkunden'
+					secondary: 'Celaut Registry erkunden'
 				}
 			]
 		},
@@ -574,8 +574,8 @@ export default {
 					body: 'Jede und jeder kann einen Celaut-Node betreiben und Teil eines dezentralen physischen Infrastrukturnetzwerks werden. Jeder Node findet Peers, führt Services aus und orchestriert sie, und verwaltet ihre Abhängigkeiten — gewöhnliche Rechner werden so zu geteilter, zensurresistenter Rechenleistung. Das ist das Netzwerk, kein Produkt darauf.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Ein vollständig on-chain betriebenes, serverloses Register, in dem die Probleme die Hauptrolle spielen. Statt nach Services zu suchen, suchen Agenten nach einer Fähigkeit und finden die Services, die sie abdecken — mit echten Benchmarks und reputationsbasiertem Ranking. So wird die Reputationsschicht des Paradigmas praktisch erreichbar: auf Ergo, mit echtem Einsatz, denn niemand spammt, ohne Reputation zu riskieren.'
+					name: 'Celaut Registry',
+					body: 'Ein vollständig on-chain betriebenes, serverloses Register, in dem die Probleme die Hauptrolle spielen. Statt nach Services zu suchen, suchen Agenten nach einem Ziel und finden die Services, die es abdecken — mit echten Benchmarks und reputationsbasiertem Ranking. So wird die Reputationsschicht des Paradigmas praktisch erreichbar: auf Ergo, mit echtem Einsatz, denn niemand spammt, ohne Reputation zu riskieren.'
 				}
 			],
 			builtOnHeading: 'Darauf aufgebaut',
@@ -837,7 +837,7 @@ export default {
 			tagline: 'Und hör auf, darüber nachzudenken, wo es läuft.',
 			lede: 'Ein Celaut-Service ist kein Deployment — er ist eine Spezifikation. Beschreibe die Umgebung, die Schnittstelle und den Netzwerkbereich, übergib das an einen einzigen Node, und das Netzwerk macht den Rest.',
 			actions: [
-				'Skills erkunden',
+				'Celaut Registry erkunden',
 				'So funktioniert es'
 			],
 			stats: [
@@ -1038,9 +1038,9 @@ export default {
 		},
 		cta: {
 			heading: 'Fang bei den Problemen an.',
-			body: 'Unstoppable Skills ist ein Register, in dem die Probleme die Hauptrolle spielen: Suche nach einem Skill und finde die Services, die ihn abdecken, ihre Benchmarks und ihre Reputation. Es ist der kürzeste Weg von „was soll ich bauen“ zu „wer braucht es“.',
+			body: 'Celaut Registry ist ein Register, in dem die Probleme die Hauptrolle spielen: Suche nach einem Ziel und finde die Services, die es abdecken, ihre Benchmarks und ihre Reputation. Es ist der kürzeste Weg von „was soll ich bauen“ zu „wer braucht es“.',
 			actions: [
-				'Skills erkunden',
+				'Celaut Registry erkunden',
 				'Paradigma lesen'
 			]
 		}
@@ -1070,7 +1070,7 @@ export default {
 			tagline: 'Zahle für den Verbrauch. Sonst nichts.',
 			lede: 'Starte einen Service auf einem Node, hol dir das Ergebnis, zahle für die verbrauchte Rechenleistung. Es gibt kein Konto anzulegen, kein Abo zu kündigen und keine Firma zwischen dir und der Maschine, die die Arbeit gemacht hat.',
 			actions: [
-				'Skills erkunden',
+				'Celaut Registry erkunden',
 				'So funktioniert es'
 			],
 			stats: [
@@ -1196,7 +1196,7 @@ export default {
 			items: [
 				{
 					title: 'Den Service finden',
-					body: 'Suche nach dem Problem, das du gelöst haben willst. Nodes finden Services peer-to-peer, und Register wie Unstoppable Skills ordnen Probleme den Services zu, die sie abdecken.'
+					body: 'Suche nach dem Problem, das du gelöst haben willst. Nodes finden Services peer-to-peer, und Register wie Celaut Registry ordnen Probleme den Services zu, die sie abdecken.'
 				},
 				{
 					title: 'Eine Ausführung anfordern',
@@ -1257,9 +1257,9 @@ export default {
 		},
 		cta: {
 			heading: 'Fang bei deinem Problem an.',
-			body: 'Unstoppable Skills ist ein vollständig on-chain laufendes, serverloses Register, in dem die Probleme selbst die Hauptrolle spielen. Suche nach einem Skill und finde die Services, die ihn abdecken, echte Vergleichs-Benchmarks, Diskussion und reputationsbasiertes Ranking.',
+			body: 'Celaut Registry ist ein vollständig on-chain laufendes, serverloses Register, in dem die Probleme selbst die Hauptrolle spielen. Suche nach einem Ziel und finde die Services, die es abdecken, echte Vergleichs-Benchmarks, Diskussion und reputationsbasiertes Ranking.',
 			actions: [
-				'Skills erkunden',
+				'Celaut Registry erkunden',
 				'Lieber PC vermieten'
 			]
 		}

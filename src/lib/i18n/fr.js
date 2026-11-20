@@ -494,7 +494,7 @@ export default {
 						'Distribuent des services aux nœuds'
 					],
 					primary: 'Créer sur Celaut',
-					secondary: 'Explorer Skills'
+					secondary: 'Explorer Celaut Registry'
 				},
 				{
 					eyebrow: 'Rôle 03',
@@ -506,7 +506,7 @@ export default {
 						'Consomment les résultats du service'
 					],
 					primary: 'Utiliser le réseau',
-					secondary: 'Explorer Skills'
+					secondary: 'Explorer Celaut Registry'
 				}
 			]
 		},
@@ -573,8 +573,8 @@ export default {
 					body: 'N’importe qui peut faire tourner un nœud Celaut et rejoindre un réseau d’infrastructure physique décentralisée. Chaque nœud découvre des pairs, exécute et orchestre des services, et gère leurs dépendances — transformant des ordinateurs ordinaires en calcul partagé et résistant à la censure. C’est le réseau, pas un produit posé dessus.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Un registre entièrement on-chain et sans serveur où les protagonistes sont les problèmes. Au lieu de chercher des services, les agents cherchent une compétence et découvrent les services qui la couvrent, avec de vrais benchmarks et un classement fondé sur la réputation. C’est ainsi qu’on atteint concrètement la couche de réputation du paradigme — sur Ergo, avec un vrai enjeu personnel : personne ne spamme sans risquer sa réputation.'
+					name: 'Celaut Registry',
+					body: 'Un registre entièrement on-chain et sans serveur où les protagonistes sont les problèmes. Au lieu de chercher des services, les agents cherchent un objectif et découvrent les services qui le couvrent, avec de vrais benchmarks et un classement fondé sur la réputation. C’est ainsi qu’on atteint concrètement la couche de réputation du paradigme — sur Ergo, avec un vrai enjeu personnel : personne ne spamme sans risquer sa réputation.'
 				}
 			],
 			builtOnHeading: 'Construit par-dessus',
@@ -836,7 +836,7 @@ export default {
 			tagline: 'Puis arrêtez de vous demander où ça tourne.',
 			lede: 'Un service Celaut n’est pas un déploiement — c’est une spécification. Décrivez l’environnement, l’interface et la portée réseau, remettez-le à un seul nœud, et le réseau prend le relais à partir de là.',
 			actions: [
-				'Explorer Skills',
+				'Explorer Celaut Registry',
 				'Voir comment ça fonctionne'
 			],
 			stats: [
@@ -1037,9 +1037,9 @@ export default {
 		},
 		cta: {
 			heading: 'Partez des problèmes.',
-			body: 'Unstoppable Skills est un registre où les problèmes sont les protagonistes : recherchez une compétence, et trouvez les services qui la couvrent, leurs benchmarks et leur réputation. C’est le chemin le plus court entre « que devrais-je construire » et « qui en a besoin ».',
+			body: 'Celaut Registry est un registre où les problèmes sont les protagonistes : recherchez un objectif, et trouvez les services qui le couvrent, leurs benchmarks et leur réputation. C’est le chemin le plus court entre « que devrais-je construire » et « qui en a besoin ».',
 			actions: [
-				'Explorer Skills',
+				'Explorer Celaut Registry',
 				'Lire le paradigme'
 			]
 		}
@@ -1069,7 +1069,7 @@ export default {
 			tagline: 'Payez ce qu’il a utilisé. Rien d’autre.',
 			lede: 'Lancez un service sur un nœud, obtenez le résultat, payez le calcul qu’il a consommé. Aucun compte à créer, aucun abonnement à résilier, et aucune entreprise assise entre vous et la machine qui a fait le travail.',
 			actions: [
-				'Explorer Skills',
+				'Explorer Celaut Registry',
 				'Voir comment ça fonctionne'
 			],
 			stats: [
@@ -1195,7 +1195,7 @@ export default {
 			items: [
 				{
 					title: 'Trouvez le service',
-					body: 'Cherchez selon le problème que vous voulez résoudre. Les nœuds découvrent les services de pair à pair, et des registres comme Unstoppable Skills relient les problèmes aux services qui les couvrent.'
+					body: 'Cherchez selon le problème que vous voulez résoudre. Les nœuds découvrent les services de pair à pair, et des registres comme Celaut Registry relient les problèmes aux services qui les couvrent.'
 				},
 				{
 					title: 'Demandez une exécution',
@@ -1256,9 +1256,9 @@ export default {
 		},
 		cta: {
 			heading: 'Partez du problème que vous avez.',
-			body: 'Unstoppable Skills est un registre entièrement on-chain et sans serveur où les problèmes eux-mêmes sont les protagonistes. Recherchez une compétence et trouvez les services qui la couvrent, de vrais benchmarks comparatifs, des discussions, et un classement basé sur la réputation.',
+			body: 'Celaut Registry est un registre entièrement on-chain et sans serveur où les problèmes eux-mêmes sont les protagonistes. Recherchez un objectif et trouvez les services qui le couvrent, de vrais benchmarks comparatifs, des discussions, et un classement basé sur la réputation.',
 			actions: [
-				'Explorer Skills',
+				'Explorer Celaut Registry',
 				'Louer plutôt votre PC'
 			]
 		}

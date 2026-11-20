@@ -21,7 +21,7 @@
 		drawComposeScene
 	} from '$lib/components/developers/scenes.js';
 
-	const SKILLS_URL = 'https://celaut-project.github.io/skills';
+	const REGISTRY_URL = 'https://celaut-project.github.io/registry';
 
 	const OPENER = [{ from: 0, to: 0.34 }, { from: 0.3, to: 0.66 }, { from: 0.62, to: 1, hold: true }];
 	const BENEFIT_A = [
@@ -42,9 +42,9 @@
 		{ id: 'compose', draw: drawComposeScene, scrollLength: 2.6, align: 'right', beats: BENEFIT_B }
 	];
 
-	const heroActions = [{ href: SKILLS_URL, external: true, primary: true }, { href: '#spec' }];
+	const heroActions = [{ href: REGISTRY_URL, external: true, primary: true }, { href: '#spec' }];
 	const roleLinks = ['/depin', '/users', '/paradigm'];
-	const ctaActions = [{ href: SKILLS_URL, external: true }, { href: '/paradigm' }];
+	const ctaActions = [{ href: REGISTRY_URL, external: true }, { href: '/paradigm' }];
 </script>
 
 <AudiencePage page="developers" {scenes} {heroActions} {roleLinks} {ctaActions} />

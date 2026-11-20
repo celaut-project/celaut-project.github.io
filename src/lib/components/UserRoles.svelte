@@ -1,6 +1,6 @@
 <script>
   // Datos de los roles definidos en un solo lugar para fácil mantenimiento.
-  const SKILLS_URL = 'https://celaut-project.github.io/skills';
+  const REGISTRY_URL = 'https://celaut-project.github.io/registry';
   const roles = [
     {
       title: 'Node Maintainers',
@@ -21,7 +21,7 @@
         'Build deterministic applications',
         'Distribute services to nodes',
       ],
-      cta: { label: 'Explore Skills', href: SKILLS_URL, external: true },
+      cta: { label: 'Explore Celaut Registry', href: REGISTRY_URL, external: true },
     },
     {
       title: 'Service Users',
@@ -31,7 +31,7 @@
         'Pay for computational resources',
         'Consume service outputs',
       ],
-      cta: { label: 'Explore Skills', href: SKILLS_URL, external: true },
+      cta: { label: 'Explore Celaut Registry', href: REGISTRY_URL, external: true },
     },
   ];
 </script>

@@ -491,7 +491,7 @@ export default {
 						'将服务分发给节点'
 					],
 					primary: '在 Celaut 上构建',
-					secondary: '探索 Skills'
+					secondary: '探索 Celaut Registry'
 				},
 				{
 					eyebrow: '角色 03',
@@ -503,7 +503,7 @@ export default {
 						'使用服务的输出结果'
 					],
 					primary: '使用这个网络',
-					secondary: '探索 Skills'
+					secondary: '探索 Celaut Registry'
 				}
 			]
 		},
@@ -570,8 +570,8 @@ export default {
 					body: '任何人都可以运行一个 Celaut 节点，成为去中心化物理基础设施网络的一部分。每个节点发现对等节点、执行并编排服务、管理它们的依赖——把普通计算机变成共享的、抗审查的算力。这是网络本身，而不是网络之上的产品。'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: '一个完全链上、无服务器的注册表，主角是问题本身。代理不再四处寻找服务，而是搜索一项技能，并发现覆盖该技能的服务，附带真实基准和基于声誉的排名。这正是范式中声誉层在现实中被触达的方式——建立在 Ergo 上，且天然带有切身利害：没有人能不拿声誉冒险就刷屏。'
+					name: 'Celaut Registry',
+					body: '一个完全链上、无服务器的注册表，主角是问题本身。代理不再四处寻找服务，而是搜索一个目标，并发现覆盖该目标的服务，附带真实基准和基于声誉的排名。这正是范式中声誉层在现实中被触达的方式——建立在 Ergo 上，且天然带有切身利害：没有人能不拿声誉冒险就刷屏。'
 				}
 			],
 			builtOnHeading: '构建于其上',
@@ -833,7 +833,7 @@ export default {
 			tagline: '然后不必再操心它在哪里运行。',
 			lede: 'Celaut 服务不是一次部署——而是一份规范。描述好环境、接口和网络范围,把它交给单独一个节点,剩下的事情由网络接手。',
 			actions: [
-				'探索 Skills',
+				'探索 Celaut Registry',
 				'了解它是如何运作的'
 			],
 			stats: [
@@ -1034,9 +1034,9 @@ export default {
 		},
 		cta: {
 			heading: '从问题本身出发。',
-			body: 'Unstoppable Skills 是一个以问题为主角的注册表:搜索一项技能,就能找到覆盖它的服务、它们的基准测试与它们的信誉。这是从“我该构建什么”走到“谁需要它”之间最短的路径。',
+			body: 'Celaut Registry 是一个以问题为主角的注册表:搜索一个目标,就能找到覆盖它的服务、它们的基准测试与它们的信誉。这是从“我该构建什么”走到“谁需要它”之间最短的路径。',
 			actions: [
-				'探索 Skills',
+				'探索 Celaut Registry',
 				'阅读范式文档'
 			]
 		}
@@ -1066,7 +1066,7 @@ export default {
 			tagline: '为它用掉的部分付费。仅此而已。',
 			lede: '在一个节点上启动一个服务,拿到结果,为它消耗的算力付费。没有账号需要创建,没有订阅需要取消,你和完成工作的那台机器之间,也没有任何一家公司居中。',
 			actions: [
-				'探索 Skills',
+				'探索 Celaut Registry',
 				'了解它是如何运作的'
 			],
 			stats: [
@@ -1192,7 +1192,7 @@ export default {
 			items: [
 				{
 					title: '找到这个服务',
-					body: '按照你想解决的问题去搜索。节点以点对点方式发现服务,而像 Unstoppable Skills 这样的注册表会把问题映射到覆盖它们的服务。'
+					body: '按照你想解决的问题去搜索。节点以点对点方式发现服务,而像 Celaut Registry 这样的注册表会把问题映射到覆盖它们的服务。'
 				},
 				{
 					title: '请求一次执行',
@@ -1253,9 +1253,9 @@ export default {
 		},
 		cta: {
 			heading: '从你面临的问题出发。',
-			body: 'Unstoppable Skills 是一个完全链上、无服务器的注册表,其中的主角是问题本身。搜索一项技能,就能找到覆盖它的服务、真实的横向基准测试、相关讨论,以及基于信誉的排名。',
+			body: 'Celaut Registry 是一个完全链上、无服务器的注册表,其中的主角是问题本身。搜索一个目标,就能找到覆盖它的服务、真实的横向基准测试、相关讨论,以及基于信誉的排名。',
 			actions: [
-				'探索 Skills',
+				'探索 Celaut Registry',
 				'不如出租你的电脑'
 			]
 		}

@@ -494,7 +494,7 @@ export default {
 						'Phân phối service tới các node'
 					],
 					primary: 'Xây trên Celaut',
-					secondary: 'Khám phá Skills'
+					secondary: 'Khám phá Celaut Registry'
 				},
 				{
 					eyebrow: 'Vai trò 03',
@@ -506,7 +506,7 @@ export default {
 						'Sử dụng kết quả của service'
 					],
 					primary: 'Dùng mạng lưới',
-					secondary: 'Khám phá Skills'
+					secondary: 'Khám phá Celaut Registry'
 				}
 			]
 		},
@@ -573,8 +573,8 @@ export default {
 					body: 'Ai cũng có thể chạy một node Celaut và trở thành một phần của mạng hạ tầng vật lý phi tập trung. Mỗi node tìm peer, thực thi và điều phối dịch vụ, quản lý phụ thuộc của chúng — biến những máy tính bình thường thành năng lực tính toán dùng chung, kháng kiểm duyệt. Đây là mạng lưới, không phải một sản phẩm đặt trên nó.'
 				},
 				{
-					name: 'Unstoppable Skills',
-					body: 'Một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi các bài toán mới là nhân vật chính. Thay vì lùng tìm dịch vụ, các tác nhân tìm một kỹ năng và khám phá những dịch vụ bao phủ nó, kèm benchmark thật và xếp hạng dựa trên uy tín. Đó là cách lớp uy tín của mô hình thực sự chạm tới được — trên Ergo, với phần thiệt hơn thật sự: không ai spam mà không đánh cược uy tín của mình.'
+					name: 'Celaut Registry',
+					body: 'Một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi các bài toán mới là nhân vật chính. Thay vì lùng tìm dịch vụ, các tác nhân tìm một mục tiêu và khám phá những dịch vụ bao phủ nó, kèm benchmark thật và xếp hạng dựa trên uy tín. Đó là cách lớp uy tín của mô hình thực sự chạm tới được — trên Ergo, với phần thiệt hơn thật sự: không ai spam mà không đánh cược uy tín của mình.'
 				}
 			],
 			builtOnHeading: 'Dựng bên trên nó',
@@ -836,7 +836,7 @@ export default {
 			tagline: 'Rồi thôi nghĩ về chuyện nó chạy ở đâu.',
 			lede: 'Một service Celaut không phải một lần triển khai — nó là một bản đặc tả. Mô tả môi trường, giao diện và phạm vi mạng, trao cho một node duy nhất, và mạng lưới lo phần còn lại.',
 			actions: [
-				'Khám phá Skills',
+				'Khám phá Celaut Registry',
 				'Xem cách hoạt động'
 			],
 			stats: [
@@ -1037,9 +1037,9 @@ export default {
 		},
 		cta: {
 			heading: 'Hãy bắt đầu từ các bài toán.',
-			body: 'Unstoppable Skills là một sổ đăng ký nơi chính các bài toán là nhân vật chính: tìm một skill, rồi thấy những service bao phủ nó, benchmark và danh tiếng của chúng. Đó là con đường ngắn nhất từ &ldquo;mình nên xây gì&rdquo; tới &ldquo;ai cần nó&rdquo;.',
+			body: 'Celaut Registry là một sổ đăng ký nơi chính các bài toán là nhân vật chính: tìm một mục tiêu, rồi thấy những service bao phủ nó, benchmark và danh tiếng của chúng. Đó là con đường ngắn nhất từ &ldquo;mình nên xây gì&rdquo; tới &ldquo;ai cần nó&rdquo;.',
 			actions: [
-				'Khám phá Skills',
+				'Khám phá Celaut Registry',
 				'Đọc mô hình'
 			]
 		}
@@ -1069,7 +1069,7 @@ export default {
 			tagline: 'Trả tiền phần đã dùng. Không gì khác.',
 			lede: 'Khởi chạy một service trên một node, nhận kết quả, trả tiền cho phần tính toán nó đã tiêu. Không có tài khoản nào phải tạo, không có thuê bao nào phải huỷ, và không có công ty nào ngồi giữa bạn và cỗ máy đã làm việc đó.',
 			actions: [
-				'Khám phá Skills',
+				'Khám phá Celaut Registry',
 				'Xem cách hoạt động'
 			],
 			stats: [
@@ -1195,7 +1195,7 @@ export default {
 			items: [
 				{
 					title: 'Tìm service',
-					body: 'Tìm theo bài toán bạn muốn giải. Các node khám phá service theo kiểu ngang hàng, và những sổ đăng ký như Unstoppable Skills ánh xạ bài toán tới các service bao phủ chúng.'
+					body: 'Tìm theo bài toán bạn muốn giải. Các node khám phá service theo kiểu ngang hàng, và những sổ đăng ký như Celaut Registry ánh xạ bài toán tới các service bao phủ chúng.'
 				},
 				{
 					title: 'Yêu cầu một lần thực thi',
@@ -1256,9 +1256,9 @@ export default {
 		},
 		cta: {
 			heading: 'Hãy bắt đầu từ bài toán bạn đang có.',
-			body: 'Unstoppable Skills là một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi chính các bài toán là nhân vật chính. Tìm một skill rồi thấy những service bao phủ nó, các benchmark so sánh thật, thảo luận, và xếp hạng dựa trên danh tiếng.',
+			body: 'Celaut Registry là một sổ đăng ký hoàn toàn on-chain, không máy chủ, nơi chính các bài toán là nhân vật chính. Tìm một mục tiêu rồi thấy những service bao phủ nó, các benchmark so sánh thật, thảo luận, và xếp hạng dựa trên danh tiếng.',
 			actions: [
-				'Khám phá Skills',
+				'Khám phá Celaut Registry',
 				'Hay là cho thuê PC'
 			]
 		}
