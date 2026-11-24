@@ -554,7 +554,7 @@ export default {
 					body: `Python3 ve Rust ile yazılmış referans uygulama. Servisleri çalıştırır, eşlerle maliyet pazarlığı yapar, ödemeleri <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ya da Bitcoin üzerinde sonuçlandırır, adres ve jeton sağlar, bağımlılıkları nerede çalışırlarsa çalışsınlar çözer. Linux'ta tek komutla, Windows 11'de ise kendi yalıtılmış Linux ortamını kuran resmî bir yükleyiciyle kurulur.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alfa',
 					body: 'Celaut servislerini aracısız kullanmak için bir Android uygulaması: servislere sade bir sohbet arayüzüyle ulaşan, yerleşik Ergo cüzdanlı hafif bir istemci. Alfa aşamasında — ön sürüm APK’ları GitHub’da yayımlanıyor ve geliştirme sürüyor, dolayısıyla pürüzler olabilir.'
 				}

@@ -555,7 +555,7 @@ export default {
 					body: `Implementasi rujukan, dalam Python3 dan Rust. Ia mengeksekusi layanan, menegosiasikan biaya dengan peer, menyelesaikan pembayaran di <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> atau Bitcoin, menyediakan alamat dan token, serta menyelesaikan dependensi di mana pun mereka berjalan. Bisa dipasang di Linux dengan satu perintah, dan di Windows 11 lewat pemasang resmi yang menyiapkan lingkungan Linux terisolasi miliknya sendiri.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alfa',
 					body: 'Aplikasi Android untuk memakai layanan Celaut tanpa perantara: klien ringan yang menjangkau layanan lewat antarmuka obrolan sederhana, dengan dompet Ergo bawaan. Aplikasi ini berstatus alfa — APK pra-rilis dipublikasikan di GitHub dan pengembangan terus berjalan, jadi masih ada bagian yang kasar.'
 				}

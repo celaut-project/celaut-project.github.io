@@ -545,7 +545,7 @@ export default {
 		implementations: {
 			eyebrow: 'Le logiciel',
 			heading: 'Ce qui existe aujourd’hui',
-			intro: 'L’architecture est une spécification, et chacun peut implémenter un nœud à partir d’elle. Une implémentation fait tourner le réseau aujourd’hui ; une seconde, pour Android, est en alpha.',
+			intro: 'L’architecture est une spécification, et chacun peut implémenter un nœud à partir d’elle. Une implémentation fait tourner le réseau aujourd’hui ; une seconde, une superapp multiplateforme, est en alpha.',
 			items: [
 				{
 					name: 'Nodo',
@@ -553,9 +553,9 @@ export default {
 					body: `L’implémentation de référence, en Python3 et Rust. Elle exécute des services, négocie le coût avec les pairs, règle les paiements sur <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou en Bitcoin, fournit adresses et jetons, et résout les dépendances où qu’elles s’exécutent. Installable sous Linux en une seule commande, et sous Windows 11 via un installeur officiel qui prépare son propre environnement Linux isolé.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alpha',
-					body: 'Une application Android pour utiliser les services Celaut sans intermédiaire : un client léger qui atteint les services via une simple interface de chat, avec un portefeuille Ergo intégré. Elle est en alpha — des APK en préversion sont publiés sur GitHub et le développement est actif ; attendez-vous à des aspérités.'
+					body: 'Une superapp multiplateforme (Android, iOS, macOS, Linux et plus) : effectuer des paiements, se connecter à des nœuds Celaut et y exécuter des instances de services de tout type (IA et plus), avec un portefeuille Ergo intégré. Elle est en alpha — des APK en préversion sont publiés sur GitHub et le développement est actif ; attendez-vous à des aspérités.'
 				}
 			],
 			note: 'Rien ici ne remplace provisoirement quelque chose qui fonctionnerait déjà ailleurs. Ce qui tourne, tourne ; ce qui ne tourne pas, le dit.'

@@ -550,7 +550,7 @@ export default {
 					body: `参考实现，用 Python3 与 Rust 编写。它执行服务、与对等节点协商成本、在 <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 或 Bitcoin 上结算款项、分配地址与令牌，并解析依赖——无论依赖在何处运行。在 Linux 上一条命令即可安装，在 Windows 11 上通过官方安装程序安装，后者会自行准备一个隔离的 Linux 环境。`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alpha',
 					body: '一款无需中间人即可使用 Celaut 服务的 Android 应用：它是一个轻客户端，通过朴素的聊天界面访问服务，并内置 Ergo 钱包。目前处于 Alpha 阶段——预发布 APK 已在 GitHub 发布，开发仍在积极进行，难免有粗糙之处。'
 				}

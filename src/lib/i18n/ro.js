@@ -547,7 +547,7 @@ export default {
 		implementations: {
 			eyebrow: 'Software-ul',
 			heading: 'Ce există astăzi',
-			intro: 'Arhitectura este o specificație, iar oricine poate implementa un nod pornind de la ea. O implementare rulează rețeaua astăzi; a doua, pentru Android, este în alfa.',
+			intro: 'Arhitectura este o specificație, iar oricine poate implementa un nod pornind de la ea. O implementare rulează rețeaua astăzi; a doua, o superaplicație multiplatformă, este în alfa.',
 			items: [
 				{
 					name: 'Nodo',
@@ -555,9 +555,9 @@ export default {
 					body: `Implementarea de referință, în Python3 și Rust. Execută servicii, negociază costul cu perechile, decontează plățile pe <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> sau pe Bitcoin, furnizează adrese și token-uri și rezolvă dependențele oriunde ar rula acestea. Se instalează pe Linux cu o singură comandă, iar pe Windows 11 printr-un instalator oficial care își pregătește propriul mediu Linux izolat.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alfa',
-					body: 'O aplicație Android pentru a folosi serviciile Celaut fără intermediari: un client ușor care ajunge la servicii printr-o interfață simplă de chat, cu un portofel Ergo integrat. Este în alfa — APK-uri de pre-lansare sunt publicate pe GitHub, iar dezvoltarea este activă, deci te poți aștepta la asperități.'
+					body: 'O superaplicație multiplatformă (Android, iOS, macOS, Linux și altele): permite efectuarea de plăți, conectarea la noduri Celaut și rularea pe ele a unor instanțe de servicii de orice tip (IA și altele), cu un portofel Ergo integrat. Este în alfa — APK-uri de pre-lansare sunt publicate pe GitHub, iar dezvoltarea este activă, deci te poți aștepta la asperități.'
 				}
 			],
 			note: 'Nimic de aici nu ține locul a ceva ce funcționează deja în altă parte. Ce merge, merge; ce nu merge, o spune.'

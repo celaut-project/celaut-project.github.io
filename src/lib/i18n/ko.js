@@ -552,7 +552,7 @@ export default {
 					body: `Python3와 Rust로 만든 레퍼런스 구현입니다. 서비스를 실행하고, 피어와 비용을 협상하며, <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> 또는 Bitcoin으로 대금을 정산하고, 주소와 토큰을 발급하고, 의존성이 어디서 돌든 해결합니다. 리눅스에서는 명령 한 줄로, Windows 11에서는 자체 격리 리눅스 환경을 준비하는 공식 설치 프로그램으로 설치합니다.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: '알파',
 					body: '중개자 없이 Celaut 서비스를 이용하는 Android 앱: 단순한 채팅 인터페이스로 서비스에 접근하는 라이트 클라이언트이며 Ergo 지갑이 내장되어 있습니다. 알파 단계로, 사전 릴리스 APK가 GitHub에 공개되어 있고 개발이 활발하니 거친 부분이 있을 수 있습니다.'
 				}

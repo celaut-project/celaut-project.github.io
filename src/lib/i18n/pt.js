@@ -545,7 +545,7 @@ export default {
 		implementations: {
 			eyebrow: 'O software',
 			heading: 'O que existe hoje',
-			intro: 'A arquitetura é uma especificação, e qualquer pessoa pode implementar um nó a partir dela. Uma implementação move a rede hoje; uma segunda, para Android, está em alfa.',
+			intro: 'A arquitetura é uma especificação, e qualquer pessoa pode implementar um nó a partir dela. Uma implementação move a rede hoje; uma segunda, um superapp multiplataforma, está em alfa.',
 			items: [
 				{
 					name: 'Nodo',
@@ -553,9 +553,9 @@ export default {
 					body: `A implementação de referência, em Python3 e Rust. Executa serviços, negoceia custos com os pares, liquida pagamentos na <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> ou em Bitcoin, fornece endereços e tokens, e resolve dependências onde quer que corram. Instalável em Linux com um único comando, e em Windows 11 através de um instalador oficial que prepara o seu próprio ambiente Linux isolado.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alfa',
-					body: 'Um aplicativo Android para usar serviços Celaut sem intermediários: um cliente leve que alcança os serviços por uma interface de chat simples, com uma carteira Ergo integrada. Está em alfa — APKs de pré-lançamento são publicados no GitHub e o desenvolvimento é ativo, então espere arestas.'
+					body: 'Um superapp multiplataforma (Android, iOS, macOS, Linux e mais): permite fazer pagamentos, conectar-se a nós Celaut e executar neles instâncias de serviços de qualquer tipo (IA e mais), com uma carteira Ergo integrada. Está em alfa — APKs de pré-lançamento são publicados no GitHub e o desenvolvimento é ativo, então espere arestas.'
 				}
 			],
 			note: 'Nada aqui é um marcador de posição para algo que já funciona noutro sítio. O que funciona, funciona; o que não funciona, di-lo.'

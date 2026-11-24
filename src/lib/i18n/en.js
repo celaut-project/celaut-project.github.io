@@ -620,14 +620,14 @@ export default {
 		// those moved to `depin.responsibilities` and this stands on its own.
 		//
 		// The `stage` field is the honest part. Nodo is a running node with
-		// installers for two operating systems; Chatui is a repository with
+		// installers for two operating systems; Superapp is a repository with
 		// a README and no implementation behind it yet. Presenting the two as
 		// a matched pair of "implementations you can run today" was a claim
 		// the second one could not support.
 		implementations: {
 			eyebrow: 'The software',
 			heading: 'What exists today',
-			intro: 'The architecture is a specification, and anyone can implement a node against it. One implementation runs the network today; a second, for Android, is in alpha.',
+			intro: 'The architecture is a specification, and anyone can implement a node against it. One implementation runs the network today; a second, a multi-platform superapp, is in alpha.',
 			items: [
 				{
 					name: 'Nodo',
@@ -635,9 +635,9 @@ export default {
 					body: `The reference implementation, in Python3 and Rust. It executes services, negotiates cost with peers, settles payment on <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> or Bitcoin, provisions addresses and tokens, and resolves dependencies wherever they run. Installable on Linux with one command, and on Windows 11 through an official installer that provisions its own isolated Linux environment.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alpha',
-					body: 'An Android app to use Celaut services without intermediaries: a light client that reaches services through a plain chat interface, with an Ergo wallet built in. It is in alpha — pre-release APKs are published on GitHub and development is active, so expect rough edges.'
+					body: 'A multi-platform superapp (Android, iOS, macOS, Linux and more): make payments, connect to Celaut nodes and run service instances on them, of any type (AI and more), with an Ergo wallet built in. It is in alpha — pre-release APKs are published on GitHub and development is active, so expect rough edges.'
 				}
 			],
 			note: 'Nothing here is a placeholder for something that already works elsewhere. What runs, runs; what does not, says so.'

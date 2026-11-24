@@ -3,7 +3,7 @@
 	 * What exists today, and at what stage.
 	 *
 	 * The `stage` chip carries the state on the card itself rather than
-	 * leaving it to be inferred: Nodo is running, Chatui is in alpha with
+	 * leaving it to be inferred: Nodo is running, Superapp is in alpha with
 	 * pre-release APKs. Both are real software, so both get the accent;
 	 * the muted outline would be for one that is still only an intention.
 	 *
@@ -15,7 +15,7 @@
 
 	const repos = [
 		'https://github.com/celaut-project/nodo',
-		'https://github.com/celaut-project/chatui'
+		'https://github.com/celaut-project/superapp'
 	];
 </script>
 

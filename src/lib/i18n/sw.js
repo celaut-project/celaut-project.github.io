@@ -554,7 +554,7 @@ export default {
 					body: `Utekelezaji wa marejeo, kwa Python3 na Rust. Huendesha huduma, hujadili gharama na nodi wenzake, hukamilisha malipo kwenye <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> au Bitcoin, hutoa anwani na tokeni, na hutatua utegemezi popote unapoendeshwa. Husakinishwa kwenye Linux kwa amri moja, na kwenye Windows 11 kupitia kisakinishi rasmi kinachojiandalia mazingira yake ya Linux yaliyotengwa.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alfa',
 					body: 'Programu ya Android ya kutumia huduma za Celaut bila wapatanishi: mteja mwepesi anayefikia huduma kupitia kiolesura rahisi cha mazungumzo, akiwa na pochi ya Ergo ndani yake. Iko katika hatua ya alfa — APK za kabla ya toleo rasmi zinachapishwa GitHub na uendelezaji unaendelea, kwa hivyo tarajia kasoro chache.'
 				}

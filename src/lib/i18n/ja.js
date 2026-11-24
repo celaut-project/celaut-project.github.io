@@ -553,7 +553,7 @@ export default {
 					body: `Python3 と Rust によるリファレンス実装です。サービスを実行し、ピアとコストを交渉し、<a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a>またはBitcoinで支払いを決済し、アドレスとトークンを払い出し、依存関係がどこで走っていても解決します。Linux ではコマンド一つで、Windows 11 では専用の隔離 Linux 環境を用意する公式インストーラーで導入できます。`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'アルファ',
 					body: '仲介者なしで Celaut のサービスを使う Android アプリ。素朴なチャット画面からサービスへ届くライトクライアントで、Ergo ウォレットを内蔵しています。アルファ段階で、プレリリースの APK が GitHub で公開され、開発は活発です。粗い部分があることをご承知ください。'
 				}

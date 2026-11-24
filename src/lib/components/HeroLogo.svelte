@@ -32,7 +32,7 @@
         [null, 0, 1, 2, 1, 0, null]
     ];
     // The empty cells are the theme's grid tone, fading out towards the
-    // corners (as chatui's CellMark does). On the dark tile this gives the
+    // corners (as superapp's CellMark does). On the dark tile this gives the
     // original shades; on a light page the same tone is dark-on-cream.
     const TIER_ALPHA = [0.12, 0.5, 0.62, 1];
     const EDGE_ALPHA = 0.2; // the two cells at the ends of the middle rows
@@ -116,7 +116,7 @@
     }
 
     /* Colours come from the site's tokens, so the mark follows the theme the
-       way chatui's CellMark does: coral and a green born cell (mint on the
+       way superapp's CellMark does: coral and a green born cell (mint on the
        dark page, deep green on cream) over the theme's grid tone. */
     .tile {
         fill: #12302e;

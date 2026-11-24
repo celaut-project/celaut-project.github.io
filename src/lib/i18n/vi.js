@@ -553,7 +553,7 @@ export default {
 					body: `Hiện thực tham chiếu, viết bằng Python3 và Rust. Nó thực thi dịch vụ, thương lượng chi phí với các peer, tất toán thanh toán trên <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> hoặc Bitcoin, cấp địa chỉ và token, và giải quyết phụ thuộc dù chúng chạy ở đâu. Cài trên Linux bằng một lệnh, và trên Windows 11 qua một trình cài đặt chính thức, tự dựng môi trường Linux cách ly riêng.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alpha',
 					body: 'Một ứng dụng Android để dùng dịch vụ Celaut mà không qua trung gian: máy khách nhẹ tiếp cận dịch vụ qua giao diện trò chuyện đơn giản, tích hợp sẵn ví Ergo. Ứng dụng đang ở giai đoạn alpha — các APK tiền phát hành được đăng trên GitHub và việc phát triển vẫn tiếp diễn, nên có thể còn chỗ chưa mượt.'
 				}

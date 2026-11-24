@@ -546,7 +546,7 @@ export default {
 		implementations: {
 			eyebrow: 'Die Software',
 			heading: 'Was es heute gibt',
-			intro: 'Die Architektur ist eine Spezifikation, und jeder kann einen Node dagegen implementieren. Eine Implementierung betreibt das Netz heute; eine zweite, für Android, befindet sich in der Alpha-Phase.',
+			intro: 'Die Architektur ist eine Spezifikation, und jeder kann einen Node dagegen implementieren. Eine Implementierung betreibt das Netz heute; eine zweite, eine plattformübergreifende Super-App, befindet sich in der Alpha-Phase.',
 			items: [
 				{
 					name: 'Nodo',
@@ -554,9 +554,9 @@ export default {
 					body: `Die Referenzimplementierung, in Python3 und Rust. Sie führt Services aus, verhandelt Kosten mit Peers, wickelt Zahlungen über <a href="https://ergo-basics.github.io/" target="_blank" rel="noopener noreferrer">Ergo</a> oder Bitcoin ab, stellt Adressen und Tokens bereit und löst Abhängigkeiten auf, wo immer sie laufen. Unter Linux mit einem einzigen Befehl installierbar, unter Windows 11 über einen offiziellen Installer, der seine eigene isolierte Linux-Umgebung einrichtet.`
 				},
 				{
-					name: 'Chatui',
+					name: 'Superapp',
 					stage: 'Alpha',
-					body: 'Eine Android-App, um Celaut-Services ohne Zwischenhändler zu nutzen: ein Light-Client, der Services über eine schlichte Chat-Oberfläche erreicht, mit integrierter Ergo-Wallet. Sie ist in der Alpha-Phase — Vorabversionen als APK erscheinen auf GitHub, die Entwicklung läuft aktiv, mit Ecken und Kanten ist also zu rechnen.'
+					body: 'Eine plattformübergreifende Super-App (Android, iOS, macOS, Linux und mehr): Zahlungen tätigen, sich mit Celaut-Nodes verbinden und darauf Service-Instanzen jeder Art (KI und mehr) ausführen, mit integrierter Ergo-Wallet. Sie ist in der Alpha-Phase — Vorabversionen als APK erscheinen auf GitHub, die Entwicklung läuft aktiv, mit Ecken und Kanten ist also zu rechnen.'
 				}
 			],
 			note: 'Nichts hier ist ein Platzhalter für etwas, das anderswo schon funktioniert. Was läuft, läuft; was nicht läuft, sagt es.'
