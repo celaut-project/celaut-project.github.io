@@ -542,7 +542,7 @@ export default {
 		implementations: {
 			eyebrow: '软件',
 			heading: '今天已有什么',
-			intro: '该架构是一份规范，任何人都可以据此实现节点。目前有一个实现在运行网络；第二个面向 Android，处于 Alpha 阶段。',
+			intro: '该架构是一份规范，任何人都可以据此实现节点。目前有一个实现在运行网络；第二个是跨平台超级应用，处于 Alpha 阶段。',
 			items: [
 				{
 					name: 'Nodo',
@@ -552,7 +552,7 @@ export default {
 				{
 					name: 'Superapp',
 					stage: 'Alpha',
-					body: '一款无需中间人即可使用 Celaut 服务的 Android 应用：它是一个轻客户端，通过朴素的聊天界面访问服务，并内置 Ergo 钱包。目前处于 Alpha 阶段——预发布 APK 已在 GitHub 发布，开发仍在积极进行，难免有粗糙之处。'
+					body: '一款跨平台超级应用（Android、iOS、macOS、Linux 等）：可进行支付、连接 Celaut 节点，并在节点上运行任意类型（AI 等）的服务实例，内置 Ergo 钱包。目前处于 Alpha 阶段——预发布 APK 已在 GitHub 发布，开发仍在积极进行，难免有粗糙之处。'
 				}
 			],
 			note: '这里没有任何东西是在替某个别处已经跑起来的东西占位。能跑的就是能跑；不能跑的，它自己会说明。'

@@ -545,7 +545,7 @@ export default {
 		implementations: {
 			eyebrow: 'Phần mềm',
 			heading: 'Hôm nay có gì',
-			intro: 'Kiến trúc là một bản đặc tả, và ai cũng có thể triển khai một node dựa trên nó. Hiện một bản triển khai đang vận hành mạng; bản thứ hai, dành cho Android, đang ở giai đoạn alpha.',
+			intro: 'Kiến trúc là một bản đặc tả, và ai cũng có thể triển khai một node dựa trên nó. Hiện một bản triển khai đang vận hành mạng; bản thứ hai, một siêu ứng dụng đa nền tảng, đang ở giai đoạn alpha.',
 			items: [
 				{
 					name: 'Nodo',
@@ -555,7 +555,7 @@ export default {
 				{
 					name: 'Superapp',
 					stage: 'Alpha',
-					body: 'Một ứng dụng Android để dùng dịch vụ Celaut mà không qua trung gian: máy khách nhẹ tiếp cận dịch vụ qua giao diện trò chuyện đơn giản, tích hợp sẵn ví Ergo. Ứng dụng đang ở giai đoạn alpha — các APK tiền phát hành được đăng trên GitHub và việc phát triển vẫn tiếp diễn, nên có thể còn chỗ chưa mượt.'
+					body: 'Một siêu ứng dụng đa nền tảng (Android, iOS, macOS, Linux và hơn thế): thực hiện thanh toán, kết nối với các node Celaut và chạy trên đó các phiên bản dịch vụ thuộc mọi loại (AI và hơn thế), tích hợp sẵn ví Ergo. Ứng dụng đang ở giai đoạn alpha — các APK tiền phát hành được đăng trên GitHub và việc phát triển vẫn tiếp diễn, nên có thể còn chỗ chưa mượt.'
 				}
 			],
 			note: 'Ở đây không có gì đứng thế chỗ cho một thứ đã chạy được ở nơi khác. Cái gì chạy thì chạy; cái gì chưa, thì nói rõ.'

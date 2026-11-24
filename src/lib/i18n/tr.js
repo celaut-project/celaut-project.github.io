@@ -546,7 +546,7 @@ export default {
 		implementations: {
 			eyebrow: 'Yazılım',
 			heading: 'Bugün ne var',
-			intro: 'Mimari bir şartnamedir ve herkes ona göre bir düğüm uygulayabilir. Bugün ağı tek bir uygulama çalıştırıyor; Android için ikincisi alfa aşamasında.',
+			intro: 'Mimari bir şartnamedir ve herkes ona göre bir düğüm uygulayabilir. Bugün ağı tek bir uygulama çalıştırıyor; ikincisi, çok platformlu bir süper uygulama, alfa aşamasında.',
 			items: [
 				{
 					name: 'Nodo',
@@ -556,7 +556,7 @@ export default {
 				{
 					name: 'Superapp',
 					stage: 'Alfa',
-					body: 'Celaut servislerini aracısız kullanmak için bir Android uygulaması: servislere sade bir sohbet arayüzüyle ulaşan, yerleşik Ergo cüzdanlı hafif bir istemci. Alfa aşamasında — ön sürüm APK’ları GitHub’da yayımlanıyor ve geliştirme sürüyor, dolayısıyla pürüzler olabilir.'
+					body: 'Çok platformlu bir süper uygulama (Android, iOS, macOS, Linux ve daha fazlası): ödeme yapın, Celaut düğümlerine bağlanın ve onlar üzerinde her türden (yapay zekâ ve daha fazlası) servis örnekleri çalıştırın; yerleşik Ergo cüzdanı ile. Alfa aşamasında — ön sürüm APK’ları GitHub’da yayımlanıyor ve geliştirme sürüyor, dolayısıyla pürüzler olabilir.'
 				}
 			],
 			note: 'Burada hiçbir şey, başka bir yerde zaten çalışan bir şeyin yerini geçici olarak tutmuyor. Çalışan çalışır; çalışmayan da bunu söyler.'

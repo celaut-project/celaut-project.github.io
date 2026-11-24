@@ -546,7 +546,7 @@ export default {
 		implementations: {
 			eyebrow: 'Programu',
 			heading: 'Kilichopo leo',
-			intro: 'Usanifu huu ni vipimo, na yeyote anaweza kutekeleza nodi kwa kuvifuata. Utekelezaji mmoja unaendesha mtandao leo; wa pili, wa Android, uko katika hatua ya alfa.',
+			intro: 'Usanifu huu ni vipimo, na yeyote anaweza kutekeleza nodi kwa kuvifuata. Utekelezaji mmoja unaendesha mtandao leo; wa pili, programu kuu ya majukwaa mengi, uko katika hatua ya alfa.',
 			items: [
 				{
 					name: 'Nodo',
@@ -556,7 +556,7 @@ export default {
 				{
 					name: 'Superapp',
 					stage: 'Alfa',
-					body: 'Programu ya Android ya kutumia huduma za Celaut bila wapatanishi: mteja mwepesi anayefikia huduma kupitia kiolesura rahisi cha mazungumzo, akiwa na pochi ya Ergo ndani yake. Iko katika hatua ya alfa — APK za kabla ya toleo rasmi zinachapishwa GitHub na uendelezaji unaendelea, kwa hivyo tarajia kasoro chache.'
+					body: 'Programu kuu ya majukwaa mengi (Android, iOS, macOS, Linux na mengineyo): fanya malipo, unganisha na nodi za Celaut na uendeshe juu yake matukio ya huduma za aina yoyote (AI na zaidi), ikiwa na pochi ya Ergo ndani yake. Iko katika hatua ya alfa — APK za kabla ya toleo rasmi zinachapishwa GitHub na uendelezaji unaendelea, kwa hivyo tarajia kasoro chache.'
 				}
 			],
 			note: 'Hakuna kitu hapa kinachoshika nafasi ya kitu kinachofanya kazi mahali pengine. Kinachofanya kazi, kinafanya kazi; kisichofanya, kinasema hivyo.'

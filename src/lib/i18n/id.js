@@ -547,7 +547,7 @@ export default {
 		implementations: {
 			eyebrow: 'Perangkat lunaknya',
 			heading: 'Apa yang ada hari ini',
-			intro: 'Arsitektur ini adalah sebuah spesifikasi, dan siapa pun dapat mengimplementasikan node berdasarkannya. Satu implementasi menjalankan jaringan saat ini; yang kedua, untuk Android, berada pada tahap alfa.',
+			intro: 'Arsitektur ini adalah sebuah spesifikasi, dan siapa pun dapat mengimplementasikan node berdasarkannya. Satu implementasi menjalankan jaringan saat ini; yang kedua, sebuah superapp lintas platform, berada pada tahap alfa.',
 			items: [
 				{
 					name: 'Nodo',
@@ -557,7 +557,7 @@ export default {
 				{
 					name: 'Superapp',
 					stage: 'Alfa',
-					body: 'Aplikasi Android untuk memakai layanan Celaut tanpa perantara: klien ringan yang menjangkau layanan lewat antarmuka obrolan sederhana, dengan dompet Ergo bawaan. Aplikasi ini berstatus alfa — APK pra-rilis dipublikasikan di GitHub dan pengembangan terus berjalan, jadi masih ada bagian yang kasar.'
+					body: 'Sebuah superapp lintas platform (Android, iOS, macOS, Linux, dan lainnya): lakukan pembayaran, terhubung ke node Celaut, dan jalankan instans layanan jenis apa pun di dalamnya (AI dan lainnya), dengan dompet Ergo bawaan. Aplikasi ini berstatus alfa — APK pra-rilis dipublikasikan di GitHub dan pengembangan terus berjalan, jadi masih ada bagian yang kasar.'
 				}
 			],
 			note: 'Tidak ada satu pun di sini yang menjadi pengganti sementara bagi sesuatu yang sudah berjalan di tempat lain. Yang berjalan, berjalan; yang tidak, mengatakannya.'
